@@ -8,6 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		9A11B1AF2696ECBE009208E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */; };
+		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
+		9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* SignUpVC.swift */; };
+		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
+		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
+		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
+		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
+		9ADEAA702697D8D8005BB706 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6F2697D8D8005BB706 /* User.swift */; };
+		9ADEAA732697DCBE005BB706 /* NetworkHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */; };
+		9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7426997548005BB706 /* UserDefaults.swift */; };
+		9ADEAA7726997AD2005BB706 /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */; };
+		9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7826997C48005BB706 /* MainPage.storyboard */; };
+		9ADEAA7B26997C86005BB706 /* BikingGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */; };
+		9ADEAA7E26A62917005BB706 /* StorageUploads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7D26A62917005BB706 /* StorageUploads.swift */; };
+		9ADEAA8026ACE556005BB706 /* RealtimeUploads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7F26ACE556005BB706 /* RealtimeUploads.swift */; };
+		9ADEAA8226ACEAD6005BB706 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA8126ACEAD6005BB706 /* Alert.swift */; };
+		9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */; };
 		9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042B02696E02700FC86AD /* AppDelegate.swift */; };
 		9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042B22696E02700FC86AD /* SceneDelegate.swift */; };
 		9AE042B82696E02700FC86AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042B62696E02700FC86AD /* Main.storyboard */; };
@@ -39,6 +55,22 @@
 /* Begin PBXFileReference section */
 		0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
 		9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		9A11B1B52697A1AA009208E8 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
+		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
+		9ADEAA6F2697D8D8005BB706 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelpers.swift; sourceTree = "<group>"; };
+		9ADEAA7426997548005BB706 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		9ADEAA7826997C48005BB706 /* MainPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainPage.storyboard; sourceTree = "<group>"; };
+		9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikingGroupVC.swift; sourceTree = "<group>"; };
+		9ADEAA7D26A62917005BB706 /* StorageUploads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUploads.swift; sourceTree = "<group>"; };
+		9ADEAA7F26ACE556005BB706 /* RealtimeUploads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeUploads.swift; sourceTree = "<group>"; };
+		9ADEAA8126ACEAD6005BB706 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikingVCs.swift; sourceTree = "<group>"; };
 		9AE042AD2696E02700FC86AD /* CongressionalAppBiking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CongressionalAppBiking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE042B02696E02700FC86AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AE042B22696E02700FC86AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +115,93 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A11B1B026979F2A009208E8 /* Custom UI */ = {
+			isa = PBXGroup;
+			children = (
+				9ADEAA692697D23F005BB706 /* Toast.swift */,
+				9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */,
+				9A11B1B126979F48009208E8 /* RoundedButton.swift */,
+				9ADEAA8126ACEAD6005BB706 /* Alert.swift */,
+			);
+			path = "Custom UI";
+			sourceTree = "<group>";
+		};
+		9A11B1B32697A146009208E8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9A11B1B72697A1C1009208E8 /* Join Group */,
+				9A11B1B42697A154009208E8 /* Initial Launch */,
+				9ADEAA7C26997C8B005BB706 /* Main Page */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9A11B1B42697A154009208E8 /* Initial Launch */ = {
+			isa = PBXGroup;
+			children = (
+				9A11B1B52697A1AA009208E8 /* SignUpVC.swift */,
+			);
+			path = "Initial Launch";
+			sourceTree = "<group>";
+		};
+		9A11B1B72697A1C1009208E8 /* Join Group */ = {
+			isa = PBXGroup;
+			children = (
+				9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */,
+			);
+			path = "Join Group";
+			sourceTree = "<group>";
+		};
+		9ADEAA662697D117005BB706 /* Data Objects */ = {
+			isa = PBXGroup;
+			children = (
+				9ADEAA672697D130005BB706 /* NotificationNames.swift */,
+				9ADEAA6F2697D8D8005BB706 /* User.swift */,
+				9ADEAA7426997548005BB706 /* UserDefaults.swift */,
+			);
+			path = "Data Objects";
+			sourceTree = "<group>";
+		};
+		9ADEAA6B2697D29D005BB706 /* Master Items */ = {
+			isa = PBXGroup;
+			children = (
+				9AE042BB2696E02B00FC86AD /* LaunchScreen.storyboard */,
+				9AE042B02696E02700FC86AD /* AppDelegate.swift */,
+				9AE042B22696E02700FC86AD /* SceneDelegate.swift */,
+				9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */,
+				9AE042BE2696E02B00FC86AD /* Info.plist */,
+				9AE042B92696E02B00FC86AD /* Assets.xcassets */,
+			);
+			path = "Master Items";
+			sourceTree = "<group>";
+		};
+		9ADEAA6C2697D417005BB706 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		9ADEAA712697DC2D005BB706 /* Network Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */,
+				9ADEAA7D26A62917005BB706 /* StorageUploads.swift */,
+				9ADEAA7F26ACE556005BB706 /* RealtimeUploads.swift */,
+			);
+			path = "Network Managers";
+			sourceTree = "<group>";
+		};
+		9ADEAA7C26997C8B005BB706 /* Main Page */ = {
+			isa = PBXGroup;
+			children = (
+				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
+				9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */,
+			);
+			path = "Main Page";
+			sourceTree = "<group>";
+		};
 		9AE042A42696E02700FC86AD = {
 			isa = PBXGroup;
 			children = (
@@ -108,13 +227,13 @@
 		9AE042AF2696E02700FC86AD /* CongressionalAppBiking */ = {
 			isa = PBXGroup;
 			children = (
-				9AE042B02696E02700FC86AD /* AppDelegate.swift */,
+				9ADEAA6B2697D29D005BB706 /* Master Items */,
 				9AE042E02696E2CA00FC86AD /* Storyboards */,
-				9AE042B22696E02700FC86AD /* SceneDelegate.swift */,
-				9AE042B92696E02B00FC86AD /* Assets.xcassets */,
-				9AE042BB2696E02B00FC86AD /* LaunchScreen.storyboard */,
-				9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */,
-				9AE042BE2696E02B00FC86AD /* Info.plist */,
+				9A11B1B32697A146009208E8 /* View Controllers */,
+				9A11B1B026979F2A009208E8 /* Custom UI */,
+				9ADEAA662697D117005BB706 /* Data Objects */,
+				9ADEAA712697DC2D005BB706 /* Network Managers */,
+				9ADEAA6C2697D417005BB706 /* Animations */,
 			);
 			path = CongressionalAppBiking;
 			sourceTree = "<group>";
@@ -142,6 +261,7 @@
 			children = (
 				9AE042B62696E02700FC86AD /* Main.storyboard */,
 				9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */,
+				9ADEAA7826997C48005BB706 /* MainPage.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -270,6 +390,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */,
+				9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */,
+				9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */,
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
 				9A11B1AF2696ECBE009208E8 /* GoogleService-Info.plist in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
@@ -357,8 +479,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ADEAA7726997AD2005BB706 /* HideKeyboard.swift in Sources */,
+				9ADEAA7E26A62917005BB706 /* StorageUploads.swift in Sources */,
+				9ADEAA732697DCBE005BB706 /* NetworkHelpers.swift in Sources */,
+				9ADEAA8226ACEAD6005BB706 /* Alert.swift in Sources */,
+				9ADEAA8026ACE556005BB706 /* RealtimeUploads.swift in Sources */,
+				9ADEAA7B26997C86005BB706 /* BikingGroupVC.swift in Sources */,
+				9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */,
+				9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */,
+				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
+				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
+				9ADEAA702697D8D8005BB706 /* User.swift in Sources */,
+				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
+				9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */,
 				9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */,
+				9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +673,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
-				INFOPLIST_FILE = CongressionalAppBiking/Info.plist;
+				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,7 +693,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
-				INFOPLIST_FILE = CongressionalAppBiking/Info.plist;
+				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

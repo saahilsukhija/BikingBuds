@@ -13,6 +13,17 @@ target 'CongressionalAppBiking' do
     pod 'Firebase/Auth'
     pod 'Firebase/Analytics'
     
+  # Regular Animations
+    pod 'lottie-ios'
+    
+  # Google Maps
+    pod 'GoogleMaps'
+    
+  # Realtime Database (General location, time last seen, etc.)
+    pod 'Firebase/Database'
+  # Storage (Phone numbers, names, friends, etc.)
+    pod 'Firebase/Storage'
+    
 
 end
 

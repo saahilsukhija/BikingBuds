@@ -3,21 +3,186 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Join GroupVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="JoinGroupVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Biking Buddies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-jV-x6l">
+                                <rect key="frame" x="20" y="64" width="374" height="36.5"/>
+                                <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wu5-ep-GNV" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                <rect key="frame" x="10" y="305.5" width="394" height="70"/>
+                                <color key="backgroundColor" name="unselectedGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="JHc-4g-hED"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
+                                <state key="normal" title="Solo">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="soloButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7DJ-zz-9dd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Hb-23-akF">
+                                <rect key="frame" x="10" y="140.5" width="394" height="32.5"/>
+                                <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(000) - 000 - 0000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NQF-6y-PQM">
+                                <rect key="frame" x="10" y="183" width="394" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dZL-7g-sqz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What Type of Ride?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmH-kU-EBr">
+                                <rect key="frame" x="10" y="263" width="394" height="32.5"/>
+                                <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqw-x3-awk" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                <rect key="frame" x="20" y="782" width="374" height="60"/>
+                                <color key="backgroundColor" name="selectedBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="J5z-JT-sSq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="GO">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="goToMainPage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ns4-Qe-DpQ"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-TD-DUQ">
+                                <rect key="frame" x="10" y="485.5" width="394" height="286.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyi-bq-7uu">
+                                        <rect key="frame" x="0.0" y="10" width="394" height="32.5"/>
+                                        <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WH2-Q1-RiB">
+                                        <rect key="frame" x="0.0" y="52.5" width="394" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Spp-kN-rNY"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="zze-Q5-mbW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-ve-Us9">
+                                        <rect key="frame" x="0.0" y="102.5" width="394" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title=" Don't have one? Create a group!"/>
+                                        <connections>
+                                            <action selector="createGroupClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M3z-P4-0Au"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="ez8-ve-Us9" firstAttribute="leading" secondItem="NsL-TD-DUQ" secondAttribute="leading" id="6TF-p4-0VB"/>
+                                    <constraint firstItem="dyi-bq-7uu" firstAttribute="top" secondItem="NsL-TD-DUQ" secondAttribute="top" constant="10" id="BhW-Hg-Lwr"/>
+                                    <constraint firstAttribute="trailing" secondItem="WH2-Q1-RiB" secondAttribute="trailing" id="DgN-Sc-Py9"/>
+                                    <constraint firstAttribute="trailing" secondItem="dyi-bq-7uu" secondAttribute="trailing" id="Gsh-eS-Dnf"/>
+                                    <constraint firstItem="WH2-Q1-RiB" firstAttribute="leading" secondItem="NsL-TD-DUQ" secondAttribute="leading" id="Mg7-Av-VQG"/>
+                                    <constraint firstItem="dyi-bq-7uu" firstAttribute="leading" secondItem="NsL-TD-DUQ" secondAttribute="leading" id="b4c-gc-Cpz"/>
+                                    <constraint firstAttribute="trailing" secondItem="ez8-ve-Us9" secondAttribute="trailing" id="bjx-Dc-ck5"/>
+                                    <constraint firstItem="ez8-ve-Us9" firstAttribute="top" secondItem="WH2-Q1-RiB" secondAttribute="bottom" constant="10" id="jJt-zd-TsD"/>
+                                    <constraint firstItem="WH2-Q1-RiB" firstAttribute="top" secondItem="dyi-bq-7uu" secondAttribute="bottom" constant="10" id="vSA-yV-GhY"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGj-3w-JNT" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                <rect key="frame" x="10" y="385.5" width="394" height="70"/>
+                                <color key="backgroundColor" name="unselectedGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Qts-aR-t9G"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <inset key="titleEdgeInsets" minX="17" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
+                                <state key="normal" title="Group">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <imageReference key="image" image="person.3.fill" catalog="system" symbolScale="large"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="groupButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Reo-om-JWj"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wqw-x3-awk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="16o-q7-bQm"/>
+                            <constraint firstItem="wqw-x3-awk" firstAttribute="top" secondItem="NsL-TD-DUQ" secondAttribute="bottom" constant="10" id="7De-Ok-P6q"/>
+                            <constraint firstItem="Wu5-ep-GNV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="AYh-Iy-4na"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IGj-3w-JNT" secondAttribute="trailing" constant="10" id="CM2-Gd-miI"/>
+                            <constraint firstItem="Wu5-ep-GNV" firstAttribute="top" secondItem="cmH-kU-EBr" secondAttribute="bottom" constant="10" id="DgS-Pe-nxu"/>
+                            <constraint firstItem="B6A-jV-x6l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="F8o-l7-uZX"/>
+                            <constraint firstItem="IGj-3w-JNT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="FgK-tJ-1Lt"/>
+                            <constraint firstItem="B6A-jV-x6l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="OaH-Bx-Dmt"/>
+                            <constraint firstItem="cmH-kU-EBr" firstAttribute="top" secondItem="NQF-6y-PQM" secondAttribute="bottom" constant="40" id="ReI-WG-3Kr"/>
+                            <constraint firstItem="NQF-6y-PQM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="X0F-lN-wEC"/>
+                            <constraint firstItem="IGj-3w-JNT" firstAttribute="top" secondItem="Wu5-ep-GNV" secondAttribute="bottom" constant="10" id="a4z-7R-BKK"/>
+                            <constraint firstItem="NsL-TD-DUQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="aot-Wq-aac"/>
+                            <constraint firstItem="NsL-TD-DUQ" firstAttribute="top" secondItem="IGj-3w-JNT" secondAttribute="bottom" constant="30" id="cnB-EC-zHb"/>
+                            <constraint firstItem="3Hb-23-akF" firstAttribute="top" secondItem="B6A-jV-x6l" secondAttribute="bottom" constant="40" id="dtY-YU-VIO"/>
+                            <constraint firstItem="cmH-kU-EBr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="eor-p0-Vgp"/>
+                            <constraint firstItem="NQF-6y-PQM" firstAttribute="top" secondItem="3Hb-23-akF" secondAttribute="bottom" constant="10" id="ezn-a4-CVa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wqw-x3-awk" secondAttribute="bottom" constant="20" id="ftD-C3-I7A"/>
+                            <constraint firstItem="3Hb-23-akF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gL4-LX-5c3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqw-x3-awk" secondAttribute="trailing" constant="20" id="geo-TC-BTx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NsL-TD-DUQ" secondAttribute="trailing" constant="10" id="k8a-Iu-hzZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wu5-ep-GNV" secondAttribute="trailing" constant="10" id="kFU-0f-RUG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B6A-jV-x6l" secondAttribute="trailing" constant="20" id="nX9-EL-1es"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cmH-kU-EBr" secondAttribute="trailing" constant="10" id="qxJ-mf-yru"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NQF-6y-PQM" secondAttribute="trailing" constant="10" id="utb-EA-Zxj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Hb-23-akF" secondAttribute="trailing" constant="10" id="zl0-rK-4Eo"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="groupButton" destination="IGj-3w-JNT" id="weZ-TB-r6I"/>
+                        <outlet property="groupDetailsEnterView" destination="NsL-TD-DUQ" id="fia-w0-tOW"/>
+                        <outlet property="soloButton" destination="Wu5-ep-GNV" id="lCe-1W-t8Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -25,6 +190,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <namedColor name="selectedBlueColor">
+            <color red="0.0" green="0.59899997711181641" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="unselectedGrayColor">
+            <color red="0.89999997615814209" green="0.89999997615814209" blue="0.89999997615814209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

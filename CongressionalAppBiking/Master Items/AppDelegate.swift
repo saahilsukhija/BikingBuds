@@ -8,6 +8,7 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -26,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         Auth.auth().signIn(with: credential) { (authResult, error) in
             
         }
-        //NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
+        NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
@@ -47,6 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().restorePreviousSignIn()
+        
+        //Google Maps
+        GMSServices.provideAPIKey("AIzaSyAdeAPuHsgyviAKK8nh3JwQb6GduSpyeF4")
+        
         return true
     }
     
