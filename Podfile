@@ -17,7 +17,7 @@ target 'CongressionalAppBiking' do
     pod 'lottie-ios'
     
   # Google Maps
-    pod 'GoogleMaps'
+    #pod 'GoogleMaps'
     
   # Realtime Database (General location, time last seen, etc.)
     pod 'Firebase/Database'

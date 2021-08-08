@@ -8,7 +8,6 @@
 import UIKit
 import GoogleSignIn
 import Firebase
-import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -23,15 +22,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                           accessToken: authentication.accessToken)
-        // ...
+        
+        print("hey?")
         Auth.auth().signIn(with: credential) { (authResult, error) in
-            
+            if let error = error {
+                print("oops error")
+                print(error.localizedDescription)
+            } else {
+                Authentication.user = authResult!.user
+                print("\(Authentication.user!.email!) just signed in, App Delegate")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
+                }
+                
+            }
         }
-        NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
+        
+        
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
+        print("signed out App Delegate")
+        Authentication.user = nil
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("error signing out App Delegate")
+        }
         // ...
     }
     
@@ -48,9 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().restorePreviousSignIn()
-        
-        //Google Maps
-        GMSServices.provideAPIKey("AIzaSyAdeAPuHsgyviAKK8nh3JwQb6GduSpyeF4")
         
         return true
     }

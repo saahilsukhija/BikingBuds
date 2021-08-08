@@ -15,13 +15,27 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ewz-Ng-gV6">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ewz-Ng-gV6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="HXI-qh-3sh"/>
+                            <constraint firstAttribute="bottom" secondItem="ewz-Ng-gV6" secondAttribute="bottom" id="M3v-G3-f7h"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ewz-Ng-gV6" secondAttribute="trailing" id="WhP-ct-wDb"/>
+                            <constraint firstItem="ewz-Ng-gV6" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="XlK-Vn-eyH"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="ewz-Ng-gV6" id="VVu-my-cAW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="54"/>
+            <point key="canvasLocation" x="34.782608695652179" y="53.571428571428569"/>
         </scene>
     </scenes>
     <resources>

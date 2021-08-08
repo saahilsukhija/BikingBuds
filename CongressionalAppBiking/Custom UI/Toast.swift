@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 extension UIViewController {
-    func showToast(message: String, duration: Double = 2, image: UIImage = UIImage(systemName: "cart")!, color: UIColor = .label, fontColor: UIColor = .label) {
+    func showToast(message: String, duration: Double = 2, image: UIImage = UIImage(systemName: "bicycle")!, color: UIColor = .label, fontColor: UIColor = .label) {
         view.endEditing(true)
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first!
         let toastView = UIView(frame: CGRect(x: 10, y: view.frame.size.height - view.safeAreaInsets.bottom, width: view.frame.size.width - 20, height: 50))

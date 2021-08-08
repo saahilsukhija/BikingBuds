@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import FirebaseDatabase
+import FirebaseDatabase
 import GoogleSignIn
 import Lottie
 extension String {
@@ -21,13 +21,6 @@ extension String {
 }
 
 extension UIViewController {
-    
-    func userIsLoggedIn() -> Bool {
-        if GIDSignIn.sharedInstance()?.currentUser == nil {
-            return false
-        }
-        return true
-    }
     
     func createLoadingScreen(frame: CGRect, message: String = "", animation: String? = nil) -> UIView {
         
@@ -70,5 +63,3 @@ struct HelperFunctions {
         return try JSONDecoder().decode(objectType, from: string.data(using: .utf8)!)
     }
 }
-
-

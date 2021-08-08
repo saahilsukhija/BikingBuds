@@ -8,14 +8,21 @@
 import UIKit
 import GoogleSignIn
 import FirebaseDatabase
+import FirebaseAuth
+import Firebase
 
 class JoinGroupVC: UIViewController {
 
     @IBOutlet weak var soloButton: RoundedButton!
     @IBOutlet weak var groupButton: RoundedButton!
     @IBOutlet weak var groupDetailsEnterView: UIView!
+    @IBOutlet weak var groupCodeTextField: UITextField!
+    @IBOutlet weak var goButton: RoundedButton!
+    @IBOutlet weak var profileView: UIView!
     
     var rideType: RideType!
+    var groupID: String?
+    var currentUser: User!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,15 +32,50 @@ class JoinGroupVC: UIViewController {
         self.hideKeyboardWhenTappedAround()
         
         groupDetailsEnterView.isHidden = true
+        groupCodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        
+        profileView.layer.cornerRadius = 10
+        profileView.layer.borderWidth = 2
+        profileView.layer.borderColor = UIColor.label.cgColor
+        
+        Authentication.addProfileChangesNotification()
     }
     
     @IBAction func goToMainPage(_ sender: Any) {
         
-        guard let rideType = rideType else {
+        //Make sure ride type is specified
+        guard rideType != nil else {
             Alert.showDefaultAlert(title: "No Ride Type Selected", message: "Before continuing, you must select if you are riding solo or in a group", self)
             return
         }
         
+        //Joining existing group
+        if groupCodeTextField.text!.count == 6 {
+            let loadingView = createLoadingScreen(frame: view.frame)
+            view.addSubview(loadingView)
+            Group.joinGroup(with: Int(groupCodeTextField.text!)!, checkForExistingIDs: true) { completed in
+                
+                guard completed else {
+                    self.showFailureToast(message: "Group does not exist.")
+                    loadingView.removeFromSuperview()
+                    return
+                }
+                
+                self.showSuccessToast(message: "Joined!")
+                self.goToBikingVC()
+                
+                DispatchQueue.main.async {
+                    loadingView.removeFromSuperview()
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    func goToBikingVC() {
         let loadingScreen = createLoadingScreen(frame: view.frame, message: "Initializing...")
         self.view.addSubview(loadingScreen)
         
@@ -43,7 +85,13 @@ class JoinGroupVC: UIViewController {
         
         //Change the presenting view controller to solo or group, depending on user input
         //TODO: -Still Complete
-        goToVC = (rideType == .group) ? storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC : storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC
+        if rideType == .group {
+            goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC
+            (goToVC as! BikingGroupVC).groupID = groupID
+        } else {
+            goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC
+        }
+        
         goToVC.rideType = rideType
         
         let navigationController = UINavigationController(rootViewController: goToVC)
@@ -51,33 +99,65 @@ class JoinGroupVC: UIViewController {
         
         self.present(navigationController, animated: true, completion: nil)
         
+        loadingScreen.removeFromSuperview()
     }
     
     
     @IBAction func soloButtonClicked(_ sender: Any) {
         //Unselect Group Button
         if rideType != .solo {
-            groupButton.backgroundColor = UIColor(named: "unselectedGrayColor")
+            groupButton.backgroundColor = .unselectedGrayColor
             groupDetailsEnterView.isHidden = true
         }
         
-        soloButton.backgroundColor = UIColor(named: "selectedBlueColor")
+        soloButton.backgroundColor = .selectedBlueColor
+        goButton.backgroundColor = .selectedBlueColor
+        addActionToButton(goButton)
         rideType = .solo
+        
+        if Authentication.hasPreviousSignIn() {
+            do {
+                print("signed out")
+                try Auth.auth().signOut()
+                GIDSignIn.sharedInstance().signOut()
+                
+                checkFirstLaunch()
+            } catch {
+                print("error signing out")
+            }
+        }
     }
     
     @IBAction func groupButtonClicked(_ sender: Any) {
         //Unselect Solo Button
         if rideType != .group {
-            soloButton.backgroundColor = UIColor(named: "unselectedGrayColor")
+            soloButton.backgroundColor = .unselectedGrayColor
             groupDetailsEnterView.isHidden = false
         }
         
-        groupButton.backgroundColor = UIColor(named: "selectedBlueColor")
+        //Code must be entered before go button is clicked (if group is selected)
+        if groupCodeTextField.text!.count != 6 {
+            removeActionFromButton(goButton)
+            goButton.backgroundColor = .unselectedGrayColor
+        } else {
+            addActionToButton(goButton)
+            goButton.backgroundColor = .selectedBlueColor
+        }
+        
+        groupButton.backgroundColor = .selectedBlueColor
         rideType = .group
+        
     }
     
     @IBAction func createGroupClicked(_ sender: Any) {
-        
+        let loadingView = createLoadingScreen(frame: view.frame)
+        view.addSubview(loadingView)
+        Group.generateGroupNumber { id in
+            loadingView.removeFromSuperview()
+            self.showSuccessToast(message: "Created group, ID: \(id)")
+            self.groupID = id
+            self.goToBikingVC()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,26 +167,51 @@ class JoinGroupVC: UIViewController {
     //Show Toast Saying "Welcome, (user)"
     func showLoggedIn() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if self.userIsLoggedIn() {
+            if Authentication.hasPreviousSignIn() {
                 //Set Up User Object
-                User.setUpUser(GIDSignIn.sharedInstance().currentUser)
+                self.currentUser = Authentication.user
+                self.showAnimationToast(animationName: "LoginSuccess", message: "Welcome, " + self.currentUser.displayName!, color: .systemBlue, fontColor: .systemBlue)
+                print(self.currentUser.email)
                 
-                self.showAnimationToast(animationName: "LoginSuccess", message: "Welcome, " + User.firstName, color: .systemBlue, fontColor: .systemBlue)
-                
-                StorageUpload().uploadUserObject()
             }
         }
     }
 
 }
 
+//MARK: Code Enter TextField
+extension JoinGroupVC: UITextFieldDelegate {
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if textField.text!.count > 6 {
+            //Shorten text to 6.
+            textField.text?.removeLast()
+            textField.endEditing(true)
+            
+            goButton.backgroundColor = .selectedBlueColor
+            addActionToButton(goButton)
+            
+            groupID = textField.text!
+        } else if textField.text!.count == 6 {
+            textField.endEditing(true)
+            goButton.backgroundColor = .selectedBlueColor
+            addActionToButton(goButton)
+            
+            groupID = textField.text!
+        } else {
+            goButton.backgroundColor = .unselectedGrayColor
+            removeActionFromButton(goButton)
+        }
+    }
+}
+
 //MARK: Initial Launch
 extension JoinGroupVC {
     func checkFirstLaunch() {
         //Track if this is the first launch
-        let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
         
-        if !hasLaunched {
+        if !Authentication.hasPreviousSignIn() {
             UserDefaults.standard.setValue(true, forKey: "hasLaunched")
             
             //Initialize signup screen
@@ -117,6 +222,29 @@ extension JoinGroupVC {
             self.present(signUpScreen, animated: true, completion: nil)
         }
     }
+}
+
+//MARK: Quality of life (cleanup) functions
+extension JoinGroupVC {
+    ///Grayed out Go Button not doing anything when clicked.
+    func removeActionFromButton(_ button: UIButton, selector: Selector = #selector(goToMainPage)) {
+        button.removeTarget(self, action: selector, for: .touchUpInside)
+    }
+    
+    ///Add function back to go button
+    func addActionToButton(_ button: UIButton, selector: Selector = #selector(goToMainPage)) {
+        button.addTarget(self, action: selector, for: .touchUpInside)
+    }
+}
+
+// An attributed string extension to achieve colors on text.
+extension NSMutableAttributedString {
+
+    func setColor(color: UIColor, forText stringValue: String) {
+       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
+        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+    }
+
 }
 
 enum RideType {

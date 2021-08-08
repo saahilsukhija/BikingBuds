@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Baumans-Regular.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -62,6 +66,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TODO</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs the photo library to choose a picture for your profile</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs the camera to take a picture for your profile</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>TODO</string>
 	<key>NSLocationAlwaysUsageDescription</key>

@@ -7,23 +7,31 @@
 
 import UIKit
 import CoreLocation
-import GoogleMaps
+import MapKit
+
 class BikingVCs: UIViewController {
 
     var rideType: RideType!
+    var map: MKMapView!
+    
     var locationManager: CLLocationManager!
-    var mapView: GMSMapView!
-    var userLocation: GMSMarker!
-    var userCamera: GMSCameraPosition!
+    
+    var previousLatitude: Double! = 0.0, previousLongitude: Double! = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    func setUp(map: MKMapView, rideType: RideType) {
+        self.map = map
+        self.rideType = rideType
+        
         self.customizeNavigationController()
         self.setUpUserLocation()
         
-        self.view.addSubview(mapView)
+        map.delegate = self
     }
     
 
@@ -40,7 +48,7 @@ class BikingVCs: UIViewController {
 }
 
 //MARK: Location Getters
-extension BikingVCs: CLLocationManagerDelegate {
+extension BikingVCs: CLLocationManagerDelegate, MKMapViewDelegate {
     func setUpUserLocation() {
         
         if (CLLocationManager.locationServicesEnabled()) {
@@ -51,15 +59,47 @@ extension BikingVCs: CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
         
-        let userLocation = locationManager.location?.coordinate
-        userCamera = GMSCameraPosition.camera(withLatitude: userLocation?.latitude ?? 0, longitude: userLocation?.longitude ?? 0, zoom: 16)
-        
-        mapView = GMSMapView.map(withFrame: self.view.frame, camera: userCamera)
-        mapView.isIndoorEnabled = false
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+        self.recenterCamera()
+        map.showsUserLocation = true
+        map.mapType = .mutedStandard
         
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        (previousLatitude, previousLongitude) = UserLocation.getUserCurrentLocation()
+        
+//        let userLocationImage = MKPointAnnotation()
+//        userLocationImage.title = User.firstName + " " + User.lastName
+//        userLocationImage.coordinate = locationManager.location!.coordinate
+//        map.addAnnotation(userLocationImage)
+    }
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//
+//        guard !annotation.isKind(of: MKUserLocation.self) else {
+//            return nil
+//        }
+//
+//        let annotationIdentifier = "CurrentUsersImage"
+//
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+//            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//            annotationView!.canShowCallout = true
+//        }
+//        else {
+//            annotationView!.annotation = annotation
+//        }
+//
+//        annotationView!.image = User.profilePicture
+//
+//        annotationView!.centerOffset = CGPoint(x: 0, y: -20)
+//        annotationView!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+//
+//        annotationView!.layer.cornerRadius = annotationView!.frame.height/2
+//        return annotationView
+//    }
 }
 //MARK: Initial Setup
 extension BikingVCs {
@@ -67,43 +107,39 @@ extension BikingVCs {
         self.navigationItem.largeTitleDisplayMode = .never
         
         //Fully Transparent Navigation Bar Background
-        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.barTintColor = .gray
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .white
         
         //End Ride Button
-        let endRideLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        endRideLabel.backgroundColor = .systemRed
-        endRideLabel.textColor = .white
-        endRideLabel.text = "End Ride"
-        endRideLabel.font = UIFont(name: "Helvetica Neue Bold", size: 15)
-        endRideLabel.textAlignment = .center
-        endRideLabel.layer.cornerRadius = 10
-        endRideLabel.layer.masksToBounds = true
+        let endRideButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        endRideButton.backgroundColor = .systemRed
+        endRideButton.tintColor = .white
+        endRideButton.setTitle("End Ride", for: .normal)
+        
+        endRideButton.addTarget(self, action: #selector(endRide), for: .touchUpInside)
+        endRideButton.layer.cornerRadius = 10
+        endRideButton.layer.masksToBounds = true
         
         
-        let endRideButton = UIBarButtonItem(customView: endRideLabel)
-        endRideButton.target = self
-        endRideButton.action = #selector(endRide)
-        self.navigationItem.rightBarButtonItem = endRideButton
+        let endRideBarButton = UIBarButtonItem(customView: endRideButton)
+        self.navigationItem.rightBarButtonItem = endRideBarButton
         
+        //Center camera
+        let centerCameraButton = UIBarButtonItem(image: UIImage(systemName: "location.north.fill"), style: .plain, target: self, action: #selector(recenterCamera))
+        centerCameraButton.tintColor = .label
+        self.navigationItem.leftBarButtonItem = centerCameraButton
         
-        //Center Map To User Marker
-        let centerMapButton = UIBarButtonItem(image: UIImage(systemName: "pin.fill"), style: .plain, target: self, action: #selector(centerCameraToUser))
-        centerMapButton.tintColor = .black
-        self.navigationItem.leftBarButtonItem = centerMapButton
     }
     
     @objc func endRide() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func centerCameraToUser() {
-        if let userLocation = locationManager.location?.coordinate {
-            mapView.animate(toLocation: userLocation)
-            mapView.animate(toZoom: 16)
-        }
+    @objc func recenterCamera() {
+        let userLocation = locationManager.location ?? CLLocation(latitude: 0, longitude: 0)
+        map.centerCameraTo(location: userLocation)
     }
+    
 }
 

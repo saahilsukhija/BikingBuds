@@ -12,4 +12,27 @@ extension Notification.Name {
     static var signInGoogleCompleted: Notification.Name {
         return .init(rawValue: #function)
     }
+    
+    /// Notification when user's signed in with email/password
+    static var signInEmailCompleted: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    /// Notification when user provided extra info
+    static var additionalInfoCompleted: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    /// Notification when user's location was updated
+    static var locationUpdated: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    /// Notification when user's profile was updated
+    static var profileUpdated: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    
+    
 }
