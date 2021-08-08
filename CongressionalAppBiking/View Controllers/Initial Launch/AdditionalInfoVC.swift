@@ -16,6 +16,8 @@ class AdditionalInfoVC: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     
     var currentUser: User!
+    
+    var phoneNumber: String!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -50,7 +52,7 @@ class AdditionalInfoVC: UIViewController {
         if Authentication.hasPreviousSignIn() {
             currentUser = Auth.auth().currentUser
             nameTextField.text = currentUser.displayName
-            
+            phoneNumberTextField.text = phoneNumber
             //Profile Picture
             if let photoURL = currentUser.photoURL {
                 DispatchQueue.global().async {
@@ -70,7 +72,7 @@ class AdditionalInfoVC: UIViewController {
     }
     
     func setPhoneNumberField(_ phone: String) {
-        phoneNumberTextField.text = phone
+        self.phoneNumber = phone
     }
     
     @IBAction func completedButtonTapped(_ sender: Any) {
