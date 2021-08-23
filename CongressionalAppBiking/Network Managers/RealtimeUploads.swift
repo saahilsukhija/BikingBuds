@@ -24,27 +24,27 @@ struct RealtimeUpload {
 
 /// Upload users current location to realtime database quickly
 struct UserLocationsUpload {
-    static func uploadCurrentLocation(group: String, completion: @escaping((Bool, String?) -> Void)) {
+    static func uploadCurrentLocation(group: String, location: CLLocationCoordinate2D, completion: @escaping((Bool, String?) -> Void)) {
         
-        guard let email = Auth.auth().currentUser?.email else {
-            completion(false, "User email not available")
+        guard let user = Auth.auth().currentUser else {
+            completion(false, "User not available")
             return
         }
         
-        let (latitude, longitude) = UserLocation.getUserCurrentLocation()
+        let (latitude, longitude) = (location.latitude, location.longitude)
         
         guard latitude != 0 || longitude != 0 else {
             completion(false, "Location Service not Enabled")
             return
         }
         
-        let path = "rides/\(group)/\(email.toLegalStorageEmail())/location/"
+        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/location/"
         
         RealtimeUpload.upload(data: ["latitude" : latitude, "longitude" : longitude], path: path)
         print("uploaded user location")
         
         completion(true, nil)
-    }
+    } 
 }
 
 ///Returns users current location
@@ -53,17 +53,33 @@ struct UserLocation {
         let locationManager = CLLocationManager()
         
         guard CLLocationManager.locationServicesEnabled() else {
+            print("oops1")
             return (0, 0)
         }
+//        switch locationManager.authorizationStatus {
+//
+//        case .notDetermined:
+//            print("not determined")
+//        case .restricted:
+//            print("restricted")
+//        case .denied:
+//            print("denied")
+//        case .authorizedAlways:
+//            print("always")
+//        case .authorizedWhenInUse:
+//            print("when in use")
+//        @unknown default:
+//            print("unknown")
+//        }
+        let latitude = locationManager.location!.coordinate.latitude
+        let longitude = locationManager.location!.coordinate.longitude
         
-        let latitude = locationManager.location?.coordinate.latitude
-        let longitude = locationManager.location?.coordinate.longitude
-        
-        if let latitude = latitude, let longitude = longitude {
+        //if let latitude = latitude, let longitude = longitude {
             return(latitude.roundTo(places: 4), longitude.roundTo(places: 4))
-        } else {
+        /*} else {
+            print("oops2")
             return (0, 0)
-        }
+        }*/
     }
 }
 

@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                           accessToken: authentication.accessToken)
         
-        print("hey?")
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 print("oops error")

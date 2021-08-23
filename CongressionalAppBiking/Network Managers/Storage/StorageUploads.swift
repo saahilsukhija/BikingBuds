@@ -36,14 +36,38 @@ struct StorageUpload {
         }
     }
     
-    func uploadPhoneNumber(_ phone: String, user: User, completion: ((Bool) -> Void)? = nil) {
-        self.uploadData(path: "users/\(user.email!)/phone", data: phone.data(using: .utf8)!) { completed in
-            if completed {
-                completion?(true)
-            } else {
-                completion?(false)
-            }
+    
+    /// Turns the current user into a storage friendly user and uploads it
+    /// - Parameters:
+    ///   - user: The current user, defaults to Authentication.user!
+    ///
+    ///   - completion: when completed lol
+    func uploadCurrentUser(_ user: User = Authentication.user!, phoneNumber: String?, image: UIImage?, completion: ((Bool) -> Void)? = nil) {
+        
+        let currentUser = Authentication.user!
+        
+        if image != nil {
+            Authentication.imagePath = "pictures/\(currentUser.email!)"
         }
         
+        let groupUser = Authentication.turnIntoGroupUser(currentUser, phoneNumber: phoneNumber)
+
+        self.uploadData(path: "users/\(groupUser.email!)", data: groupUser.toData()) { completed in
+            if let image = image {
+                self.uploadProfilePicture(image, email: groupUser.email) { completed in
+                    completion?(completed)
+                }
+            } else {
+                print("no image")
+                completion?(completed)
+            }
+        }
+    }
+    
+    func uploadProfilePicture(_ image: UIImage, email: String, completion: ((Bool) -> Void)? = nil) {
+        
+        self.uploadData(path: "pictures/\(email)", data: image.pngData()!) { completed in
+            completion?(completed)
+        }
     }
 }

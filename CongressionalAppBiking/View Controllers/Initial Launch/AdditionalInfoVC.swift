@@ -53,17 +53,9 @@ class AdditionalInfoVC: UIViewController {
             currentUser = Auth.auth().currentUser
             nameTextField.text = currentUser.displayName
             phoneNumberTextField.text = phoneNumber
+            
             //Profile Picture
-            if let photoURL = currentUser.photoURL {
-                DispatchQueue.global().async {
-                    let data = try? Data(contentsOf: photoURL)
-                    DispatchQueue.main.async {
-                        if let data = data {
-                            self.profilePictureImageView.image = UIImage(data: data)
-                        }
-                    }
-                }
-            }
+            StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: currentUser.email!)
         }
         else {
             showFailureToast(message: "Something went wrong logging in. Try Again.")
@@ -86,22 +78,15 @@ class AdditionalInfoVC: UIViewController {
             self.showFailureToast(message: "Empty TextField")
             return
         }
-        
-        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
-            return
-        }
 
         let loadingScreen = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingScreen)
         
-        let pngData = image.pngData();
-        do {
-            try pngData?.write(to: imageURL);
-        } catch { }
+        Authentication.phoneNumber = phoneNumber
+        
         
         let currentUserEditor = currentUser.createProfileChangeRequest()
         currentUserEditor.displayName = nameTextField.text!
-        currentUserEditor.photoURL = imageURL
         
         currentUserEditor.commitChanges { [self] error in
             if let error = error {
@@ -109,7 +94,7 @@ class AdditionalInfoVC: UIViewController {
             }
             
             showAnimationToast(animationName: "LoginSuccess", message: "Welcome, \(currentUser.displayName!)")
-            StorageUpload().uploadPhoneNumber(phoneNumberTextField.text!, user: currentUser) { completed in
+            StorageUpload().uploadCurrentUser(currentUser, phoneNumber: phoneNumberTextField.text!, image: image) { completed in
                 loadingScreen.removeFromSuperview()
                 
                 if completed {
@@ -132,6 +117,7 @@ class AdditionalInfoVC: UIViewController {
 //MARK: -Image Pickers
 extension AdditionalInfoVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @objc func imageChoice(_ sender: UIView) {
+        
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()
@@ -143,22 +129,10 @@ extension AdditionalInfoVC: UIImagePickerControllerDelegate, UINavigationControl
         
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         
-        /*If you want work actionsheet on ipad
-         then you have to use popoverPresentationController to present the actionsheet,
-         otherwise app will crash on iPad */
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
-            alert.popoverPresentationController?.sourceView = sender
-            alert.popoverPresentationController?.sourceRect = sender.bounds
-            alert.popoverPresentationController?.permittedArrowDirections = .up
-        default:
-            break
-        }
-        
         self.present(alert, animated: true, completion: nil)
     }
     
-    func openCamera() {
+    @objc func openCamera() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = .camera

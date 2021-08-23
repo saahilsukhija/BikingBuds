@@ -68,8 +68,6 @@ extension UIViewController {
         toastView.layer.borderColor = color.cgColor
         toastView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         
-        toastView.tag = 1474
-        
         let animationView = AnimationView(name: animationName)
         animationView.frame = CGRect(x: 5, y: 5, width: 50, height: 50)
         animationView.contentMode = .scaleAspectFill
@@ -89,32 +87,29 @@ extension UIViewController {
         swipeDownGesture.direction = .down
         toastView.addGestureRecognizer(swipeDownGesture)
         
-        UIView.animate(withDuration: 0.2, delay: 0, animations: {
-            toastView.frame.origin.y = self.view.frame.size.height - self.view.safeAreaInsets.bottom - 70
-        }, completion: {_ in
-            animationView.play()
-        })
-        
-        UIView.animate(withDuration: 0.2, delay: duration, animations: {
-            toastView.center.y = self.view.frame.size.height + 50
-        }, completion: {_ in
-            toastView.removeFromSuperview()
-        })
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction], animations: {
+                toastView.frame.origin.y = self.view.frame.size.height - self.view.safeAreaInsets.bottom - 70
+            }, completion: {_ in
+                animationView.play()
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.2) {
+                    UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                        toastView.center.y = self.view.frame.size.height + 50
+                    }, completion: {_ in
+                        toastView.removeFromSuperview()
+                    })
+                }
+
+            })
     }
     
     @objc func dismissToast(_ sender: UIGestureRecognizer) {
-        print("dismiss")
-        let toastView = view.subviews.filter { view in
-            if view.tag == 1474 {
-                return true
-            }
-            return false
-        }.last!
+        print("dismiss toast")
+        let toastView = sender.view
         
         UIView.animate(withDuration: 0.2, delay: 0, animations: {
-            toastView.center.y = self.view.frame.size.height + 50
+            toastView?.center.y = self.view.frame.size.height + 50
         }, completion: {_ in
-            toastView.removeFromSuperview()
+            toastView?.removeFromSuperview()
         })
         
     }

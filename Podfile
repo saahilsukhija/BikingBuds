@@ -21,8 +21,10 @@ target 'CongressionalAppBiking' do
     
   # Realtime Database (General location, time last seen, etc.)
     pod 'Firebase/Database'
+    
   # Storage (Phone numbers, names, friends, etc.)
     pod 'Firebase/Storage'
+    pod 'FirebaseUI/Storage'
     
 
 end

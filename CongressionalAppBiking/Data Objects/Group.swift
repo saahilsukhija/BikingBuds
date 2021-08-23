@@ -55,8 +55,7 @@ struct Group {
     }
     
     private static func joinGroup(id: Int) {
-        let currentUser = Auth.auth().currentUser!
-        RealtimeUpload.upload(data: "location", path: "rides/\(id)/\(currentUser.email!.toLegalStorageEmail())/")
+        let currentUser = Authentication.user!
         
         let storage = StorageUpload()
         
@@ -73,7 +72,6 @@ struct Group {
             
             let ridersMetaData = StorageMetadata()
             ridersMetaData.customMetadata = dictionary
-            
             
             let idData = "\(id)".data(using: .utf8)!
             storage.uploadData(path: "rides/\(id)", data: idData, metaData: ridersMetaData)

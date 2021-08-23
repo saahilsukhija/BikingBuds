@@ -12,11 +12,16 @@ import FirebaseAuth
 
 struct Authentication {
     static var user: User?
+    static var phoneNumber: String?
+    
+    ///Path to image, for example: "pictures/saahilsukhija@gmail.com"
+    static var imagePath: String?
+    
+    static var image: UIImage?
     
     static func addProfileChangesNotification() {
         Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
-                print("userchanged, \(user.email!), \(user.displayName!)")
                 self.user = user
                 Auth.auth().updateCurrentUser(user, completion: nil)
             }
@@ -35,8 +40,13 @@ struct Authentication {
         return Auth.auth().currentUser!
     }
     
-    static func userExists(_ user: GIDGoogleUser) {
-        
+    
+    /// Turns an auth user into a storage friendly user
+    /// - Parameter currentUser: The current Auth.auth().currentUser, defaults to Auth.auth().user!
+    /// - Returns: The GroupUser
+    static func turnIntoGroupUser(_ currentUser: User = Auth.auth().currentUser!, phoneNumber: String?) -> GroupUser {
+        let groupUser = GroupUser(id: currentUser.uid, displayName: currentUser.displayName!, email: currentUser.email!, phoneNumber: phoneNumber ?? "N/A", profilePicturePath: imagePath)
+        return groupUser
     }
     
     

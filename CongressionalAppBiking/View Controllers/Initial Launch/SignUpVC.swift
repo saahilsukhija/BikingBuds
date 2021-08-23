@@ -55,7 +55,9 @@ class SignUpVC: UIViewController {
                 vc.modalPresentationStyle = .fullScreen
                 
                 StorageRetrieve().getPhoneNumber(from: currentUser) { phoneNumber in
-                    vc.setPhoneNumberField(phoneNumber)
+                    if let phoneNumber = phoneNumber {
+                        vc.setPhoneNumberField(phoneNumber)
+                    }
                     loadingScreen.removeFromSuperview()
                     present(vc, animated: true, completion: nil)
                 }

@@ -28,6 +28,11 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    /// Notification when user joins group
+    static var groupUsersUpdated: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
     /// Notification when user's profile was updated
     static var profileUpdated: Notification.Name {
         return .init(rawValue: #function)

@@ -30,8 +30,6 @@ class BikingVCs: UIViewController {
         
         self.customizeNavigationController()
         self.setUpUserLocation()
-        
-        map.delegate = self
     }
     
 
@@ -48,7 +46,7 @@ class BikingVCs: UIViewController {
 }
 
 //MARK: Location Getters
-extension BikingVCs: CLLocationManagerDelegate, MKMapViewDelegate {
+extension BikingVCs: CLLocationManagerDelegate {
     func setUpUserLocation() {
         
         if (CLLocationManager.locationServicesEnabled()) {
@@ -57,49 +55,20 @@ extension BikingVCs: CLLocationManagerDelegate, MKMapViewDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
+        } else {
+            print("BikingVCs location services not enabled")
         }
         
         self.recenterCamera()
         map.showsUserLocation = true
         map.mapType = .mutedStandard
+    
         
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        (previousLatitude, previousLongitude) = UserLocation.getUserCurrentLocation()
-        
-//        let userLocationImage = MKPointAnnotation()
-//        userLocationImage.title = User.firstName + " " + User.lastName
-//        userLocationImage.coordinate = locationManager.location!.coordinate
-//        map.addAnnotation(userLocationImage)
+    func updatePreviousLocations(_ coordinate: CLLocationCoordinate2D) {
+        (previousLatitude, previousLongitude) = (coordinate.latitude, coordinate.longitude)
     }
-    
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//
-//        guard !annotation.isKind(of: MKUserLocation.self) else {
-//            return nil
-//        }
-//
-//        let annotationIdentifier = "CurrentUsersImage"
-//
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
-//        if annotationView == nil {
-//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-//            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-//            annotationView!.canShowCallout = true
-//        }
-//        else {
-//            annotationView!.annotation = annotation
-//        }
-//
-//        annotationView!.image = User.profilePicture
-//
-//        annotationView!.centerOffset = CGPoint(x: 0, y: -20)
-//        annotationView!.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-//
-//        annotationView!.layer.cornerRadius = annotationView!.frame.height/2
-//        return annotationView
-//    }
 }
 //MARK: Initial Setup
 extension BikingVCs {

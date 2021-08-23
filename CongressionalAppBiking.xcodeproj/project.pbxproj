@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A11B1AF2696ECBE009208E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */; };
 		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
 		9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* SignUpVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
@@ -16,7 +15,7 @@
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
-		9ADEAA702697D8D8005BB706 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6F2697D8D8005BB706 /* User.swift */; };
+		9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */; };
 		9ADEAA732697DCBE005BB706 /* NetworkHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */; };
 		9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7426997548005BB706 /* UserDefaults.swift */; };
 		9ADEAA7726997AD2005BB706 /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */; };
@@ -43,6 +42,8 @@
 		9AE042C82696E02B00FC86AD /* CongressionalAppBikingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042C72696E02B00FC86AD /* CongressionalAppBikingTests.swift */; };
 		9AE042D32696E02B00FC86AD /* CongressionalAppBikingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042D22696E02B00FC86AD /* CongressionalAppBikingUITests.swift */; };
 		9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */; };
+		9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */; };
+		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
 		DA90804C40C8B3ADF8AE3965 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +66,6 @@
 
 /* Begin PBXFileReference section */
 		0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
-		9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
-		9ADEAA6F2697D8D8005BB706 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUser.swift; sourceTree = "<group>"; };
 		9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelpers.swift; sourceTree = "<group>"; };
 		9ADEAA7426997548005BB706 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		9AE042D22696E02B00FC86AD /* CongressionalAppBikingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongressionalAppBikingUITests.swift; sourceTree = "<group>"; };
 		9AE042D42696E02B00FC86AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InitialLaunch.storyboard; sourceTree = "<group>"; };
+		9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
 		9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
 		E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -183,7 +185,7 @@
 			children = (
 				9ADEAA672697D130005BB706 /* NotificationNames.swift */,
 				9ADEAA8726B44D12005BB706 /* Group.swift */,
-				9ADEAA6F2697D8D8005BB706 /* User.swift */,
+				9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */,
 				9ADEAA7426997548005BB706 /* UserDefaults.swift */,
 				9ADEAA9026B85EB3005BB706 /* Locations.swift */,
 			);
@@ -195,8 +197,8 @@
 			children = (
 				9AE042BB2696E02B00FC86AD /* LaunchScreen.storyboard */,
 				9AE042B02696E02700FC86AD /* AppDelegate.swift */,
+				9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */,
 				9AE042B22696E02700FC86AD /* SceneDelegate.swift */,
-				9A11B1AE2696ECBE009208E8 /* GoogleService-Info.plist */,
 				9AE042BE2696E02B00FC86AD /* Info.plist */,
 				9AE042B92696E02B00FC86AD /* Assets.xcassets */,
 				9ADEAA9226B8CCB7005BB706 /* Fonts */,
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				9ADEAA8526B356AB005BB706 /* MapExtensions.swift */,
+				9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -452,8 +455,8 @@
 				9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */,
 				9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */,
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
-				9A11B1AF2696ECBE009208E8 /* GoogleService-Info.plist in Resources */,
 				9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */,
+				9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
 				9AE042B82696E02700FC86AD /* Main.storyboard in Resources */,
 			);
@@ -556,13 +559,14 @@
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
-				9ADEAA702697D8D8005BB706 /* User.swift in Sources */,
+				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
 				9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */,
 				9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */,
 				9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */,
 				9ADEAA9126B85EB3005BB706 /* Locations.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
+				9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

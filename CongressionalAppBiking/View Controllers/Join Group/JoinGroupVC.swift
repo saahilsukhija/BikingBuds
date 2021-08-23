@@ -18,7 +18,11 @@ class JoinGroupVC: UIViewController {
     @IBOutlet weak var groupDetailsEnterView: UIView!
     @IBOutlet weak var groupCodeTextField: UITextField!
     @IBOutlet weak var goButton: RoundedButton!
+    
     @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var profilePhoneNumber: UILabel!
     
     var rideType: RideType!
     var groupID: String?
@@ -30,16 +34,20 @@ class JoinGroupVC: UIViewController {
         
         self.showLoggedIn()
         self.hideKeyboardWhenTappedAround()
+        Authentication.addProfileChangesNotification()
         
         groupDetailsEnterView.isHidden = true
         groupCodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         
+        //Verify profile view
         profileView.layer.cornerRadius = 10
         profileView.layer.borderWidth = 2
         profileView.layer.borderColor = UIColor.label.cgColor
         
-        Authentication.addProfileChangesNotification()
+        profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
+        profilePicture.layer.borderWidth = 1
+        profilePicture.layer.borderColor = UIColor.label.cgColor
     }
     
     @IBAction func goToMainPage(_ sender: Any) {
@@ -162,6 +170,7 @@ class JoinGroupVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         checkFirstLaunch()
+        updateProfileView()
     }
     
     //Show Toast Saying "Welcome, (user)"
@@ -171,10 +180,24 @@ class JoinGroupVC: UIViewController {
                 //Set Up User Object
                 self.currentUser = Authentication.user
                 self.showAnimationToast(animationName: "LoginSuccess", message: "Welcome, " + self.currentUser.displayName!, color: .systemBlue, fontColor: .systemBlue)
-                print(self.currentUser.email)
                 
             }
         }
+    }
+    
+    func updateProfileView() {
+        StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
+            guard let user = groupUser else { print("no user"); return }
+            
+            profileName.text = user.displayName
+            
+            profilePhoneNumber.text = user.phoneNumber
+            Authentication.phoneNumber = user.phoneNumber
+            
+            profilePicture.image = user.profilePicture?.toImage()
+            
+        }
+        
     }
 
 }
