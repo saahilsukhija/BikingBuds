@@ -104,6 +104,7 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
+  - Pulley (2.9.1)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - FirebaseUI/Storage
   - GoogleSignIn
   - lottie-ios
+  - Pulley
 
 SPEC REPOS:
   trunk:
@@ -139,6 +141,7 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - Pulley
     - SDWebImage
 
 SPEC CHECKSUMS:
@@ -162,8 +165,9 @@ SPEC CHECKSUMS:
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Pulley: a4c28c930958f42978d69631000bc1abb82cb232
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: c23ede825f05c8cf59591728329ec73197f6fde7
+PODFILE CHECKSUM: 56bafbfe4e2b1d52f2bbecefa902489a186e7cea
 
 COCOAPODS: 1.10.1

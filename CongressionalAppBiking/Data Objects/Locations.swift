@@ -29,42 +29,7 @@ struct Locations {
             }
             NotificationCenter.default.post(name: .locationUpdated, object: nil)
         }
-        
-        //Location Changed
-        /*
-        ref.observe(.childChanged) { snapshot in
-            
-            print("child changed")
-            //Make sure ride exists
-            guard snapshot.exists() else {
-                print("no snap exists")
-                return
-            }
-            
-            //Reset locations
-            self.locations = [:]
-            print("object count: \(snapshot.children.allObjects.count)!! if 0, issue when locations are changed in realtime database")
-            //Filter through all users and get their locations
-            for user in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let locationSnap = user.childSnapshot(forPath: "location")
-                let userEmail = user.key.fromStorageEmail()
-                
-                if locationSnap.exists() {
-                    
-                    let coordinate = getLocationFrom(snap: user)
-                    if let groupUser = groupUsers.groupUserFrom(email: userEmail) {
-                        self.locations[groupUser] = coordinate
-                    } else {
-                        print("error getting group user")
-                    }
-                    
-                }
-            }
-            
-            NotificationCenter.default.post(name: .locationUpdated, object: nil)
-        }
-        */
+
         //User added to group
         ref.observe(.childAdded) { snapshot in
             print("child added")

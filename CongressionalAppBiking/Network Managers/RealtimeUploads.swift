@@ -71,15 +71,9 @@ struct UserLocation {
 //        @unknown default:
 //            print("unknown")
 //        }
-        let latitude = locationManager.location!.coordinate.latitude
-        let longitude = locationManager.location!.coordinate.longitude
         
-        //if let latitude = latitude, let longitude = longitude {
-            return(latitude.roundTo(places: 4), longitude.roundTo(places: 4))
-        /*} else {
-            print("oops2")
-            return (0, 0)
-        }*/
+        let coordinate = locationManager.location!.coordinate.roundTo(places: 4)
+        return(coordinate.latitude, coordinate.longitude)
     }
 }
 

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'CongressionalAppBiking' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -25,6 +25,9 @@ target 'CongressionalAppBiking' do
   # Storage (Phone numbers, names, friends, etc.)
     pod 'Firebase/Storage'
     pod 'FirebaseUI/Storage'
+    
+  # Bottom Sheet Map, Will remove once ios15 is out.
+    pod 'Pulley'
     
 
 end

@@ -13,8 +13,8 @@ extension MKMapView {
     /// - Parameters:
     ///   - location: The center of the camera
     ///   - regionRadius: The zoom level/How much is being shown at once, defaults at 1000
-    func centerCameraTo(location: CLLocation, regionRadius: CLLocationDistance = 1000) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+    func centerCameraTo(location: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000) {
+        let coordinateRegion = MKCoordinateRegion(center: location,
                                                   latitudinalMeters: regionRadius,
                                                   longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
@@ -39,22 +39,23 @@ extension MKMapView {
             drawGroupMember(email: user.email, location: location)
         }
         
-        print("all group user annotations now: ")
-        annotations.forEach { annotation in
-            if let groupUserAnnotation = annotation as? GroupUserAnnotation {
-                print(groupUserAnnotation.email!)
-            } else {
-                print("not group user annotation")
-            }
-        }
         
-        if locations.count == 0 {
-            print("no locations")
-        }
-        
-        if Locations.groupUsers.count == 0 {
-            print("no groupUsers")
-        }
+//        print("all group user annotations now: ")
+//        annotations.forEach { annotation in
+//            if let groupUserAnnotation = annotation as? GroupUserAnnotation {
+//                print(groupUserAnnotation.email!)
+//            } else {
+//                print("not group user annotation")
+//            }
+//        }
+//
+//        if locations.count == 0 {
+//            print("no locations")
+//        }
+//
+//        if Locations.groupUsers.count == 0 {
+//            print("no groupUsers")
+//        }
     
     }
     
@@ -74,7 +75,6 @@ extension MKMapView {
         tempMarkerPoint.title = email
         
         self.addAnnotation(locationPoint)
-        //self.addAnnotation(tempMarkerPoint)
     }
     
     
@@ -108,5 +108,17 @@ extension MKMapView {
         }
         
         return (locationAlreadyExists, newLocation)
+    }
+}
+
+extension CLLocationCoordinate2D {
+    
+    /// Rounds the latitude and longitude to given places
+    /// - Parameter places: The amount of decimal places.
+    func roundTo(places: Int) -> CLLocationCoordinate2D {
+        let latitude = latitude.roundTo(places: places)
+        let longitude = longitude.roundTo(places: places)
+        
+        return CLLocationCoordinate2DMake(latitude, longitude)
     }
 }

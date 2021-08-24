@@ -18,6 +18,8 @@ class GroupUserAnnotationView: MKAnnotationView {
         let view = UIView(frame: CGRect(x: -40, y: -70, width: 70, height: 70))
         view.backgroundColor = .accentColor
         view.layer.cornerRadius = view.frame.width / 2
+        view.isUserInteractionEnabled = true
+        
         return view
     }()
     
@@ -48,6 +50,8 @@ class GroupUserAnnotationView: MKAnnotationView {
     }
     
     private func setupView() {
+        self.isUserInteractionEnabled = true
+        
         containerView.addSubview(bottomCornerView)
         bottomCornerView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20.0).isActive = true
         bottomCornerView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor, constant: 2).isActive = true

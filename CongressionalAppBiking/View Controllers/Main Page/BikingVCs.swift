@@ -14,6 +14,8 @@ class BikingVCs: UIViewController {
     var rideType: RideType!
     var map: MKMapView!
     
+    var userHasPannedAway: Bool! = false
+    
     var locationManager: CLLocationManager!
     
     var previousLatitude: Double! = 0.0, previousLongitude: Double! = 0.0
@@ -27,6 +29,8 @@ class BikingVCs: UIViewController {
     func setUp(map: MKMapView, rideType: RideType) {
         self.map = map
         self.rideType = rideType
+        
+        self.map.delegate = self
         
         self.customizeNavigationController()
         self.setUpUserLocation()
@@ -67,11 +71,25 @@ extension BikingVCs: CLLocationManagerDelegate {
     }
     
     func updatePreviousLocations(_ coordinate: CLLocationCoordinate2D) {
+        
+        if !userHasPannedAway {
+            self.recenterCamera()
+        }
         (previousLatitude, previousLongitude) = (coordinate.latitude, coordinate.longitude)
     }
 }
+
+extension BikingVCs: MKMapViewDelegate {
+    //User has panned away
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        userHasPannedAway = true
+        print("user has panned away")
+    }
+}
+
 //MARK: Initial Setup
 extension BikingVCs {
+    
     func customizeNavigationController() {
         self.navigationItem.largeTitleDisplayMode = .never
         
@@ -106,8 +124,9 @@ extension BikingVCs {
     }
     
     @objc func recenterCamera() {
-        let userLocation = locationManager.location ?? CLLocation(latitude: 0, longitude: 0)
+        let userLocation = locationManager.location?.coordinate.roundTo(places: 4) ?? CLLocationCoordinate2DMake(0, 0)
         map.centerCameraTo(location: userLocation)
+        userHasPannedAway = false
     }
     
 }

@@ -22,10 +22,13 @@ class BikingGroupVC: BikingVCs {
         view.addSubview(loadingView)
         
         super.setUp(map: mapView, rideType: .group)
+        self.addGroupCodeToNavController()
+        
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         navigationController?.navigationItem.title = groupID
+        
         Locations.addNotifications(for: groupID)
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .locationUpdated, object: nil)
@@ -36,7 +39,20 @@ class BikingGroupVC: BikingVCs {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        uploadUserLocation(locationManager.location!.coordinate)
+        
+        if let userLocation = locationManager.location {
+            uploadUserLocation(userLocation.coordinate)
+        }
+    }
+    
+    func addGroupCodeToNavController() {
+        let groupCodeLabel = UILabel()
+        groupCodeLabel.font = UIFont(name: "DIN Alternate Bold", size: 20)
+        groupCodeLabel.text = "Group ID: " + groupID
+        groupCodeLabel.textColor = .accentColor
+        
+        let groupCodeItem = UIBarButtonItem(customView: groupCodeLabel)
+        self.navigationItem.leftBarButtonItems?.append(groupCodeItem)
     }
     
     deinit {
@@ -74,7 +90,7 @@ class BikingGroupVC: BikingVCs {
     
 }
 
-extension BikingGroupVC: MKMapViewDelegate {
+extension BikingGroupVC {
 
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -95,9 +111,13 @@ extension BikingGroupVC: MKMapViewDelegate {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
         }
         
-        //print(annotationIdentifier + " annotation added")
-        
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotationView = view as? GroupUserAnnotationView else { return }
+        
+        print("selected \((annotationView.annotation as! GroupUserAnnotation).email ?? "none")")
     }
     
 }
