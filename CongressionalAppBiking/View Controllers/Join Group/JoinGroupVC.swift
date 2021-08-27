@@ -41,8 +41,9 @@ class JoinGroupVC: UIViewController {
         
         
         //Verify profile view
+        profileView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToVerifyProfileVC)))
         profileView.layer.cornerRadius = 10
-        profileView.layer.borderWidth = 2
+        profileView.layer.borderWidth = 1
         profileView.layer.borderColor = UIColor.label.cgColor
         
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
@@ -186,6 +187,10 @@ class JoinGroupVC: UIViewController {
     }
     
     func updateProfileView() {
+        profileName.text = "Loading..."
+        profilePhoneNumber.text = "Loading..."
+        profilePicture.image = UIImage(systemName: "person.fill")
+        
         StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
             guard let user = groupUser else { print("no user"); return }
             
@@ -198,6 +203,13 @@ class JoinGroupVC: UIViewController {
             
         }
         
+    }
+    
+    @objc func goToVerifyProfileVC() {
+        let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+        vc.modalPresentationStyle = .fullScreen
+        vc.setPhoneNumberField(profilePhoneNumber.text!)
+        present(vc, animated: true)
     }
 
 }
@@ -258,16 +270,6 @@ extension JoinGroupVC {
     func addActionToButton(_ button: UIButton, selector: Selector = #selector(goToMainPage)) {
         button.addTarget(self, action: selector, for: .touchUpInside)
     }
-}
-
-// An attributed string extension to achieve colors on text.
-extension NSMutableAttributedString {
-
-    func setColor(color: UIColor, forText stringValue: String) {
-       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
-        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
-    }
-
 }
 
 enum RideType {

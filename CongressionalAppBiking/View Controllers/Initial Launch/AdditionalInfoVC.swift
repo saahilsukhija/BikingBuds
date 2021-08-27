@@ -14,6 +14,7 @@ class AdditionalInfoVC: UIViewController {
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var pictureChangeView: UIView!
     @IBOutlet weak var profilePictureImageView: UIImageView!
+    @IBOutlet weak var currentlyLoggedIn: UILabel!
     
     var currentUser: User!
     
@@ -33,7 +34,7 @@ class AdditionalInfoVC: UIViewController {
         phoneNumberTextField.delegate = self
         
         phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+
         //Round view
         pictureChangeView.layer.cornerRadius = 10
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageChoice(_:)))
@@ -53,6 +54,12 @@ class AdditionalInfoVC: UIViewController {
             currentUser = Auth.auth().currentUser
             nameTextField.text = currentUser.displayName
             phoneNumberTextField.text = phoneNumber
+            
+            //Not _____? Switch Accounts.
+            let mutableString = NSMutableAttributedString(string: "Not \(currentUser.email!)? Switch Accounts.", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
+            mutableString.setColor(color: .accentColor, forText: "Switch Accounts.")
+            mutableString.addUnderline(forText: currentUser.email!)
+            currentlyLoggedIn.attributedText = mutableString
             
             //Profile Picture
             StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: currentUser.email!)
@@ -160,25 +167,6 @@ extension AdditionalInfoVC: UIImagePickerControllerDelegate, UINavigationControl
         picker.dismiss(animated:  true, completion: nil)
     }
     
-    func cropImageToSquare(_ image: UIImage) -> UIImage {
-        let orientation: UIDeviceOrientation = UIDevice.current.orientation
-        var imageWidth = image.size.width
-        var imageHeight = image.size.height
-        switch orientation {
-        case .landscapeLeft, .landscapeRight:
-            // Swap width and height if orientation is landscape
-            imageWidth = image.size.height
-            imageHeight = image.size.width
-        default:
-            break
-        }
-        
-        // The center coordinate along Y axis
-        let rcy = imageHeight * 0.5
-        let rect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth)
-        let imageRef = image.cgImage?.cropping(to: rect)
-        return UIImage(cgImage: imageRef!, scale: 1.0, orientation: image.imageOrientation)
-    }
     
 }
 
