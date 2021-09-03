@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Group Members-->
+        <scene sceneID="Spn-qx-jdO">
+            <objects>
+                <viewController id="DSi-mF-45s" customClass="BottomSheetInfoGroupVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u5v-cM-ctq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7D-8V-7mC">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="groupUserCell" rowHeight="75" id="jWR-1u-3wi" customClass="GroupUserTableViewCell" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jWR-1u-3wi" id="EO8-JX-5KR">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6PD-1U-8m2">
+                                                    <rect key="frame" x="5" y="5" width="65" height="65"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="6PD-1U-8m2" secondAttribute="height" multiplier="1:1" id="PtS-Tj-wXU"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hu2-mP-9l1">
+                                                    <rect key="frame" x="80" y="44.5" width="304" height="24.5"/>
+                                                    <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4P-gX-DxR">
+                                                    <rect key="frame" x="80" y="5" width="304" height="24.5"/>
+                                                    <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hu2-mP-9l1" secondAttribute="trailing" constant="10" id="8Oq-xF-yfq"/>
+                                                <constraint firstItem="6PD-1U-8m2" firstAttribute="leading" secondItem="EO8-JX-5KR" secondAttribute="leading" constant="5" id="Bwq-Er-VpU"/>
+                                                <constraint firstItem="s4P-gX-DxR" firstAttribute="top" secondItem="EO8-JX-5KR" secondAttribute="top" constant="5" id="DUV-gP-aie"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="s4P-gX-DxR" secondAttribute="trailing" constant="10" id="Ld8-Hz-EVn"/>
+                                                <constraint firstItem="hu2-mP-9l1" firstAttribute="leading" secondItem="6PD-1U-8m2" secondAttribute="trailing" constant="10" id="Pke-so-t7U"/>
+                                                <constraint firstItem="6PD-1U-8m2" firstAttribute="top" secondItem="EO8-JX-5KR" secondAttribute="top" constant="5" id="gRO-18-unc"/>
+                                                <constraint firstItem="s4P-gX-DxR" firstAttribute="leading" secondItem="6PD-1U-8m2" secondAttribute="trailing" constant="10" id="jSs-vN-aUE"/>
+                                                <constraint firstAttribute="bottom" secondItem="6PD-1U-8m2" secondAttribute="bottom" constant="5" id="lbc-Ct-krF"/>
+                                                <constraint firstItem="hu2-mP-9l1" firstAttribute="bottom" secondItem="EO8-JX-5KR" secondAttribute="bottomMargin" constant="5" id="upU-Bb-ufQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <connections>
+                                            <outlet property="profileImage" destination="6PD-1U-8m2" id="yxD-T5-UYC"/>
+                                            <outlet property="profileName" destination="s4P-gX-DxR" id="ANt-FE-UAt"/>
+                                            <outlet property="profilePhoneNumber" destination="hu2-mP-9l1" id="HRX-ya-pIG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WY9-6Y-mMH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WY9-6Y-mMH" firstAttribute="bottom" secondItem="L7D-8V-7mC" secondAttribute="bottom" id="hq5-l7-P8R"/>
+                            <constraint firstItem="L7D-8V-7mC" firstAttribute="top" secondItem="WY9-6Y-mMH" secondAttribute="top" id="mik-GD-bsB"/>
+                            <constraint firstItem="L7D-8V-7mC" firstAttribute="leading" secondItem="WY9-6Y-mMH" secondAttribute="leading" id="x6q-Gy-lVW"/>
+                            <constraint firstItem="WY9-6Y-mMH" firstAttribute="trailing" secondItem="L7D-8V-7mC" secondAttribute="trailing" id="z8n-2Q-pCb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Group Members" id="eE9-MX-ksa"/>
+                    <connections>
+                        <outlet property="tableView" destination="L7D-8V-7mC" id="Ucp-E5-ScR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z14-PT-eF7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3155.072463768116" y="-610.04464285714278"/>
+        </scene>
+        <!--Group User LocationVC-->
+        <scene sceneID="Ge5-gr-U5T">
+            <objects>
+                <viewController storyboardIdentifier="groupUserLocationScreen" id="Jwe-wA-PO4" customClass="GroupUserLocationVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VLj-ug-phQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="B2L-l7-dnv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bm4-on-Atk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4264" y="-610"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8FX-Or-fQo">
+            <objects>
+                <navigationController storyboardIdentifier="groupBottomSheetNav" automaticallyAdjustsScrollViewInsets="NO" id="1lX-xn-i3Y" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O5A-ZC-4QD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DSi-mF-45s" kind="relationship" relationship="rootViewController" id="bfT-wW-9BD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BCy-Kk-4VU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2244.927536231884" y="-610.04464285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

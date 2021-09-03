@@ -25,7 +25,6 @@ extension MKMapView {
     /// - Parameter includingSelf: Draw Current User on the map as well (defaulted to false)
     func drawAllGroupMembers(includingSelf: Bool = true) {
         
-        removeAnnotations(annotations)
         var locations = Locations.locations!
         
         //Remove current user (only if you don't want to draw the current user)
@@ -38,24 +37,6 @@ extension MKMapView {
         for (user, location) in locations {
             drawGroupMember(email: user.email, location: location)
         }
-        
-        
-//        print("all group user annotations now: ")
-//        annotations.forEach { annotation in
-//            if let groupUserAnnotation = annotation as? GroupUserAnnotation {
-//                print(groupUserAnnotation.email!)
-//            } else {
-//                print("not group user annotation")
-//            }
-//        }
-//
-//        if locations.count == 0 {
-//            print("no locations")
-//        }
-//
-//        if Locations.groupUsers.count == 0 {
-//            print("no groupUsers")
-//        }
     
     }
     
@@ -64,19 +45,19 @@ extension MKMapView {
     ///   - email: The email of the user to draw
     ///   - location: The location of the user to draw
     func drawGroupMember(email: String, location: CLLocationCoordinate2D) {
-        let locationPoint = GroupUserAnnotation()
-        locationPoint.coordinate = location//annotationAlreadyExists(at: location).1
-        locationPoint.email = email
-        locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture!.toImage()
-        locationPoint.title = email
         
-        let tempMarkerPoint = MKPointAnnotation()
-        tempMarkerPoint.coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-        tempMarkerPoint.title = email
-        
-        self.addAnnotation(locationPoint)
+        if annotations.numberOfAnnotations(for: email) > 0 {
+            annotations.getGroupUserAnnotation(for: email)!.coordinate = location
+        } else {
+            let locationPoint = GroupUserAnnotation()
+            locationPoint.coordinate = location
+            locationPoint.email = email
+            locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture!.toImage()
+            locationPoint.title = email
+            
+            self.addAnnotation(locationPoint)
+        }
     }
-    
     
     /// Used to not overlap annotations.
     /// - Parameter location: Location of the annotation to plot
@@ -109,6 +90,10 @@ extension MKMapView {
         
         return (locationAlreadyExists, newLocation)
     }
+    
+    func contains(coordinate: CLLocationCoordinate2D) -> Bool {
+        return self.visibleMapRect.contains(MKMapPoint(coordinate))
+    }
 }
 
 extension CLLocationCoordinate2D {
@@ -120,5 +105,30 @@ extension CLLocationCoordinate2D {
         let longitude = longitude.roundTo(places: places)
         
         return CLLocationCoordinate2DMake(latitude, longitude)
+    }
+}
+
+extension Array where Element == MKAnnotation {
+    func getGroupUserAnnotation(for email: String) -> GroupUserAnnotation? {
+        
+        var matches: [GroupUserAnnotation] = []
+        for annotation in self {
+            if (annotation as? GroupUserAnnotation)?.email == email {
+                matches.append(annotation as! GroupUserAnnotation)
+            }
+        }
+        return matches.last
+    }
+    
+    func numberOfAnnotations(for email: String) -> Int {
+        var count = 0
+        
+        for annotation in self {
+            if (annotation as? GroupUserAnnotation)?.email == email {
+                count += 1
+            }
+        }
+        
+        return count
     }
 }

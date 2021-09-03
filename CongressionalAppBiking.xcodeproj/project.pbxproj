@@ -14,6 +14,10 @@
 		9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5B26BD044B00C82543 /* CrossX.json */; };
 		9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */; };
 		9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */; };
+		9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */; };
+		9AB04F6C26DADC870076B190 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6B26DADC870076B190 /* Preferences.swift */; };
+		9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AB04F6D26DAEEA60076B190 /* GroupBottomSheet.storyboard */; };
+		9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */; };
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
@@ -75,6 +79,10 @@
 		9A2C5C5B26BD044B00C82543 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
 		9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetInfoGroupVC.swift; sourceTree = "<group>"; };
 		9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredLabels.swift; sourceTree = "<group>"; };
+		9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell.swift; sourceTree = "<group>"; };
+		9AB04F6B26DADC870076B190 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		9AB04F6D26DAEEA60076B190 /* GroupBottomSheet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GroupBottomSheet.storyboard; sourceTree = "<group>"; };
+		9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserLocationVC.swift; sourceTree = "<group>"; };
 		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
@@ -185,6 +193,25 @@
 			path = "Join Group";
 			sourceTree = "<group>";
 		};
+		9AB04F6826D8BB770076B190 /* GroupVCs */ = {
+			isa = PBXGroup;
+			children = (
+				9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */,
+				9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */,
+				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
+				9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */,
+			);
+			path = GroupVCs;
+			sourceTree = "<group>";
+		};
+		9AB04F6F26DAEECA0076B190 /* BottomSheets */ = {
+			isa = PBXGroup;
+			children = (
+				9AB04F6D26DAEEA60076B190 /* GroupBottomSheet.storyboard */,
+			);
+			path = BottomSheets;
+			sourceTree = "<group>";
+		};
 		9ADEAA662697D117005BB706 /* Data Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +219,7 @@
 				9ADEAA8726B44D12005BB706 /* Group.swift */,
 				9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */,
 				9ADEAA7426997548005BB706 /* UserDefaults.swift */,
+				9AB04F6B26DADC870076B190 /* Preferences.swift */,
 				9ADEAA9026B85EB3005BB706 /* Locations.swift */,
 			);
 			path = "Data Objects";
@@ -235,8 +263,7 @@
 		9ADEAA7C26997C8B005BB706 /* Main Page */ = {
 			isa = PBXGroup;
 			children = (
-				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
-				9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */,
+				9AB04F6826D8BB770076B190 /* GroupVCs */,
 				9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */,
 			);
 			path = "Main Page";
@@ -328,6 +355,7 @@
 				9AE042B62696E02700FC86AD /* Main.storyboard */,
 				9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */,
 				9ADEAA7826997C48005BB706 /* MainPage.storyboard */,
+				9AB04F6F26DAEECA0076B190 /* BottomSheets */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -461,6 +489,7 @@
 				9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */,
 				9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */,
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
+				9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */,
 				9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */,
 				9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
@@ -554,6 +583,7 @@
 				9ADEAA8226ACEAD6005BB706 /* Alert.swift in Sources */,
 				9ADEAA8026ACE556005BB706 /* RealtimeUploads.swift in Sources */,
 				9ADEAA7B26997C86005BB706 /* BikingGroupVC.swift in Sources */,
+				9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */,
 				9ADEAA9B26BCF463005BB706 /* TitleLabel.swift in Sources */,
 				9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */,
 				9ADEAA9626BCD5B7005BB706 /* AuthenticationHelpers.swift in Sources */,
@@ -569,11 +599,13 @@
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
+				9AB04F6C26DADC870076B190 /* Preferences.swift in Sources */,
 				9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */,
 				9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */,
 				9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */,
 				9ADEAA9126B85EB3005BB706 /* Locations.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
+				9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */,
 				9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

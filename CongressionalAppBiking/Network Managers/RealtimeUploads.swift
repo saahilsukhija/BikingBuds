@@ -56,23 +56,8 @@ struct UserLocation {
             print("oops1")
             return (0, 0)
         }
-//        switch locationManager.authorizationStatus {
-//
-//        case .notDetermined:
-//            print("not determined")
-//        case .restricted:
-//            print("restricted")
-//        case .denied:
-//            print("denied")
-//        case .authorizedAlways:
-//            print("always")
-//        case .authorizedWhenInUse:
-//            print("when in use")
-//        @unknown default:
-//            print("unknown")
-//        }
         
-        let coordinate = locationManager.location!.coordinate.roundTo(places: 4)
+        let coordinate = locationManager.location!.coordinate.roundTo(places: Preferences.coordinateRoundTo)
         return(coordinate.latitude, coordinate.longitude)
     }
 }

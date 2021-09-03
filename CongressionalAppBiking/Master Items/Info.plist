@@ -64,16 +64,16 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TODO</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs the photo library to choose a picture for your profile</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs the camera to take a picture for your profile</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location When In Use</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>TODO</string>
+	<string>Location Always AND In use</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>TODO</string>
+	<string>Loation Always</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

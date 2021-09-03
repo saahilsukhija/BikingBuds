@@ -57,6 +57,7 @@ PODS:
   - FirebaseUI/Storage (8.5.1):
     - Firebase/Storage (~> 6.0)
     - SDWebImage (~> 5.6)
+  - FloatingPanel (2.4.0)
   - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
@@ -104,7 +105,6 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
-  - Pulley (2.9.1)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -115,9 +115,9 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FirebaseUI/Storage
+  - FloatingPanel
   - GoogleSignIn
   - lottie-ios
-  - Pulley
 
 SPEC REPOS:
   trunk:
@@ -131,6 +131,7 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseStorage
     - FirebaseUI
+    - FloatingPanel
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
@@ -141,7 +142,6 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
-    - Pulley
     - SDWebImage
 
 SPEC CHECKSUMS:
@@ -155,6 +155,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
   FirebaseUI: 9df84336a56f1d755ae4c37d5885c237d3084b6b
+  FloatingPanel: fa60183672ed86313b9e241e34465e82211260e8
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
@@ -165,9 +166,8 @@ SPEC CHECKSUMS:
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
-  Pulley: a4c28c930958f42978d69631000bc1abb82cb232
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 56bafbfe4e2b1d52f2bbecefa902489a186e7cea
+PODFILE CHECKSUM: b291f213b6837679f56137a80d5ba438c928342e
 
 COCOAPODS: 1.10.1

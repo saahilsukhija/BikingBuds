@@ -40,4 +40,12 @@ extension Notification.Name {
     
     
     
+    ///MARK: Bottom Sheet Notifications
+    /// Notification when search bar is clicked in the Group Bottom Sheet
+    static var searchBarClicked: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    
+    
 }

@@ -60,23 +60,24 @@ class BikingGroupVC: BikingVCs {
     }
     
     @objc func userLocationsUpdated() {
+        ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)!.reloadGroupUsers()
         mapView.drawAllGroupMembers(includingSelf: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let latitude = locations[0].coordinate.latitude.roundTo(places: 4)
-        let longitude = locations[0].coordinate.longitude.roundTo(places: 4)
+        let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
+        let (latitude, longitude) = (location.latitude, location.longitude)
         
         if previousLatitude != latitude || previousLongitude != longitude {
-            uploadUserLocation(CLLocationCoordinate2DMake(latitude, longitude))
+            uploadUserLocation(location)
             print("previousCoordinate = \(previousLatitude ?? 0), \(previousLongitude ?? 0)")
             print("nowCoordinate = \(latitude), \(longitude)")
         } else {
             //Same Location, not uploading to cloud
         }
         
-        super.updatePreviousLocations(CLLocationCoordinate2DMake(latitude, longitude))
+        super.updatePreviousLocations(location)
     }
     
     func uploadUserLocation(_ location: CLLocationCoordinate2D) {
@@ -106,10 +107,12 @@ extension BikingGroupVC {
             annotationView = GroupUserAnnotationView(annotation: annotation as! GroupUserAnnotation, reuseIdentifier: annotationIdentifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIButton(type: .close)
+    
         } else {
             annotationIdentifier = "marker"
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
         }
+        
         
         return annotationView
     }
