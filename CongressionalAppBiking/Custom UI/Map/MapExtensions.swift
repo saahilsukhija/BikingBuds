@@ -7,14 +7,18 @@
 
 import MapKit
 import FirebaseAuth
+import FloatingPanel
+
 extension MKMapView {
     
     /// Center the camera to a specific point
     /// - Parameters:
     ///   - location: The center of the camera
     ///   - regionRadius: The zoom level/How much is being shown at once, defaults at 1000
-    func centerCameraTo(location: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000) {
-        let coordinateRegion = MKCoordinateRegion(center: location,
+    func centerCameraTo(location: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000, bottomSheet: FloatingPanelController? = nil) {
+        
+        let centerWithInset = CLLocationCoordinate2DMake(location.latitude - self.region.span.latitudeDelta * 0.3, location.longitude)
+        let coordinateRegion = MKCoordinateRegion(center: centerWithInset,
                                                   latitudinalMeters: regionRadius,
                                                   longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
@@ -54,7 +58,7 @@ extension MKMapView {
             locationPoint.email = email
             locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture!.toImage()
             locationPoint.title = email
-            
+
             self.addAnnotation(locationPoint)
         }
     }

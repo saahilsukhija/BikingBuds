@@ -45,6 +45,8 @@ class AdditionalInfoVC: UIViewController {
         profilePictureImageView.layer.borderWidth = 1
         profilePictureImageView.layer.borderColor = UIColor.label.cgColor
         
+        StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: Auth.auth().currentUser!.email!)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +64,7 @@ class AdditionalInfoVC: UIViewController {
             currentlyLoggedIn.attributedText = mutableString
             
             //Profile Picture
-            StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: currentUser.email!)
+            //StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: currentUser.email!)
         }
         else {
             showFailureToast(message: "Something went wrong logging in. Try Again.")
@@ -157,10 +159,9 @@ extension AdditionalInfoVC: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+        picker.dismiss(animated: true, completion: nil)
         let image = info[.editedImage] as! UIImage
         profilePictureImageView.image = image
-        picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

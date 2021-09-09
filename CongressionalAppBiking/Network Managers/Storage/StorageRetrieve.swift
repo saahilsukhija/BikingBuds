@@ -64,7 +64,7 @@ struct StorageRetrieve {
     }
     
     func setProfilePicture(for imageView: UIImageView, email: String) {
-        imageView.sd_setImage(with: storageRef.child("pictures/\(email)"), placeholderImage: .add)
+        imageView.sd_setImage(with: storageRef.child("pictures/\(email)"))
     }
     
     func getPhoneNumber(from user: User, completion: @escaping(String?) -> Void) {

@@ -14,8 +14,9 @@ class GroupUserAnnotation: MKPointAnnotation {
 }
 
 class GroupUserAnnotationView: MKAnnotationView {
-    private lazy var containerView: UIView = {
-        let view = UIView(frame: CGRect(x: -40, y: -70, width: 70, height: 70))
+    var inSelectedState: Bool = false
+    public lazy var containerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
         view.backgroundColor = .accentColor
         view.layer.cornerRadius = view.frame.width / 2
         view.isUserInteractionEnabled = true
@@ -23,19 +24,21 @@ class GroupUserAnnotationView: MKAnnotationView {
         return view
     }()
     
-    private lazy var imageView: UIImageView = {
+    public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = (annotation as! GroupUserAnnotation).image!
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private lazy var bottomCornerView: UIView = {
+    public lazy var bottomCornerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .accentColor
         view.layer.cornerRadius = 4.0
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -49,8 +52,8 @@ class GroupUserAnnotationView: MKAnnotationView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
-        self.isUserInteractionEnabled = true
+    public func setupView() {
+        subviews.forEach({ $0.removeFromSuperview() })
         
         containerView.addSubview(bottomCornerView)
         bottomCornerView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20.0).isActive = true
@@ -70,5 +73,58 @@ class GroupUserAnnotationView: MKAnnotationView {
         imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
         
         imageView.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        
+    }
+    
+    @objc func selectedSelf(_ sender: UITapGestureRecognizer) {
+        print("bam")
+    }
+    
+    public func makeAnnotationSelected() {
+        UIView.animate(withDuration: 0.2) {
+            self.containerView = {
+                let view = UIView(frame: CGRect(x: -10, y: -50, width: 90, height: 90))
+                view.backgroundColor = .selectedBlueColor
+                view.layer.cornerRadius = view.frame.width / 2
+                view.isUserInteractionEnabled = true
+                
+                return view
+            }()
+            
+            self.bottomCornerView = {
+                let view = UIView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.backgroundColor = .selectedBlueColor
+                view.layer.cornerRadius = 4.0
+                return view
+            }()
+        }
+        
+        
+        setupView()
+        
+    }
+    
+    public func makeAnnotationDeselected () {
+        UIView.animate(withDuration: 0.3) {
+            
+            self.containerView = {
+                let view = UIView(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
+                view.backgroundColor = .accentColor
+                view.layer.cornerRadius = view.frame.width / 2
+                view.isUserInteractionEnabled = true
+                
+                return view
+            }()
+            
+            self.bottomCornerView = {
+                let view = UIView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.backgroundColor = .accentColor
+                view.layer.cornerRadius = 4.0
+                return view
+            }()
+        }
+        setupView()
     }
 }

@@ -13,6 +13,7 @@ class BikingGroupVC: BikingVCs {
     
     @IBOutlet weak var mapView: MKMapView!
     var groupID: String!
+    var groupName: String!
     var loadingView: UIView!
     
     override func viewDidLoad() {
@@ -27,7 +28,9 @@ class BikingGroupVC: BikingVCs {
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
         mapView.showsUserLocation = false
-        navigationController?.navigationItem.title = groupID
+        
+        navigationController?.navigationItem.title = groupName
+        navigationController?.title = groupName
         
         Locations.addNotifications(for: groupID)
         
@@ -46,13 +49,20 @@ class BikingGroupVC: BikingVCs {
     }
     
     func addGroupCodeToNavController() {
-        let groupCodeLabel = UILabel()
-        groupCodeLabel.font = UIFont(name: "DIN Alternate Bold", size: 20)
-        groupCodeLabel.text = "Group ID: " + groupID
-        groupCodeLabel.textColor = .accentColor
+        let groupCodeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: navigationController?.navigationBar.frame.size.height ?? 75))
+        groupCodeLabel.font = UIFont(name: "Singhala Simhan MN", size: 16)
+        groupCodeLabel.text = groupName
+        groupCodeLabel.textColor = .black
+        groupCodeLabel.textAlignment = .center
         
-        let groupCodeItem = UIBarButtonItem(customView: groupCodeLabel)
-        self.navigationItem.leftBarButtonItems?.append(groupCodeItem)
+        groupCodeLabel.layer.cornerRadius = groupCodeLabel.frame.size.height / 2
+        groupCodeLabel.dropShadow()
+        //groupCodeLabel.layer.borderWidth = 1
+        //groupCodeLabel.layer.borderColor = UIColor.black.cgColor
+        
+        groupCodeLabel.layer.backgroundColor = UIColor.white.cgColor
+        
+        navigationItem.titleView = groupCodeLabel
     }
     
     deinit {
@@ -105,8 +115,7 @@ extension BikingGroupVC {
         if annotation.isKind(of: GroupUserAnnotation.self) {
             annotationIdentifier = "groupUser"
             annotationView = GroupUserAnnotationView(annotation: annotation as! GroupUserAnnotation, reuseIdentifier: annotationIdentifier)
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .close)
+            annotationView.frame = (annotationView as! GroupUserAnnotationView).containerView.frame
     
         } else {
             annotationIdentifier = "marker"
@@ -118,9 +127,37 @@ extension BikingGroupVC {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("selectedAnnotation")
         guard let annotationView = view as? GroupUserAnnotationView else { return }
+        guard let bottomSheetVC = (bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC else { return }
+        guard annotationView.inSelectedState == false else { return }
         
-        print("selected \((annotationView.annotation as! GroupUserAnnotation).email ?? "none")")
+        (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
+        let groupUser = bottomSheetVC.groupUsers.groupUserFrom(email: (annotationView.annotation as! GroupUserAnnotation).email)!
+        let indexPath = IndexPath(row: bottomSheetVC.groupUsers.firstIndex(of: groupUser)!, section: 0)
+        bottomSheetVC.tableView(bottomSheetVC.tableView, didSelectRowAt: indexPath)
     }
     
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        print("deselectedAnnotation")
+        guard let annotationView = view as? GroupUserAnnotationView else { return }
+        guard annotationView.inSelectedState == false else { return }
+        
+        (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
+    }
+    
+    func makeMapAnnotation(_ annotationChangeType: AnnotationChangeType, for groupUser: GroupUser) {
+        guard let groupUserAnnotation = mapView.annotations.getGroupUserAnnotation(for: groupUser.email) else { return }
+        
+        guard let groupUserAnnotationView = mapView.view(for: groupUserAnnotation) as? GroupUserAnnotationView else { return }
+    
+        if annotationChangeType == .bigger {
+            groupUserAnnotationView.makeAnnotationSelected()
+        } else {
+            groupUserAnnotationView.makeAnnotationDeselected()
+        }
+        
+        mapView.drawGroupMember(email: groupUser.email, location: groupUserAnnotation.coordinate)
+        
+    }
 }

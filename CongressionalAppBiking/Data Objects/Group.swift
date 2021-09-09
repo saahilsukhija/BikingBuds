@@ -9,47 +9,51 @@ import Foundation
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
+
 struct Group {
     
     static func generateGroupNumber(completion: @escaping(String) -> Void) {
-        var hasFound = false
-        var number = resetNumber()
-        
-        getExistingIDs { [self] existingIDs in
-            
-            while !hasFound {
-                
-                if !groupExists(number, ids: existingIDs) {
-                    hasFound = true
-                    joinGroup(with: number)
-                    completion(String(number))
-                } else {
-                    print("redo")
-                    number = resetNumber()
+        let number = resetNumber()
+
+        groupExists(number) { exists in
+            if !exists {
+                joinGroup(with: number)
+                completion(String(number))
+            } else {
+                print("redo")
+                generateGroupNumber { groupNumber in
+                    completion(groupNumber)
                 }
             }
+            
         }
+        
     }
     
     static func resetNumber() -> Int {
         return Int.random(in: 100000...999999)
     }
     
+    static func uploadGroupName(_ name: String, for id: String) {
+        RealtimeUpload.upload(data: name, path: "rides/\(id)/name")
+    }
+    
     static func joinGroup(with id: Int, checkForExistingIDs: Bool = false, completion: ((Bool) -> Void)? = nil) {
         print("joining...")
         if checkForExistingIDs {
-            
-            getExistingIDs { ids in
-                if groupExists(id, ids: ids) {
+            groupExists(id) { exists in
+                if exists {
                     joinGroup(id: id)
                     print("joined")
                     completion?(true)
                 } else {
+                    print("error joining")
                     completion?(false)
                 }
             }
         }
         else {
+            print("joined")
             joinGroup(id: id)
         }
     }
@@ -78,25 +82,12 @@ struct Group {
         }
     }
     
-    static func groupExists(_ id: Int, ids: NSDictionary) -> Bool {
-
-        return (ids.allKeys as! [String]).contains(String(id))
-    }
-    
-    static func getExistingIDs(completion: @escaping(NSDictionary) -> Void) {
-        
-        var existingIDs: NSDictionary!
-        let ref = Database.database().reference().child("rides")
-
+    static func groupExists(_ id: Int, completion: @escaping(Bool) -> Void) {
+        let ref = Database.database().reference().child("rides/\(id)")
         ref.observeSingleEvent(of: .value) { snapshot in
-            if snapshot.exists() {
-                existingIDs = (snapshot.value as! NSDictionary)
-            } else {
-                existingIDs = NSDictionary()
-            }
-        
-            completion(existingIDs)
+            completion(snapshot.exists())
         }
+        
     }
 }
 

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 class BottomSheetInfoGroupVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -56,10 +56,32 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let groupUserVC = storyboard?.instantiateViewController(identifier: "groupUserLocationScreen") as! GroupUserLocationVC
-        groupUserVC.user = groupUsers[indexPath.row]
-        navigationController?.pushViewController(groupUserVC, animated: true)
+        
+        
+        //make groupUserAnnotation bigger or smaller, depending on if it's already selected
+        if let bikingGroupVCBackdrop = backdropView as? BikingGroupVC {
+            
+            let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: groupUsers[indexPath.row].email)!
+            //if annotationIsNOTSelected
+            if  bikingGroupVCBackdrop.map.selectedAnnotations.getGroupUserAnnotation(for: groupUsers[indexPath.row].email) == nil {
+                (bikingGroupVCBackdrop.map.view(for: groupUserAnnotation) as! GroupUserAnnotationView).inSelectedState = true
+                bikingGroupVCBackdrop.map.selectAnnotation(groupUserAnnotation, animated: true)
+            }
+            
+            let groupUserVC = storyboard?.instantiateViewController(identifier: "groupUserLocationScreen") as! GroupUserLocationVC
+            groupUserVC.user = groupUsers[indexPath.row]
+            navigationController?.pushViewController(groupUserVC, animated: true)
+            
+            //Center map to their location
+            if let selectedUserLocation = Locations.locations[groupUsers[indexPath.row]] {
+                backdropView.map.centerCameraTo(location: selectedUserLocation)
+            }
+            
+            bikingGroupVCBackdrop.makeMapAnnotation(.bigger, for: groupUsers[indexPath.row])
+            
+            
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -69,6 +91,10 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
 extension BottomSheetInfoGroupVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         NotificationCenter.default.post(name: .searchBarClicked, object: nil)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
     
 }

@@ -13,10 +13,15 @@ import Firebase
 
 class JoinGroupVC: UIViewController {
 
-    @IBOutlet weak var soloButton: RoundedButton!
-    @IBOutlet weak var groupButton: RoundedButton!
-    @IBOutlet weak var groupDetailsEnterView: UIView!
-    @IBOutlet weak var groupCodeTextField: UITextField!
+    @IBOutlet weak var joinGroupButton: RoundedButton!
+    @IBOutlet weak var createGroupButton: RoundedButton!
+    
+    @IBOutlet weak var joinGroupView: UIView!
+    @IBOutlet weak var joinGroupCodeTextField: UITextField!
+    
+    @IBOutlet weak var createGroupView: UIView!
+    @IBOutlet weak var createGroupNameTextField: UITextField!
+    
     @IBOutlet weak var goButton: RoundedButton!
     
     @IBOutlet weak var profileView: UIView!
@@ -24,8 +29,10 @@ class JoinGroupVC: UIViewController {
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profilePhoneNumber: UILabel!
     
-    var rideType: RideType!
+    var groupSelectionType: GroupSelectionType!
     var groupID: String?
+    var groupName: String?
+    
     var currentUser: User!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +43,14 @@ class JoinGroupVC: UIViewController {
         self.hideKeyboardWhenTappedAround()
         Authentication.addProfileChangesNotification()
         
-        groupDetailsEnterView.isHidden = true
-        groupCodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        joinGroupView.isHidden = true
+        joinGroupCodeTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        joinGroupCodeTextField.tag = 0
         
+        createGroupView.isHidden = true
+        createGroupNameTextField.delegate = self
+        createGroupNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        createGroupNameTextField.tag = 1
         
         //Verify profile view
         profileView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToVerifyProfileVC)))
@@ -54,16 +66,16 @@ class JoinGroupVC: UIViewController {
     @IBAction func goToMainPage(_ sender: Any) {
         
         //Make sure ride type is specified
-        guard rideType != nil else {
-            Alert.showDefaultAlert(title: "No Ride Type Selected", message: "Before continuing, you must select if you are riding solo or in a group", self)
+        guard groupSelectionType != nil else {
+            Alert.showDefaultAlert(title: "No Ride Type Selected", message: "Before continuing, you must select if you are creating a group or joining one.", self)
             return
         }
         
         //Joining existing group
-        if groupCodeTextField.text!.count == 6 {
+        if groupSelectionType == .join {
             let loadingView = createLoadingScreen(frame: view.frame)
             view.addSubview(loadingView)
-            Group.joinGroup(with: Int(groupCodeTextField.text!)!, checkForExistingIDs: true) { completed in
+            Group.joinGroup(with: Int(joinGroupCodeTextField.text!)!, checkForExistingIDs: true) { completed in
                 
                 guard completed else {
                     self.showFailureToast(message: "Group does not exist.")
@@ -79,6 +91,9 @@ class JoinGroupVC: UIViewController {
                 }
             }
         }
+        else if groupSelectionType == .create {
+            createGroup()
+        }
         
         
         
@@ -90,19 +105,12 @@ class JoinGroupVC: UIViewController {
         
         //Go to Next Page
         let storyboard = UIStoryboard(name: "MainPage", bundle: nil)
-        var goToVC: BikingVCs!
+        var goToVC: BikingGroupVC!
         
-        //Change the presenting view controller to solo or group, depending on user input
-        //TODO: -Still Complete
-        if rideType == .group {
-            goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC
-            (goToVC as! BikingGroupVC).groupID = groupID
-        } else {
-            goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen") as! BikingGroupVC
-        }
-        
-        goToVC.rideType = rideType
-        
+        goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen")
+        goToVC.groupID = groupID
+        goToVC.groupName = groupName
+        goToVC.rideType = .group
         let navigationController = UINavigationController(rootViewController: goToVC)
         navigationController.modalPresentationStyle = .fullScreen
         
@@ -112,40 +120,15 @@ class JoinGroupVC: UIViewController {
     }
     
     
-    @IBAction func soloButtonClicked(_ sender: Any) {
-        //Unselect Group Button
-        if rideType != .solo {
-            groupButton.backgroundColor = .unselectedGrayColor
-            groupDetailsEnterView.isHidden = true
-        }
+    @IBAction func joinGroupButtonClicked(_ sender: Any) {
+        //Unselect Create Button
+        createGroupButton.backgroundColor = .unselectedGrayColor
+        createGroupView.isHidden = true
         
-        soloButton.backgroundColor = .selectedBlueColor
-        goButton.backgroundColor = .selectedBlueColor
-        addActionToButton(goButton)
-        rideType = .solo
+        joinGroupView.isHidden = false
         
-        if Authentication.hasPreviousSignIn() {
-            do {
-                print("signed out")
-                try Auth.auth().signOut()
-                GIDSignIn.sharedInstance().signOut()
-                
-                checkFirstLaunch()
-            } catch {
-                print("error signing out")
-            }
-        }
-    }
-    
-    @IBAction func groupButtonClicked(_ sender: Any) {
-        //Unselect Solo Button
-        if rideType != .group {
-            soloButton.backgroundColor = .unselectedGrayColor
-            groupDetailsEnterView.isHidden = false
-        }
-        
-        //Code must be entered before go button is clicked (if group is selected)
-        if groupCodeTextField.text!.count != 6 {
+        //Code must be entered before go button is clicked (if "join" is selected)
+        if joinGroupCodeTextField.text!.count != 6 {
             removeActionFromButton(goButton)
             goButton.backgroundColor = .unselectedGrayColor
         } else {
@@ -153,17 +136,46 @@ class JoinGroupVC: UIViewController {
             goButton.backgroundColor = .selectedBlueColor
         }
         
-        groupButton.backgroundColor = .selectedBlueColor
-        rideType = .group
+        joinGroupButton.backgroundColor = .selectedBlueColor
+        groupSelectionType = .join
+    }
+    
+    @IBAction func createGroupButtonClicked(_ sender: Any) {
+        //Unselect Join Button
+        joinGroupButton.backgroundColor = .unselectedGrayColor
+        joinGroupView.isHidden = true
+        
+        createGroupView.isHidden = false
+        
+        createGroupButton.backgroundColor = .selectedBlueColor
+        
+        goButton.backgroundColor = .unselectedGrayColor
+        removeActionFromButton(goButton)
+        
+        groupSelectionType = .create
+        
+//        if Authentication.hasPreviousSignIn() {
+//            do {
+//                print("signed out")
+//                try Auth.auth().signOut()
+//                GIDSignIn.sharedInstance().signOut()
+//
+//                checkFirstLaunch()
+//            } catch {
+//                print("error signing out")
+//            }
+//        }
         
     }
     
-    @IBAction func createGroupClicked(_ sender: Any) {
+    func createGroup() {
         let loadingView = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingView)
         Group.generateGroupNumber { id in
             loadingView.removeFromSuperview()
+            Group.uploadGroupName(self.createGroupNameTextField.text!, for: id)
             self.showSuccessToast(message: "Created group, ID: \(id)")
+            self.groupName = self.createGroupNameTextField.text
             self.groupID = id
             self.goToBikingVC()
         }
@@ -187,11 +199,13 @@ class JoinGroupVC: UIViewController {
     }
     
     func updateProfileView() {
+        profileView.isUserInteractionEnabled = false
         profileName.text = "Loading..."
         profilePhoneNumber.text = "Loading..."
         profilePicture.image = UIImage(systemName: "person.fill")
         
         StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
+            profileView.isUserInteractionEnabled = true
             guard let user = groupUser else { print("no user"); return }
             
             profileName.text = user.displayName
@@ -219,25 +233,41 @@ extension JoinGroupVC: UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
-        if textField.text!.count > 6 {
-            //Shorten text to 6.
-            textField.text?.removeLast()
-            textField.endEditing(true)
-            
-            goButton.backgroundColor = .selectedBlueColor
-            addActionToButton(goButton)
-            
-            groupID = textField.text!
-        } else if textField.text!.count == 6 {
-            textField.endEditing(true)
-            goButton.backgroundColor = .selectedBlueColor
-            addActionToButton(goButton)
-            
-            groupID = textField.text!
-        } else {
-            goButton.backgroundColor = .unselectedGrayColor
-            removeActionFromButton(goButton)
+        if textField.tag == 0 {
+            if textField.text!.count > 6 {
+                //Shorten text to 6.
+                textField.text?.removeLast()
+                textField.endEditing(true)
+                
+                goButton.backgroundColor = .selectedBlueColor
+                addActionToButton(goButton)
+                
+                groupID = textField.text!
+            } else if textField.text!.count == 6 {
+                textField.endEditing(true)
+                goButton.backgroundColor = .selectedBlueColor
+                addActionToButton(goButton)
+                
+                groupID = textField.text!
+            } else {
+                goButton.backgroundColor = .unselectedGrayColor
+                removeActionFromButton(goButton)
+            }
+        } else if textField.tag == 1 {
+            if textField.text!.count > 0 {
+                goButton.backgroundColor = .selectedBlueColor
+                addActionToButton(goButton)
+            } else {
+                goButton.backgroundColor = .unselectedGrayColor
+                removeActionFromButton(goButton)
+            }
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        
+        return true
     }
 }
 
@@ -272,6 +302,10 @@ extension JoinGroupVC {
     }
 }
 
+enum GroupSelectionType {
+    case create
+    case join
+}
 enum RideType {
     case solo
     case group

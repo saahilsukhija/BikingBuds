@@ -18,6 +18,8 @@
 		9AB04F6C26DADC870076B190 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6B26DADC870076B190 /* Preferences.swift */; };
 		9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AB04F6D26DAEEA60076B190 /* GroupBottomSheet.storyboard */; };
 		9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */; };
+		9AB04F7326E589780076B190 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7226E589770076B190 /* ViewShadow.swift */; };
+		9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */; };
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
@@ -83,6 +85,8 @@
 		9AB04F6B26DADC870076B190 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9AB04F6D26DAEEA60076B190 /* GroupBottomSheet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GroupBottomSheet.storyboard; sourceTree = "<group>"; };
 		9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserLocationVC.swift; sourceTree = "<group>"; };
+		9AB04F7226E589770076B190 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
+		9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRideSettingsVC.swift; sourceTree = "<group>"; };
 		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				9ADEAA692697D23F005BB706 /* Toast.swift */,
 				9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */,
 				9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */,
+				9AB04F7226E589770076B190 /* ViewShadow.swift */,
 				9ADEAA9A26BCF462005BB706 /* TitleLabel.swift */,
 				9A11B1B126979F48009208E8 /* RoundedButton.swift */,
 				9ADEAA8126ACEAD6005BB706 /* Alert.swift */,
@@ -193,15 +198,14 @@
 			path = "Join Group";
 			sourceTree = "<group>";
 		};
-		9AB04F6826D8BB770076B190 /* GroupVCs */ = {
+		9AB04F6826D8BB770076B190 /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
 				9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */,
 				9AB04F7026E1CC100076B190 /* GroupUserLocationVC.swift */,
-				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
 				9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */,
 			);
-			path = GroupVCs;
+			path = BottomSheet;
 			sourceTree = "<group>";
 		};
 		9AB04F6F26DAEECA0076B190 /* BottomSheets */ = {
@@ -263,8 +267,10 @@
 		9ADEAA7C26997C8B005BB706 /* Main Page */ = {
 			isa = PBXGroup;
 			children = (
-				9AB04F6826D8BB770076B190 /* GroupVCs */,
+				9AB04F6826D8BB770076B190 /* BottomSheet */,
 				9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */,
+				9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */,
+				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
 			);
 			path = "Main Page";
 			sourceTree = "<group>";
@@ -585,12 +591,14 @@
 				9ADEAA7B26997C86005BB706 /* BikingGroupVC.swift in Sources */,
 				9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */,
 				9ADEAA9B26BCF463005BB706 /* TitleLabel.swift in Sources */,
+				9AB04F7326E589780076B190 /* ViewShadow.swift in Sources */,
 				9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */,
 				9ADEAA9626BCD5B7005BB706 /* AuthenticationHelpers.swift in Sources */,
 				9ADEAA8626B356AB005BB706 /* MapExtensions.swift in Sources */,
 				9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */,
 				9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */,
 				9ADEAA8826B44D13005BB706 /* Group.swift in Sources */,
+				9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */,
 				9ADEAA9926BCD867005BB706 /* StorageRetrieve.swift in Sources */,
 				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,

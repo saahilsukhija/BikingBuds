@@ -25,7 +25,7 @@ class GroupUserTableViewCell: UITableViewCell {
     
     func setProperties(from groupUser: GroupUser) {
         profileName.text = groupUser.displayName
-        profilePhoneNumber.text = groupUser.phoneNumber
+        //profilePhoneNumber.text = groupUser.phoneNumber
         profileImage.image = groupUser.profilePicture?.toImage()
         
         backgroundColor = .clear
