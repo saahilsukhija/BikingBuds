@@ -22,7 +22,7 @@ class BikingGroupVC: BikingVCs {
         loadingView = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingView)
         
-        super.setUp(map: mapView, rideType: .group)
+        super.setUp(map: mapView)
         self.addGroupCodeToNavController()
         
         mapView.delegate = self
@@ -45,7 +45,11 @@ class BikingGroupVC: BikingVCs {
         
         if let userLocation = locationManager.location {
             uploadUserLocation(userLocation.coordinate)
+        } else {
+            print("unable to change location on viewDidAppear")
         }
+        
+        Locations.resetGroupUsers(for: groupID)
     }
     
     func addGroupCodeToNavController() {
@@ -63,6 +67,80 @@ class BikingGroupVC: BikingVCs {
         groupCodeLabel.layer.backgroundColor = UIColor.white.cgColor
         
         navigationItem.titleView = groupCodeLabel
+        
+        configureInvitePeopleButton()
+        configureLeaveGroupButton()
+    }
+    
+    func configureInvitePeopleButton() {
+        let invitePeopleButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
+        invitePeopleButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        invitePeopleButton.setTitle("Invite People", for: .normal)
+        invitePeopleButton.setTitleColor(.accentColor, for: .normal)
+        
+        invitePeopleButton.backgroundColor = preferredBackgroundColor
+        invitePeopleButton.tintColor = .accentColor
+        invitePeopleButton.dropShadow()
+        invitePeopleButton.addTarget(self, action: #selector(openInvitePeopleScreen), for: .touchUpInside)
+        invitePeopleButton.layer.cornerRadius = invitePeopleButton.frame.size.height / 2
+        invitePeopleButton.layer.borderWidth = 1
+        invitePeopleButton.layer.borderColor = UIColor.label.cgColor
+        invitePeopleButton.layer.masksToBounds = true
+        
+        //Make invitePeople track the bottom
+        bottomSheet.view.addSubview(invitePeopleButton)
+        invitePeopleButton.isUserInteractionEnabled = true
+        invitePeopleButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let constraints: [NSLayoutConstraint] = [
+            invitePeopleButton.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
+                                                       constant: -5),
+            invitePeopleButton.leftAnchor.constraint(equalTo: bottomSheet.surfaceView.leftAnchor, constant: 5),
+            invitePeopleButton.widthAnchor.constraint(equalTo: bottomSheet.surfaceView.widthAnchor, constant: -view.frame.size.width / 2 - 10),
+            invitePeopleButton.heightAnchor.constraint(equalToConstant: 40)
+        ]
+        
+        
+        NSLayoutConstraint.activate(constraints)
+        
+    }
+    
+    func configureLeaveGroupButton() {
+        let leaveGroupButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
+        leaveGroupButton.setImage(UIImage(systemName: "figure.wave"), for: .normal)
+        leaveGroupButton.setTitle("Leave Group", for: .normal)
+        leaveGroupButton.setTitleColor(.systemRed, for: .normal)
+
+        leaveGroupButton.backgroundColor = preferredBackgroundColor
+        leaveGroupButton.tintColor = .systemRed
+        leaveGroupButton.dropShadow()
+        leaveGroupButton.addTarget(self, action: #selector(endRide), for: .touchUpInside)
+        leaveGroupButton.layer.cornerRadius = leaveGroupButton.frame.size.height / 2
+        leaveGroupButton.layer.borderWidth = 1
+        leaveGroupButton.layer.borderColor = UIColor.label.cgColor
+        leaveGroupButton.layer.masksToBounds = true
+        
+        //Make invitePeople track the bottom
+        bottomSheet.view.addSubview(leaveGroupButton)
+        leaveGroupButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let constraints: [NSLayoutConstraint] = [
+            leaveGroupButton.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
+                                                       constant: -5),
+            leaveGroupButton.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
+            leaveGroupButton.widthAnchor.constraint(equalTo: bottomSheet.surfaceView.widthAnchor, constant: -view.frame.size.width / 2 - 10),
+            leaveGroupButton.heightAnchor.constraint(equalToConstant: 40)
+        ]
+        
+        
+        NSLayoutConstraint.activate(constraints)
+        
+    }
+    
+    @objc func openInvitePeopleScreen() {
+        let vc = storyboard?.instantiateViewController(identifier: "shareCodeScreen") as! ShareInviteCodeVC
+        vc.group = groupID
+        self.present(vc, animated: true, completion: nil)
     }
     
     deinit {
@@ -70,19 +148,16 @@ class BikingGroupVC: BikingVCs {
     }
     
     @objc func userLocationsUpdated() {
-        ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)!.reloadGroupUsers()
+        ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
         mapView.drawAllGroupMembers(includingSelf: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
         let (latitude, longitude) = (location.latitude, location.longitude)
         
         if previousLatitude != latitude || previousLongitude != longitude {
             uploadUserLocation(location)
-            print("previousCoordinate = \(previousLatitude ?? 0), \(previousLongitude ?? 0)")
-            print("nowCoordinate = \(latitude), \(longitude)")
         } else {
             //Same Location, not uploading to cloud
         }
@@ -90,10 +165,21 @@ class BikingGroupVC: BikingVCs {
         super.updatePreviousLocations(location)
     }
     
+    override func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        super.locationManagerDidChangeAuthorization(manager)
+        
+        if let location = manager.location?.coordinate {
+            uploadUserLocation(location)
+            
+        }
+    }
+    
     func uploadUserLocation(_ location: CLLocationCoordinate2D) {
-        UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
-            if !completed {
-                print(message!)
+        if Authentication.riderType == .rider {
+            UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
+                if !completed {
+                    print(message!)
+                }
             }
         }
     }
@@ -133,9 +219,11 @@ extension BikingGroupVC {
         guard annotationView.inSelectedState == false else { return }
         
         (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
-        let groupUser = bottomSheetVC.groupUsers.groupUserFrom(email: (annotationView.annotation as! GroupUserAnnotation).email)!
-        let indexPath = IndexPath(row: bottomSheetVC.groupUsers.firstIndex(of: groupUser)!, section: 0)
-        bottomSheetVC.tableView(bottomSheetVC.tableView, didSelectRowAt: indexPath)
+        
+        if let groupUser = bottomSheetVC.groupUsers.groupUserFrom(email: (annotationView.annotation as? GroupUserAnnotation)?.email ?? "") {
+            let indexPath = IndexPath(row: bottomSheetVC.groupUsers.firstIndex(of: groupUser)!, section: 0)
+            bottomSheetVC.tableView(bottomSheetVC.tableView, didSelectRowAt: indexPath)
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

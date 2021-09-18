@@ -25,26 +25,43 @@ struct RealtimeUpload {
 /// Upload users current location to realtime database quickly
 struct UserLocationsUpload {
     static func uploadCurrentLocation(group: String, location: CLLocationCoordinate2D, completion: @escaping((Bool, String?) -> Void)) {
-        
         guard let user = Auth.auth().currentUser else {
             completion(false, "User not available")
             return
         }
         
-        let (latitude, longitude) = (location.latitude, location.longitude)
+        let (latitude, longitude) = (location.latitude.roundTo(places: Preferences.coordinateRoundTo), location.longitude.roundTo(places: Preferences.coordinateRoundTo))
         
         guard latitude != 0 || longitude != 0 else {
             completion(false, "Location Service not Enabled")
             return
         }
         
-        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/location/"
+        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/"
         
-        RealtimeUpload.upload(data: ["latitude" : latitude, "longitude" : longitude], path: path)
-        print("uploaded user location")
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date) % 12
         
+        let minutes = calendar.component(.minute, from: date)
+        
+        let fixedMinutes = minutes < 10 ? "0\(minutes)" : "\(minutes)"
+        let fixedHours = hour == 0 ? "12" : "\(hour)"
+
+        let locationDict = ["latitude" : latitude, "longitude" : longitude, "last_updated" : "\(fixedHours):\(fixedMinutes)"] as [String : Any]
+        let legalRiderType = HelperFunctions.makeLegalRiderType(Authentication.riderType ?? .rider)
+        RealtimeUpload.upload(data: ["rider_type" : legalRiderType, "location" : locationDict], path: path)
         completion(true, nil)
-    } 
+    }
+    
+    static func uploadUserRideType(_ rideType: RiderType, group: String) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/rider_type/"
+        RealtimeUpload.upload(data: HelperFunctions.makeLegalRiderType(rideType), path: path)
+    }
 }
 
 ///Returns users current location

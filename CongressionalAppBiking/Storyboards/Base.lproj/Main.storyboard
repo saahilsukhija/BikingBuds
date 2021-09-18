@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -19,17 +19,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="JoinGroupVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BikingBuds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-jV-x6l" customClass="TitleLabel" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="10" width="335" height="45"/>
+                                <rect key="frame" x="20" y="54" width="350" height="45"/>
                                 <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="38"/>
                                 <color key="textColor" name="blueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqw-x3-awk" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="587" width="335" height="60"/>
+                                <rect key="frame" x="20" y="730" width="350" height="60"/>
                                 <color key="backgroundColor" name="selectedBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="J5z-JT-sSq"/>
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wu5-ep-GNV" userLabel="Join Group Button" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="10" y="217.5" width="172.5" height="70"/>
+                                <rect key="frame" x="10" y="261.66666666666669" width="180" height="70"/>
                                 <color key="backgroundColor" name="unselectedGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="uD6-XS-Pu8"/>
@@ -68,23 +68,23 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify Your Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-fx-obN">
-                                <rect key="frame" x="10" y="75" width="355" height="32.5"/>
+                                <rect key="frame" x="10" y="119.00000000000001" width="370" height="32.666666666666671"/>
                                 <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
                                 <color key="textColor" name="blueColor"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-TD-DUQ">
-                                <rect key="frame" x="10" y="307.5" width="355" height="112.5"/>
+                                <rect key="frame" x="10" y="351.66666666666669" width="370" height="112.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyi-bq-7uu">
-                                        <rect key="frame" x="0.0" y="10" width="355" height="32.5"/>
+                                        <rect key="frame" x="0.0" y="10" width="370" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
                                         <color key="textColor" name="blueColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WH2-Q1-RiB">
-                                        <rect key="frame" x="0.0" y="52.5" width="355" height="50"/>
+                                        <rect key="frame" x="0.0" y="52.333333333333314" width="370" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="rCk-Qo-vJJ"/>
@@ -109,7 +109,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGj-3w-JNT" userLabel="Create Group Button" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="192.5" y="217.5" width="172.5" height="70"/>
+                                <rect key="frame" x="200" y="261.66666666666669" width="180" height="70"/>
                                 <color key="backgroundColor" name="unselectedGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="R2m-Rt-BP5"/>
@@ -129,17 +129,17 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsK-0F-1Fd">
-                                <rect key="frame" x="10" y="117.5" width="355" height="70"/>
+                                <rect key="frame" x="10" y="161.66666666666666" width="370" height="70"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Sm5-Yb-d7c">
-                                        <rect key="frame" x="5" y="6.5" width="60" height="57"/>
+                                        <rect key="frame" x="5" y="7" width="60" height="56.666666666666671"/>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Sm5-Yb-d7c" secondAttribute="height" multiplier="1:1" id="xqJ-er-CQN"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkl-Lv-HYh">
-                                        <rect key="frame" x="75" y="8" width="270" height="25"/>
+                                        <rect key="frame" x="75" y="8" width="285" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="69u-dF-bPR"/>
                                         </constraints>
@@ -148,7 +148,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRE-NV-m3y">
-                                        <rect key="frame" x="75" y="38" width="270" height="25"/>
+                                        <rect key="frame" x="75" y="38" width="285" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="nB0-rF-BwQ"/>
                                         </constraints>
@@ -172,16 +172,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04h-1Y-A3O" userLabel="Create Group View">
-                                <rect key="frame" x="10" y="307.5" width="355" height="112.5"/>
+                                <rect key="frame" x="10" y="351.66666666666669" width="370" height="112.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-22-wJT">
-                                        <rect key="frame" x="0.0" y="10" width="355" height="32.5"/>
+                                        <rect key="frame" x="0.0" y="10" width="370" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
                                         <color key="textColor" name="blueColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Biking Group" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xqh-qZ-juC">
-                                        <rect key="frame" x="0.0" y="52.5" width="355" height="50"/>
+                                        <rect key="frame" x="0.0" y="52.333333333333314" width="370" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="YbE-3W-XwL"/>
@@ -205,6 +205,19 @@
                                     <constraint firstItem="5af-22-wJT" firstAttribute="leading" secondItem="04h-1Y-A3O" secondAttribute="leading" id="wfN-lp-KR7"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNN-aM-K5n">
+                                <rect key="frame" x="10" y="474" width="370" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="tgG-fZ-PeF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="20"/>
+                                <state key="normal" title="Join as Rider. Change.">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeRiderType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mkp-ft-K9L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -218,6 +231,7 @@
                             <constraint firstItem="Wu5-ep-GNV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="I5I-Sv-Qzj"/>
                             <constraint firstItem="PsK-0F-1Fd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="OBC-gy-U03"/>
                             <constraint firstItem="B6A-jV-x6l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="OaH-Bx-Dmt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PNN-aM-K5n" secondAttribute="trailing" constant="10" id="Oeq-Mn-eTV"/>
                             <constraint firstItem="PsK-0F-1Fd" firstAttribute="top" secondItem="Y8K-fx-obN" secondAttribute="bottom" constant="10" id="Syn-hS-zPn"/>
                             <constraint firstItem="04h-1Y-A3O" firstAttribute="top" secondItem="Wu5-ep-GNV" secondAttribute="bottom" constant="20" id="VRN-VL-GVQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PsK-0F-1Fd" secondAttribute="trailing" constant="10" id="W5D-Mw-1SL"/>
@@ -230,13 +244,16 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wqw-x3-awk" secondAttribute="bottom" constant="20" id="ftD-C3-I7A"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqw-x3-awk" secondAttribute="trailing" constant="20" id="geo-TC-BTx"/>
                             <constraint firstItem="IGj-3w-JNT" firstAttribute="leading" secondItem="Wu5-ep-GNV" secondAttribute="trailing" constant="10" id="mYU-2A-aPQ"/>
+                            <constraint firstItem="PNN-aM-K5n" firstAttribute="top" secondItem="NsL-TD-DUQ" secondAttribute="bottom" constant="10" id="md8-JU-H4y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B6A-jV-x6l" secondAttribute="trailing" constant="20" id="nX9-EL-1es"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="04h-1Y-A3O" secondAttribute="trailing" constant="10" id="ni1-FR-d4w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y8K-fx-obN" secondAttribute="trailing" constant="10" id="uTP-q7-E2e"/>
+                            <constraint firstItem="PNN-aM-K5n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wTP-CG-PS8"/>
                             <constraint firstItem="NsL-TD-DUQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="yMJ-Ar-WQb"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="changeRiderType" destination="PNN-aM-K5n" id="TuT-Jy-Bzn"/>
                         <outlet property="createGroupButton" destination="IGj-3w-JNT" id="Ogm-1c-stG"/>
                         <outlet property="createGroupNameTextField" destination="Xqh-qZ-juC" id="qau-ss-Tu0"/>
                         <outlet property="createGroupView" destination="04h-1Y-A3O" id="Duz-I6-Fv7"/>

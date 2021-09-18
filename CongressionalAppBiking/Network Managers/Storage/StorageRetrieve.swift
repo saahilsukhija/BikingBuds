@@ -25,8 +25,8 @@ struct StorageRetrieve {
     func retrieveData(path: String, completion: @escaping(Data?) -> Void) {
         let dataRef = storageRef.child(path)
         
-        //2MB of data max
-        dataRef.getData(maxSize: 1024 * 1024 * 2) { data, error in
+        //5MB of data max
+        dataRef.getData(maxSize: 1024 * 1024 * 5) { data, error in
             if let error = error {
                 print(error.localizedDescription)
                 completion(nil)

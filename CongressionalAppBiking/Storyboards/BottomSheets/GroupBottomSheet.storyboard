@@ -63,9 +63,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <connections>
+                                            <outlet property="lastUpdatedAt" destination="hu2-mP-9l1" id="Jiq-tC-lYn"/>
                                             <outlet property="profileImage" destination="6PD-1U-8m2" id="yxD-T5-UYC"/>
                                             <outlet property="profileName" destination="s4P-gX-DxR" id="ANt-FE-UAt"/>
-                                            <outlet property="profilePhoneNumber" destination="hu2-mP-9l1" id="HRX-ya-pIG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -133,27 +133,6 @@
                                     <constraint firstItem="S2m-D7-yOw" firstAttribute="top" secondItem="NlJ-TG-KyY" secondAttribute="top" constant="5" id="xw7-Jk-R9w"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRB-n2-Jia" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="159" width="177" height="75"/>
-                                <color key="backgroundColor" name="AccentColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="1Ny-I8-MCt"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <state key="normal" title="Call">
-                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
-                                    <imageReference key="image" image="phone.fill" catalog="system" symbolScale="large"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="callUserButtonClicked:" destination="Jwe-wA-PO4" eventType="touchUpInside" id="mBW-df-iaC"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipk-a0-y7r" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
                                 <rect key="frame" x="217" y="159" width="177" height="75"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
@@ -175,6 +154,60 @@
                                     <action selector="callSOSButtonClicked:" destination="Jwe-wA-PO4" eventType="touchUpInside" id="YN7-wM-1w4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRB-n2-Jia" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                <rect key="frame" x="20" y="159" width="177" height="75"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="1Ny-I8-MCt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <state key="normal" title="Call">
+                                    <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                    <imageReference key="image" image="phone.fill" catalog="system" symbolScale="large"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="callUserButtonClicked:" destination="Jwe-wA-PO4" eventType="touchUpInside" id="mBW-df-iaC"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-Ry-Ygw">
+                                <rect key="frame" x="10" y="149" width="394" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Rider Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEt-vy-1QT">
+                                        <rect key="frame" x="10" y="10" width="374" height="27"/>
+                                        <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="23"/>
+                                        <color key="textColor" name="blueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1g-Fm-NEr">
+                                        <rect key="frame" x="10" y="50" width="374" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="mA7-tD-omr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
+                                        <state key="normal" title="Currently a ____. Change.">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="changeRiderTypeButtonClicked:" destination="Jwe-wA-PO4" eventType="touchUpInside" id="ZTU-L9-RnQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="WEt-vy-1QT" firstAttribute="top" secondItem="dDh-Ry-Ygw" secondAttribute="top" constant="10" id="Ecq-Fs-UWC"/>
+                                    <constraint firstAttribute="height" constant="100" id="JBU-lo-9sZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="w1g-Fm-NEr" secondAttribute="bottom" constant="10" id="K5y-Oe-T1B"/>
+                                    <constraint firstItem="w1g-Fm-NEr" firstAttribute="leading" secondItem="dDh-Ry-Ygw" secondAttribute="leading" constant="10" id="Ute-cu-RO1"/>
+                                    <constraint firstItem="WEt-vy-1QT" firstAttribute="leading" secondItem="dDh-Ry-Ygw" secondAttribute="leading" constant="10" id="bqI-QL-w9V"/>
+                                    <constraint firstAttribute="trailing" secondItem="WEt-vy-1QT" secondAttribute="trailing" constant="10" id="qD0-Fu-EpW"/>
+                                    <constraint firstAttribute="trailing" secondItem="w1g-Fm-NEr" secondAttribute="trailing" constant="10" id="vld-N9-2Zt"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="B2L-l7-dnv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -182,15 +215,22 @@
                             <constraint firstItem="IRB-n2-Jia" firstAttribute="top" secondItem="NlJ-TG-KyY" secondAttribute="bottom" constant="20" id="Aft-GW-HHE"/>
                             <constraint firstItem="NlJ-TG-KyY" firstAttribute="leading" secondItem="B2L-l7-dnv" secondAttribute="leading" constant="10" id="ENy-Fm-Nbc"/>
                             <constraint firstItem="B2L-l7-dnv" firstAttribute="trailing" secondItem="NlJ-TG-KyY" secondAttribute="trailing" constant="10" id="OAo-0I-KuG"/>
+                            <constraint firstItem="dDh-Ry-Ygw" firstAttribute="top" secondItem="NlJ-TG-KyY" secondAttribute="bottom" constant="10" id="SHZ-1w-BY4"/>
                             <constraint firstItem="NlJ-TG-KyY" firstAttribute="top" secondItem="B2L-l7-dnv" secondAttribute="top" constant="20" id="ZUR-qO-7T6"/>
                             <constraint firstItem="IRB-n2-Jia" firstAttribute="leading" secondItem="B2L-l7-dnv" secondAttribute="leading" constant="20" id="ZdO-05-0EB"/>
                             <constraint firstItem="B2L-l7-dnv" firstAttribute="trailing" secondItem="Ipk-a0-y7r" secondAttribute="trailing" constant="20" id="a9s-Yy-CKs"/>
                             <constraint firstItem="B2L-l7-dnv" firstAttribute="trailing" secondItem="IRB-n2-Jia" secondAttribute="trailing" multiplier="2" constant="20" id="aOi-VN-9IK"/>
                             <constraint firstItem="Ipk-a0-y7r" firstAttribute="top" secondItem="NlJ-TG-KyY" secondAttribute="bottom" constant="20" id="eFm-vm-8eL"/>
                             <constraint firstItem="Ipk-a0-y7r" firstAttribute="leading" secondItem="IRB-n2-Jia" secondAttribute="trailing" constant="20" id="hzg-SI-zcw"/>
+                            <constraint firstItem="B2L-l7-dnv" firstAttribute="trailing" secondItem="dDh-Ry-Ygw" secondAttribute="trailing" constant="10" id="iZU-MK-aSm"/>
+                            <constraint firstItem="dDh-Ry-Ygw" firstAttribute="leading" secondItem="B2L-l7-dnv" secondAttribute="leading" constant="10" id="ngL-FW-OFj"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="callPhoneButton" destination="IRB-n2-Jia" id="ZbY-cz-fFh"/>
+                        <outlet property="callSOSButton" destination="Ipk-a0-y7r" id="f2Z-uz-mME"/>
+                        <outlet property="changeGroupUserSettingsView" destination="dDh-Ry-Ygw" id="vs9-4d-TFS"/>
+                        <outlet property="changeRiderTypeButton" destination="w1g-Fm-NEr" id="HMW-u4-Qmk"/>
                         <outlet property="profileNameView" destination="fxa-Wm-hPz" id="NdU-YB-bSE"/>
                         <outlet property="profilePhoneView" destination="FKC-lB-Mg4" id="po4-dZ-Yyb"/>
                         <outlet property="profilePictureView" destination="S2m-D7-yOw" id="9VV-3p-SYE"/>
@@ -226,6 +266,12 @@
         <namedColor name="AccentColor">
             <color red="0.1809999942779541" green="0.7819865345954895" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="blueColor">
+            <color red="0.0" green="0.34509803921568627" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

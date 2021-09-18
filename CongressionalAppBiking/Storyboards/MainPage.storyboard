@@ -50,7 +50,53 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jG2-1q-MSz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1279" y="-277"/>
+            <point key="canvasLocation" x="1277" y="-381"/>
+        </scene>
+        <!--Share Invite CodeVC-->
+        <scene sceneID="575-lI-Jef">
+            <objects>
+                <viewController storyboardIdentifier="shareCodeScreen" id="eZG-fI-Kuc" customClass="ShareInviteCodeVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nSe-pM-j59">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFr-Jt-auX">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="27"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Invite Code" id="tjr-iy-klY"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-SQ-rDv">
+                                <rect key="frame" x="20" y="108" width="374" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="WDX-cS-6gs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yqD-m6-blT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yqD-m6-blT" firstAttribute="trailing" secondItem="5t7-SQ-rDv" secondAttribute="trailing" constant="20" id="HeV-rF-uKa"/>
+                            <constraint firstItem="WFr-Jt-auX" firstAttribute="top" secondItem="yqD-m6-blT" secondAttribute="top" id="fZs-ft-bDQ"/>
+                            <constraint firstItem="5t7-SQ-rDv" firstAttribute="top" secondItem="WFr-Jt-auX" secondAttribute="bottom" constant="20" id="g9t-wi-EC3"/>
+                            <constraint firstItem="5t7-SQ-rDv" firstAttribute="leading" secondItem="yqD-m6-blT" secondAttribute="leading" constant="20" id="mvn-eT-aRq"/>
+                            <constraint firstAttribute="trailing" secondItem="WFr-Jt-auX" secondAttribute="trailing" id="qv1-7G-jNn"/>
+                            <constraint firstItem="WFr-Jt-auX" firstAttribute="leading" secondItem="yqD-m6-blT" secondAttribute="leading" id="tiJ-M6-GGz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="groupCode" destination="5t7-SQ-rDv" id="awm-Vb-DX0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sdq-YB-vmJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="321"/>
         </scene>
     </scenes>
     <resources>

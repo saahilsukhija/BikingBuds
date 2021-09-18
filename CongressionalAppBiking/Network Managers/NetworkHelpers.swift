@@ -62,4 +62,28 @@ struct HelperFunctions {
     static func decodeFromString<T: Codable>(_ string: String, objectType: T.Type) throws -> T {
         return try JSONDecoder().decode(objectType, from: string.data(using: .utf8)!)
     }
+    
+    static func makeLegalRiderType(_ riderType: RiderType) -> String {
+        switch riderType {
+        case .rider:
+            return "rider"
+        case .spectator:
+            return "spectator"
+        case .notRidingCurrently:
+            return "notRidingCurrently"
+        }
+    }
+    
+    static func toRiderType(_ string: String) -> RiderType? {
+        switch string {
+        case "rider":
+            return .rider
+        case "spectator":
+            return .spectator
+        case "notRidingCurrently":
+            return .notRidingCurrently
+        default:
+            return nil
+        }
+    }
 }

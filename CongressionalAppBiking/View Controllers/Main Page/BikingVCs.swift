@@ -12,7 +12,6 @@ import FloatingPanel
 
 class BikingVCs: UIViewController {
 
-    var rideType: RideType!
     var map: MKMapView!
     
     var userHasPannedAway: Bool! = false
@@ -20,21 +19,23 @@ class BikingVCs: UIViewController {
     var previousLatitude: Double! = 0.0, previousLongitude: Double! = 0.0
     
     var bottomSheet: FloatingPanelController!
+    
+    var preferredBackgroundColor: UIColor!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view
+        preferredBackgroundColor = traitCollection.userInterfaceStyle == .dark ? .systemGray5 : .white
     }
     
-    func setUp(map: MKMapView, rideType: RideType) {
+    func setUp(map: MKMapView) {
         self.map = map
-        self.rideType = rideType
     
         self.map.delegate = self
         
+        self.addBottomSheet()
         self.customizeNavigationController()
         self.setUpUserLocation()
-        self.addBottomSheet()
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -64,21 +65,12 @@ extension BikingVCs: FloatingPanelControllerDelegate {
         // Create a new appearance.
         let appearance = SurfaceAppearance()
 
-//        // Define shadows
-//        let shadow = SurfaceAppearance.Shadow()
-//        shadow.color = .black
-//        shadow.offset = CGSize(width: 0, height: 12)
-//        shadow.radius = 12
-//        shadow.spread = 8
-//        appearance.shadows = [shadow]
-
         // Define corner radius and background color
-        appearance.cornerRadius = 8.0
-        appearance.backgroundColor = traitCollection.userInterfaceStyle == .dark ? .systemGray5 : .white
+        appearance.cornerRadius = 30
+        appearance.backgroundColor = preferredBackgroundColor
 
         // Set the new appearance
         bottomSheet.surfaceView.contentPadding = .init(top: 10, left: 0, bottom: 0, right: 0)
-        bottomSheet.surfaceView.containerView.layer.cornerRadius = 30
         bottomSheet.surfaceView.appearance = appearance
     }
     
@@ -89,15 +81,8 @@ extension BikingVCs: FloatingPanelControllerDelegate {
     }
     
     func addBottomSheet() {
-        if rideType == .group {
-            self.addBottomGroupSheet()
-        }
+        self.addBottomGroupSheet()
     }
-    
-    
-    
-    
-    
 }
 //MARK: Location Getters
 extension BikingVCs: CLLocationManagerDelegate {
@@ -106,9 +91,10 @@ extension BikingVCs: CLLocationManagerDelegate {
         if (CLLocationManager.locationServicesEnabled()) {
             locationManager = CLLocationManager()
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.activityType = .fitness
             locationManager.requestAlwaysAuthorization()
-            locationManager.showsBackgroundLocationIndicator = true;
+            locationManager.showsBackgroundLocationIndicator = true
+            locationManager.allowsBackgroundLocationUpdates = true
             locationManager.startUpdatingLocation()
         } else {
             print("BikingVCs location services not enabled")
@@ -116,7 +102,6 @@ extension BikingVCs: CLLocationManagerDelegate {
         
         self.recenterCamera()
         map.showsUserLocation = false
-        map.mapType = .mutedStandard
     
         
     }
@@ -124,13 +109,17 @@ extension BikingVCs: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
             
-        case .notDetermined, .restricted, .denied:
+        case .notDetermined:
             manager.requestAlwaysAuthorization()
+        case .restricted, .denied:
+            Alert.showDefaultAlert(title: "Restricted/Denied location services", message: "You have restricted/denied the location services. Go into settings and enable them for BikingBuds", self)
         case .authorizedAlways, .authorizedWhenInUse :
             self.recenterCamera()
         default:
             self.recenterCamera()
         }
+        
+        manager.requestAlwaysAuthorization()
     }
     
     func updatePreviousLocations(_ coordinate: CLLocationCoordinate2D) {
@@ -162,10 +151,12 @@ extension BikingVCs {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
+        let rightBarButtonCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        rightBarButtonCustomView.backgroundColor = .clear
         
         let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
-        settingsButton.backgroundColor = .systemBackground
+        settingsButton.backgroundColor = preferredBackgroundColor
         settingsButton.tintColor = .accentColor
     
         settingsButton.addTarget(self, action: #selector(openSettingsScreen), for: .touchUpInside)
@@ -174,24 +165,14 @@ extension BikingVCs {
         settingsButton.layer.borderColor = UIColor.label.cgColor
         settingsButton.layer.masksToBounds = true
         
-        
-        let invitePeopleButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        invitePeopleButton.setImage(UIImage(systemName: "person.crop.circle.fill.badge.plus"), for: .normal)
-        invitePeopleButton.backgroundColor = .systemBackground
-        invitePeopleButton.tintColor = .accentColor
-    
-        invitePeopleButton.addTarget(self, action: #selector(openInvitePeopleScreen), for: .touchUpInside)
-        invitePeopleButton.layer.cornerRadius = invitePeopleButton.frame.size.height / 2
-        invitePeopleButton.layer.borderWidth = 1
-        invitePeopleButton.layer.borderColor = UIColor.label.cgColor
-        invitePeopleButton.layer.masksToBounds = true
-        
-        self.navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: settingsButton), UIBarButtonItem(customView: invitePeopleButton)], animated: true)
+        rightBarButtonCustomView.addSubview(settingsButton)
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButtonCustomView)
         
         //Center camera
         let centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         centerCameraButton.setImage(UIImage(systemName: "location"), for: .normal)
-        centerCameraButton.backgroundColor = .systemBackground
+        centerCameraButton.backgroundColor = preferredBackgroundColor
         centerCameraButton.tintColor = .label
         
         centerCameraButton.addTarget(self, action: #selector(recenterCamera), for: .touchUpInside)
@@ -210,12 +191,13 @@ extension BikingVCs {
         //endRide()
     }
     
-    @objc func openInvitePeopleScreen() {
-        
-    }
-    
     @objc func endRide() {
-        self.dismiss(animated: true, completion: nil)
+        let bottomAlert = UIAlertController(title: "Are you sure you want to leave the group?", message: "You can join back in the future.", preferredStyle: .actionSheet)
+        bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        bottomAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(bottomAlert, animated: true, completion: nil)
     }
     
     @objc func recenterCamera() {

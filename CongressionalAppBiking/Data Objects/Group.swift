@@ -15,7 +15,7 @@ struct Group {
     static func generateGroupNumber(completion: @escaping(String) -> Void) {
         let number = resetNumber()
 
-        groupExists(number) { exists in
+        groupExists(number) { exists, _ in
             if !exists {
                 joinGroup(with: number)
                 completion(String(number))
@@ -38,17 +38,17 @@ struct Group {
         RealtimeUpload.upload(data: name, path: "rides/\(id)/name")
     }
     
-    static func joinGroup(with id: Int, checkForExistingIDs: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    static func joinGroup(with id: Int, checkForExistingIDs: Bool = false, completion: ((Bool, String?) -> Void)? = nil) {
         print("joining...")
         if checkForExistingIDs {
-            groupExists(id) { exists in
+            groupExists(id) { exists, name in
                 if exists {
                     joinGroup(id: id)
                     print("joined")
-                    completion?(true)
+                    completion?(true, name)
                 } else {
                     print("error joining")
-                    completion?(false)
+                    completion?(false, nil)
                 }
             }
         }
@@ -82,10 +82,15 @@ struct Group {
         }
     }
     
-    static func groupExists(_ id: Int, completion: @escaping(Bool) -> Void) {
+    static func groupExists(_ id: Int, completion: @escaping(Bool, String?) -> Void) {
         let ref = Database.database().reference().child("rides/\(id)")
         ref.observeSingleEvent(of: .value) { snapshot in
-            completion(snapshot.exists())
+            if snapshot.exists() {
+                print("here: \(snapshot.childSnapshot(forPath: "name"))")
+                completion(true, snapshot.childSnapshot(forPath: "name").value as? String)
+            } else {
+                completion(false, nil)
+            }
         }
         
     }

@@ -11,7 +11,7 @@ class GroupUserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileName: UILabel!
-    @IBOutlet weak var profilePhoneNumber: UILabel!
+    @IBOutlet weak var lastUpdatedAt: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,9 +23,13 @@ class GroupUserTableViewCell: UITableViewCell {
         
     }
     
-    func setProperties(from groupUser: GroupUser) {
-        profileName.text = groupUser.displayName
-        //profilePhoneNumber.text = groupUser.phoneNumber
+    func setProperties(from groupUser: GroupUser, lastUpdated: String, isCurrentUser: Bool) {
+        if isCurrentUser {
+            profileName.text = groupUser.displayName + " (You)"
+        } else {
+            profileName.text = groupUser.displayName
+        }
+        lastUpdatedAt.text = "Last Updated: \(lastUpdated)"
         profileImage.image = groupUser.profilePicture?.toImage()
         
         backgroundColor = .clear

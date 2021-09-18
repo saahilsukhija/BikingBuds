@@ -24,6 +24,8 @@ class JoinGroupVC: UIViewController {
     
     @IBOutlet weak var goButton: RoundedButton!
     
+    @IBOutlet weak var changeRiderType: UIButton!
+    
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var profileName: UILabel!
@@ -32,6 +34,7 @@ class JoinGroupVC: UIViewController {
     var groupSelectionType: GroupSelectionType!
     var groupID: String?
     var groupName: String?
+    var riderType: RiderType! = .rider
     
     var currentUser: User!
     override func viewDidLoad() {
@@ -61,6 +64,10 @@ class JoinGroupVC: UIViewController {
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
         profilePicture.layer.borderWidth = 1
         profilePicture.layer.borderColor = UIColor.label.cgColor
+        
+        joinGroupButtonClicked(self)
+        
+        updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
     }
     
     @IBAction func goToMainPage(_ sender: Any) {
@@ -75,7 +82,7 @@ class JoinGroupVC: UIViewController {
         if groupSelectionType == .join {
             let loadingView = createLoadingScreen(frame: view.frame)
             view.addSubview(loadingView)
-            Group.joinGroup(with: Int(joinGroupCodeTextField.text!)!, checkForExistingIDs: true) { completed in
+            Group.joinGroup(with: Int(joinGroupCodeTextField.text!)!, checkForExistingIDs: true) { completed, name in
                 
                 guard completed else {
                     self.showFailureToast(message: "Group does not exist.")
@@ -83,6 +90,7 @@ class JoinGroupVC: UIViewController {
                     return
                 }
                 
+                self.groupName = name
                 self.showSuccessToast(message: "Joined!")
                 self.goToBikingVC()
                 
@@ -110,7 +118,9 @@ class JoinGroupVC: UIViewController {
         goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen")
         goToVC.groupID = groupID
         goToVC.groupName = groupName
-        goToVC.rideType = .group
+        
+        Authentication.riderType = riderType
+        //Locations.groupID = groupID
         let navigationController = UINavigationController(rootViewController: goToVC)
         navigationController.modalPresentationStyle = .fullScreen
         
@@ -149,7 +159,14 @@ class JoinGroupVC: UIViewController {
         
         createGroupButton.backgroundColor = .selectedBlueColor
         
-        goButton.backgroundColor = .unselectedGrayColor
+        //Name must be entered before go button is clicked (if "join" is selected)
+        if createGroupNameTextField.text!.count == 0 {
+            removeActionFromButton(goButton)
+            goButton.backgroundColor = .unselectedGrayColor
+        } else {
+            addActionToButton(goButton)
+            goButton.backgroundColor = .selectedBlueColor
+        }
         removeActionFromButton(goButton)
         
         groupSelectionType = .create
@@ -179,6 +196,34 @@ class JoinGroupVC: UIViewController {
             self.groupID = id
             self.goToBikingVC()
         }
+    }
+    
+    @IBAction func changeRiderType(_ sender: Any) {
+        let changeChoices = UIAlertController(title: "Change Ride Type", message: "Join as a specific role. Defaulted to Rider", preferredStyle: .actionSheet)
+        
+        changeChoices.addAction(UIAlertAction(title: "Rider", style: .default, handler: { [self] _ in
+            riderType = .rider
+            updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
+        }))
+        changeChoices.addAction(UIAlertAction(title: "Non-Rider / Spectator", style: .default, handler: { [self] _ in
+            riderType = .spectator
+            updateChangeRiderTypeButton(with: "Join as a Non-Rider. Change.")
+        }))
+        changeChoices.addAction(UIAlertAction(title: "Not Riding This Time", style: .default, handler: { [self] _ in
+            riderType = .notRidingCurrently
+            updateChangeRiderTypeButton(with: "Join as a 'Not Riding Now'. Change.")
+        }))
+        
+        
+        changeChoices.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(changeChoices, animated: true, completion: nil)
+        
+    }
+    
+    func updateChangeRiderTypeButton(with string: String) {
+        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Sinhala Sangam MN", size: 20)!])
+        mutableTitle.setColor(color: .accentColor, forText: "Change.")
+        changeRiderType.setAttributedTitle(mutableTitle, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -306,7 +351,21 @@ enum GroupSelectionType {
     case create
     case join
 }
-enum RideType {
-    case solo
-    case group
+
+enum RiderType {
+    case rider
+    case spectator
+    case notRidingCurrently
+}
+
+extension UILabel {
+    func setTextWhileKeepingAttributes(string: String) {
+        if let newAttributedText = self.attributedText {
+            let mutableAttributedText = newAttributedText.mutableCopy()
+
+            (mutableAttributedText as AnyObject).mutableString.setString(string)
+
+            self.attributedText = mutableAttributedText as? NSAttributedString
+        }
+    }
 }

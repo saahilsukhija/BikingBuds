@@ -19,6 +19,8 @@ struct Authentication {
     
     static var image: UIImage?
     
+    static var riderType: RiderType?
+    
     static func addProfileChangesNotification() {
         Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
