@@ -247,6 +247,7 @@ class JoinGroupVC: UIViewController {
             emergencyPhoneNumber = user.emergencyPhoneNumber
             profilePhoneNumber.text = user.phoneNumber
             Authentication.phoneNumber = user.phoneNumber
+            Authentication.emergencyPhoneNumber = user.emergencyPhoneNumber
             
             profilePicture.image = user.profilePicture?.toImage()
             

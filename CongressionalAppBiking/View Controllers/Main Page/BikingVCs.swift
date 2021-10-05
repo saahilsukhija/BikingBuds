@@ -204,6 +204,27 @@ extension BikingVCs {
         
         darkOverlayView = UIView(frame: view.frame)
         darkOverlayView.backgroundColor = .systemGray6
+        
+        var secondsRemaining = 15
+        //Timer
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+            if secondsRemaining > 0 {
+                countdownLabel.text = "\(secondsRemaining)"
+                secondsRemaining -= 1
+            } else {
+                countdownLabel.text = "0"
+                Timer.invalidate()
+                self.shouldCallEmergencyContact()
+            }
+        }
+    }
+    
+    @objc func shouldCallEmergencyContact() {
+        if let phoneNumber = Authentication.emergencyPhoneNumber?.toLegalPhoneNumber(), let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            print("error with phoneNumber")
+        }
     }
     
     func userDidFall() {
@@ -237,7 +258,7 @@ extension BikingVCs {
         
         fallOverlayView.removeFromSuperview()
         darkOverlayView.removeFromSuperview()
-        
+
         self.showAnimationToast(animationName: "MutePhone", message: "Cancelled Call.", color: .systemBlue, fontColor: .systemBlue, speed: 0.5)
     }
 }
