@@ -30,6 +30,7 @@ class JoinGroupVC: UIViewController {
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profilePhoneNumber: UILabel!
+    var emergencyPhoneNumber: String?
     
     var groupSelectionType: GroupSelectionType!
     var groupID: String?
@@ -68,6 +69,8 @@ class JoinGroupVC: UIViewController {
         joinGroupButtonClicked(self)
         
         updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
+        
+        
     }
     
     @IBAction func goToMainPage(_ sender: Any) {
@@ -118,7 +121,7 @@ class JoinGroupVC: UIViewController {
         goToVC = storyboard.instantiateViewController(identifier: "bikingGroupScreen")
         goToVC.groupID = groupID
         goToVC.groupName = groupName
-        
+        UserLocationsUpload.uploadUserRideType(riderType, group: groupID!)
         Authentication.riderType = riderType
         //Locations.groupID = groupID
         let navigationController = UINavigationController(rootViewController: goToVC)
@@ -171,18 +174,6 @@ class JoinGroupVC: UIViewController {
         
         groupSelectionType = .create
         
-//        if Authentication.hasPreviousSignIn() {
-//            do {
-//                print("signed out")
-//                try Auth.auth().signOut()
-//                GIDSignIn.sharedInstance().signOut()
-//
-//                checkFirstLaunch()
-//            } catch {
-//                print("error signing out")
-//            }
-//        }
-        
     }
     
     func createGroup() {
@@ -200,18 +191,17 @@ class JoinGroupVC: UIViewController {
     
     @IBAction func changeRiderType(_ sender: Any) {
         let changeChoices = UIAlertController(title: "Change Ride Type", message: "Join as a specific role. Defaulted to Rider", preferredStyle: .actionSheet)
+        changeChoices.view.tintColor = .accentColor
         
         changeChoices.addAction(UIAlertAction(title: "Rider", style: .default, handler: { [self] _ in
             riderType = .rider
             updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
+            NotificationCenter.default.post(name: .userIsRider, object: nil)
         }))
         changeChoices.addAction(UIAlertAction(title: "Non-Rider / Spectator", style: .default, handler: { [self] _ in
             riderType = .spectator
             updateChangeRiderTypeButton(with: "Join as a Non-Rider. Change.")
-        }))
-        changeChoices.addAction(UIAlertAction(title: "Not Riding This Time", style: .default, handler: { [self] _ in
-            riderType = .notRidingCurrently
-            updateChangeRiderTypeButton(with: "Join as a 'Not Riding Now'. Change.")
+            NotificationCenter.default.post(name: .userIsNonRider, object: nil)
         }))
         
         
@@ -254,7 +244,7 @@ class JoinGroupVC: UIViewController {
             guard let user = groupUser else { print("no user"); return }
             
             profileName.text = user.displayName
-            
+            emergencyPhoneNumber = user.emergencyPhoneNumber
             profilePhoneNumber.text = user.phoneNumber
             Authentication.phoneNumber = user.phoneNumber
             
@@ -268,6 +258,7 @@ class JoinGroupVC: UIViewController {
         let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
         vc.modalPresentationStyle = .fullScreen
         vc.setPhoneNumberField(profilePhoneNumber.text!)
+        vc.setEmergencyPhoneNumberField(emergencyPhoneNumber ?? "")
         present(vc, animated: true)
     }
 
@@ -355,7 +346,6 @@ enum GroupSelectionType {
 enum RiderType {
     case rider
     case spectator
-    case notRidingCurrently
 }
 
 extension UILabel {

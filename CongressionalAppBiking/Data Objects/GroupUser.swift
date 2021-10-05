@@ -13,14 +13,16 @@ class GroupUser : Codable, Hashable {
     var displayName: String!
     var email: String!
     var phoneNumber: String!
+    var emergencyPhoneNumber: String?
     var profilePicturePath: String?
     var profilePicture: Data?
     
-    init(id: String, displayName: String, email: String, phoneNumber: String, profilePicturePath: String? = nil, profilePicture: Data? = nil) {
+    init(id: String, displayName: String, email: String, phoneNumber: String, emergencyPhoneNumber: String? = nil, profilePicturePath: String? = nil, profilePicture: Data? = nil) {
         self.id = id
         self.displayName = displayName
         self.email = email
         self.phoneNumber = phoneNumber
+        self.emergencyPhoneNumber = emergencyPhoneNumber
         self.profilePicturePath = profilePicturePath
     }
     
@@ -43,6 +45,7 @@ class GroupUser : Codable, Hashable {
         hasher.combine(displayName)
         hasher.combine(email)
         hasher.combine(phoneNumber)
+        hasher.combine(emergencyPhoneNumber)
         hasher.combine(profilePicture)
     }
 }

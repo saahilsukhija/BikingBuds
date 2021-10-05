@@ -13,8 +13,8 @@ import FirebaseAuth
 struct Authentication {
     static var user: User?
     static var phoneNumber: String?
-    
-    ///Path to image, for example: "pictures/saahilsukhija@gmail.com"
+    static var emergencyPhoneNumber: String?
+    ///Path to image, for example: "pictures/bob@gmail.com"
     static var imagePath: String?
     
     static var image: UIImage?
@@ -46,8 +46,8 @@ struct Authentication {
     /// Turns an auth user into a storage friendly user
     /// - Parameter currentUser: The current Auth.auth().currentUser, defaults to Auth.auth().user!
     /// - Returns: The GroupUser
-    static func turnIntoGroupUser(_ currentUser: User = Auth.auth().currentUser!, phoneNumber: String?) -> GroupUser {
-        let groupUser = GroupUser(id: currentUser.uid, displayName: currentUser.displayName!, email: currentUser.email!, phoneNumber: phoneNumber ?? "N/A", profilePicturePath: imagePath)
+    static func turnIntoGroupUser(_ currentUser: User = Auth.auth().currentUser!, phoneNumber: String?, emergencyPhoneNumber: String? = nil) -> GroupUser {
+        let groupUser = GroupUser(id: currentUser.uid, displayName: currentUser.displayName!, email: currentUser.email!, phoneNumber: phoneNumber ?? "N/A", emergencyPhoneNumber: emergencyPhoneNumber ?? "N/A", profilePicturePath: imagePath)
         return groupUser
     }
     

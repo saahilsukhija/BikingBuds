@@ -32,26 +32,22 @@ class BikingGroupVC: BikingVCs {
         navigationController?.navigationItem.title = groupName
         navigationController?.title = groupName
         
+        Locations.resetGroupUsers(for: groupID)
         Locations.addNotifications(for: groupID)
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .locationUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .groupUsersUpdated, object: nil)
-        
+
+        NotificationCenter.default.addObserver(self, selector: #selector(userIsRider), name: .userIsRider, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userIsNonRider), name: .userIsNonRider, object: nil)
         loadingView.removeFromSuperview()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        if let userLocation = locationManager.location {
-            uploadUserLocation(userLocation.coordinate)
-        } else {
-            print("unable to change location on viewDidAppear")
-        }
-        
-        Locations.resetGroupUsers(for: groupID)
+        Locations.removeNotifications(for: groupID)
     }
-    
     func addGroupCodeToNavController() {
         let groupCodeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: navigationController?.navigationBar.frame.size.height ?? 75))
         groupCodeLabel.font = UIFont(name: "Singhala Simhan MN", size: 16)
@@ -143,13 +139,19 @@ class BikingGroupVC: BikingVCs {
         self.present(vc, animated: true, completion: nil)
     }
     
-    deinit {
-        Locations.removeNotifications(for: groupID)
-    }
-    
     @objc func userLocationsUpdated() {
         ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
         mapView.drawAllGroupMembers(includingSelf: true)
+    }
+    
+    @objc func userIsNonRider() {
+        previousLatitude = 0
+        previousLongitude = 0
+        locationManager.stopUpdatingLocation()
+    }
+    
+    @objc func userIsRider() {
+        locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -215,22 +217,14 @@ extension BikingGroupVC {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("selectedAnnotation")
         guard let annotationView = view as? GroupUserAnnotationView else { return }
-        guard let bottomSheetVC = (bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC else { return }
-        guard annotationView.inSelectedState == false else { return }
-        
-        (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
-        
-        if let groupUser = bottomSheetVC.groupUsers.groupUserFrom(email: (annotationView.annotation as? GroupUserAnnotation)?.email ?? "") {
-            let indexPath = IndexPath(row: bottomSheetVC.groupUsers.firstIndex(of: groupUser)!, section: 0)
-            bottomSheetVC.tableView(bottomSheetVC.tableView, didSelectRowAt: indexPath)
-        }
+        guard let bottomSheetNav = (bottomSheet.contentViewController as? UINavigationController) else { return }
+        guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
+        bottomSheetNav.popToRootViewController(animated: true)
+        (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         print("deselectedAnnotation")
-        guard let annotationView = view as? GroupUserAnnotationView else { return }
-        guard annotationView.inSelectedState == false else { return }
-        
         (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
     }
     

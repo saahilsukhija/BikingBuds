@@ -124,6 +124,7 @@ struct Locations {
         guard let locationDictionary = snap.childSnapshot(forPath: "location").value as? [String : Any] else {
             return "N/A"
         }
+
         return locationDictionary["last_updated"] as! String
     }
     

@@ -60,7 +60,7 @@ extension UIViewController {
         showToast(message: message, image: UIImage(systemName: "multiply")!, color: .red, fontColor: .red)
     }
     
-    func showAnimationToast(animationName: String, message: String, duration: Double = 3, color: UIColor = .label, fontColor: UIColor = .label) {
+    func showAnimationToast(animationName: String, message: String, duration: Double = 3, color: UIColor = .label, fontColor: UIColor = .label, speed: Double = 1) {
         view.endEditing(true)
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first!
         let toastView = UIView(frame: CGRect(x: 10, y: view.frame.size.height - view.safeAreaInsets.bottom, width: view.frame.size.width - 20, height: 60))
@@ -71,6 +71,7 @@ extension UIViewController {
         let animationView = AnimationView(name: animationName)
         animationView.frame = CGRect(x: 5, y: 5, width: 50, height: 50)
         animationView.contentMode = .scaleAspectFill
+        animationView.animationSpeed = speed
         toastView.addSubview(animationView)
         
         let messageLabel = UILabel(frame: CGRect(x: toastView.frame.size.height, y: 5, width: toastView.frame.size.width - toastView.frame.size.height, height: 50))

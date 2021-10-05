@@ -15,8 +15,8 @@ class GroupUserAnnotation: MKPointAnnotation {
 
 class GroupUserAnnotationView: MKAnnotationView {
     var inSelectedState: Bool = false
-    public lazy var containerView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
+    public lazy var containerView: UIButton = {
+        let view = UIButton(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
         view.backgroundColor = .accentColor
         view.layer.cornerRadius = view.frame.width / 2
         view.isUserInteractionEnabled = true
@@ -83,7 +83,7 @@ class GroupUserAnnotationView: MKAnnotationView {
     public func makeAnnotationSelected() {
         UIView.animate(withDuration: 0.2) {
             self.containerView = {
-                let view = UIView(frame: CGRect(x: -10, y: -50, width: 90, height: 90))
+                let view = UIButton(frame: CGRect(x: -10, y: -50, width: 90, height: 90))
                 view.backgroundColor = .selectedBlueColor
                 view.layer.cornerRadius = view.frame.width / 2
                 view.isUserInteractionEnabled = true
@@ -109,7 +109,7 @@ class GroupUserAnnotationView: MKAnnotationView {
         UIView.animate(withDuration: 0.3) {
             
             self.containerView = {
-                let view = UIView(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
+                let view = UIButton(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
                 view.backgroundColor = .accentColor
                 view.layer.cornerRadius = view.frame.width / 2
                 view.isUserInteractionEnabled = true

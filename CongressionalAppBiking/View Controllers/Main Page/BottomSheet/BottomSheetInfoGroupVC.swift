@@ -30,6 +30,10 @@ class BottomSheetInfoGroupVC: UIViewController {
         view.backgroundColor = .systemGray6.withAlphaComponent(0.9)
         tableView.backgroundColor = .clear
         
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        
         backdropView.bottomSheet.track(scrollView: self.tableView)
         self.setUpNavigationBar()
         self.hideKeyboardWhenTappedAround()
@@ -60,12 +64,20 @@ class BottomSheetInfoGroupVC: UIViewController {
         
         for user in groupUsers {
             if Locations.riderTypes[user] == .rider {
-                print("\(user.displayName!) is a rider")
                 riders.append(user)
             } else {
-                print("\(user.displayName!) is a non rider")
                 nonRiders.append(user)
             }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let bikingGroupBackdrop = backdropView as? BikingGroupVC {
+            bikingGroupBackdrop.mapView.selectedAnnotations.forEach({ annotation in
+                bikingGroupBackdrop.mapView.deselectAnnotation(annotation, animated: true)
+            })
         }
     }
 }
@@ -83,11 +95,30 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
         return nonRiders.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        backgroundView.backgroundColor = .systemGray5.withAlphaComponent(0.9)
+        
+        let sectionLabel = UILabel(frame: CGRect(x: 5, y: 5, width: tableView.frame.size.width, height: 20))
+        sectionLabel.font = UIFont(name: "DIN Alternate Bold", size: 20)
+        sectionLabel.textColor = .label
+        
         if section == 0 {
-            return "Riders"
+            sectionLabel.text = "Riders"
+        } else {
+            sectionLabel.text = "Non Riders"
         }
-        return "Non Riders"
+        backgroundView.addSubview(sectionLabel)
+        
+        return backgroundView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,46 +139,44 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if indexPath.section == 0 {
-            selectedRider(at: indexPath)
-        } else if indexPath.section == 1 {
-            selectedNonRider(at: indexPath)
-        }
+        selectedPerson(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func selectedRider(at indexPath: IndexPath) {
-        //make groupUserAnnotation bigger or smaller, depending on if it's already selected
-        print(indexPath.row)
+    func selectedPerson(at indexPath: IndexPath) {
         guard let bikingGroupVCBackdrop = backdropView as? BikingGroupVC else { return }
         
-        guard let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: riders[indexPath.row].email) else { return }
+        let dataSet = indexPath.section == 0 ? riders : nonRiders
         
-        //if annotationIsNOTSelected
-        if  bikingGroupVCBackdrop.map.selectedAnnotations.getGroupUserAnnotation(for: riders[indexPath.row].email) == nil {
+        if indexPath.section == 0 {
+            guard let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: dataSet[indexPath.row].email) else { return }
             (bikingGroupVCBackdrop.map.view(for: groupUserAnnotation) as? GroupUserAnnotationView)?.inSelectedState = true
-            bikingGroupVCBackdrop.map.selectAnnotation(groupUserAnnotation, animated: true)
+            
+            //Center map to their location
+            if let selectedUserLocation = Locations.locations[dataSet[indexPath.row]] {
+                backdropView.map.centerCameraTo(location: selectedUserLocation, regionRadius: backdropView.map.currentRadius())
+            }
+            
+            bikingGroupVCBackdrop.makeMapAnnotation(.bigger, for: dataSet[indexPath.row])
         }
+        
         
         let groupUserVC = storyboard?.instantiateViewController(identifier: "groupUserLocationScreen") as! GroupUserLocationVC
-        groupUserVC.user = riders[indexPath.row]
-        groupUserVC.isCurrentUser = (indexPath.row == 0)
+        groupUserVC.user = dataSet[indexPath.row]
+        groupUserVC.isCurrentUser = (Authentication.user?.email ?? "" == dataSet[indexPath.row].email)
         groupUserVC.groupID = bikingGroupVCBackdrop.groupID
-        groupUserVC.riderType = Locations.riderTypes[riders[indexPath.row]]
+        groupUserVC.riderType = Locations.riderTypes[dataSet[indexPath.row]]
         navigationController?.pushViewController(groupUserVC, animated: true)
-        
-        //Center map to their location
-        if let selectedUserLocation = Locations.locations[riders[indexPath.row]] {
-            backdropView.map.centerCameraTo(location: selectedUserLocation, regionRadius: backdropView.map.currentRadius())
-        }
-        
-        bikingGroupVCBackdrop.makeMapAnnotation(.bigger, for: riders[indexPath.row])
         
     }
     
-    func selectedNonRider(at indexPath: IndexPath) {
-        
+    func mapSelectedPerson(_ email: String) {
+        let dataSet = riders.groupUserFrom(email: email) != nil ? riders : nonRiders
+        for (index, user) in dataSet.enumerated() {
+            if user.email == email {
+                tableView(tableView, didSelectRowAt: IndexPath(row: index, section: dataSet.groupUserFrom(email: email) != nil ? 0 : 1))
+            }
+        }
     }
     
 }

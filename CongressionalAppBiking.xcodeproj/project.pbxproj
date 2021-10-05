@@ -53,6 +53,7 @@
 		9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */; };
 		9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */; };
 		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
+		9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AE960F9270BCD3200B3B839 /* MutePhone.json */; };
 		DA90804C40C8B3ADF8AE3965 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +128,7 @@
 		9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InitialLaunch.storyboard; sourceTree = "<group>"; };
 		9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
+		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
 		9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
 		E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -248,6 +250,7 @@
 		9ADEAA6C2697D417005BB706 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				9AE960F9270BCD3200B3B839 /* MutePhone.json */,
 				9A2C5C5A26BD044B00C82543 /* CheckMark.json */,
 				9A2C5C5B26BD044B00C82543 /* CrossX.json */,
 				9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */,
@@ -503,6 +506,7 @@
 				9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
 				9AE042B82696E02700FC86AD /* Main.storyboard in Resources */,
+				9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

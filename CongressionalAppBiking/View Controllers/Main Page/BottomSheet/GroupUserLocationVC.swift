@@ -55,20 +55,18 @@ class GroupUserLocationVC: UIViewController {
     }
     
     @IBAction func changeRiderTypeButtonClicked(_ sender: Any) {
-        //guard let baseVC = (navigationController?.viewControllers[0] as? BottomSheetInfoGroupVC)?.backdropView else { return }
         let changeChoices = UIAlertController(title: "Change Ride Type", message: "Join as a specific role. Defaulted to Rider", preferredStyle: .actionSheet)
+        changeChoices.view.tintColor = .accentColor
         
         changeChoices.addAction(UIAlertAction(title: "Rider", style: .default, handler: { [self] _ in
             riderType = .rider
             updateChangeRiderTypeButton(with: "You are currently a Rider. Change.")
+            NotificationCenter.default.post(name: .userIsRider, object: nil)
         }))
         changeChoices.addAction(UIAlertAction(title: "Non-Rider / Spectator", style: .default, handler: { [self] _ in
             riderType = .spectator
             updateChangeRiderTypeButton(with: "You are currently a Non-Rider. Change.")
-        }))
-        changeChoices.addAction(UIAlertAction(title: "Not Riding This Time", style: .default, handler: { [self] _ in
-            riderType = .notRidingCurrently
-            updateChangeRiderTypeButton(with: "You are currently a 'Not Riding Now'. Change.")
+            NotificationCenter.default.post(name: .userIsNonRider, object: nil)
         }))
         
         
@@ -76,13 +74,15 @@ class GroupUserLocationVC: UIViewController {
         self.present(changeChoices, animated: true, completion: nil)
     }
     
-    func updateChangeRiderTypeButton(with string: String) {
+    func updateChangeRiderTypeButton(with string: String, uploadRiderType: Bool = true) {
         let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Sinhala Sangam MN", size: 20)!])
         mutableTitle.setColor(color: .accentColor, forText: "Change.")
         changeRiderTypeButton.setAttributedTitle(mutableTitle, for: .normal)
         
-        Authentication.riderType = riderType
-        UserLocationsUpload.uploadUserRideType(riderType, group: groupID)
+        if uploadRiderType {
+            Authentication.riderType = riderType
+            UserLocationsUpload.uploadUserRideType(riderType, group: groupID)
+        }
         
     }
     
@@ -113,7 +113,7 @@ class GroupUserLocationVC: UIViewController {
             changeGroupUserSettingsView.isHidden = true
         }
         
-        updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.")
+        updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.", uploadRiderType: false)
     }
     
 }

@@ -7,11 +7,12 @@
 
 import UIKit
 import FirebaseAuth
-
+import GoogleSignIn
 class AdditionalInfoVC: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
     @IBOutlet weak var pictureChangeView: UIView!
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var currentlyLoggedIn: UILabel!
@@ -19,6 +20,8 @@ class AdditionalInfoVC: UIViewController {
     var currentUser: User!
     
     var phoneNumber: String!
+    var emergencyPhoneNumber: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -26,15 +29,19 @@ class AdditionalInfoVC: UIViewController {
         //Differentiate between textfields for delegate
         nameTextField.tag = 0
         phoneNumberTextField.tag = 1
+        emergencyPhoneNumberTextField.tag = 2
         
         nameTextField.returnKeyType = .next
-        phoneNumberTextField.returnKeyType = .done
+        phoneNumberTextField.returnKeyType = .next
+        emergencyPhoneNumberTextField.returnKeyType = .done
         
         nameTextField.delegate = self
         phoneNumberTextField.delegate = self
+        emergencyPhoneNumberTextField.delegate = self
         
         phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-
+        emergencyPhoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         //Round view
         pictureChangeView.layer.cornerRadius = 10
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageChoice(_:)))
@@ -47,6 +54,9 @@ class AdditionalInfoVC: UIViewController {
         
         StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: Auth.auth().currentUser!.email!)
         
+        currentlyLoggedIn.isUserInteractionEnabled = true
+        currentlyLoggedIn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchAccountsButtonClicked)))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +66,7 @@ class AdditionalInfoVC: UIViewController {
             currentUser = Auth.auth().currentUser
             nameTextField.text = currentUser.displayName
             phoneNumberTextField.text = phoneNumber
-            
+            emergencyPhoneNumberTextField.text = emergencyPhoneNumber
             //Not _____? Switch Accounts.
             let mutableString = NSMutableAttributedString(string: "Not \(currentUser.email!)? Switch Accounts.", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
             mutableString.setColor(color: .accentColor, forText: "Switch Accounts.")
@@ -74,6 +84,10 @@ class AdditionalInfoVC: UIViewController {
     
     func setPhoneNumberField(_ phone: String) {
         self.phoneNumber = phone
+    }
+    
+    func setEmergencyPhoneNumberField(_ phone: String) {
+        self.emergencyPhoneNumber = phone
     }
     
     @IBAction func completedButtonTapped(_ sender: Any) {
@@ -103,7 +117,7 @@ class AdditionalInfoVC: UIViewController {
             }
             
             showAnimationToast(animationName: "LoginSuccess", message: "Welcome, \(currentUser.displayName!)")
-            StorageUpload().uploadCurrentUser(currentUser, phoneNumber: phoneNumberTextField.text!, image: image) { completed in
+            StorageUpload().uploadCurrentUser(currentUser, phoneNumber: phoneNumberTextField.text!, emergencyPhoneNumber: emergencyPhoneNumberTextField.text!, image: image) { completed in
                 loadingScreen.removeFromSuperview()
                 
                 if completed {
@@ -120,7 +134,25 @@ class AdditionalInfoVC: UIViewController {
         
     }
     
-
+    @objc func switchAccountsButtonClicked() {
+        if Authentication.hasPreviousSignIn() {
+            do {
+                try Auth.auth().signOut()
+                GIDSignIn.sharedInstance().signOut()
+            } catch {}
+        }
+        if let joinGroupVC = presentingViewController as? JoinGroupVC {
+            dismiss(animated: true, completion: nil)
+            
+            let storyboard = UIStoryboard(name: "InitialLaunch", bundle: nil)
+            let signUpScreen = storyboard.instantiateViewController(withIdentifier: "signUp") as! SignUpVC
+            signUpScreen.modalPresentationStyle = .fullScreen
+            joinGroupVC.present(signUpScreen, animated: true, completion: nil)
+        } else {
+            //SignUpVC
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 //MARK: -Image Pickers
@@ -179,6 +211,9 @@ extension AdditionalInfoVC: UITextFieldDelegate {
             phoneNumberTextField.becomeFirstResponder()
         } else if textField.tag == 1 {
             //Is phone number
+            emergencyPhoneNumberTextField.becomeFirstResponder()
+            
+        } else if textField.tag == 2 {
             view.endEditing(true)
         }
         return true

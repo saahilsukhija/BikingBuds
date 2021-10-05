@@ -73,6 +73,18 @@ struct StorageRetrieve {
         }
     }
     
+    func getEmergencyPhoneNumber(from user: User, completion: @escaping(String?) -> Void) {
+        self.getGroupUser(from: user.email!) { user in
+            completion(user?.emergencyPhoneNumber)
+        }
+    }
+    
+    func getPhoneNumbers(from user: User, completion: @escaping(String?, String?) -> Void) {
+        self.getGroupUser(from: user.email!) { user in
+            completion(user?.phoneNumber, user?.emergencyPhoneNumber)
+        }
+    }
+    
     func getGroupUser(from email: String, completion: @escaping(GroupUser?) -> Void) {
         self.retrieveData(path: "users/\(email)") { data in
             

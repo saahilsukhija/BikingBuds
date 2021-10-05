@@ -42,7 +42,7 @@ struct StorageUpload {
     ///   - user: The current user, defaults to Authentication.user!
     ///
     ///   - completion: when completed lol
-    func uploadCurrentUser(_ user: User = Authentication.user!, phoneNumber: String?, image: UIImage?, completion: ((Bool) -> Void)? = nil) {
+    func uploadCurrentUser(_ user: User = Authentication.user!, phoneNumber: String?, emergencyPhoneNumber: String? = nil, image: UIImage?, completion: ((Bool) -> Void)? = nil) {
         
         let currentUser = Authentication.user!
         
@@ -50,7 +50,7 @@ struct StorageUpload {
             Authentication.imagePath = "pictures/\(currentUser.email!)"
         }
         
-        let groupUser = Authentication.turnIntoGroupUser(currentUser, phoneNumber: phoneNumber)
+        let groupUser = Authentication.turnIntoGroupUser(currentUser, phoneNumber: phoneNumber, emergencyPhoneNumber: emergencyPhoneNumber)
 
         self.uploadData(path: "users/\(groupUser.email!)", data: groupUser.toData()) { completed in
             if let image = image {

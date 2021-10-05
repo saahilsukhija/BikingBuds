@@ -22,7 +22,6 @@ class SignUpVC: UIViewController {
         self.hideKeyboardWhenTappedAround()
 
         //Google Sign In
-        GIDSignIn.sharedInstance().presentingViewController = self
         loginWithGoogleButton.layer.borderColor = UIColor.systemGray2.cgColor
         loginWithGoogleButton.layer.borderWidth = 1
         
@@ -54,10 +53,14 @@ class SignUpVC: UIViewController {
                 let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
                 vc.modalPresentationStyle = .fullScreen
                 
-                StorageRetrieve().getPhoneNumber(from: currentUser) { phoneNumber in
+                StorageRetrieve().getPhoneNumbers(from: currentUser) { phoneNumber, emergencyPhoneNumber in
                     if let phoneNumber = phoneNumber {
                         vc.setPhoneNumberField(phoneNumber)
                     }
+                    if let emergencyPhoneNumber = emergencyPhoneNumber {
+                        vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+                    }
+                    
                     loadingScreen.removeFromSuperview()
                     present(vc, animated: true, completion: nil)
                 }
@@ -70,6 +73,7 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func googleButtonTapped(_ sender: Any) {
+        GIDSignIn.sharedInstance().presentingViewController = self
         loginType = .google
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signIn()

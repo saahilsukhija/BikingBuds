@@ -29,7 +29,24 @@ class GroupUserTableViewCell: UITableViewCell {
         } else {
             profileName.text = groupUser.displayName
         }
-        lastUpdatedAt.text = "Last Updated: \(lastUpdated)"
+        
+        var howLongAgoLastUpdated: String?
+        if lastUpdated != "N/A" {
+            var dateComponents = DateComponents()
+            let splitStrings = lastUpdated.split(separator: ":")
+            dateComponents.year = Calendar.current.component(.year, from: Date())
+            dateComponents.month = Calendar.current.component(.month, from: Date())
+            dateComponents.day = Calendar.current.component(.day, from: Date())
+            dateComponents.hour = Int(String(splitStrings[0]))
+            //print(Int(String(splitStrings[0])))
+            dateComponents.minute = Int(String(splitStrings[1]))
+            dateComponents.second = Calendar.current.component(.second, from: Date())
+
+            //let userCalendar = Calendar(identifier: .gregorian)
+            //let date = userCalendar.date(from: dateComponents)
+            howLongAgoLastUpdated = lastUpdated//date?.timeAgoSinceDate() ?? "N/A"
+        }
+        lastUpdatedAt.text = "Last Updated: \(howLongAgoLastUpdated ?? "N/A")"
         profileImage.image = groupUser.profilePicture?.toImage()
         
         backgroundColor = .clear

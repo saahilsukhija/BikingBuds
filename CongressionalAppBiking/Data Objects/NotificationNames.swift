@@ -38,7 +38,15 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    /// Notification when the current user has switched to non-rider.
+    static var userIsNonRider: Notification.Name {
+        return .init(rawValue: #function)
+    }
     
+    /// Notification when the current user has switched to rider.
+    static var userIsRider: Notification.Name {
+        return .init(rawValue: #function)
+    }
     
     ///MARK: Bottom Sheet Notifications
     /// Notification when search bar is clicked in the Group Bottom Sheet
