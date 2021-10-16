@@ -16,6 +16,10 @@ struct Locations {
     static var riderTypes: [GroupUser : RiderType]! = [:]
     static var groupUsers: [GroupUser]! = []
     
+    static var falls: [String : Date] = [:]
+    static var recentFall: [String : Date] = [:]
+    static var notifications: [AppNotification] = []
+    
     //static var groupID: String?
     ///Add notifications for user locations updating in a group
     static func addNotifications(for group: String) {
@@ -47,11 +51,13 @@ struct Locations {
                 self.locations = locations
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
+                self.notifications.append(AppNotification(title: "User(TODO) has joined", type: .userJoined))
                 NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
             }
         }
         
         ref.observe(.childRemoved) { snapshot in
+            self.notifications.append(AppNotification(title: "User(TODO) has left", type: .userLeft))
             NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
         }
         
@@ -166,4 +172,19 @@ struct Locations {
         ref.removeAllObservers()
     }
     
+    static func addNotificationsForFallDetection(for group: String) {
+        let ref = Database.database().reference().child("rides/" + group + "/fall")
+        ref.observeSingleEvent(of: .childAdded) { snap in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            if let time = dateFormatter.date(from: snap.value as! String) {
+                let email = snap.key
+                self.falls[email] = time
+                self.recentFall = [email : time]
+                self.notifications.append(AppNotification(title: "\(email) has fallen!", type: .fall))
+                NotificationCenter.default.post(name: .userHasFallen, object: nil)
+            }
+        }
+    }
 }

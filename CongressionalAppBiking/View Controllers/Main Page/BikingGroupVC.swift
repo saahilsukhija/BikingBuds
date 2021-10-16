@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
-
+import CoreMotion
 class BikingGroupVC: BikingVCs {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -16,6 +16,7 @@ class BikingGroupVC: BikingVCs {
     var groupName: String!
     var loadingView: UIView!
     
+    var fallTimer: Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +25,7 @@ class BikingGroupVC: BikingVCs {
         
         super.setUp(map: mapView)
         self.addGroupCodeToNavController()
+        self.setUpMotionManager()
         
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
@@ -34,12 +36,15 @@ class BikingGroupVC: BikingVCs {
         
         Locations.resetGroupUsers(for: groupID)
         Locations.addNotifications(for: groupID)
+        Locations.addNotificationsForFallDetection(for: groupID)
         
         NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .locationUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .groupUsersUpdated, object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(userIsRider), name: .userIsRider, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userIsNonRider), name: .userIsNonRider, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(otherUserHasFallen), name: .userHasFallen, object: nil)
         loadingView.removeFromSuperview()
     }
     
@@ -48,6 +53,7 @@ class BikingGroupVC: BikingVCs {
         
         Locations.removeNotifications(for: groupID)
     }
+    
     func addGroupCodeToNavController() {
         let groupCodeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: navigationController?.navigationBar.frame.size.height ?? 75))
         groupCodeLabel.font = UIFont(name: "Singhala Simhan MN", size: 16)
@@ -131,6 +137,54 @@ class BikingGroupVC: BikingVCs {
         
         NSLayoutConstraint.activate(constraints)
         
+        
+        //NotificationButtun
+        let notificationsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        notificationsButton.backgroundColor = preferredBackgroundColor
+        notificationsButton.tintColor = .accentColor
+
+        notificationsButton.addTarget(self, action: #selector(openNotificationScreen), for: .touchUpInside)
+        notificationsButton.layer.cornerRadius = notificationsButton.frame.size.height / 2
+        notificationsButton.layer.borderWidth = 1
+        notificationsButton.layer.borderColor = UIColor.label.cgColor
+        notificationsButton.layer.masksToBounds = true
+        
+        bottomSheet.view.addSubview(notificationsButton)
+        notificationsButton.translatesAutoresizingMaskIntoConstraints = false
+    
+        let notificationConstraints: [NSLayoutConstraint] = [
+            notificationsButton.bottomAnchor.constraint(equalTo: leaveGroupButton.topAnchor,
+                                                       constant: -10),
+            notificationsButton.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
+            notificationsButton.widthAnchor.constraint(equalToConstant: 40),
+            notificationsButton.heightAnchor.constraint(equalToConstant: 40)
+        ]
+        
+        NSLayoutConstraint.activate(notificationConstraints)
+        
+        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        notificationCountLabel.backgroundColor = .systemBlue
+        notificationCountLabel.textColor = .white
+        notificationCountLabel.text = "0"
+        notificationCountLabel.textAlignment = .center
+        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
+        notificationCountLabel.layer.cornerRadius = 10
+        notificationCountLabel.layer.masksToBounds = true
+        notificationCountLabel.isUserInteractionEnabled = false
+        
+        bottomSheet.view.addSubview(notificationCountLabel)
+        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+        let notificationCountConstraints: [NSLayoutConstraint] = [
+            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
+                                                       constant: 10),
+            notificationCountLabel.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
+            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
+            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
+        ]
+        
+        NSLayoutConstraint.activate(notificationCountConstraints)
     }
     
     @objc func openInvitePeopleScreen() {
@@ -157,6 +211,10 @@ class BikingGroupVC: BikingVCs {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
         let (latitude, longitude) = (location.latitude, location.longitude)
+        
+        if previousLatitude == 0 && previousLongitude == 0 {
+            showAnimationNotification(animationName: "ManBiking", message: "Loading...", color: .systemGreen, fontColor: .systemGreen)
+        }
         
         if previousLatitude != latitude || previousLongitude != longitude {
             uploadUserLocation(location)
@@ -186,7 +244,134 @@ class BikingGroupVC: BikingVCs {
         }
     }
     
+    @objc func otherUserHasFallen() {
+        let email = Locations.recentFall.keys.first ?? "none"
+        showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen.", color: .systemOrange, fontColor: .systemOrange)
+    }
     
+    
+}
+
+
+//MARK: Accelerometer Updates
+extension BikingGroupVC {
+    func setUpMotionManager() {
+        movementManager = CMMotionManager()
+        movementManager.accelerometerUpdateInterval = 0.1
+        movementManager.startAccelerometerUpdates(to: .main) { data, error in
+            if let error = error {
+                print("error with accelerometer: \(error.localizedDescription)")
+            }
+            
+            let acceleration = abs(data!.acceleration.z)
+
+            if acceleration > 1.5 {
+                self.consecutiveAccelerationRedFlags += 1
+                print("red flag")
+            } else {
+                self.consecutiveAccelerationRedFlags = 0
+            }
+            
+            if self.consecutiveAccelerationRedFlags >= 2 {
+                print("proper fall")
+                
+                self.userDidFall()
+            }
+        }
+    }
+    
+    func configureFallScreen() {
+        let guide = view.safeAreaLayoutGuide
+        let frame = guide.layoutFrame.size
+        fallOverlayView = UIView(frame: guide.layoutFrame)
+        fallOverlayView.backgroundColor = .systemGray6.withAlphaComponent(0.9)
+        
+        let topLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
+        topLabel.text = "Alerting Emergency Contact"
+        topLabel.textAlignment = .center
+        topLabel.font = UIFont(name: "DIN Alternate Bold", size: 30)
+        topLabel.numberOfLines = 0
+        fallOverlayView.addSubview(topLabel)
+        
+        let countdownLabel = UILabel(frame: CGRect(x: 0, y: 75, width: frame.width, height: 50))
+        countdownLabel.text = "15"
+        countdownLabel.textAlignment = .center
+        countdownLabel.textColor = .systemRed
+        countdownLabel.font = .boldSystemFont(ofSize: 40)
+        fallOverlayView.addSubview(countdownLabel)
+        
+        let cancelButton = UIButton(frame: CGRect(x: 20, y: frame.height - 70, width: frame.width - 40, height: 50))
+        cancelButton.layer.cornerRadius = 10
+        cancelButton.backgroundColor = .selectedBlueColor
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        cancelButton.addTarget(self, action: #selector(userDidCancelEmergencyCall), for: .touchUpInside)
+        fallOverlayView.addSubview(cancelButton)
+        
+        darkOverlayView = UIView(frame: view.frame)
+        darkOverlayView.backgroundColor = .systemGray6
+        
+        var secondsRemaining = 14
+        //Timer
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+            if secondsRemaining > 0 {
+                countdownLabel.text = "\(secondsRemaining)"
+                secondsRemaining -= 1
+            } else {
+                countdownLabel.text = "0"
+                self.fallTimer?.invalidate()
+                self.shouldCallEmergencyContact()
+            }
+        }
+    }
+    
+    @objc func shouldCallEmergencyContact() {
+        if let email = Authentication.user?.email?.toLegalStorageEmail() {
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            let now = df.string(from: Date())
+            RealtimeUpload.upload(data: [email : now], path: "rides/\(groupID!)/fall/")
+        } else {
+            userDidCancelEmergencyCall()
+            showFailureToast(message: "No email available.")
+        }
+    }
+    
+    func userDidFall() {
+        configureFallScreen()
+        movementManager.stopAccelerometerUpdates()
+        
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(darkOverlayView)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(fallOverlayView)
+    }
+    
+    @objc func userDidCancelEmergencyCall() {
+        movementManager.startAccelerometerUpdates(to: .main) { data, error in
+            if let error = error {
+                print("error with accelerometer: \(error.localizedDescription)")
+            }
+            
+            let acceleration = abs(data!.acceleration.z)
+
+            if acceleration > 1.5 {
+                self.consecutiveAccelerationRedFlags += 1
+                print("red flag")
+            } else {
+                self.consecutiveAccelerationRedFlags = 0
+            }
+            
+            if self.consecutiveAccelerationRedFlags >= 2 {
+                print("proper fall")
+                self.userDidFall()
+            }
+        }
+        
+        fallOverlayView.removeFromSuperview()
+        darkOverlayView.removeFromSuperview()
+        fallTimer?.invalidate()
+        self.showAnimationToast(animationName: "MutePhone", message: "Cancelled Call.", color: .systemBlue, fontColor: .systemBlue, speed: 0.5)
+    }
 }
 
 extension BikingGroupVC {

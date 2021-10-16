@@ -27,6 +27,8 @@ class BikingVCs: UIViewController {
     var fallOverlayView: UIView!
     var darkOverlayView: UIView!
     
+    var notificationCountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -113,28 +115,6 @@ extension BikingVCs: CLLocationManagerDelegate {
                 locationManager.startUpdatingLocation()
             }
             
-            movementManager = CMMotionManager()
-            movementManager.accelerometerUpdateInterval = 0.1
-            movementManager.startAccelerometerUpdates(to: .main) { data, error in
-                if let error = error {
-                    print("error with accelerometer: \(error.localizedDescription)")
-                }
-                
-                let acceleration = abs(data!.acceleration.z)
-
-                if acceleration > 1.5 {
-                    self.consecutiveAccelerationRedFlags += 1
-                    print("red flag")
-                } else {
-                    self.consecutiveAccelerationRedFlags = 0
-                }
-                
-                if self.consecutiveAccelerationRedFlags >= 2 {
-                    print("proper fall")
-                    
-                    self.userDidFall()
-                }
-            }
         } else {
             print("BikingVCs location services not enabled")
         }
@@ -170,98 +150,6 @@ extension BikingVCs: CLLocationManagerDelegate {
     }
 }
 
-//MARK: Accelerometer Updates
-extension BikingVCs {
-    
-    func configureFallScreen() {
-        let guide = view.safeAreaLayoutGuide
-        let frame = guide.layoutFrame.size
-        fallOverlayView = UIView(frame: guide.layoutFrame)
-        fallOverlayView.backgroundColor = .systemGray6.withAlphaComponent(0.9)
-        
-        let topLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
-        topLabel.text = "Calling Emergency Contact"
-        topLabel.textAlignment = .center
-        topLabel.font = UIFont(name: "DIN Alternate Bold", size: 30)
-        topLabel.numberOfLines = 0
-        fallOverlayView.addSubview(topLabel)
-        
-        let countdownLabel = UILabel(frame: CGRect(x: 0, y: 75, width: frame.width, height: 50))
-        countdownLabel.text = "15"
-        countdownLabel.textAlignment = .center
-        countdownLabel.textColor = .systemRed
-        countdownLabel.font = .boldSystemFont(ofSize: 40)
-        fallOverlayView.addSubview(countdownLabel)
-        
-        let cancelButton = UIButton(frame: CGRect(x: 20, y: frame.height - 70, width: frame.width - 40, height: 50))
-        cancelButton.layer.cornerRadius = 10
-        cancelButton.backgroundColor = .selectedBlueColor
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.setTitleColor(.white, for: .normal)
-        cancelButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        cancelButton.addTarget(self, action: #selector(userDidCancelEmergencyCall), for: .touchUpInside)
-        fallOverlayView.addSubview(cancelButton)
-        
-        darkOverlayView = UIView(frame: view.frame)
-        darkOverlayView.backgroundColor = .systemGray6
-        
-        var secondsRemaining = 15
-        //Timer
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-            if secondsRemaining > 0 {
-                countdownLabel.text = "\(secondsRemaining)"
-                secondsRemaining -= 1
-            } else {
-                countdownLabel.text = "0"
-                Timer.invalidate()
-                self.shouldCallEmergencyContact()
-            }
-        }
-    }
-    
-    @objc func shouldCallEmergencyContact() {
-        if let phoneNumber = Authentication.emergencyPhoneNumber?.toLegalPhoneNumber(), let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        } else {
-            print("error with phoneNumber")
-        }
-    }
-    
-    func userDidFall() {
-        configureFallScreen()
-        movementManager.stopAccelerometerUpdates()
-        
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(darkOverlayView)
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(fallOverlayView)
-    }
-    
-    @objc func userDidCancelEmergencyCall() {
-        movementManager.startAccelerometerUpdates(to: .main) { data, error in
-            if let error = error {
-                print("error with accelerometer: \(error.localizedDescription)")
-            }
-            
-            let acceleration = abs(data!.acceleration.z)
-
-            if acceleration > 1.5 {
-                self.consecutiveAccelerationRedFlags += 1
-                print("red flag")
-            } else {
-                self.consecutiveAccelerationRedFlags = 0
-            }
-            
-            if self.consecutiveAccelerationRedFlags >= 2 {
-                print("proper fall")
-                self.userDidFall()
-            }
-        }
-        
-        fallOverlayView.removeFromSuperview()
-        darkOverlayView.removeFromSuperview()
-
-        self.showAnimationToast(animationName: "MutePhone", message: "Cancelled Call.", color: .systemBlue, fontColor: .systemBlue, speed: 0.5)
-    }
-}
 extension BikingVCs: MKMapViewDelegate {
     //User has panned away
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -281,10 +169,11 @@ extension BikingVCs {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        let rightBarButtonCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let rightBarButtonCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 90))
         rightBarButtonCustomView.backgroundColor = .clear
-        
+
         let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         settingsButton.backgroundColor = preferredBackgroundColor
@@ -297,7 +186,7 @@ extension BikingVCs {
         settingsButton.layer.masksToBounds = true
         
         rightBarButtonCustomView.addSubview(settingsButton)
-
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButtonCustomView)
         
         //Center camera
@@ -313,7 +202,6 @@ extension BikingVCs {
         centerCameraButton.layer.masksToBounds = true
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: centerCameraButton)
-        
     }
     
     @objc func openSettingsScreen() {
@@ -322,6 +210,11 @@ extension BikingVCs {
         //endRide()
     }
     
+    @objc func openNotificationScreen() {
+        let vc = storyboard?.instantiateViewController(identifier: "groupRideSettingsScreen") as! GroupRideSettingsVC
+        self.present(vc, animated: true, completion: nil)
+        //endRide()
+    }
     @objc func endRide() {
         let bottomAlert = UIAlertController(title: "Are you sure you want to leave the group?", message: "You can join back in the future.", preferredStyle: .actionSheet)
         bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in

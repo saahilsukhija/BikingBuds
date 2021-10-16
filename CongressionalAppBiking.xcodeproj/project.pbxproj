@@ -12,6 +12,10 @@
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
 		9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5A26BD044B00C82543 /* CheckMark.json */; };
 		9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5B26BD044B00C82543 /* CrossX.json */; };
+		9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF682712B6530066D1EB /* AppNotifications.swift */; };
+		9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6A2712B8BC0066D1EB /* Notification.swift */; };
+		9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6C2712BA2B0066D1EB /* Caution.json */; };
+		9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6E2718F92A0066D1EB /* ManBiking.json */; };
 		9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */; };
 		9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */; };
 		9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */; };
@@ -81,6 +85,10 @@
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
 		9A2C5C5A26BD044B00C82543 /* CheckMark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CheckMark.json; sourceTree = "<group>"; };
 		9A2C5C5B26BD044B00C82543 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
+		9A3DEF682712B6530066D1EB /* AppNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotifications.swift; sourceTree = "<group>"; };
+		9A3DEF6A2712B8BC0066D1EB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		9A3DEF6C2712BA2B0066D1EB /* Caution.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Caution.json; sourceTree = "<group>"; };
+		9A3DEF6E2718F92A0066D1EB /* ManBiking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ManBiking.json; sourceTree = "<group>"; };
 		9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetInfoGroupVC.swift; sourceTree = "<group>"; };
 		9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredLabels.swift; sourceTree = "<group>"; };
 		9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +137,7 @@
 		9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
 		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
+		9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CongressionalAppBiking.entitlements; sourceTree = "<group>"; };
 		9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
 		E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -164,6 +173,7 @@
 			children = (
 				9ADEAA8B26B7365B005BB706 /* Map */,
 				9ADEAA692697D23F005BB706 /* Toast.swift */,
+				9A3DEF6A2712B8BC0066D1EB /* Notification.swift */,
 				9ADEAA7626997AD2005BB706 /* HideKeyboard.swift */,
 				9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */,
 				9AB04F7226E589770076B190 /* ViewShadow.swift */,
@@ -227,6 +237,7 @@
 				9ADEAA8726B44D12005BB706 /* Group.swift */,
 				9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */,
 				9ADEAA7426997548005BB706 /* UserDefaults.swift */,
+				9A3DEF682712B6530066D1EB /* AppNotifications.swift */,
 				9AB04F6B26DADC870076B190 /* Preferences.swift */,
 				9ADEAA9026B85EB3005BB706 /* Locations.swift */,
 			);
@@ -250,6 +261,8 @@
 		9ADEAA6C2697D417005BB706 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				9A3DEF6E2718F92A0066D1EB /* ManBiking.json */,
+				9A3DEF6C2712BA2B0066D1EB /* Caution.json */,
 				9AE960F9270BCD3200B3B839 /* MutePhone.json */,
 				9A2C5C5A26BD044B00C82543 /* CheckMark.json */,
 				9A2C5C5B26BD044B00C82543 /* CrossX.json */,
@@ -332,6 +345,7 @@
 		9AE042AF2696E02700FC86AD /* CongressionalAppBiking */ = {
 			isa = PBXGroup;
 			children = (
+				9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */,
 				9ADEAA6B2697D29D005BB706 /* Master Items */,
 				9AE042E02696E2CA00FC86AD /* Storyboards */,
 				9A11B1B32697A146009208E8 /* View Controllers */,
@@ -495,6 +509,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */,
+				9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */,
 				9ADEAA9426B8CF76005BB706 /* Baumans-Regular.ttf in Resources */,
 				9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */,
 				9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */,
@@ -606,6 +622,7 @@
 				9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */,
 				9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */,
 				9ADEAA8826B44D13005BB706 /* Group.swift in Sources */,
+				9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */,
 				9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */,
 				9ADEAA9926BCD867005BB706 /* StorageRetrieve.swift in Sources */,
 				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
@@ -620,6 +637,7 @@
 				9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */,
 				9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */,
 				9ADEAA9126B85EB3005BB706 /* Locations.swift in Sources */,
+				9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
 				9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */,
 				9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */,
@@ -799,6 +817,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CongressionalAppBiking/CongressionalAppBiking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
@@ -819,6 +838,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CongressionalAppBiking/CongressionalAppBiking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
