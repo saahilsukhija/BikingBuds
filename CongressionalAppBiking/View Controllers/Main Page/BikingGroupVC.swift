@@ -72,6 +72,8 @@ class BikingGroupVC: BikingVCs {
         
         configureInvitePeopleButton()
         configureLeaveGroupButton()
+        
+        
     }
     
     func configureInvitePeopleButton() {
@@ -136,55 +138,6 @@ class BikingGroupVC: BikingVCs {
         
         
         NSLayoutConstraint.activate(constraints)
-        
-        
-        //NotificationButtun
-        let notificationsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-        notificationsButton.backgroundColor = preferredBackgroundColor
-        notificationsButton.tintColor = .accentColor
-
-        notificationsButton.addTarget(self, action: #selector(openNotificationScreen), for: .touchUpInside)
-        notificationsButton.layer.cornerRadius = notificationsButton.frame.size.height / 2
-        notificationsButton.layer.borderWidth = 1
-        notificationsButton.layer.borderColor = UIColor.label.cgColor
-        notificationsButton.layer.masksToBounds = true
-        
-        bottomSheet.view.addSubview(notificationsButton)
-        notificationsButton.translatesAutoresizingMaskIntoConstraints = false
-    
-        let notificationConstraints: [NSLayoutConstraint] = [
-            notificationsButton.bottomAnchor.constraint(equalTo: leaveGroupButton.topAnchor,
-                                                       constant: -10),
-            notificationsButton.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
-            notificationsButton.widthAnchor.constraint(equalToConstant: 40),
-            notificationsButton.heightAnchor.constraint(equalToConstant: 40)
-        ]
-        
-        NSLayoutConstraint.activate(notificationConstraints)
-        
-        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        notificationCountLabel.backgroundColor = .systemBlue
-        notificationCountLabel.textColor = .white
-        notificationCountLabel.text = "0"
-        notificationCountLabel.textAlignment = .center
-        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
-        notificationCountLabel.layer.cornerRadius = 10
-        notificationCountLabel.layer.masksToBounds = true
-        notificationCountLabel.isUserInteractionEnabled = false
-        
-        bottomSheet.view.addSubview(notificationCountLabel)
-        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
-    
-        let notificationCountConstraints: [NSLayoutConstraint] = [
-            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
-                                                       constant: 10),
-            notificationCountLabel.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
-            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
-            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        
-        NSLayoutConstraint.activate(notificationCountConstraints)
     }
     
     @objc func openInvitePeopleScreen() {
@@ -196,6 +149,8 @@ class BikingGroupVC: BikingVCs {
     @objc func userLocationsUpdated() {
         ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
         mapView.drawAllGroupMembers(includingSelf: true)
+        
+        updateNotificationCount()
     }
     
     @objc func userIsNonRider() {
@@ -211,10 +166,6 @@ class BikingGroupVC: BikingVCs {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
         let (latitude, longitude) = (location.latitude, location.longitude)
-        
-        if previousLatitude == 0 && previousLongitude == 0 {
-            showAnimationNotification(animationName: "ManBiking", message: "Loading...", color: .systemGreen, fontColor: .systemGreen)
-        }
         
         if previousLatitude != latitude || previousLongitude != longitude {
             uploadUserLocation(location)
@@ -247,9 +198,12 @@ class BikingGroupVC: BikingVCs {
     @objc func otherUserHasFallen() {
         let email = Locations.recentFall.keys.first ?? "none"
         showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen.", color: .systemOrange, fontColor: .systemOrange)
+        updateNotificationCount()
     }
     
-    
+    func updateNotificationCount() {
+        notificationCountLabel.text = "\(Locations.notifications.count)"
+    }
 }
 
 

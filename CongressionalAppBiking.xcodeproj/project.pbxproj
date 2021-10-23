@@ -16,6 +16,8 @@
 		9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6A2712B8BC0066D1EB /* Notification.swift */; };
 		9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6C2712BA2B0066D1EB /* Caution.json */; };
 		9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6E2718F92A0066D1EB /* ManBiking.json */; };
+		9A3DEF75271B78CF0066D1EB /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF74271B78CF0066D1EB /* NotificationsVC.swift */; };
+		9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */; };
 		9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */; };
 		9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */; };
 		9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */; };
@@ -89,6 +91,8 @@
 		9A3DEF6A2712B8BC0066D1EB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		9A3DEF6C2712BA2B0066D1EB /* Caution.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Caution.json; sourceTree = "<group>"; };
 		9A3DEF6E2718F92A0066D1EB /* ManBiking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ManBiking.json; sourceTree = "<group>"; };
+		9A3DEF74271B78CF0066D1EB /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
+		9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetInfoGroupVC.swift; sourceTree = "<group>"; };
 		9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredLabels.swift; sourceTree = "<group>"; };
 		9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -124,7 +128,7 @@
 		9AE042B02696E02700FC86AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AE042B22696E02700FC86AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9AE042B72696E02700FC86AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9AE042B92696E02B00FC86AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9AE042B92696E02B00FC86AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "CongressionalAppBiking/Master Items/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		9AE042BC2696E02B00FC86AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AE042BE2696E02B00FC86AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE042C32696E02B00FC86AD /* CongressionalAppBikingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CongressionalAppBikingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +216,15 @@
 			path = "Join Group";
 			sourceTree = "<group>";
 		};
+		9A3DEF76271B8A710066D1EB /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				9A3DEF74271B78CF0066D1EB /* NotificationsVC.swift */,
+				9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		9AB04F6826D8BB770076B190 /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +301,7 @@
 				9AB04F6826D8BB770076B190 /* BottomSheet */,
 				9ADEAA8326ACEE40005BB706 /* BikingVCs.swift */,
 				9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */,
+				9A3DEF76271B8A710066D1EB /* Notifications */,
 				9AB04F7626EAE2D30076B190 /* ShareInviteCodeVC.swift */,
 				9ADEAA7A26997C86005BB706 /* BikingGroupVC.swift */,
 			);
@@ -625,12 +639,14 @@
 				9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */,
 				9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */,
 				9ADEAA9926BCD867005BB706 /* StorageRetrieve.swift in Sources */,
+				9A3DEF75271B78CF0066D1EB /* NotificationsVC.swift in Sources */,
 				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
+				9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
 				9AB04F6C26DADC870076B190 /* Preferences.swift in Sources */,
 				9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */,

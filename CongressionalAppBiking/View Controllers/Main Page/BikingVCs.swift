@@ -36,11 +36,16 @@ class BikingVCs: UIViewController {
         preferredBackgroundColor = traitCollection.userInterfaceStyle == .dark ? .systemGray6 : .white
     }
     
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         movementManager.stopAccelerometerUpdates()
         locationManager.stopUpdatingLocation()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        
     }
     
     func setUp(map: MKMapView) {
@@ -52,6 +57,7 @@ class BikingVCs: UIViewController {
         self.customizeNavigationController()
         self.setUpUserLocation()
         self.hideKeyboardWhenTappedAround()
+        
     }
     
 
@@ -169,11 +175,9 @@ extension BikingVCs {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        let rightBarButtonCustomView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 90))
-        rightBarButtonCustomView.backgroundColor = .clear
-
+        let rightBarButtonCustomView = UIView(frame: CGRect(x: view.frame.size.width - 55, y: navigationController!.navigationBar.globalFrame!.maxY + 5, width: 40, height: 90))
+        
         let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         settingsButton.backgroundColor = preferredBackgroundColor
@@ -187,7 +191,21 @@ extension BikingVCs {
         
         rightBarButtonCustomView.addSubview(settingsButton)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightBarButtonCustomView)
+        //NotificationButtun
+        let notificationsButton = UIButton(frame: CGRect(x: 0, y: 50, width: 40, height: 40))
+        notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        notificationsButton.backgroundColor = preferredBackgroundColor
+        notificationsButton.tintColor = .accentColor
+
+        notificationsButton.addTarget(self, action: #selector(openNotificationScreen), for: .touchUpInside)
+        notificationsButton.layer.cornerRadius = notificationsButton.frame.size.height / 2
+        notificationsButton.layer.borderWidth = 1
+        notificationsButton.layer.borderColor = UIColor.label.cgColor
+        notificationsButton.layer.masksToBounds = true
+        
+        rightBarButtonCustomView.addSubview(notificationsButton)
+        
+        view.addSubview(rightBarButtonCustomView)
         
         //Center camera
         let centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -202,19 +220,42 @@ extension BikingVCs {
         centerCameraButton.layer.masksToBounds = true
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: centerCameraButton)
+    
+        
+        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        notificationCountLabel.backgroundColor = .systemRed
+        notificationCountLabel.textColor = .white
+        notificationCountLabel.text = "0"
+        notificationCountLabel.textAlignment = .center
+        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
+        notificationCountLabel.layer.cornerRadius = 10
+        notificationCountLabel.layer.masksToBounds = true
+        notificationCountLabel.isUserInteractionEnabled = false
+        
+        rightBarButtonCustomView.addSubview(notificationCountLabel)
+        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+        let notificationCountConstraints: [NSLayoutConstraint] = [
+            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
+                                                       constant: 15),
+            notificationCountLabel.rightAnchor.constraint(equalTo: notificationsButton.rightAnchor, constant: 0),
+            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
+            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
+        ]
+        
+        NSLayoutConstraint.activate(notificationCountConstraints)
     }
     
     @objc func openSettingsScreen() {
         let vc = storyboard?.instantiateViewController(identifier: "groupRideSettingsScreen") as! GroupRideSettingsVC
         self.present(vc, animated: true, completion: nil)
-        //endRide()
     }
     
     @objc func openNotificationScreen() {
-        let vc = storyboard?.instantiateViewController(identifier: "groupRideSettingsScreen") as! GroupRideSettingsVC
+        let vc = storyboard?.instantiateViewController(identifier: "NotificationsScreen") as! NotificationsVC
         self.present(vc, animated: true, completion: nil)
-        //endRide()
     }
+    
     @objc func endRide() {
         let bottomAlert = UIAlertController(title: "Are you sure you want to leave the group?", message: "You can join back in the future.", preferredStyle: .actionSheet)
         bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
@@ -233,5 +274,15 @@ extension BikingVCs {
     }
     
     
+}
+
+extension UIView{
+    var globalPoint :CGPoint? {
+        return self.superview?.convert(self.frame.origin, to: nil)
+    }
+
+    var globalFrame :CGRect? {
+        return self.superview?.convert(self.frame, to: nil)
+    }
 }
 

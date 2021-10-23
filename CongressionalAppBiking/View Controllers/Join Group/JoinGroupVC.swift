@@ -68,7 +68,7 @@ class JoinGroupVC: UIViewController {
         
         joinGroupButtonClicked(self)
         
-        updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
+        updateChangeRiderTypeButton(with: "You are joining as a Rider. Change.")
         
         
     }
@@ -126,7 +126,7 @@ class JoinGroupVC: UIViewController {
         //Locations.groupID = groupID
         let navigationController = UINavigationController(rootViewController: goToVC)
         navigationController.modalPresentationStyle = .fullScreen
-        
+
         self.present(navigationController, animated: true, completion: nil)
         
         loadingScreen.removeFromSuperview()
@@ -170,7 +170,6 @@ class JoinGroupVC: UIViewController {
             addActionToButton(goButton)
             goButton.backgroundColor = .selectedBlueColor
         }
-        removeActionFromButton(goButton)
         
         groupSelectionType = .create
         
@@ -195,12 +194,12 @@ class JoinGroupVC: UIViewController {
         
         changeChoices.addAction(UIAlertAction(title: "Rider", style: .default, handler: { [self] _ in
             riderType = .rider
-            updateChangeRiderTypeButton(with: "Join as a Rider. Change.")
+            updateChangeRiderTypeButton(with: "You are joining as a Rider. Change.")
             NotificationCenter.default.post(name: .userIsRider, object: nil)
         }))
         changeChoices.addAction(UIAlertAction(title: "Non-Rider / Spectator", style: .default, handler: { [self] _ in
             riderType = .spectator
-            updateChangeRiderTypeButton(with: "Join as a Non-Rider. Change.")
+            updateChangeRiderTypeButton(with: "You are joining as a Non-Rider. Change.")
             NotificationCenter.default.post(name: .userIsNonRider, object: nil)
         }))
         

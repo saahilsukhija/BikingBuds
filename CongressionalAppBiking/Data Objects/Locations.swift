@@ -42,33 +42,43 @@ struct Locations {
                 NotificationCenter.default.post(name: .locationUpdated, object: nil)
             }
         }
-
+        
         //User added to group
         ref.observe(.childAdded) { snapshot in
             print("child added")
-            addGroupUser(from: snapshot) { groupUsers, locations, lastUpdated, riderTypes in
+            addGroupUser(from: snapshot) { wasCompleted, groupUsers, locations, lastUpdated, riderTypes in
                 self.groupUsers = groupUsers
                 self.locations = locations
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
-                self.notifications.append(AppNotification(title: "User(TODO) has joined", type: .userJoined))
-                NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
+                
+                if wasCompleted {
+                    let email = snapshot.key.fromStorageEmail()
+                    if email != Authentication.user?.email {
+                        
+                        self.notifications.addNotification(email: email, title: "\(self.groupUsers.groupUserFrom(email: email)?.displayName ?? "(error)") has joined", type: .userJoined)
+                    }
+                    NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
+                }
             }
         }
         
         ref.observe(.childRemoved) { snapshot in
-            self.notifications.append(AppNotification(title: "User(TODO) has left", type: .userLeft))
+            let email = snapshot.key.fromStorageEmail()
+            if email != Authentication.user?.email {
+                self.notifications.addNotification(email: email, title: "\(self.groupUsers.groupUserFrom(email: email)?.displayName ?? "(error)") has left", type: .userLeft)
+            }
             NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
         }
         
- 
+        
     }
     
     /// Adds Group User from the updated snapshot of the SINGULAR group user
     /// - Parameters:
     ///   - snap: The SINGLE snapshot of the SINGLE user that was added
     ///   - completion: returns all the users, locations, lastUpdated, riderTypes in the group
-    static func addGroupUser(from snap: DataSnapshot, completion: (([GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : String], [GroupUser : RiderType]) -> Void)? = nil) {
+    static func addGroupUser(from snap: DataSnapshot, completion: ((Bool, [GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : String], [GroupUser : RiderType]) -> Void)? = nil) {
         StorageRetrieve().getGroupUser(from: snap.key.fromStorageEmail()) { user in
             if let user = user, !groupUsers.contains(user) {
                 self.groupUsers.append(user)
@@ -78,8 +88,10 @@ struct Locations {
                 self.locations[user] = coordinate
                 self.lastUpdated[user] = lastUpdated
                 self.riderTypes[user] = riderType
+                completion?(true, groupUsers, locations, self.lastUpdated, riderTypes)
+            } else {
+                completion?(false, groupUsers, locations, lastUpdated, riderTypes)
             }
-            completion?(groupUsers, locations, lastUpdated, riderTypes)
         }
     }
     
@@ -130,7 +142,7 @@ struct Locations {
         guard let locationDictionary = snap.childSnapshot(forPath: "location").value as? [String : Any] else {
             return "N/A"
         }
-
+        
         return locationDictionary["last_updated"] as! String
     }
     
@@ -179,10 +191,12 @@ struct Locations {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
             if let time = dateFormatter.date(from: snap.value as! String) {
-                let email = snap.key
+                let email = snap.key.fromStorageEmail()
                 self.falls[email] = time
                 self.recentFall = [email : time]
-                self.notifications.append(AppNotification(title: "\(email) has fallen!", type: .fall))
+                if email != Authentication.user?.email {
+                    self.notifications.addNotification(email: email, title: "\(groupUsers.groupUserFrom(email: email)?.displayName ?? "(error)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
+                }
                 NotificationCenter.default.post(name: .userHasFallen, object: nil)
             }
         }
