@@ -209,6 +209,12 @@ class JoinGroupVC: UIViewController {
         
     }
     
+    func savedRideChosen(_ id: String) {
+        joinGroupButtonClicked(self)
+        joinGroupCodeTextField.text = id
+        self.groupID = id
+    }
+    
     func updateChangeRiderTypeButton(with string: String) {
         let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Sinhala Sangam MN", size: 20)!])
         mutableTitle.setColor(color: .accentColor, forText: "Change.")

@@ -54,7 +54,6 @@ class BikingVCs: UIViewController {
         self.map.delegate = self
         
         self.addBottomSheet()
-        self.customizeNavigationController()
         self.setUpUserLocation()
         self.hideKeyboardWhenTappedAround()
         
@@ -154,6 +153,15 @@ extension BikingVCs: CLLocationManagerDelegate {
         }
         (previousLatitude, previousLongitude) = (coordinate.latitude, coordinate.longitude)
     }
+    
+    
+    @objc func recenterCamera() {
+        let userLocation = locationManager.location?.coordinate.roundTo(places: Preferences.coordinateRoundTo) ?? map.userLocation.coordinate
+        map.centerCameraTo(location: userLocation, bottomSheet: bottomSheet)
+        self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
+        (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        userHasPannedAway = false
+    }
 }
 
 extension BikingVCs: MKMapViewDelegate {
@@ -163,117 +171,6 @@ extension BikingVCs: MKMapViewDelegate {
         self.navigationItem.leftBarButtonItem?.customView?.tintColor = .label
         (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location"), for: .normal)
     }
-}
-
-//MARK: Initial Setup
-extension BikingVCs {
-    
-    func customizeNavigationController() {
-        self.navigationItem.largeTitleDisplayMode = .never
-        
-        //Fully Transparent Navigation Bar Background
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        
-        let rightBarButtonCustomView = UIView(frame: CGRect(x: view.frame.size.width - 55, y: navigationController!.navigationBar.globalFrame!.maxY + 5, width: 40, height: 90))
-        
-        let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
-        settingsButton.backgroundColor = preferredBackgroundColor
-        settingsButton.tintColor = .accentColor
-    
-        settingsButton.addTarget(self, action: #selector(openSettingsScreen), for: .touchUpInside)
-        settingsButton.layer.cornerRadius = settingsButton.frame.size.height / 2
-        settingsButton.layer.borderWidth = 1
-        settingsButton.layer.borderColor = UIColor.label.cgColor
-        settingsButton.layer.masksToBounds = true
-        
-        rightBarButtonCustomView.addSubview(settingsButton)
-        
-        //NotificationButtun
-        let notificationsButton = UIButton(frame: CGRect(x: 0, y: 50, width: 40, height: 40))
-        notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-        notificationsButton.backgroundColor = preferredBackgroundColor
-        notificationsButton.tintColor = .accentColor
-
-        notificationsButton.addTarget(self, action: #selector(openNotificationScreen), for: .touchUpInside)
-        notificationsButton.layer.cornerRadius = notificationsButton.frame.size.height / 2
-        notificationsButton.layer.borderWidth = 1
-        notificationsButton.layer.borderColor = UIColor.label.cgColor
-        notificationsButton.layer.masksToBounds = true
-        
-        rightBarButtonCustomView.addSubview(notificationsButton)
-        
-        view.addSubview(rightBarButtonCustomView)
-        
-        //Center camera
-        let centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        centerCameraButton.setImage(UIImage(systemName: "location"), for: .normal)
-        centerCameraButton.backgroundColor = preferredBackgroundColor
-        centerCameraButton.tintColor = .label
-        
-        centerCameraButton.addTarget(self, action: #selector(recenterCamera), for: .touchUpInside)
-        centerCameraButton.layer.cornerRadius = centerCameraButton.frame.size.height / 2
-        centerCameraButton.layer.borderWidth = 1
-        centerCameraButton.layer.borderColor = UIColor.label.cgColor
-        centerCameraButton.layer.masksToBounds = true
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: centerCameraButton)
-    
-        
-        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        notificationCountLabel.backgroundColor = .systemRed
-        notificationCountLabel.textColor = .white
-        notificationCountLabel.text = "0"
-        notificationCountLabel.textAlignment = .center
-        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
-        notificationCountLabel.layer.cornerRadius = 10
-        notificationCountLabel.layer.masksToBounds = true
-        notificationCountLabel.isUserInteractionEnabled = false
-        
-        rightBarButtonCustomView.addSubview(notificationCountLabel)
-        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
-    
-        let notificationCountConstraints: [NSLayoutConstraint] = [
-            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
-                                                       constant: 15),
-            notificationCountLabel.rightAnchor.constraint(equalTo: notificationsButton.rightAnchor, constant: 0),
-            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
-            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        
-        NSLayoutConstraint.activate(notificationCountConstraints)
-    }
-    
-    @objc func openSettingsScreen() {
-        let vc = storyboard?.instantiateViewController(identifier: "groupRideSettingsScreen") as! GroupRideSettingsVC
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    @objc func openNotificationScreen() {
-        let vc = storyboard?.instantiateViewController(identifier: "NotificationsScreen") as! NotificationsVC
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    @objc func endRide() {
-        let bottomAlert = UIAlertController(title: "Are you sure you want to leave the group?", message: "You can join back in the future.", preferredStyle: .actionSheet)
-        bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        bottomAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(bottomAlert, animated: true, completion: nil)
-    }
-    
-    @objc func recenterCamera() {
-        let userLocation = locationManager.location?.coordinate.roundTo(places: Preferences.coordinateRoundTo) ?? map.userLocation.coordinate
-        map.centerCameraTo(location: userLocation, bottomSheet: bottomSheet)
-        self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
-        (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
-        userHasPannedAway = false
-    }
-    
-    
 }
 
 extension UIView{

@@ -196,7 +196,7 @@ extension BottomSheetInfoGroupVC: UISearchBarDelegate {
 extension BottomSheetInfoGroupVC {
     func setUpNavigationBar() {
         searchBar.delegate = self
-        searchBar.placeholder = "Enter rider's name... (Does Not Work)"
+        searchBar.placeholder = "Enter rider's name..."
         
         navigationItem.titleView = searchBar
     }

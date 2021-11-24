@@ -27,6 +27,9 @@
 		9AB04F7326E589780076B190 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7226E589770076B190 /* ViewShadow.swift */; };
 		9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */; };
 		9AB04F7726EAE2D40076B190 /* ShareInviteCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F7626EAE2D30076B190 /* ShareInviteCodeVC.swift */; };
+		9AB06F4B273E57870050B3C5 /* SavedRidesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4A273E57870050B3C5 /* SavedRidesVC.swift */; };
+		9AB06F4D2748D2C30050B3C5 /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4C2748D2C30050B3C5 /* Ride.swift */; };
+		9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */; };
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
@@ -102,6 +105,9 @@
 		9AB04F7226E589770076B190 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
 		9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRideSettingsVC.swift; sourceTree = "<group>"; };
 		9AB04F7626EAE2D30076B190 /* ShareInviteCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareInviteCodeVC.swift; sourceTree = "<group>"; };
+		9AB06F4A273E57870050B3C5 /* SavedRidesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRidesVC.swift; sourceTree = "<group>"; };
+		9AB06F4C2748D2C30050B3C5 /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
+		9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRideCell.swift; sourceTree = "<group>"; };
 		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
@@ -212,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */,
+				9AB06F4A273E57870050B3C5 /* SavedRidesVC.swift */,
+				9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */,
 			);
 			path = "Join Group";
 			sourceTree = "<group>";
@@ -253,6 +261,7 @@
 				9A3DEF682712B6530066D1EB /* AppNotifications.swift */,
 				9AB04F6B26DADC870076B190 /* Preferences.swift */,
 				9ADEAA9026B85EB3005BB706 /* Locations.swift */,
+				9AB06F4C2748D2C30050B3C5 /* Ride.swift */,
 			);
 			path = "Data Objects";
 			sourceTree = "<group>";
@@ -625,6 +634,7 @@
 				9ADEAA732697DCBE005BB706 /* NetworkHelpers.swift in Sources */,
 				9ADEAA8226ACEAD6005BB706 /* Alert.swift in Sources */,
 				9ADEAA8026ACE556005BB706 /* RealtimeUploads.swift in Sources */,
+				9AB06F4D2748D2C30050B3C5 /* Ride.swift in Sources */,
 				9ADEAA7B26997C86005BB706 /* BikingGroupVC.swift in Sources */,
 				9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */,
 				9ADEAA9B26BCF463005BB706 /* TitleLabel.swift in Sources */,
@@ -648,6 +658,7 @@
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
+				9AB06F4B273E57870050B3C5 /* SavedRidesVC.swift in Sources */,
 				9AB04F6C26DADC870076B190 /* Preferences.swift in Sources */,
 				9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */,
 				9AE042B32696E02700FC86AD /* SceneDelegate.swift in Sources */,
@@ -655,6 +666,7 @@
 				9ADEAA9126B85EB3005BB706 /* Locations.swift in Sources */,
 				9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
+				9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */,
 				9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */,
 				9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */,
 			);
@@ -833,6 +845,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = CongressionalAppBiking/CongressionalAppBiking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
@@ -854,6 +867,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = CongressionalAppBiking/CongressionalAppBiking.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2GNMXBY87;

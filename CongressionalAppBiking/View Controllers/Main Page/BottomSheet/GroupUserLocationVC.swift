@@ -51,7 +51,9 @@ class GroupUserLocationVC: UIViewController {
     }
     
     @IBAction func callSOSButtonClicked(_ sender: Any) {
-        
+        if let url = URL(string: "tel://\(user.emergencyPhoneNumber?.toLegalPhoneNumber() ?? "error")"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
     }
     
     @IBAction func changeRiderTypeButtonClicked(_ sender: Any) {

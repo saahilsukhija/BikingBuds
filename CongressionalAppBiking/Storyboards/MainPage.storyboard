@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -46,8 +47,30 @@
                     <view key="view" contentMode="scaleToFill" id="rx0-a0-3Kl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0J-dB-FHt">
+                                <rect key="frame" x="20" y="64" width="374" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bTi-my-0pR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save this ride.">
+                                    <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="24"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="saveThisRide:" destination="JCv-5Q-DD1" eventType="touchUpInside" id="gMc-8J-O50"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="3hK-Dd-yxr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="b0J-dB-FHt" secondAttribute="trailing" constant="20" id="1fa-QG-Sbp"/>
+                            <constraint firstItem="b0J-dB-FHt" firstAttribute="leading" secondItem="3hK-Dd-yxr" secondAttribute="leading" constant="20" id="WmK-ni-cUE"/>
+                            <constraint firstItem="b0J-dB-FHt" firstAttribute="top" secondItem="3hK-Dd-yxr" secondAttribute="top" constant="20" id="skn-nA-KVn"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jG2-1q-MSz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -65,18 +88,24 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFr-Jt-auX">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="27"/>
+                                    <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="31"/>
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Invite Code" id="tjr-iy-klY"/>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-SQ-rDv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5t7-SQ-rDv">
                                 <rect key="frame" x="20" y="108" width="374" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="WDX-cS-6gs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="40"/>
+                                <color key="textColor" name="blueColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share this code to have your friends join this ride." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqS-3e-g45">
+                                <rect key="frame" x="20" y="158" width="374" height="53"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -84,12 +113,15 @@
                         <viewLayoutGuide key="safeArea" id="yqD-m6-blT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="yqD-m6-blT" firstAttribute="trailing" secondItem="mqS-3e-g45" secondAttribute="trailing" constant="20" id="CUw-ac-g3b"/>
                             <constraint firstItem="yqD-m6-blT" firstAttribute="trailing" secondItem="5t7-SQ-rDv" secondAttribute="trailing" constant="20" id="HeV-rF-uKa"/>
                             <constraint firstItem="WFr-Jt-auX" firstAttribute="top" secondItem="yqD-m6-blT" secondAttribute="top" id="fZs-ft-bDQ"/>
                             <constraint firstItem="5t7-SQ-rDv" firstAttribute="top" secondItem="WFr-Jt-auX" secondAttribute="bottom" constant="20" id="g9t-wi-EC3"/>
                             <constraint firstItem="5t7-SQ-rDv" firstAttribute="leading" secondItem="yqD-m6-blT" secondAttribute="leading" constant="20" id="mvn-eT-aRq"/>
                             <constraint firstAttribute="trailing" secondItem="WFr-Jt-auX" secondAttribute="trailing" id="qv1-7G-jNn"/>
                             <constraint firstItem="WFr-Jt-auX" firstAttribute="leading" secondItem="yqD-m6-blT" secondAttribute="leading" id="tiJ-M6-GGz"/>
+                            <constraint firstItem="mqS-3e-g45" firstAttribute="top" secondItem="5t7-SQ-rDv" secondAttribute="bottom" constant="10" id="wSS-80-EQT"/>
+                            <constraint firstItem="mqS-3e-g45" firstAttribute="leading" secondItem="yqD-m6-blT" secondAttribute="leading" constant="20" id="x1m-Qy-Pwh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -201,8 +233,12 @@
     </scenes>
     <resources>
         <image name="multiply" catalog="system" width="128" height="111"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.1809999942779541" green="0.78200000524520874" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="blueColor">
+            <color red="0.0" green="0.34509803921568627" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
