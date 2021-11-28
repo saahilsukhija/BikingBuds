@@ -3,22 +3,4 @@
    uuid = "2B908FE7-5DF3-467B-83AF-54741F9DA315"
    type = "0"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "217AE695-B158-481C-9D0E-7B12CEB15B14"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CongressionalAppBiking/View Controllers/Main Page/GroupRideSettingsVC.swift"
-            startingColumnNumber = "35"
-            endingColumnNumber = "47"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "saveThisRide(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

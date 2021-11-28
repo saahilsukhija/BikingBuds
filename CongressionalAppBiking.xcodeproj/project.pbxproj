@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
-		9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* SignUpVC.swift */; };
+		9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* LoginVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
 		9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5A26BD044B00C82543 /* CheckMark.json */; };
 		9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5B26BD044B00C82543 /* CrossX.json */; };
@@ -30,6 +30,8 @@
 		9AB06F4B273E57870050B3C5 /* SavedRidesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4A273E57870050B3C5 /* SavedRidesVC.swift */; };
 		9AB06F4D2748D2C30050B3C5 /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4C2748D2C30050B3C5 /* Ride.swift */; };
 		9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */; };
+		9AB06F532751DE9B0050B3C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AB06F522751DE9B0050B3C5 /* GoogleService-Info.plist */; };
+		9AB06F55275325A70050B3C5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F54275325A70050B3C5 /* SignUpVC.swift */; };
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
@@ -60,7 +62,6 @@
 		9AE042C82696E02B00FC86AD /* CongressionalAppBikingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042C72696E02B00FC86AD /* CongressionalAppBikingTests.swift */; };
 		9AE042D32696E02B00FC86AD /* CongressionalAppBikingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE042D22696E02B00FC86AD /* CongressionalAppBikingUITests.swift */; };
 		9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */; };
-		9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */; };
 		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
 		9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AE960F9270BCD3200B3B839 /* MutePhone.json */; };
 		DA90804C40C8B3ADF8AE3965 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */; };
@@ -86,7 +87,7 @@
 /* Begin PBXFileReference section */
 		0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		9A11B1B52697A1AA009208E8 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
 		9A2C5C5A26BD044B00C82543 /* CheckMark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CheckMark.json; sourceTree = "<group>"; };
 		9A2C5C5B26BD044B00C82543 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
@@ -108,6 +109,8 @@
 		9AB06F4A273E57870050B3C5 /* SavedRidesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRidesVC.swift; sourceTree = "<group>"; };
 		9AB06F4C2748D2C30050B3C5 /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRideCell.swift; sourceTree = "<group>"; };
+		9AB06F522751DE9B0050B3C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9AB06F54275325A70050B3C5 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		9ADEAA672697D130005BB706 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		9ADEAA692697D23F005BB706 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
@@ -144,7 +147,6 @@
 		9AE042D22696E02B00FC86AD /* CongressionalAppBikingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongressionalAppBikingUITests.swift; sourceTree = "<group>"; };
 		9AE042D42696E02B00FC86AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InitialLaunch.storyboard; sourceTree = "<group>"; };
-		9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
 		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
 		9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CongressionalAppBiking.entitlements; sourceTree = "<group>"; };
@@ -208,8 +210,9 @@
 		9A11B1B42697A154009208E8 /* Initial Launch */ = {
 			isa = PBXGroup;
 			children = (
-				9A11B1B52697A1AA009208E8 /* SignUpVC.swift */,
+				9A11B1B52697A1AA009208E8 /* LoginVC.swift */,
 				9ADEAA9C26BCF5D6005BB706 /* AdditionalInfoVC.swift */,
+				9AB06F54275325A70050B3C5 /* SignUpVC.swift */,
 			);
 			path = "Initial Launch";
 			sourceTree = "<group>";
@@ -271,10 +274,10 @@
 			children = (
 				9AE042BB2696E02B00FC86AD /* LaunchScreen.storyboard */,
 				9AE042B02696E02700FC86AD /* AppDelegate.swift */,
-				9AE2335926C0E6E2008C6101 /* GoogleService-Info.plist */,
 				9AE042B22696E02700FC86AD /* SceneDelegate.swift */,
 				9AE042BE2696E02B00FC86AD /* Info.plist */,
 				9AE042B92696E02B00FC86AD /* Assets.xcassets */,
+				9AB06F522751DE9B0050B3C5 /* GoogleService-Info.plist */,
 				9ADEAA9226B8CCB7005BB706 /* Fonts */,
 			);
 			path = "Master Items";
@@ -542,10 +545,10 @@
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
 				9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */,
 				9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */,
-				9AE2335A26C0E6E2008C6101 /* GoogleService-Info.plist in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
 				9AE042B82696E02700FC86AD /* Main.storyboard in Resources */,
 				9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */,
+				9AB06F532751DE9B0050B3C5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +646,7 @@
 				9AB04F7726EAE2D40076B190 /* ShareInviteCodeVC.swift in Sources */,
 				9ADEAA9626BCD5B7005BB706 /* AuthenticationHelpers.swift in Sources */,
 				9ADEAA8626B356AB005BB706 /* MapExtensions.swift in Sources */,
-				9A11B1B62697A1AA009208E8 /* SignUpVC.swift in Sources */,
+				9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */,
 				9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */,
 				9ADEAA8826B44D13005BB706 /* Group.swift in Sources */,
 				9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */,
@@ -665,6 +668,7 @@
 				9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */,
 				9ADEAA9126B85EB3005BB706 /* Locations.swift in Sources */,
 				9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */,
+				9AB06F55275325A70050B3C5 /* SignUpVC.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
 				9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */,
 				9AB04F7126E1CC100076B190 /* GroupUserLocationVC.swift in Sources */,
@@ -854,10 +858,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.CongressionalAppBiking;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -876,10 +881,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.CongressionalAppBiking;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

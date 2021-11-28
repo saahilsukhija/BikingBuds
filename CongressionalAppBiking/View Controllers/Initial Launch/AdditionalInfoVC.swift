@@ -145,11 +145,11 @@ class AdditionalInfoVC: UIViewController {
             dismiss(animated: true, completion: nil)
             
             let storyboard = UIStoryboard(name: "InitialLaunch", bundle: nil)
-            let signUpScreen = storyboard.instantiateViewController(withIdentifier: "signUp") as! SignUpVC
+            let signUpScreen = storyboard.instantiateViewController(withIdentifier: "loginScreen") as! LoginVC
             signUpScreen.modalPresentationStyle = .fullScreen
             joinGroupVC.present(signUpScreen, animated: true, completion: nil)
         } else {
-            //SignUpVC
+            //LoginVC
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -216,7 +216,7 @@ extension AdditionalInfoVC: UITextFieldDelegate {
         } else if textField.tag == 2 {
             view.endEditing(true)
         }
-        return true
+        return false
     }
     
     //Reformat phone number text field to show proper phone number

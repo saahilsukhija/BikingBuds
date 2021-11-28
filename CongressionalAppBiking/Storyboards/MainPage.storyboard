@@ -10,6 +10,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Baumans-Regular.ttf">
+            <string>Baumans-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Biking GroupVC-->
         <scene sceneID="s0d-6b-0kx">
@@ -50,26 +55,41 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0J-dB-FHt">
                                 <rect key="frame" x="20" y="64" width="374" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bTi-my-0pR"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Save this ride.">
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Save this ride.">
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="24"/>
-                                </buttonConfiguration>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="saveThisRide:" destination="JCv-5Q-DD1" eventType="touchUpInside" id="gMc-8J-O50"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Settings Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsw-3f-zir">
+                                <rect key="frame" x="20" y="124" width="374" height="24"/>
+                                <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3hK-Dd-yxr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="b0J-dB-FHt" secondAttribute="trailing" constant="20" id="1fa-QG-Sbp"/>
+                            <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="bsw-3f-zir" secondAttribute="trailing" constant="20" id="4yt-JY-A4F"/>
+                            <constraint firstItem="bsw-3f-zir" firstAttribute="leading" secondItem="3hK-Dd-yxr" secondAttribute="leading" constant="20" id="BeS-X5-Kot"/>
                             <constraint firstItem="b0J-dB-FHt" firstAttribute="leading" secondItem="3hK-Dd-yxr" secondAttribute="leading" constant="20" id="WmK-ni-cUE"/>
                             <constraint firstItem="b0J-dB-FHt" firstAttribute="top" secondItem="3hK-Dd-yxr" secondAttribute="top" constant="20" id="skn-nA-KVn"/>
+                            <constraint firstItem="bsw-3f-zir" firstAttribute="top" secondItem="b0J-dB-FHt" secondAttribute="bottom" constant="10" id="vty-fE-TSK"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -242,6 +262,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

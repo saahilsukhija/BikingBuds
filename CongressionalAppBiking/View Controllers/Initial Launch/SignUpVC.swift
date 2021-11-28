@@ -2,105 +2,125 @@
 //  SignUpVC.swift
 //  CongressionalAppBiking
 //
-//  Created by Saahil Sukhija on 7/8/21.
+//  Created by Saahil Sukhija on 11/27/21.
 //
 
 import UIKit
-import GoogleSignIn
 import FirebaseAuth
+
 class SignUpVC: UIViewController {
     
-
-    @IBOutlet weak var loginWithGoogleButton: RoundedButton!
-    @IBOutlet weak var createAccountLabel: UILabel!
-    
-    var loginType: LogInType!
-    var currentUser: User!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var loginToExistingAccount: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-
-        //Google Sign In
-        loginWithGoogleButton.layer.borderColor = UIColor.systemGray2.cgColor
-        loginWithGoogleButton.layer.borderWidth = 1
+        
+        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(userProvidedInfo), name: .additionalInfoCompleted, object: nil)
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
         
         //Don't have account? Create one!
-        let mutableString = NSMutableAttributedString(string: createAccountLabel.text!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)])
-        mutableString.setColor(color: .accentColor, forText: "Sign Up")
-        createAccountLabel.attributedText = mutableString
-        
-        //Know when user has signed in successfully
-        NotificationCenter.default.addObserver(self, selector: #selector(userDidSignInWithGoogle), name: .signInGoogleCompleted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(userProvidedInfo), name: .additionalInfoCompleted, object: nil)
+        let mutableString = NSMutableAttributedString(string: loginToExistingAccount.text!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)])
+        mutableString.setColor(color: .accentColor, forText: "Log In")
+        loginToExistingAccount.attributedText = mutableString
+        loginToExistingAccount.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loginButtonTapped))
+        loginToExistingAccount.addGestureRecognizer(gestureRecognizer)
     }
     
-    @objc func userDidSignInWithGoogle() {
+    @IBAction func signUpButtonTapped(_ sender: Any) {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let confirmedPassword = confirmPasswordTextField.text, email != "", password != "", confirmedPassword != "" else {
+            showFailureToast(message: "Empty Text Field")
+            return
+        }
+        
+        guard password == confirmedPassword else {
+            showFailureToast(message: "Passwords do not match.")
+            return
+        }
+        
+        guard isValidEmail(email) else {
+            showFailureToast(message: "Invalid email")
+            return
+        }
+        
         let loadingScreen = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingScreen)
-        guard let authentication = GIDSignIn.sharedInstance().currentUser?.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                          accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { [self] result, error in
+        
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print(error.localizedDescription)
+                loadingScreen.removeFromSuperview()
+                self.showErrorNotification(message: error.localizedDescription)
             } else {
-                Authentication.user = result!.user
-                currentUser = Authentication.user
- 
-                
-                //self.dismiss(animated: true, completion: nil)
-                let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
-                vc.modalPresentationStyle = .fullScreen
-                
-                StorageRetrieve().getPhoneNumbers(from: currentUser) { phoneNumber, emergencyPhoneNumber in
-                    if let phoneNumber = phoneNumber {
-                        vc.setPhoneNumberField(phoneNumber)
-                    }
-                    if let emergencyPhoneNumber = emergencyPhoneNumber {
-                        vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
-                    }
-                    
-                    loadingScreen.removeFromSuperview()
-                    present(vc, animated: true, completion: nil)
-                }
+                self.setUpAccount(authResult, loadingScreen: loadingScreen)
             }
         }
     }
     
+    func setUpAccount(_ result: AuthDataResult?, loadingScreen: UIView) {
+        Authentication.user = result!.user
+        
+        
+        //self.dismiss(animated: true, completion: nil)
+        let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+        vc.modalPresentationStyle = .fullScreen
+        
+        StorageRetrieve().getPhoneNumbers(from: Authentication.user!) { phoneNumber, emergencyPhoneNumber in
+            if let phoneNumber = phoneNumber {
+                vc.setPhoneNumberField(phoneNumber)
+            }
+            if let emergencyPhoneNumber = emergencyPhoneNumber {
+                vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+            }
+            
+            loadingScreen.removeFromSuperview()
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
     @objc func userProvidedInfo() {
         self.dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func googleButtonTapped(_ sender: Any) {
-        GIDSignIn.sharedInstance().presentingViewController = self
-        loginType = .google
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signIn()
-    }
-    
-}
-
-//MARK: -Custom Sign In Button
-extension SignUpVC: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        guard error == nil else {
-            print(error.localizedDescription)
-            return
+    @objc func loginButtonTapped() {
+        if presentingViewController as? LoginVC != nil {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "loginScreen") as! LoginVC
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
         }
-        
-        userDidSignInWithGoogle()
     }
-    
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
-    }
-    
 }
 
-enum LogInType: String {
-    case google = "Google"
-    case email = "Email"
+extension SignUpVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case 0:
+            passwordTextField.becomeFirstResponder()
+            break
+        case 1:
+            confirmPasswordTextField.becomeFirstResponder()
+            break
+        default:
+            textField.resignFirstResponder()
+        }
+        return false
+    }
 }
