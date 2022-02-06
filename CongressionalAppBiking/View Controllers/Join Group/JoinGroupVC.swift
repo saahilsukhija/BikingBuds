@@ -323,7 +323,7 @@ extension JoinGroupVC {
             
             //Initialize signup screen
             let storyboard = UIStoryboard(name: "InitialLaunch", bundle: nil)
-            let signUpScreen = storyboard.instantiateViewController(withIdentifier: "loginScreen") as! LoginVC
+            let signUpScreen = storyboard.instantiateViewController(withIdentifier: "signUpScreen") as! SignUpVC
             signUpScreen.modalPresentationStyle = .fullScreen
             
             self.present(signUpScreen, animated: true, completion: nil)

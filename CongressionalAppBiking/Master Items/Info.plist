@@ -15,11 +15,11 @@
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.SaahilSukhija.BikingBuds</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>BikingBuds</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -42,11 +42,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs the camera to take a picture for your profile</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Location Always AND In use</string>
+	<string>For constant location tracking</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location Always</string>
+	<string>For constant location tracking</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location When In Use</string>
+	<string>For constant location tracking</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs the photo library to choose a picture for your profile</string>
 	<key>UIAppFonts</key>
