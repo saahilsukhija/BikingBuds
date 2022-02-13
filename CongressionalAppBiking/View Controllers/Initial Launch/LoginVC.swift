@@ -92,10 +92,13 @@ class LoginVC: UIViewController {
     }
     
     @objc func signUpButtonTapped() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "signUpScreen") as! SignUpVC
-        vc.modalPresentationStyle = .fullScreen
-        
-        self.present(vc, animated: true, completion: nil)
+        if presentingViewController as? SignUpVC != nil {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "signUpScreen") as! SignUpVC
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 }
 

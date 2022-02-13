@@ -30,6 +30,9 @@ class JoinGroupVC: UIViewController {
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profilePhoneNumber: UILabel!
+    
+    @IBOutlet weak var savedRidesButton: UIButton!
+    
     var emergencyPhoneNumber: String?
     
     var groupSelectionType: GroupSelectionType!
@@ -41,8 +44,6 @@ class JoinGroupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         self.showLoggedIn()
         self.hideKeyboardWhenTappedAround()
         Authentication.addProfileChangesNotification()
@@ -66,7 +67,10 @@ class JoinGroupVC: UIViewController {
         profilePicture.layer.borderWidth = 1
         profilePicture.layer.borderColor = UIColor.label.cgColor
         
-        joinGroupButtonClicked(self)
+        savedRidesButton.isHidden = true
+        changeRiderType.isHidden = true
+        goButton.backgroundColor = .unselectedGrayColor
+        removeActionFromButton(goButton)
         
         updateChangeRiderTypeButton(with: "You are joining as a Rider. Change.")
         
@@ -151,6 +155,9 @@ class JoinGroupVC: UIViewController {
         
         joinGroupButton.backgroundColor = .selectedBlueColor
         groupSelectionType = .join
+        
+        savedRidesButton.isHidden = false
+        changeRiderType.isHidden = false
     }
     
     @IBAction func createGroupButtonClicked(_ sender: Any) {
@@ -172,6 +179,9 @@ class JoinGroupVC: UIViewController {
         }
         
         groupSelectionType = .create
+        
+        savedRidesButton.isHidden = false
+        changeRiderType.isHidden = false
         
     }
     
