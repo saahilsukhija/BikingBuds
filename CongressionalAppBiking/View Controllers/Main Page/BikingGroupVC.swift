@@ -44,8 +44,8 @@ class BikingGroupVC: BikingVCs {
 
         NotificationCenter.default.addObserver(self, selector: #selector(userIsRider), name: .userIsRider, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userIsNonRider), name: .userIsNonRider, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(otherUserHasFallen), name: .userHasFallen, object: nil)
+        
         loadingView.removeFromSuperview()
         
         fallTimer = Timer()
@@ -98,7 +98,6 @@ class BikingGroupVC: BikingVCs {
         bottomSheet.view.addSubview(invitePeopleButton)
         invitePeopleButton.isUserInteractionEnabled = true
         invitePeopleButton.translatesAutoresizingMaskIntoConstraints = false
-        
         let constraints: [NSLayoutConstraint] = [
             invitePeopleButton.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
                                                        constant: -5),
@@ -222,7 +221,7 @@ extension BikingGroupVC {
             
             let acceleration = abs(data!.acceleration.z)
 
-            if acceleration > 1.5 {
+            if acceleration > 1.3 {
                 self.consecutiveAccelerationRedFlags += 1
                 print("red flag")
             } else {
@@ -366,7 +365,6 @@ extension BikingGroupVC {
         guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
         bottomSheetNav.popToRootViewController(animated: true)
         (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
-        self.userDidFall()
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

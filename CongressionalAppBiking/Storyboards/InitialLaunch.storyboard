@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -125,22 +126,23 @@
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="cDV-7V-8xR"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykC-T5-MBl" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykC-T5-MBl" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
                                 <rect key="frame" x="20" y="455.33333333333331" width="167.66666666666666" height="59.999999999999943"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="QGs-Td-SfP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="With Google" image="btn_google_light_normal_ios-1">
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="With Google" image="google.png">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="googleButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Ucy-yq-orw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-Ey-Dcx" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-Ey-Dcx" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
                                 <rect key="frame" x="192.66666666666663" y="455.33333333333331" width="162.33333333333337" height="59.999999999999943"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="L2r-71-FG9"/>
@@ -148,10 +150,11 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="With Apple" image="Logo - SIWA - Left-aligned - Black - Large-1">
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="With Apple">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
+                                    <imageReference key="image" image="applelogo" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
                                     <action selector="appleButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YMZ-My-42E"/>
@@ -508,23 +511,25 @@
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="tlb-2s-Ma4"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-Zn-02f" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-Zn-02f" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
                                 <rect key="frame" x="20" y="450.33333333333331" width="167.66666666666666" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="KbW-nb-JR7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="With Google" image="btn_google_light_normal_ios-1">
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="With Google" image="google.png">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
                                 </state>
                                 <connections>
                                     <action selector="googleButtonTapped:" destination="pGv-WF-3k4" eventType="touchUpInside" id="LIK-q3-nyT"/>
                                     <action selector="googleButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="zFu-kT-xM9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yab-h5-ikr" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yab-h5-ikr" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
                                 <rect key="frame" x="192.66666666666663" y="450.33333333333331" width="162.33333333333337" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="rpx-po-mtw"/>
@@ -532,10 +537,12 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="With Apple" image="Logo - SIWA - Left-aligned - Black - Large-1">
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="With Apple">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
+                                    <imageReference key="image" image="applelogo" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
                                 <connections>
                                     <action selector="appleButtonTapped:" destination="pGv-WF-3k4" eventType="touchUpInside" id="K7K-q5-pzk"/>
@@ -604,8 +611,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo - SIWA - Left-aligned - Black - Large-1" width="39" height="44"/>
-        <image name="btn_google_light_normal_ios-1" width="48" height="48"/>
+        <image name="applelogo" catalog="system" width="103" height="128"/>
+        <image name="google.png" width="18" height="18"/>
         <namedColor name="backgroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

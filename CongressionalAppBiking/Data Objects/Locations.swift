@@ -197,10 +197,13 @@ struct Locations {
                 let email = snap.key.fromStorageEmail()
                 self.falls[email] = time
                 self.recentFall = [email : time]
-                if email != Authentication.user?.email {
-                    self.notifications.addNotification(email: email, title: "\(groupUsers.groupUserFrom(email: email)?.displayName ?? "(error)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
+                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
+                if  diffInMinutes <= 2 {
+                    if email != Authentication.user?.email{
+                        self.notifications.addNotification(email: email, title: "\(groupUsers.groupUserFrom(email: email)?.displayName ?? "(error)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
+                    }
+                    NotificationCenter.default.post(name: .userHasFallen, object: nil)
                 }
-                NotificationCenter.default.post(name: .userHasFallen, object: nil)
             }
         }
     }
