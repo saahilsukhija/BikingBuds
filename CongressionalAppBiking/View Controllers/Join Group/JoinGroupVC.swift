@@ -222,6 +222,10 @@ class JoinGroupVC: UIViewController {
     func savedRideChosen(_ id: String) {
         joinGroupButtonClicked(self)
         joinGroupCodeTextField.text = id
+        
+        addActionToButton(goButton)
+        goButton.backgroundColor = .selectedBlueColor
+        
         self.groupID = id
     }
     

@@ -18,6 +18,7 @@
 		9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6E2718F92A0066D1EB /* ManBiking.json */; };
 		9A3DEF75271B78CF0066D1EB /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF74271B78CF0066D1EB /* NotificationsVC.swift */; };
 		9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */; };
+		9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40DAD127B893CB004BB1DC /* DateFormatterTimeDifference.swift */; };
 		9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */; };
 		9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */; };
 		9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */; };
@@ -97,6 +98,7 @@
 		9A3DEF6E2718F92A0066D1EB /* ManBiking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ManBiking.json; sourceTree = "<group>"; };
 		9A3DEF74271B78CF0066D1EB /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		9A40DAD127B893CB004BB1DC /* DateFormatterTimeDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTimeDifference.swift; sourceTree = "<group>"; };
 		9AB04F6226D471E90076B190 /* BottomSheetInfoGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetInfoGroupVC.swift; sourceTree = "<group>"; };
 		9AB04F6626D8A59B0076B190 /* ColoredLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredLabels.swift; sourceTree = "<group>"; };
 		9AB04F6926D8BBA20076B190 /* GroupUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */,
 				9ADEAA7F26ACE556005BB706 /* RealtimeUploads.swift */,
 				9ADEAA9526BCD5B6005BB706 /* AuthenticationHelpers.swift */,
+				9A40DAD127B893CB004BB1DC /* DateFormatterTimeDifference.swift */,
 			);
 			path = "Network Managers";
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
+				9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */,
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
@@ -858,7 +862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -881,7 +885,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

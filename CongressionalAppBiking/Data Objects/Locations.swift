@@ -12,7 +12,7 @@ import FirebaseAuth
 
 struct Locations {
     static var locations: [GroupUser : CLLocationCoordinate2D]! = [:]
-    static var lastUpdated: [GroupUser : String]! = [:]
+    static var lastUpdated: [GroupUser : Date?]! = [:]
     static var riderTypes: [GroupUser : RiderType]! = [:]
     static var groupUsers: [GroupUser]! = []
     
@@ -78,7 +78,7 @@ struct Locations {
     /// - Parameters:
     ///   - snap: The SINGLE snapshot of the SINGLE user that was added
     ///   - completion: returns all the users, locations, lastUpdated, riderTypes in the group
-    static func addGroupUser(from snap: DataSnapshot, completion: ((Bool, [GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : String], [GroupUser : RiderType]) -> Void)? = nil) {
+    static func addGroupUser(from snap: DataSnapshot, completion: ((Bool, [GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : Date?], [GroupUser : RiderType]) -> Void)? = nil) {
         StorageRetrieve().getGroupUser(from: snap.key.fromStorageEmail()) { user in
             if let user = user, !groupUsers.contains(user) {
                 self.groupUsers.append(user)
@@ -100,7 +100,7 @@ struct Locations {
     /// - Parameters:
     ///   - groupRef: The groupSnapshot ("rides/{id}")
     ///   - completion: returns all the properties.
-    static func addGroupUsers(from groupSnapshot: DataSnapshot, completion: (([GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : String], [GroupUser : RiderType]) -> Void)? = nil) {
+    static func addGroupUsers(from groupSnapshot: DataSnapshot, completion: (([GroupUser], [GroupUser : CLLocationCoordinate2D], [GroupUser : Date?], [GroupUser : RiderType]) -> Void)? = nil) {
         let allUserSnapshots = groupSnapshot.children.allObjects as! [DataSnapshot]
         let emails = allUserSnapshots.map { $0.key.fromStorageEmail() }
         
@@ -138,12 +138,15 @@ struct Locations {
     /// Filters through a singular persons snapshot and gets the Last Updated Time
     /// - Parameters:
     ///   - snap: the snapshot of the singular person
-    static func getLastUpdatedFrom(snap: DataSnapshot) -> String {
+    static func getLastUpdatedFrom(snap: DataSnapshot) -> Date? {
         guard let locationDictionary = snap.childSnapshot(forPath: "location").value as? [String : Any] else {
-            return "N/A"
+            return nil
         }
         
-        return locationDictionary["last_updated"] as! String
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = df.date(from: locationDictionary["last_updated"] as! String)
+        return date
     }
     
     /// Filters through a singular persons snapshot and gets the Rider Type

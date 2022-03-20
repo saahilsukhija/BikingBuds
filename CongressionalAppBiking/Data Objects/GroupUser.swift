@@ -62,6 +62,72 @@ extension Array where Element == GroupUser {
         
         return nil
     }
+    
+    func getNames() -> [String] {
+        var names: [String] = []
+        for user in self {
+            names.append(user.displayName)
+        }
+        return names
+    }
+    
+    func getEmails() -> [String] {
+        var emails: [String] = []
+        for user in self {
+            emails.append(user.email)
+        }
+        return emails
+    }
+
+    
+    func groupUser(from name: String) -> GroupUser? {
+        for user in self {
+            if user.displayName?.lowercased() == name.lowercased() {
+                return user
+            }
+        }
+        
+        return nil
+    }
+    
+    func groupUsers(from names: [String]) -> [GroupUser]? {
+        var groupUsers: [GroupUser] = []
+        for user in self {
+            if names.contains(where: { name in
+                return user.displayName.lowercased() == name.lowercased()
+            }) {
+                groupUsers.append(user)
+            }
+        }
+        
+        return groupUsers
+    }
+    
+    func filterRiders(riders: [GroupUser]) -> [GroupUser] {
+        var groupUsers: [GroupUser] = []
+        for user in self {
+            if riders.getEmails().contains(where: { email in
+                return user.email.lowercased() == email.lowercased()
+            }) {
+                groupUsers.append(user)
+            }
+        }
+        
+        return groupUsers
+    }
+    
+    func filterNonRiders(nonRiders: [GroupUser]) -> [GroupUser] {
+        var groupUsers: [GroupUser] = []
+        for user in self {
+            if nonRiders.getEmails().contains(where: { email in
+                return user.email.lowercased() == email.lowercased()
+            }) {
+                groupUsers.append(user)
+            }
+        }
+        
+        return groupUsers
+    }
 }
 
 extension Data {

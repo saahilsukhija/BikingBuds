@@ -38,17 +38,12 @@ struct UserLocationsUpload {
         }
         
         let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/"
-        
-        let date = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date) % 12
-        
-        let minutes = calendar.component(.minute, from: date)
-        
-        let fixedMinutes = minutes < 10 ? "0\(minutes)" : "\(minutes)"
-        let fixedHours = hour == 0 ? "12" : "\(hour)"
 
-        let locationDict = ["latitude" : latitude, "longitude" : longitude, "last_updated" : "\(fixedHours):\(fixedMinutes)"] as [String : Any]
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let now = df.string(from: Date())
+        
+        let locationDict = ["latitude" : latitude, "longitude" : longitude, "last_updated" : now] as [String : Any]
         let legalRiderType = HelperFunctions.makeLegalRiderType(Authentication.riderType ?? .rider)
         RealtimeUpload.upload(data: ["rider_type" : legalRiderType, "location" : locationDict], path: path)
         completion(true, nil)

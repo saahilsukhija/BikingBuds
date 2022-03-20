@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CryptoKit
 class BottomSheetInfoGroupVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -17,7 +18,9 @@ class BottomSheetInfoGroupVC: UIViewController {
     var riders: [GroupUser] = []
     var nonRiders: [GroupUser] = []
     
-    var lastUploadedTimes: [GroupUser : String] = [:]
+    var lastUploadedTimes: [GroupUser : Date?] = [:]
+    
+    var filteredData: [GroupUser] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,16 +40,19 @@ class BottomSheetInfoGroupVC: UIViewController {
         backdropView.bottomSheet.track(scrollView: self.tableView)
         self.setUpNavigationBar()
         self.hideKeyboardWhenTappedAround()
+        
+        filteredData = groupUsers
     }
     
     func reloadGroupUsers() {
         groupUsers = Locations.groupUsers
+        filteredData = groupUsers
         lastUploadedTimes = Locations.lastUpdated
         
         bringCurrentUserToFront()
         filterRidersAndNonRiders()
         
-        tableView.reloadData()
+        searchBar(searchBar, textDidChange: searchBar.text ?? "")
     }
     
     func bringCurrentUserToFront() {
@@ -55,7 +61,7 @@ class BottomSheetInfoGroupVC: UIViewController {
         guard let indexOfGroupUser = groupUsers.firstIndex(of: groupUser) else { return }
         
         groupUsers.swapAt(0, indexOfGroupUser)
-        
+        filteredData = groupUsers
     }
     
     func filterRidersAndNonRiders() {
@@ -90,9 +96,9 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return riders.count
+            return filteredData.filterRiders(riders: riders).count
         }
-        return nonRiders.count
+        return filteredData.filterNonRiders(nonRiders: nonRiders).count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -123,12 +129,11 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "groupUserCell") as! GroupUserTableViewCell
-        let dataSet = indexPath.section == 0 ? riders : nonRiders
-        
+        let dataSet = indexPath.section == 0 ? filteredData.filterRiders(riders: riders) : filteredData.filterNonRiders(nonRiders: nonRiders)
         let groupUser = dataSet[indexPath.row]
         let isCurrentUser = groupUser.email == Authentication.user?.email
         
-        cell.setProperties(from: groupUser, lastUpdated: lastUploadedTimes[groupUser] ?? "N/A", isCurrentUser: isCurrentUser)
+        cell.setProperties(from: groupUser, lastUpdated: lastUploadedTimes[groupUser]??.timeAgo() ?? "N/A", isCurrentUser: isCurrentUser)
         cell.contentView.backgroundColor = .clear
         //Separator Full Line
         cell.preservesSuperviewLayoutMargins = false
@@ -146,7 +151,7 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
     func selectedPerson(at indexPath: IndexPath) {
         guard let bikingGroupVCBackdrop = backdropView as? BikingGroupVC else { return }
         
-        let dataSet = indexPath.section == 0 ? riders : nonRiders
+        let dataSet = indexPath.section == 0 ? filteredData.filterRiders(riders: riders) : filteredData.filterNonRiders(nonRiders: nonRiders)
         
         if indexPath.section == 0 {
             guard let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: dataSet[indexPath.row].email) else { return }
@@ -190,6 +195,13 @@ extension BottomSheetInfoGroupVC: UISearchBarDelegate {
         searchBar.endEditing(true)
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? groupUsers : groupUsers.groupUsers(from: groupUsers.getNames().filter({(dataString: String) -> Bool in
+            return dataString.range(of: searchText, options: .caseInsensitive) != nil
+        })) ?? []
+        tableView.reloadData()
+    }
+
 }
 
 //MARK: Initial Setup

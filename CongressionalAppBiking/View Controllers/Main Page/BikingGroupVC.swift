@@ -366,6 +366,7 @@ extension BikingGroupVC {
         guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
         bottomSheetNav.popToRootViewController(animated: true)
         (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        self.userDidFall()
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -400,8 +401,7 @@ extension BikingGroupVC {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
-        let rightBarButtonCustomView = UIView(frame: CGRect(x: view.frame.size.width - 70, y: navigationController!.navigationBar.globalFrame!.maxY + 5, width: 40, height: 90))
-        
+        let rightBarButtonCustomView = UIView(frame: CGRect(x: view.frame.size.width - 56, y: (UIApplication.shared.windows.first?.safeAreaInsets.top)! + 0, width: 40, height: 90))
         let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         settingsButton.backgroundColor = preferredBackgroundColor
@@ -413,9 +413,9 @@ extension BikingGroupVC {
         settingsButton.layer.borderColor = UIColor.label.cgColor
         settingsButton.layer.masksToBounds = true
         
-        //rightBarButtonCustomView.addSubview(settingsButton)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
-        //NotificationButtun
+        rightBarButtonCustomView.addSubview(settingsButton)
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        //NotificationButton
         let notificationsButton = UIButton(frame: CGRect(x: 0, y: 50, width: 40, height: 40))
         notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         notificationsButton.backgroundColor = preferredBackgroundColor
@@ -428,9 +428,8 @@ extension BikingGroupVC {
         notificationsButton.layer.masksToBounds = true
         
         rightBarButtonCustomView.addSubview(notificationsButton)
-        
-        view.addSubview(rightBarButtonCustomView)
-        
+
+        self.navigationController?.view.addSubview(rightBarButtonCustomView)
         //Center camera
         let centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         centerCameraButton.setImage(UIImage(systemName: "location"), for: .normal)
