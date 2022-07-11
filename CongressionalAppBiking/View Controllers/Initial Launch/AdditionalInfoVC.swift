@@ -10,37 +10,46 @@ import FirebaseAuth
 import GoogleSignIn
 class AdditionalInfoVC: UIViewController {
 
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
     @IBOutlet weak var pictureChangeView: UIView!
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var currentlyLoggedIn: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var currentUser: User!
-    
+    var imageChanged = false
+    var anythingChanged = false
     var phoneNumber: String!
     var emergencyPhoneNumber: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        self.addDoneButtonOnKeyboard()
         
         //Differentiate between textfields for delegate
-        nameTextField.tag = 0
-        phoneNumberTextField.tag = 1
-        emergencyPhoneNumberTextField.tag = 2
+        firstNameTextField.tag = 0
+        lastNameTextField.tag = 1
+        phoneNumberTextField.tag = 2
+        emergencyPhoneNumberTextField.tag = 3
         
-        nameTextField.returnKeyType = .next
+        firstNameTextField.returnKeyType = .next
+        lastNameTextField.returnKeyType = .next
         phoneNumberTextField.returnKeyType = .next
         emergencyPhoneNumberTextField.returnKeyType = .done
         
-        nameTextField.delegate = self
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
         phoneNumberTextField.delegate = self
         emergencyPhoneNumberTextField.delegate = self
         
-        phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        emergencyPhoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        emergencyPhoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        firstNameTextField.addTarget(self, action: #selector(nameFieldDidChange(_:)), for: .editingChanged)
+        lastNameTextField.addTarget(self, action: #selector(nameFieldDidChange(_:)), for: .editingChanged)
         
         //Round view
         pictureChangeView.layer.cornerRadius = 10
@@ -50,12 +59,16 @@ class AdditionalInfoVC: UIViewController {
         //Round image view
         profilePictureImageView.layer.cornerRadius = profilePictureImageView.frame.size.width / 2
         profilePictureImageView.layer.borderWidth = 1
-        profilePictureImageView.layer.borderColor = UIColor.label.cgColor
+        profilePictureImageView.layer.borderColor = UIColor.black.cgColor
         
         StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: Auth.auth().currentUser!.email!)
         
         currentlyLoggedIn.isUserInteractionEnabled = true
         currentlyLoggedIn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchAccountsButtonClicked)))
+        
+        if navigationController != nil {
+            self.configureNavBar()
+        }
         
     }
     
@@ -64,13 +77,30 @@ class AdditionalInfoVC: UIViewController {
         
         if Authentication.hasPreviousSignIn() {
             currentUser = Auth.auth().currentUser
-            nameTextField.text = currentUser.displayName
-            phoneNumberTextField.text = phoneNumber
-            emergencyPhoneNumberTextField.text = emergencyPhoneNumber
+            print(currentUser.displayName ?? "has no display name")
+            print(Auth.auth().currentUser?.email ?? "has no email")
+            let name = currentUser.displayName?.components(separatedBy: " ")
+            if let first = name?.first {
+                firstNameTextField.text = first
+            }
+            if name?.count ?? 0 > 1 {
+                lastNameTextField.text = name?[1]
+            }
+            
+            if phoneNumber == "" || phoneNumber == nil {
+                phoneNumberTextField.text = Authentication.phoneNumber
+            } else {
+                phoneNumberTextField.text = phoneNumber
+            }
+            if emergencyPhoneNumber == "" || emergencyPhoneNumber == nil {
+                emergencyPhoneNumberTextField.text = Authentication.emergencyPhoneNumber
+            } else {
+                emergencyPhoneNumberTextField.text = emergencyPhoneNumber
+            }
+            
             //Not _____? Switch Accounts.
-            let mutableString = NSMutableAttributedString(string: "Not \(currentUser.email!)? Switch Accounts.", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
+            let mutableString = NSMutableAttributedString(string: "Not \(currentUser.displayName ?? (currentUser.email) ?? "this person")? Switch Accounts.", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
             mutableString.setColor(color: .accentColor, forText: "Switch Accounts.")
-            mutableString.addUnderline(forText: currentUser.email!)
             currentlyLoggedIn.attributedText = mutableString
             
             //Profile Picture
@@ -92,24 +122,42 @@ class AdditionalInfoVC: UIViewController {
     
     @IBAction func completedButtonTapped(_ sender: Any) {
         currentUser = Authentication.user
+        
+        
         guard let image = profilePictureImageView.image else {
             self.showFailureToast(message: "No Profile Picture Chosen.")
             return
         }
         
-        guard nameTextField.text != "" && phoneNumberTextField.text != "" else {
+        guard firstNameTextField.text != "" && lastNameTextField.text != "" && phoneNumberTextField.text != "" else {
             self.showFailureToast(message: "Empty TextField")
             return
         }
 
+        
+        guard anythingChanged else {
+            if self.navigationController != nil {
+                self.navigationController?.popViewController(animated: true)
+                Authentication.user = Auth.auth().currentUser
+                NotificationCenter.default.post(name: .additionalInfoCompleted, object: nil)
+            } else {
+                self.dismiss(animated: true) {
+                    Authentication.user = Auth.auth().currentUser
+                    NotificationCenter.default.post(name: .additionalInfoCompleted, object: nil)
+                }
+            }
+            
+            return
+        }
+        
         let loadingScreen = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingScreen)
         
         Authentication.phoneNumber = phoneNumber
-        
+        Authentication.emergencyPhoneNumber = emergencyPhoneNumber
         
         let currentUserEditor = currentUser.createProfileChangeRequest()
-        currentUserEditor.displayName = nameTextField.text!
+        currentUserEditor.displayName = (firstNameTextField.text ?? "") + " " + (lastNameTextField.text ?? "")
         
         currentUserEditor.commitChanges { [self] error in
             if let error = error {
@@ -117,16 +165,29 @@ class AdditionalInfoVC: UIViewController {
             }
             
             showAnimationToast(animationName: "LoginSuccess", message: "Welcome, \(currentUser.displayName!)")
-            StorageUpload().uploadCurrentUser(currentUser, phoneNumber: phoneNumberTextField.text!, emergencyPhoneNumber: emergencyPhoneNumberTextField.text!, image: image) { completed in
+            
+            var potentialImage: UIImage?
+            if imageChanged {
+                potentialImage = image
+            } else {
+                potentialImage = nil
+            }
+            StorageUpload().uploadCurrentUser(currentUser, phoneNumber: phoneNumberTextField.text!, emergencyPhoneNumber: emergencyPhoneNumberTextField.text!, image: potentialImage) { completed in
                 loadingScreen.removeFromSuperview()
                 
                 if completed {
-                    dismiss(animated: true) {
+                    if self.navigationController != nil {
+                        self.navigationController?.popViewController(animated: true)
                         Authentication.user = Auth.auth().currentUser
                         NotificationCenter.default.post(name: .additionalInfoCompleted, object: nil)
+                    } else {
+                        self.dismiss(animated: true) {
+                            Authentication.user = Auth.auth().currentUser
+                            NotificationCenter.default.post(name: .additionalInfoCompleted, object: nil)
+                        }
                     }
                 } else {
-                    showFailureToast(message: "Something went wrong...")
+                    self.showFailureToast(message: "Something went wrong...")
                 }
             }
             
@@ -149,9 +210,30 @@ class AdditionalInfoVC: UIViewController {
             signUpScreen.modalPresentationStyle = .fullScreen
             joinGroupVC.present(signUpScreen, animated: true, completion: nil)
         } else {
-            //LoginVC
             self.dismiss(animated: true, completion: nil)
+            
         }
+    }
+    
+    func configureNavBar() {
+        let xButton = UIBarButtonItem(image: UIImage(named: "multiply"), style: .done, target: self, action: #selector(dismissNavSelf))
+        xButton.tintColor = .label
+        navigationItem.leftBarButtonItem = xButton
+        
+        //titleLabel.addConstraint(NSLayoutConstraint(item: navigationItem, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 10))
+        
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    }
+    
+    @objc func dismissNavSelf() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Authentication.phoneNumber = phoneNumberTextField.text
+        Authentication.emergencyPhoneNumber = emergencyPhoneNumberTextField.text
     }
 }
 
@@ -161,10 +243,14 @@ extension AdditionalInfoVC: UIImagePickerControllerDelegate, UINavigationControl
         
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.imageChanged = true
+            self.anythingChanged = true
             self.openCamera()
         }))
         
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.imageChanged = true
+            self.anythingChanged = true
             self.openGallery()
         }))
         
@@ -208,23 +294,75 @@ extension AdditionalInfoVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == 0 {
             //Is name enter
-            phoneNumberTextField.becomeFirstResponder()
+            lastNameTextField.becomeFirstResponder()
         } else if textField.tag == 1 {
             //Is phone number
-            emergencyPhoneNumberTextField.becomeFirstResponder()
+            phoneNumberTextField.becomeFirstResponder()
             
         } else if textField.tag == 2 {
+            emergencyPhoneNumberTextField.becomeFirstResponder()
+        } else if textField.tag == 3 {
             view.endEditing(true)
         }
         return false
     }
     
-    //Reformat phone number text field to show proper phone number
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField.text!.count == 14 {
-            view.endEditing(true)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        anythingChanged = true
+        if (textField == phoneNumberTextField || textField == emergencyPhoneNumberTextField) {
+            let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            let components = newString.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+
+            let decimalString = components.joined(separator: "") as NSString
+            let length = decimalString.length
+            let hasLeadingOne = length > 0 && decimalString.hasPrefix("1")
+
+            if length == 0 || (length > 10 && !hasLeadingOne) || length > 11 {
+                let newLength = (textField.text! as NSString).length + (string as NSString).length - range.length as Int
+
+                return (newLength > 10) ? false : true
+            }
+            var index = 0 as Int
+            let formattedString = NSMutableString()
+
+            if hasLeadingOne {
+                formattedString.append("+1 ")
+                index += 1
+            }
+            if (length - index) > 3 {
+                let areaCode = decimalString.substring(with: NSMakeRange(index, 3))
+                formattedString.appendFormat("(%@) ", areaCode)
+                index += 3
+            }
+            if length - index > 3 {
+                let prefix = decimalString.substring(with: NSMakeRange(index, 3))
+                formattedString.appendFormat("%@-", prefix)
+                index += 3
+            }
+
+            let remainder = decimalString.substring(from: index)
+            formattedString.append(remainder)
+            textField.text = formattedString as String
+            return false
         }
-        textField.text = format(with: "(XXX) XXX-XXXX", phone: textField.text!)
+        else {
+            return true
+        }
+    }
+    //Reformat phone number text field to show proper phone number
+//    @objc func textFieldDidChange(_ textField: UITextField) {
+//        if textField.text!.count == 17 {
+//            view.endEditing(true)
+//        }
+//
+//        textField.text = format(with: "+X (XXX) XXX-XXXX", phone: textField.text!)
+//
+//        anythingChanged = true
+//    }
+    
+    @objc func nameFieldDidChange(_ textField: UITextField) {
+        anythingChanged = true
     }
     
     /// mask example: `+X (XXX) XXX-XXXX`
@@ -249,4 +387,24 @@ extension AdditionalInfoVC: UITextFieldDelegate {
         return result
     }
     
+    func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        emergencyPhoneNumberTextField.inputAccessoryView = doneToolbar
+        phoneNumberTextField.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction(){
+        emergencyPhoneNumberTextField.resignFirstResponder()
+        phoneNumberTextField.resignFirstResponder()
+        
+    }
 }

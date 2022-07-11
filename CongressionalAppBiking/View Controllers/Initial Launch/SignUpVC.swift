@@ -21,6 +21,7 @@ class SignUpVC: UIViewController {
     
     fileprivate var currentNonce: String?
     
+    var appleName: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -78,21 +79,48 @@ class SignUpVC: UIViewController {
     func setUpAccount(_ result: AuthDataResult?, loadingScreen: UIView) {
         Authentication.user = result!.user
         
-        
-        //self.dismiss(animated: true, completion: nil)
-        let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
-        vc.modalPresentationStyle = .fullScreen
-        
-        StorageRetrieve().getPhoneNumbers(from: Authentication.user!) { phoneNumber, emergencyPhoneNumber in
-            if let phoneNumber = phoneNumber {
-                vc.setPhoneNumberField(phoneNumber)
+        if let appleName = appleName, let user = Authentication.user {
+            let changeRequest = user.createProfileChangeRequest() // (3)
+            changeRequest.displayName = appleName
+            changeRequest.commitChanges { [self] error in
+                if let error = error {
+                    showFailureToast(message: error.localizedDescription)
+                } else {
+                    let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+                    vc.modalPresentationStyle = .fullScreen
+                    
+                    StorageRetrieve().getPhoneNumbers(from: user) { phoneNumber, emergencyPhoneNumber in
+                        if let phoneNumber = phoneNumber {
+                            vc.setPhoneNumberField(phoneNumber)
+                        }
+                        if let emergencyPhoneNumber = emergencyPhoneNumber {
+                            vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+                        }
+                        
+                        loadingScreen.removeFromSuperview()
+                        Authentication.phoneNumber = nil
+                        Authentication.emergencyPhoneNumber = nil
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
             }
-            if let emergencyPhoneNumber = emergencyPhoneNumber {
-                vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
-            }
+        } else {
+            let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+            vc.modalPresentationStyle = .fullScreen
             
-            loadingScreen.removeFromSuperview()
-            self.present(vc, animated: true, completion: nil)
+            StorageRetrieve().getPhoneNumbers(from: Authentication.user!) { phoneNumber, emergencyPhoneNumber in
+                if let phoneNumber = phoneNumber {
+                    vc.setPhoneNumberField(phoneNumber)
+                }
+                if let emergencyPhoneNumber = emergencyPhoneNumber {
+                    vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+                }
+                
+                loadingScreen.removeFromSuperview()
+                Authentication.phoneNumber = nil
+                Authentication.emergencyPhoneNumber = nil
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
@@ -258,6 +286,11 @@ extension SignUpVC: ASAuthorizationControllerDelegate, ASAuthorizationController
                 print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
+            
+            if let first = appleIDCredential.fullName?.givenName, let last = appleIDCredential.fullName?.familyName {
+                appleName = first + " " + last
+            }
+            
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                       idToken: idTokenString,

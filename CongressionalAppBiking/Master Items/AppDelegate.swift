@@ -8,9 +8,13 @@
 import UIKit
 import GoogleSignIn
 import Firebase
-
+import CoreLocation
+import UserNotifications
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLocationManagerDelegate {
+    
+    var lastLocation:CLLocation?
+    var locationManager = CLLocationManager()
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         // ...
@@ -65,9 +69,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().restorePreviousSignIn()
-
+        
+        // Check if launched from notification
+//        let notificationOption = launchOptions?[.remoteNotification]
+//
+//        if
+//          let notification = notificationOption as? [String: AnyObject],
+//          let aps = notification["aps"] as? [String: AnyObject] {
+//          // 2
+//          //NewsItem.makeNewsItem(aps)
+//
+//          // 3
+//          //(window?.rootViewController as? UITabBarController)?.selectedIndex = 1
+//        }
+        
         return true
     }
+    
     
     // MARK: UISceneSession Lifecycle
     
@@ -83,6 +101,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("app did terminate")
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("app did enter background")
+        locationManager.requestAlwaysAuthorization()
+        locationManager.delegate = self
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
+        let (latitude, longitude) = (location.latitude, location.longitude)
+        
+        if lastLocation?.coordinate.latitude != latitude || lastLocation?.coordinate.longitude != longitude {
+            uploadUserLocation(location)
+        } else {
+            //Same Location, not uploading to cloud
+        }
+        
+        lastLocation = locations[0]
+    }
+    
+    func uploadUserLocation(_ location: CLLocationCoordinate2D) {
+        if Authentication.riderType == .rider, let groupID = UserDefaults.standard.string(forKey: "recent_group") {
+            UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
+                if !completed {
+                    print(message!)
+                }
+            }
+        }
+    }
+    
+    func registerForPushNotifications() {
+      //1
+      UNUserNotificationCenter.current()
+        //2
+        .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+          //3
+          print("Permission granted: \(granted)")
+        }
+    }
+    
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        Authentication.deviceToken = token
+        NotificationCenter.default.post(name: .deviceTokenLoaded, object: nil)
+//        print("Device Token: \(token)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        print("Failed to register: \(error)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+    }
     
 }
 

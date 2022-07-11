@@ -25,10 +25,15 @@ struct AppNotification {
 
 extension Array where Element == AppNotification {
     mutating func addNotification(email: String, title: String, subTitle: String? = nil, image: UIImage? = nil, type: AppNotification.NotificationType) {
-        self.insert(AppNotification(email: email, title: title, subTitle: subTitle, image: image, type: type), at: 0)
+        self.addNotification(AppNotification(email: email, title: title, subTitle: subTitle, image: image, type: type))
     }
     
     mutating func addNotification(_ notification: AppNotification) {
+        let (notificationExists, notificationIndex) = notificationAlreadyExists(notification)
+        if notificationExists {
+            print("repeat notification: \(notification.title ?? "error")")
+            self.remove(at: notificationIndex)
+        }
         self.insert(notification, at: 0)
     }
     
@@ -65,5 +70,15 @@ extension Array where Element == AppNotification {
         return self.filter { notification in
             return notification.email != email
         }
+    }
+    
+    func notificationAlreadyExists(_ notification: AppNotification) -> (Bool, Int) {
+        for (index, notif) in self.enumerated() {
+            if notif.email == notification.email && notif.title == notification.title && notif.type == notification.type {
+                return (true, index)
+            }
+        }
+        
+        return (false, -1)
     }
 }

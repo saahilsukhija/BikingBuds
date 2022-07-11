@@ -28,5 +28,11 @@ class SavedRideCell: UITableViewCell {
         self.name.text = name
         self.code.text = code
     }
+    
+    func setUpNoSavedRide() {
+        self.name.text = "You have no rides saved. \nSave rides through the settings once you enter a group"
+        self.name.font = UIFont(name: "Poppins-Regular", size: 16)
+        self.code.text = ""
+    }
 
 }

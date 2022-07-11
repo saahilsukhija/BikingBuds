@@ -24,7 +24,7 @@ extension UIViewController {
         
         let messageLabel = UILabel(frame: CGRect(x: toastView.frame.size.height, y: 5, width: toastView.frame.size.width - toastView.frame.size.height, height: 40))
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "DIN Alternate Bold", size: 20)
+        messageLabel.font = UIFont(name: "Poppins-Medium", size: 20)
         messageLabel.textColor = fontColor
         toastView.addSubview(messageLabel)
         window.addSubview(toastView)
@@ -76,7 +76,7 @@ extension UIViewController {
         
         let messageLabel = UILabel(frame: CGRect(x: toastView.frame.size.height, y: 5, width: toastView.frame.size.width - toastView.frame.size.height, height: 50))
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "DIN Alternate Bold", size: 22)
+        messageLabel.font = UIFont(name: "Poppins-Medium", size: 22)
         messageLabel.textColor = fontColor
         toastView.addSubview(messageLabel)
         window.addSubview(toastView)

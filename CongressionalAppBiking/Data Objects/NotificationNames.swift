@@ -57,7 +57,20 @@ extension Notification.Name {
     static var searchBarClicked: Notification.Name {
         return .init(rawValue: #function)
     }
+    ///Used primarily for when a user leaves
+    static var shouldResetMapAnnotations: Notification.Name {
+        return .init(rawValue: #function)
+    }
     
+    ///Announcement has been published
+    static var newAnnouncement: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    ///Used in app delegate once device token has been loaded
+    static var deviceTokenLoaded: Notification.Name {
+        return .init(rawValue: #function)
+    }
     
     
     

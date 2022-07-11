@@ -21,6 +21,8 @@ struct Authentication {
     
     static var riderType: RiderType?
     
+    static var deviceToken: String?
+    
     static func addProfileChangesNotification() {
         Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {

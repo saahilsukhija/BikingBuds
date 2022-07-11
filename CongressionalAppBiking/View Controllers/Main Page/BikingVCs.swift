@@ -92,6 +92,8 @@ extension BikingVCs: FloatingPanelControllerDelegate {
         // Set the new appearance
         bottomSheet.surfaceView.contentPadding = .init(top: 10, left: 0, bottom: 0, right: 0)
         bottomSheet.surfaceView.appearance = appearance
+        
+        bottomSheet.layout = MyFloatingPanelLayout()
     }
     
     func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
@@ -114,10 +116,11 @@ extension BikingVCs: CLLocationManagerDelegate {
             locationManager.activityType = .fitness
             
             if Authentication.riderType == .rider {
-                locationManager.requestAlwaysAuthorization()
+//                locationManager.requestAlwaysAuthorization()
                 locationManager.showsBackgroundLocationIndicator = true
                 locationManager.allowsBackgroundLocationUpdates = true
                 locationManager.startUpdatingLocation()
+                //locationManager.distanceFilter =
             }
             
         } else {
@@ -143,7 +146,7 @@ extension BikingVCs: CLLocationManagerDelegate {
             self.recenterCamera()
         }
         
-        manager.requestAlwaysAuthorization()
+        //manager.requestAlwaysAuthorization()
     }
     
     func updatePreviousLocations(_ coordinate: CLLocationCoordinate2D) {
@@ -160,11 +163,34 @@ extension BikingVCs: CLLocationManagerDelegate {
         map.centerCameraTo(location: userLocation, bottomSheet: bottomSheet)
         self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
         (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        //map.drawAllGroupMembers(includingSelf: true)
         userHasPannedAway = false
     }
 }
 
 extension BikingVCs: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+            return nil
+        }
+        
+        var annotationView: MKAnnotationView!
+        var annotationIdentifier: String!
+        
+        if annotation.isKind(of: GroupUserAnnotation.self) {
+            annotationIdentifier = "groupUser"
+            annotationView = GroupUserAnnotationView(annotation: annotation as! GroupUserAnnotation, reuseIdentifier: annotationIdentifier)
+            annotationView.frame = (annotationView as! GroupUserAnnotationView).containerView.frame
+    
+        } else {
+            annotationIdentifier = "marker"
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+        }
+        
+        
+        return annotationView
+    }
+    
     //User has panned away
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         userHasPannedAway = true
@@ -183,3 +209,14 @@ extension UIView{
     }
 }
 
+class MyFloatingPanelLayout: FloatingPanelLayout {
+    let position: FloatingPanelPosition = .bottom
+    let initialState: FloatingPanelState = .half
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+        return [
+            .full: FloatingPanelLayoutAnchor(fractionalInset: 0.25, edge: .top, referenceGuide: .safeArea),
+            .half: FloatingPanelLayoutAnchor(fractionalInset: 0.25, edge: .bottom, referenceGuide: .safeArea),
+            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
+        ]
+    }
+}

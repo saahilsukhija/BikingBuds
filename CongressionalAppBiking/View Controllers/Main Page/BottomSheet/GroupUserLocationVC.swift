@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class GroupUserLocationVC: UIViewController {
     
@@ -19,6 +20,7 @@ class GroupUserLocationVC: UIViewController {
     
     @IBOutlet weak var changeGroupUserSettingsView: UIView!
     @IBOutlet weak var changeRiderTypeButton: UIButton!
+    @IBOutlet weak var directionsToButton: UIButton!
     
     var isCurrentUser = false
     var riderType: RiderType!
@@ -39,6 +41,7 @@ class GroupUserLocationVC: UIViewController {
         profilePictureView.layer.borderWidth = 1
         profilePictureView.layer.borderColor = UIColor.label.cgColor
         
+        directionsToButton.layer.cornerRadius = 10
         profilePictureView.image = user.profilePicture?.toImage()
         profileNameView.text = user.displayName
         profilePhoneView.text = user.phoneNumber
@@ -106,16 +109,42 @@ class GroupUserLocationVC: UIViewController {
         if isCurrentUser {
             callSOSButton.isHidden = true
             callPhoneButton.isHidden = true
-            
+            directionsToButton.isHidden = true
             changeGroupUserSettingsView.isHidden = false
         } else {
             callSOSButton.isHidden = false
             callPhoneButton.isHidden = false
-            
+            directionsToButton.isHidden = false
             changeGroupUserSettingsView.isHidden = true
         }
         
         updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.", uploadRiderType: false)
+        if let first = user.displayName.components(separatedBy: " ").first {
+            let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
+        } else {
+            let mutableTitle = NSAttributedString(string: "Directions", attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
+        }
+       
+    }
+    
+    @IBAction func goToMap(_ sender: Any) {
+        guard let selfLatitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.latitude, let selfLongitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.longitude, let userLatitude = Locations.locations[user]?.latitude, let userLongitude = Locations.locations[user]?.longitude else {
+            showErrorNotification(message: "Error getting locations, please try again")
+            return
+        }
+
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: selfLatitude, longitude: selfLongitude)))
+        source.name = "Source"
+                
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: userLatitude, longitude: userLongitude)))
+        destination.name = "Destination"
+                
+        MKMapItem.openMaps(
+          with: [source, destination],
+          launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+        )
     }
     
 }

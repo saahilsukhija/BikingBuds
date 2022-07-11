@@ -81,6 +81,7 @@ class GroupUserAnnotationView: MKAnnotationView {
     }
     
     public func makeAnnotationSelected() {
+        layer.zPosition = 100
         UIView.animate(withDuration: 0.2) {
             self.containerView = {
                 let view = UIButton(frame: CGRect(x: -10, y: -50, width: 90, height: 90))
@@ -100,12 +101,13 @@ class GroupUserAnnotationView: MKAnnotationView {
             }()
         }
         
-        
+        self.inSelectedState = true
         setupView()
         
     }
     
     public func makeAnnotationDeselected () {
+        layer.zPosition = 0
         UIView.animate(withDuration: 0.3) {
             
             self.containerView = {
@@ -125,6 +127,7 @@ class GroupUserAnnotationView: MKAnnotationView {
                 return view
             }()
         }
+        self.inSelectedState = false
         setupView()
     }
 }

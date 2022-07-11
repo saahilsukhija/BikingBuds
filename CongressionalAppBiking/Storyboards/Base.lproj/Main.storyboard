@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XdG-zg-10v">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Baumans-Regular.ttf">
-            <string>Baumans-Regular</string>
+        <array key="Poppins-Light.ttf">
+            <string>Poppins-Light</string>
+        </array>
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
         </array>
     </customFonts>
     <scenes>
@@ -23,21 +33,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BikingBuds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-jV-x6l" customClass="TitleLabel" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="54" width="350" height="45"/>
-                                <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="38"/>
-                                <color key="textColor" name="blueColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqw-x3-awk" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="730" width="350" height="60"/>
-                                <color key="backgroundColor" name="selectedBlueColor"/>
+                                <rect key="frame" x="20" y="681" width="350" height="60"/>
+                                <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="J5z-JT-sSq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                 <state key="normal" title="GO">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -49,15 +53,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wu5-ep-GNV" userLabel="Join Group Button" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="10" y="261.66666666666669" width="180" height="70"/>
+                                <rect key="frame" x="10" y="239" width="180" height="70"/>
                                 <color key="backgroundColor" name="unselectedGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="uD6-XS-Pu8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Join a Group">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -69,32 +73,36 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify Your Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-fx-obN">
-                                <rect key="frame" x="10" y="119.00000000000001" width="370" height="32.666666666666671"/>
-                                <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
-                                <color key="textColor" name="blueColor"/>
+                                <rect key="frame" x="10" y="98" width="370" height="31"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-TD-DUQ">
-                                <rect key="frame" x="10" y="351.66666666666669" width="370" height="112.33333333333331"/>
+                                <rect key="frame" x="10" y="329" width="370" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyi-bq-7uu">
-                                        <rect key="frame" x="0.0" y="10" width="185" height="32.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
-                                        <color key="textColor" name="blueColor"/>
+                                        <rect key="frame" x="0.0" y="10" width="185" height="31"/>
+                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WH2-Q1-RiB">
-                                        <rect key="frame" x="0.0" y="52.333333333333314" width="370" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WH2-Q1-RiB" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="51" width="370" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="rCk-Qo-vJJ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="25"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" systemColor="systemGrayColor"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -110,15 +118,15 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGj-3w-JNT" userLabel="Create Group Button" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="200" y="261.66666666666669" width="180" height="70"/>
+                                <rect key="frame" x="200" y="239" width="180" height="70"/>
                                 <color key="backgroundColor" name="unselectedGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="R2m-Rt-BP5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Create a Group">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -130,11 +138,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsK-0F-1Fd">
-                                <rect key="frame" x="10" y="161.66666666666666" width="370" height="70"/>
+                                <rect key="frame" x="10" y="139" width="370" height="70"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Sm5-Yb-d7c">
                                         <rect key="frame" x="5" y="7" width="60" height="56.666666666666671"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Sm5-Yb-d7c" secondAttribute="height" multiplier="1:1" id="xqJ-er-CQN"/>
                                         </constraints>
@@ -144,8 +152,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="69u-dF-bPR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="20"/>
-                                        <color key="textColor" name="blueColor"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRE-NV-m3y">
@@ -153,8 +161,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="nB0-rF-BwQ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="16"/>
-                                        <color key="textColor" name="blueColor"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -173,25 +181,29 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04h-1Y-A3O" userLabel="Create Group View">
-                                <rect key="frame" x="10" y="351.66666666666669" width="370" height="112.33333333333331"/>
+                                <rect key="frame" x="10" y="329" width="370" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-22-wJT">
-                                        <rect key="frame" x="0.0" y="10" width="370" height="32.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="24"/>
-                                        <color key="textColor" name="blueColor"/>
+                                        <rect key="frame" x="0.0" y="10" width="370" height="31"/>
+                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the new group's name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xqh-qZ-juC">
-                                        <rect key="frame" x="0.0" y="52.333333333333314" width="370" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of the new group" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xqh-qZ-juC" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="51" width="370" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="YbE-3W-XwL"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="25"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" systemColor="systemGrayColor"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
@@ -207,29 +219,28 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNN-aM-K5n">
-                                <rect key="frame" x="10" y="474" width="370" height="40"/>
+                                <rect key="frame" x="10" y="440" width="370" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="tgG-fZ-PeF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SinhalaSangamMN" family="Sinhala Sangam MN" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="20"/>
                                 <state key="normal" title="Join as Rider. Change.">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="changeRiderType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mkp-ft-K9L"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFt-Ju-zwd">
-                                <rect key="frame" x="210" y="361.66666666666669" width="160" height="40"/>
-                                <color key="backgroundColor" name="AccentColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFt-Ju-zwd">
+                                <rect key="frame" x="343.33333333333331" y="339" width="26.666666666666686" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Fvu-Xs-b19"/>
-                                    <constraint firstAttribute="width" secondItem="FFt-Ju-zwd" secondAttribute="height" multiplier="160:40" id="Rx9-i9-z1K"/>
                                 </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="tintColor" name="limeColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Saved Rides">
+                                <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="archivebox.fill" catalog="system" symbolScale="large"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -237,7 +248,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="jTI-sP-rPl" kind="show" id="jlR-pQ-BI5"/>
+                                    <action selector="savedRidesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bww-aY-u0k"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -247,13 +258,10 @@
                             <constraint firstItem="wqw-x3-awk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="16o-q7-bQm"/>
                             <constraint firstItem="Y8K-fx-obN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="5mp-B4-wCW"/>
                             <constraint firstItem="Wu5-ep-GNV" firstAttribute="top" secondItem="PsK-0F-1Fd" secondAttribute="bottom" constant="30" id="7Xi-Tb-GFB"/>
-                            <constraint firstItem="Y8K-fx-obN" firstAttribute="top" secondItem="B6A-jV-x6l" secondAttribute="bottom" constant="20" id="9hQ-oK-yOn"/>
                             <constraint firstItem="FFt-Ju-zwd" firstAttribute="top" secondItem="IGj-3w-JNT" secondAttribute="bottom" constant="30" id="BRZ-pf-LHh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NsL-TD-DUQ" secondAttribute="trailing" constant="10" id="C6L-pk-hPx"/>
-                            <constraint firstItem="B6A-jV-x6l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="F8o-l7-uZX"/>
                             <constraint firstItem="Wu5-ep-GNV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="I5I-Sv-Qzj"/>
                             <constraint firstItem="PsK-0F-1Fd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="OBC-gy-U03"/>
-                            <constraint firstItem="B6A-jV-x6l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="OaH-Bx-Dmt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PNN-aM-K5n" secondAttribute="trailing" constant="10" id="Oeq-Mn-eTV"/>
                             <constraint firstItem="PsK-0F-1Fd" firstAttribute="top" secondItem="Y8K-fx-obN" secondAttribute="bottom" constant="10" id="Syn-hS-zPn"/>
                             <constraint firstItem="04h-1Y-A3O" firstAttribute="top" secondItem="Wu5-ep-GNV" secondAttribute="bottom" constant="20" id="VRN-VL-GVQ"/>
@@ -267,15 +275,27 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wqw-x3-awk" secondAttribute="bottom" constant="20" id="ftD-C3-I7A"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqw-x3-awk" secondAttribute="trailing" constant="20" id="geo-TC-BTx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FFt-Ju-zwd" secondAttribute="trailing" constant="20" id="htb-HA-WXu"/>
+                            <constraint firstItem="Y8K-fx-obN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="mU9-IN-IDc"/>
                             <constraint firstItem="IGj-3w-JNT" firstAttribute="leading" secondItem="Wu5-ep-GNV" secondAttribute="trailing" constant="10" id="mYU-2A-aPQ"/>
-                            <constraint firstItem="PNN-aM-K5n" firstAttribute="top" secondItem="NsL-TD-DUQ" secondAttribute="bottom" constant="10" id="md8-JU-H4y"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B6A-jV-x6l" secondAttribute="trailing" constant="20" id="nX9-EL-1es"/>
+                            <constraint firstItem="PNN-aM-K5n" firstAttribute="top" secondItem="NsL-TD-DUQ" secondAttribute="bottom" id="md8-JU-H4y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="04h-1Y-A3O" secondAttribute="trailing" constant="10" id="ni1-FR-d4w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y8K-fx-obN" secondAttribute="trailing" constant="10" id="uTP-q7-E2e"/>
                             <constraint firstItem="PNN-aM-K5n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="wTP-CG-PS8"/>
                             <constraint firstItem="NsL-TD-DUQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="yMJ-Ar-WQb"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="9kw-w2-N42">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" id="dl1-KR-L2D">
+                            <imageReference key="image" image="person.circle" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" red="0.028679745271801949" green="0.0047437730245292187" blue="0.0036390749737620354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="profileNavBarButtonClicked:" destination="BYZ-38-t0r" id="iJF-mE-q9Z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="changeRiderType" destination="PNN-aM-K5n" id="TuT-Jy-Bzn"/>
                         <outlet property="createGroupButton" destination="IGj-3w-JNT" id="Ogm-1c-stG"/>
@@ -294,21 +314,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="34.399999999999999" y="76.911544227886068"/>
+            <point key="canvasLocation" x="963.07692307692309" y="76.777251184834114"/>
         </scene>
         <!--Saved RidesVC-->
         <scene sceneID="sdO-Rd-kcM">
             <objects>
-                <viewController id="jTI-sP-rPl" customClass="SavedRidesVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedRidesScreen" id="jTI-sP-rPl" customClass="SavedRidesVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GsZ-fl-DOR">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Za-mz-UNC">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Saved Rides" id="rRk-uZ-JOL">
                                         <barButtonItem key="rightBarButtonItem" image="multiply" catalog="system" id="Fol-YV-mGV">
+                                            <color key="tintColor" name="AccentColor"/>
                                             <connections>
                                                 <action selector="closeScreen:" destination="jTI-sP-rPl" id="a6v-6D-HAt"/>
                                             </connections>
@@ -317,26 +341,29 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ESF-cm-TvK">
-                                <rect key="frame" x="0.0" y="56" width="390" height="700"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="savedRideCell" id="PVP-z4-vOM" customClass="SavedRideCell" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="61.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PVP-z4-vOM" id="FVV-OH-uiD">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="61.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGC-HY-3zy">
-                                                    <rect key="frame" x="29.999999999999993" y="15.999999999999998" width="68.333333333333314" height="29.333333333333329"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="25"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGC-HY-3zy">
+                                                    <rect key="frame" x="30" y="16" width="225" height="34"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="24"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zau-vz-p1l">
-                                                    <rect key="frame" x="311" y="15.999999999999998" width="49" height="29.333333333333329"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="20"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="555555" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zau-vz-p1l">
+                                                    <rect key="frame" x="275" y="16" width="85" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="85" id="HKS-Ar-acw"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="20"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -347,6 +374,7 @@
                                                 <constraint firstItem="zau-vz-p1l" firstAttribute="top" secondItem="FVV-OH-uiD" secondAttribute="topMargin" constant="5" id="MK1-KC-kPu"/>
                                                 <constraint firstItem="uGC-HY-3zy" firstAttribute="top" secondItem="FVV-OH-uiD" secondAttribute="topMargin" constant="5" id="MRK-NV-rIM"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="uGC-HY-3zy" secondAttribute="bottom" constant="5" id="Nls-Yd-I25"/>
+                                                <constraint firstItem="zau-vz-p1l" firstAttribute="leading" secondItem="uGC-HY-3zy" secondAttribute="trailing" constant="20" id="UTH-TN-AwG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -358,7 +386,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RwP-Ri-2CI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="RwP-Ri-2CI" firstAttribute="trailing" secondItem="ESF-cm-TvK" secondAttribute="trailing" id="5Tc-BA-wiS"/>
                             <constraint firstItem="ESF-cm-TvK" firstAttribute="leading" secondItem="RwP-Ri-2CI" secondAttribute="leading" id="AG6-6H-bAU"/>
@@ -369,29 +397,48 @@
                             <constraint firstItem="2Za-mz-UNC" firstAttribute="trailing" secondItem="RwP-Ri-2CI" secondAttribute="trailing" id="mPG-tV-Pze"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="0Az-CO-5MV"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="ESF-cm-TvK" id="WAO-q0-rxB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIg-ak-PNe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="939" y="90"/>
+            <point key="canvasLocation" x="1867.6923076923076" y="89.5734597156398"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GBs-PJ-UKn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XdG-zg-10v" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pF5-sI-FgH">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Fii-ni-4Kc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qsg-Vb-bds" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="33.846153846153847" y="76.777251184834114"/>
         </scene>
     </scenes>
     <resources>
+        <image name="archivebox.fill" catalog="system" width="128" height="106"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <namedColor name="AccentColor">
             <color red="0.1809999942779541" green="0.78200000524520874" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="backgroundColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="blueColor">
-            <color red="0.0" green="0.34509803921568627" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="selectedBlueColor">
-            <color red="0.0" green="0.59607843137254901" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="limeColor">
+            <color red="0.1809999942779541" green="0.62400001287460327" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="unselectedGrayColor">
             <color red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -401,6 +448,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

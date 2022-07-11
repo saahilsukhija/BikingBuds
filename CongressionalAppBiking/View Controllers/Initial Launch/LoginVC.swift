@@ -21,6 +21,8 @@ class LoginVC: UIViewController {
     
     var loginType: LogInType!
     var currentUser: User!
+    var appleName: String?
+    
     fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
@@ -54,21 +56,44 @@ class LoginVC: UIViewController {
         Authentication.user = result!.user
         currentUser = Authentication.user
         
-        
-        //self.dismiss(animated: true, completion: nil)
-        let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
-        vc.modalPresentationStyle = .fullScreen
-        
-        StorageRetrieve().getPhoneNumbers(from: currentUser) { phoneNumber, emergencyPhoneNumber in
-            if let phoneNumber = phoneNumber {
-                vc.setPhoneNumberField(phoneNumber)
+        if let appleName = appleName {
+            let changeRequest = currentUser.createProfileChangeRequest() // (3)
+            changeRequest.displayName = appleName
+            changeRequest.commitChanges { [self] error in
+                if let error = error {
+                    showFailureToast(message: error.localizedDescription)
+                } else {
+                    let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+                    vc.modalPresentationStyle = .fullScreen
+                    
+                    StorageRetrieve().getPhoneNumbers(from: currentUser) { phoneNumber, emergencyPhoneNumber in
+                        if let phoneNumber = phoneNumber {
+                            vc.setPhoneNumberField(phoneNumber)
+                        }
+                        if let emergencyPhoneNumber = emergencyPhoneNumber {
+                            vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+                        }
+                        
+                        loadingScreen.removeFromSuperview()
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
             }
-            if let emergencyPhoneNumber = emergencyPhoneNumber {
-                vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
-            }
+        } else {
+            let vc = storyboard!.instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+            vc.modalPresentationStyle = .fullScreen
             
-            loadingScreen.removeFromSuperview()
-            self.present(vc, animated: true, completion: nil)
+            StorageRetrieve().getPhoneNumbers(from: currentUser) { phoneNumber, emergencyPhoneNumber in
+                if let phoneNumber = phoneNumber {
+                    vc.setPhoneNumberField(phoneNumber)
+                }
+                if let emergencyPhoneNumber = emergencyPhoneNumber {
+                    vc.setEmergencyPhoneNumberField(emergencyPhoneNumber)
+                }
+                
+                loadingScreen.removeFromSuperview()
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
@@ -248,6 +273,10 @@ extension LoginVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                 print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
+            
+            if let first = appleIDCredential.fullName?.givenName, let last = appleIDCredential.fullName?.familyName {
+                appleName = first + " " + last
+            }
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                       idToken: idTokenString,
@@ -262,7 +291,7 @@ extension LoginVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                     self.setUpAccount(authResult, loadingScreen: loadingScreen)
                 }
             }
-        }
+        } else { print("oh no")}
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

@@ -27,7 +27,7 @@ class BottomSheetInfoGroupVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.rowHeight = 75
+        tableView.rowHeight = 65
         tableView.tableFooterView = UIView()
         
         view.backgroundColor = .systemGray6.withAlphaComponent(0.9)
@@ -114,7 +114,7 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
         backgroundView.backgroundColor = .systemGray5.withAlphaComponent(0.9)
         
         let sectionLabel = UILabel(frame: CGRect(x: 5, y: 5, width: tableView.frame.size.width, height: 20))
-        sectionLabel.font = UIFont(name: "DIN Alternate Bold", size: 20)
+        sectionLabel.font = UIFont(name: "Poppins-SemiBold", size: 18)
         sectionLabel.textColor = .label
         
         if section == 0 {

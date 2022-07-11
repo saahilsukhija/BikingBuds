@@ -57,13 +57,14 @@ extension MKMapView {
         
         if annotations.numberOfAnnotations(for: email) > 0 {
             annotations.getGroupUserAnnotation(for: email)!.coordinate = location
+            self.view(for: annotations.getGroupUserAnnotation(for: email)!)?.layer.zPosition = 100
         } else {
             let locationPoint = GroupUserAnnotation()
             locationPoint.coordinate = location
             locationPoint.email = email
             locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture?.toImage()
             locationPoint.title = email
-
+            
             self.addAnnotation(locationPoint)
         }
     }

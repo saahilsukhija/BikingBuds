@@ -18,7 +18,19 @@ class ShareInviteCodeVC: UIViewController {
         groupCode.text = group
     }
     
-
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        self.dismiss(animated: true)
+        
+    }
+    
+    @IBAction func shareButtonClicked(_ sender: Any) {
+        let activityController = UIActivityViewController(activityItems: ["Join my BikingBuds group! Here's the code: \(group ?? "unknown group")"], applicationActivities: nil)
+        
+        activityController.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityController, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

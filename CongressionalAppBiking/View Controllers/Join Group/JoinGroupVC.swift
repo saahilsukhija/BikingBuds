@@ -61,11 +61,11 @@ class JoinGroupVC: UIViewController {
         profileView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToVerifyProfileVC)))
         profileView.layer.cornerRadius = 10
         profileView.layer.borderWidth = 1
-        profileView.layer.borderColor = UIColor.label.cgColor
+        profileView.layer.borderColor = UIColor.black.cgColor
         
         profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
         profilePicture.layer.borderWidth = 1
-        profilePicture.layer.borderColor = UIColor.label.cgColor
+        profilePicture.layer.borderColor = UIColor.black.cgColor
         
         savedRidesButton.isHidden = true
         changeRiderType.isHidden = true
@@ -89,7 +89,7 @@ class JoinGroupVC: UIViewController {
         if groupSelectionType == .join {
             let loadingView = createLoadingScreen(frame: view.frame)
             view.addSubview(loadingView)
-            Group.joinGroup(with: Int(joinGroupCodeTextField.text!)!, checkForExistingIDs: true) { completed, name in
+            Group.joinGroup(with: Int(joinGroupCodeTextField.text!) ?? 0, checkForExistingIDs: true) { completed, name in
                 
                 guard completed else {
                     self.showFailureToast(message: "Group does not exist.")
@@ -114,9 +114,13 @@ class JoinGroupVC: UIViewController {
         
     }
     
-    func goToBikingVC() {
+    func goToBikingVC(animated: Bool = true) {
         let loadingScreen = createLoadingScreen(frame: view.frame, message: "Initializing...")
         self.view.addSubview(loadingScreen)
+        
+        //Store recent group
+        UserDefaults.standard.set(true, forKey: "is_in_group")
+        UserDefaults.standard.set(groupID, forKey: "recent_group")
         
         //Go to Next Page
         let storyboard = UIStoryboard(name: "MainPage", bundle: nil)
@@ -131,7 +135,7 @@ class JoinGroupVC: UIViewController {
         let navigationController = UINavigationController(rootViewController: goToVC)
         navigationController.modalPresentationStyle = .fullScreen
 
-        self.present(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: animated, completion: nil)
         
         loadingScreen.removeFromSuperview()
     }
@@ -150,10 +154,10 @@ class JoinGroupVC: UIViewController {
             goButton.backgroundColor = .unselectedGrayColor
         } else {
             addActionToButton(goButton)
-            goButton.backgroundColor = .selectedBlueColor
+            goButton.backgroundColor = .accentColor
         }
         
-        joinGroupButton.backgroundColor = .selectedBlueColor
+        joinGroupButton.backgroundColor = .accentColor
         groupSelectionType = .join
         
         savedRidesButton.isHidden = false
@@ -167,7 +171,7 @@ class JoinGroupVC: UIViewController {
         
         createGroupView.isHidden = false
         
-        createGroupButton.backgroundColor = .selectedBlueColor
+        createGroupButton.backgroundColor = .accentColor
         
         //Name must be entered before go button is clicked (if "join" is selected)
         if createGroupNameTextField.text!.count == 0 {
@@ -175,7 +179,7 @@ class JoinGroupVC: UIViewController {
             goButton.backgroundColor = .unselectedGrayColor
         } else {
             addActionToButton(goButton)
-            goButton.backgroundColor = .selectedBlueColor
+            goButton.backgroundColor = .accentColor
         }
         
         groupSelectionType = .create
@@ -191,7 +195,6 @@ class JoinGroupVC: UIViewController {
         Group.generateGroupNumber { id in
             loadingView.removeFromSuperview()
             Group.uploadGroupName(self.createGroupNameTextField.text!, for: id)
-            self.showSuccessToast(message: "Created group, ID: \(id)")
             self.groupName = self.createGroupNameTextField.text
             self.groupID = id
             self.goToBikingVC()
@@ -224,13 +227,13 @@ class JoinGroupVC: UIViewController {
         joinGroupCodeTextField.text = id
         
         addActionToButton(goButton)
-        goButton.backgroundColor = .selectedBlueColor
+        goButton.backgroundColor = .accentColor
         
         self.groupID = id
     }
     
     func updateChangeRiderTypeButton(with string: String) {
-        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Sinhala Sangam MN", size: 20)!])
+        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins-Regular", size: 18)!])
         mutableTitle.setColor(color: .accentColor, forText: "Change.")
         changeRiderType.setAttributedTitle(mutableTitle, for: .normal)
     }
@@ -238,6 +241,35 @@ class JoinGroupVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         checkFirstLaunch()
         updateProfileView()
+        
+        if UserDefaults.standard.bool(forKey: "is_in_group") {
+            let loadingView = self.createLoadingScreen(frame: view.frame)
+            view.addSubview(loadingView)
+            
+            guard let id = UserDefaults.standard.string(forKey: "recent_group") else {
+                self.showErrorNotification(message: "Unable to find recent group")
+                loadingView.removeFromSuperview()
+                return
+            }
+            
+            groupID = id
+            Group.joinGroup(with: Int(id) ?? 0, checkForExistingIDs: true) { completed, name in
+                
+                guard completed else {
+                    self.showFailureToast(message: "Group does not exist.")
+                    loadingView.removeFromSuperview()
+                    return
+                }
+                
+                self.groupName = name
+                self.showSuccessToast(message: "Joined!")
+                self.goToBikingVC()
+                
+                DispatchQueue.main.async {
+                    loadingView.removeFromSuperview()
+                }
+            }
+        }
     }
     
     //Show Toast Saying "Welcome, (user)"
@@ -246,7 +278,7 @@ class JoinGroupVC: UIViewController {
             if Authentication.hasPreviousSignIn() {
                 //Set Up User Object
                 self.currentUser = Authentication.user
-                self.showAnimationToast(animationName: "LoginSuccess", message: "Welcome, " + self.currentUser.displayName!, color: .systemBlue, fontColor: .systemBlue)
+                self.showAnimationToast(animationName: "LoginSuccess", message: "Welcome, " + (self.currentUser.displayName ?? ""), color: .black, fontColor: .black)
                 
             }
         }
@@ -254,9 +286,10 @@ class JoinGroupVC: UIViewController {
     
     func updateProfileView() {
         profileView.isUserInteractionEnabled = false
-        profileName.text = "Loading..."
-        profilePhoneNumber.text = "Loading..."
-        profilePicture.image = UIImage(systemName: "person.fill")
+//        if profileName =
+//        profileName.text = "Loading..."
+//        profilePhoneNumber.text = "Loading..."
+//        profilePicture.image = UIImage(systemName: "person.fill")
         
         StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
             profileView.isUserInteractionEnabled = true
@@ -281,6 +314,20 @@ class JoinGroupVC: UIViewController {
         vc.setEmergencyPhoneNumberField(emergencyPhoneNumber ?? "")
         present(vc, animated: true)
     }
+    
+    @IBAction func profileNavBarButtonClicked(_ sender: Any) {
+        let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
+        vc.modalPresentationStyle = .fullScreen
+        vc.setPhoneNumberField(profilePhoneNumber.text!)
+        vc.setEmergencyPhoneNumberField(emergencyPhoneNumber ?? "")
+        //navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true)
+    }
+    
+    @IBAction func savedRidesButtonClicked(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SavedRidesScreen") as! SavedRidesVC
+        self.present(vc, animated: true, completion: nil)
+    }
 
 }
 
@@ -295,13 +342,13 @@ extension JoinGroupVC: UITextFieldDelegate {
                 textField.text?.removeLast()
                 textField.endEditing(true)
                 
-                goButton.backgroundColor = .selectedBlueColor
+                goButton.backgroundColor = .accentColor
                 addActionToButton(goButton)
                 
                 groupID = textField.text!
             } else if textField.text!.count == 6 {
                 textField.endEditing(true)
-                goButton.backgroundColor = .selectedBlueColor
+                goButton.backgroundColor = .accentColor
                 addActionToButton(goButton)
                 
                 groupID = textField.text!
@@ -311,7 +358,7 @@ extension JoinGroupVC: UITextFieldDelegate {
             }
         } else if textField.tag == 1 {
             if textField.text!.count > 0 {
-                goButton.backgroundColor = .selectedBlueColor
+                goButton.backgroundColor = .accentColor
                 addActionToButton(goButton)
             } else {
                 goButton.backgroundColor = .unselectedGrayColor

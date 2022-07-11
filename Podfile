@@ -12,6 +12,7 @@ target 'CongressionalAppBiking' do
     pod 'GoogleSignIn'
     pod 'Firebase/Auth'
     pod 'Firebase/Analytics'
+    pod 'FirebaseMessaging'
     
   # Regular Animations
     pod 'lottie-ios'
