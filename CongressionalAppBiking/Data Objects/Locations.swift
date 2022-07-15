@@ -241,6 +241,12 @@ struct Locations {
         ref.removeAllObservers()
     }
     
+    static func removeAnnouncementObservers(for group: String) {
+        let ref = Database.database().reference().child("rides/" + group + "/announcements")
+        ref.removeAllObservers()
+    }
+    
+    
     static func addNotificationsForFallDetection(for group: String) {
         let ref = Database.database().reference().child("rides/" + group + "/fall")
         ref.observe(.value) { snap in

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFunctions
 
 class AnnouncementVC: UIViewController {
     
@@ -59,12 +60,31 @@ class AnnouncementVC: UIViewController {
             
         }
         guard let group = group else { return }
+        // Create a URL in the /tmp directory
+//        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
+//            return
+//        }
+//
+//        let pngData = Authentication.image?.pngData();
+//        do {
+//            try pngData?.write(to: imageURL);
+//        } catch { }
+        
         AnnouncementUpload.uploadAnnouncement(text, group: group) { complete, error in
             if let error = error {
                 self.showErrorNotification(message: error)
             } else {
                 self.showSuccessNotification(message: "Announcement sent!")
                 self.dismiss(animated: true)
+            }
+        }
+        
+        Functions.functions().httpsCallable("sendAnnouncement").call(["groupID" : group, "announcement" : text]) { result, error in
+            if let result = result {
+                print("YAYYYYY")
+                print(result.data)
+            } else {
+                print("fuck" + (error?.localizedDescription ?? "(no error)"))
             }
         }
     }

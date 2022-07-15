@@ -8,7 +8,9 @@
 import Foundation
 import FirebaseStorage
 import FirebaseAuth
-import FirebaseUI
+//import FirebaseStorageUI
+//import FirebaseStorageUI
+import UIKit
 ///Makes it simpler to retrieve data from firebase STORAGE. NOT REALTIME.
 struct StorageRetrieve {
     /// Storage Bucket
@@ -64,7 +66,12 @@ struct StorageRetrieve {
     }
     
     func setProfilePicture(for imageView: UIImageView, email: String) {
-        imageView.sd_setImage(with: storageRef.child("pictures/\(email)"))
+        //imageView.sd_setImage(with: storageRef.child("pictures/\(email)"))
+        getProfilePicture(from: email) { image in
+            if let image = image {
+                imageView.image = image
+            }
+        }
     }
     
     func getPhoneNumber(from user: User, completion: @escaping(String?) -> Void) {

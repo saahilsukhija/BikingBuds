@@ -11,6 +11,7 @@ import MapKit
 import CoreMotion
 import UserNotifications
 import FirebaseMessaging
+import FirebaseFunctions
 
 class BikingGroupVC: BikingVCs {
     
@@ -23,6 +24,7 @@ class BikingGroupVC: BikingVCs {
     var unreadNotifications = 0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         loadingView = createLoadingScreen(frame: view.frame)
@@ -656,13 +658,22 @@ extension BikingGroupVC {
             self.saveThisRide()
             UserDefaults.standard.set(false, forKey: "is_in_group")
             UserLocationsUpload.riderLeftGroup(group: self.groupID)
+            
             Locations.notifications.removeAll()
+            Locations.removeAnnouncementObservers(for: self.groupID)
+            
+            self.removePushNotificationReceivers()
             self.dismiss(animated: true, completion: nil)
+            
         }))
         bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
             UserDefaults.standard.set(false, forKey: "is_in_group")
             UserLocationsUpload.riderLeftGroup(group: self.groupID)
+            
             Locations.notifications.removeAll()
+            Locations.removeAnnouncementObservers(for: self.groupID)
+            
+            self.removePushNotificationReceivers()
             self.dismiss(animated: true, completion: nil)
         }))
         bottomAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -697,7 +708,7 @@ extension BikingGroupVC {
 }
 
 //MARK: Push Notifications
-extension BikingGroupVC: UNUserNotificationCenterDelegate {
+extension BikingGroupVC: UNUserNotificationCenterDelegate, MessagingDelegate {
     func registerForRemoteNotification() {
         if #available(iOS 10.0, *) {
             let center  = UNUserNotificationCenter.current()
@@ -715,14 +726,50 @@ extension BikingGroupVC: UNUserNotificationCenterDelegate {
             UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
             UIApplication.shared.registerForRemoteNotifications()
         }
+
+        if let groupID = groupID {
+            Messaging.messaging().subscribe(toTopic: "\(groupID)_announcements") { error in
+                print("Subscribed to \(groupID)_announcements for notifications")
+            }
+        }
         
-        Messaging.messaging().subscribe(toTopic: "weather") { error in
-          print("Subscribed to weather topic")
+        Messaging.messaging().delegate = self
+        
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+            print("FCM registration token: \(token)")
+            //self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
+          }
         }
     }
     
     @objc func deviceTokenLoaded() {
         UserLocationsUpload.uploadUserDeviceToken(group: groupID)
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken))")
+        
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+          name: Notification.Name("FCMToken"),
+          object: nil,
+          userInfo: dataDict
+        )
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+      }
+    
+    func removePushNotificationReceivers() {
+        if let groupID = groupID {
+            Messaging.messaging().unsubscribe(fromTopic: "\(groupID)_announcements") { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 

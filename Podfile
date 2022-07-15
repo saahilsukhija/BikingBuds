@@ -10,9 +10,10 @@ target 'CongressionalAppBiking' do
   # Google Sign In
   
     pod 'GoogleSignIn'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Analytics'
-    pod 'FirebaseMessaging'
+    #pod 'Firebase'
+    #pod 'Firebase/Auth'
+    #pod 'Firebase/Analytics'
+    #pod 'FirebaseMessaging'
     
   # Regular Animations
     pod 'lottie-ios'
@@ -21,11 +22,11 @@ target 'CongressionalAppBiking' do
     #pod 'GoogleMaps'
     
   # Realtime Database (General location, time last seen, etc.)
-    pod 'Firebase/Database'
+    #pod 'Firebase/Database'
     
   # Storage (Phone numbers, names, friends, etc.)
-    pod 'Firebase/Storage'
-    pod 'FirebaseUI/Storage'
+    #pod 'Firebase/Storage'
+    #pod 'FirebaseUI/Storage'
     
   # Bottom Sheet Map, Will remove once ios15 is out.
     pod 'FloatingPanel'

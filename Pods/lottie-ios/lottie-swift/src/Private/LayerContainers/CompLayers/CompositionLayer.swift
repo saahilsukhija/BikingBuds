@@ -147,7 +147,7 @@ class CompositionLayer: CALayer, KeypathSearchable {
   }
 }
 
-protocol CompositionLayerDelegate: AnyObject {
+protocol CompositionLayerDelegate: class {
   func frameUpdated(frame: CGFloat)
 }
 

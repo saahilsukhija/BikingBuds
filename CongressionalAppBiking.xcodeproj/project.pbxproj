@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E035071AA67E657C509B2F3 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */; };
 		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
 		9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* LoginVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
@@ -15,6 +16,12 @@
 		9A32C56B28654AA8003B1F70 /* AnnouncementNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32C56A28654AA8003B1F70 /* AnnouncementNotification.swift */; };
 		9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A32C56C28657B99003B1F70 /* Megaphone.json */; };
 		9A32C56F28658CB9003B1F70 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32C56E28658CB9003B1F70 /* AnnouncementTableViewCell.swift */; };
+		9A354854287E2BFC003AFD53 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354853287E2BFC003AFD53 /* FirebaseAnalytics */; };
+		9A354856287E2BFC003AFD53 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354855287E2BFC003AFD53 /* FirebaseAuth */; };
+		9A354858287E2BFC003AFD53 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354857287E2BFC003AFD53 /* FirebaseDatabase */; };
+		9A35485A287E2BFC003AFD53 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354859287E2BFC003AFD53 /* FirebaseMessaging */; };
+		9A35485C287E2BFC003AFD53 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9A35485B287E2BFC003AFD53 /* FirebaseStorage */; };
+		9A35485E287E51B6003AFD53 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 9A35485D287E51B6003AFD53 /* FirebaseFunctions */; };
 		9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF682712B6530066D1EB /* AppNotifications.swift */; };
 		9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6A2712B8BC0066D1EB /* Notification.swift */; };
 		9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6C2712BA2B0066D1EB /* Caution.json */; };
@@ -57,6 +64,7 @@
 		9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F4E2749BC7A0050B3C5 /* SavedRideCell.swift */; };
 		9AB06F532751DE9B0050B3C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AB06F522751DE9B0050B3C5 /* GoogleService-Info.plist */; };
 		9AB06F55275325A70050B3C5 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB06F54275325A70050B3C5 /* SignUpVC.swift */; };
+		9ACF216A287E1EDA00046964 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9ADEAA682697D130005BB706 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA672697D130005BB706 /* NotificationNames.swift */; };
 		9ADEAA6A2697D23F005BB706 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEAA692697D23F005BB706 /* Toast.swift */; };
 		9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */; };
@@ -89,7 +97,6 @@
 		9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */; };
 		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
 		9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AE960F9270BCD3200B3B839 /* MutePhone.json */; };
-		DA90804C40C8B3ADF8AE3965 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +116,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9ACF216B287E1EDA00046964 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9ACF216A287E1EDA00046964 /* (null) in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
+		011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
+		35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
+		6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
@@ -200,8 +223,6 @@
 		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
 		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
 		9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CongressionalAppBiking.entitlements; sourceTree = "<group>"; };
-		9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
-		E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +230,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA90804C40C8B3ADF8AE3965 /* Pods_CongressionalAppBiking.framework in Frameworks */,
+				9A354854287E2BFC003AFD53 /* FirebaseAnalytics in Frameworks */,
+				9A35485E287E51B6003AFD53 /* FirebaseFunctions in Frameworks */,
+				9A354856287E2BFC003AFD53 /* FirebaseAuth in Frameworks */,
+				9A35485A287E2BFC003AFD53 /* FirebaseMessaging in Frameworks */,
+				9A354858287E2BFC003AFD53 /* FirebaseDatabase in Frameworks */,
+				0E035071AA67E657C509B2F3 /* Pods_CongressionalAppBiking.framework in Frameworks */,
+				9A35485C287E2BFC003AFD53 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +456,7 @@
 				9AE042D12696E02B00FC86AD /* CongressionalAppBikingUITests */,
 				9AE042AE2696E02700FC86AD /* Products */,
 				ABFD857DBE2207F0FFA1826C /* Pods */,
-				E3A0D0313E93C23B076E896F /* Frameworks */,
+				9C901BE97FEE6D0509F594E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -487,21 +514,21 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		9C901BE97FEE6D0509F594E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ABFD857DBE2207F0FFA1826C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */,
-				0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */,
+				35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */,
+				011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		E3A0D0313E93C23B076E896F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E389DA9EB055071B5AA2BFBD /* Pods_CongressionalAppBiking.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,18 +538,27 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AE042D72696E02B00FC86AD /* Build configuration list for PBXNativeTarget "CongressionalAppBiking" */;
 			buildPhases = (
-				227ED0725265C055B1116DD1 /* [CP] Check Pods Manifest.lock */,
+				8B22AAD81E202E04D3223DB2 /* [CP] Check Pods Manifest.lock */,
 				9AE042A92696E02700FC86AD /* Sources */,
 				9AE042AA2696E02700FC86AD /* Frameworks */,
 				9AE042AB2696E02700FC86AD /* Resources */,
-				2E08D5EC51827E90D934BC3C /* [CP] Embed Pods Frameworks */,
-				102EFBDAA269B8F614FACD28 /* [CP] Copy Pods Resources */,
+				9ACF216B287E1EDA00046964 /* Embed Frameworks */,
+				EC1CDE122CDCB4B0707CFA33 /* [CP] Embed Pods Frameworks */,
+				E8662D6CC22CF8733D1E8204 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CongressionalAppBiking;
+			packageProductDependencies = (
+				9A354853287E2BFC003AFD53 /* FirebaseAnalytics */,
+				9A354855287E2BFC003AFD53 /* FirebaseAuth */,
+				9A354857287E2BFC003AFD53 /* FirebaseDatabase */,
+				9A354859287E2BFC003AFD53 /* FirebaseMessaging */,
+				9A35485B287E2BFC003AFD53 /* FirebaseStorage */,
+				9A35485D287E51B6003AFD53 /* FirebaseFunctions */,
+			);
 			productName = CongressionalAppBiking;
 			productReference = 9AE042AD2696E02700FC86AD /* CongressionalAppBiking.app */;
 			productType = "com.apple.product-type.application";
@@ -594,6 +630,9 @@
 				Base,
 			);
 			mainGroup = 9AE042A42696E02700FC86AD;
+			packageReferences = (
+				9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 9AE042AE2696E02700FC86AD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -664,24 +703,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		102EFBDAA269B8F614FACD28 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		227ED0725265C055B1116DD1 /* [CP] Check Pods Manifest.lock */ = {
+		8B22AAD81E202E04D3223DB2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -703,7 +725,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2E08D5EC51827E90D934BC3C /* [CP] Embed Pods Frameworks */ = {
+		E8662D6CC22CF8733D1E8204 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC1CDE122CDCB4B0707CFA33 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -945,7 +984,7 @@
 		};
 		9AE042D82696E02B00FC86AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CBD68A57A92EA7878C96FBB /* Pods-CongressionalAppBiking.debug.xcconfig */;
+			baseConfigurationReference = 35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -969,7 +1008,7 @@
 		};
 		9AE042D92696E02B00FC86AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D65A7E80CA1498111C3F980 /* Pods-CongressionalAppBiking.release.xcconfig */;
+			baseConfigurationReference = 011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1115,6 +1154,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9A354853287E2BFC003AFD53 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		9A354855287E2BFC003AFD53 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		9A354857287E2BFC003AFD53 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		9A354859287E2BFC003AFD53 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		9A35485B287E2BFC003AFD53 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		9A35485D287E51B6003AFD53 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9AE042A52696E02700FC86AD /* Project object */;
 }
