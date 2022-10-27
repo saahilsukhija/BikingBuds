@@ -14,7 +14,6 @@ import FloatingPanel
 class BikingVCs: UIViewController {
 
     var map: MKMapView!
-    
     var userHasPannedAway: Bool! = false
     var locationManager: CLLocationManager!
     var movementManager: CMMotionManager!
@@ -97,7 +96,7 @@ extension BikingVCs: FloatingPanelControllerDelegate {
     }
     
     func floatingPanelWillEndDragging(_ fpc: FloatingPanelController, withVelocity velocity: CGPoint, targetState: UnsafeMutablePointer<FloatingPanelState>) {
-        if targetState.pointee == FloatingPanelState.tip {
+        if targetState.pointee == FloatingPanelState.tip || targetState.pointee == FloatingPanelState.half {
             self.dismissKeyboard()
         }
     }
@@ -120,15 +119,15 @@ extension BikingVCs: CLLocationManagerDelegate {
                 locationManager.showsBackgroundLocationIndicator = true
                 locationManager.allowsBackgroundLocationUpdates = true
                 locationManager.startUpdatingLocation()
-                //locationManager.distanceFilter =
+                locationManager.distanceFilter = Preferences.distanceFilter
             }
             
         } else {
             print("BikingVCs location services not enabled")
         }
-        
+        map.showsUserLocation = true
         self.recenterCamera()
-        map.showsUserLocation = false
+        
     
         
     }
@@ -159,8 +158,44 @@ extension BikingVCs: CLLocationManagerDelegate {
     
     
     @objc func recenterCamera() {
-        let userLocation = locationManager.location?.coordinate.roundTo(places: Preferences.coordinateRoundTo) ?? map.userLocation.coordinate
-        map.centerCameraTo(location: userLocation, bottomSheet: bottomSheet)
+//        if(Authentication.riderType == .rider) {
+//            let userLocation = locationManager.location?.coordinate.roundTo(places: Preferences.coordinateRoundTo) ?? map.userLocation.coordinate
+//            map.centerCameraTo(location: userLocation)
+//        } else {
+//            map.showAnnotations(map.annotations, animated: true)
+// //            var otherRiderLocation: CLLocationCoordinate2D?
+// //            for (user, type) in Locations.riderTypes {
+// //                if(type == .rider) {
+// //                    otherRiderLocation = Locations.locations[user]
+// //                    break
+// //                }
+// //            }
+//            //= valuesArray.first(where: {$0.latitude != 0 || $0.longitude != 0}
+//            //)?.roundTo(places: Preferences.coordinateRoundTo) ?? CLLocationCoordinate2D(latitude: 39.8355, longitude: -99.09)
+// //            if let otherRiderLocation = otherRiderLocation {
+// //                map.centerCameraTo(location: otherRiderLocation)
+// //                print("centering to \(otherRiderLocation)")
+// //
+// //            } else {
+// //                map.showAnnotations(map.annotations, animated: true)
+// //                map.centerCameraTo(location: CLLocationCoordinate2D(latitude: 39.8355, longitude: -99.09), regionRadius: 4600000)
+// //                print("centering to US map")
+// //            }
+//        }
+        
+        if(Authentication.riderType == .rider) {
+            map.setUserTrackingMode(.followWithHeading, animated: true)
+        } else {
+            //Center at random person
+            if let firstPerson = Locations.locations.values.first(where: {$0.latitude != 0 || $0.longitude != 0})?.roundTo(places: Preferences.coordinateRoundTo) {
+                map.centerCameraTo(location: firstPerson, regionRadius: map.currentRadius())
+            }
+            else {
+                map.centerCameraTo(location: CLLocationCoordinate2D(latitude: 39.8355, longitude: -99.09), regionRadius: 4600000)
+                print("centering to US map")
+            }
+        }
+        
         self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
         (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
         //map.drawAllGroupMembers(includingSelf: true)

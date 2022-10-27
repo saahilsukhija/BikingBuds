@@ -19,7 +19,7 @@ class NotificationsVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.rowHeight = 75
+        tableView.estimatedRowHeight = 75
         tableView.tableFooterView = UIView()
         
         view.backgroundColor = .systemGray6.withAlphaComponent(0.9)
@@ -66,6 +66,22 @@ extension NotificationsVC: UITableViewDelegate, UITableViewDataSource {
         return backgroundView
     }
     
+    func requiredHeight(text:String, size: CGFloat, fontName: String) -> CGFloat {
+        return text.height(withConstrainedWidth: view.frame.size.width-20, font: UIFont(name: fontName, size: size)!)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 0) {
+            let notification = Locations.announcementNotifications[indexPath.row]
+            let title = "\(Locations.groupUsers.groupUserFrom(email: notification.email)?.displayName ?? notification.email ?? "someone"):"
+            let message = "\"\(notification.title ?? "unable to get message")\""
+            
+            let required = requiredHeight(text: title, size: 18, fontName: "Poppins-Medium") + requiredHeight(text: message, size: 16, fontName: "Poppins-Light")
+            return required > 75 ? required+20 : 75
+        }
+        return 75
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
@@ -102,11 +118,8 @@ extension NotificationsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let bikingGroupVC = presentingViewController as? BikingGroupVC else { print("1"); return }
-        guard let annotation = bikingGroupVC.mapView.annotations.getGroupUserAnnotation(for: Locations.notifications[indexPath.row].email) else {  print("2"); return }
-        guard let annotationView = bikingGroupVC.mapView(bikingGroupVC.mapView, viewFor: annotation) else {  print("3"); return }
-        
-        bikingGroupVC.mapView(bikingGroupVC.mapView, didSelect: annotationView)
+        if(indexPath.section == 0) {
+        }
 
         
     }

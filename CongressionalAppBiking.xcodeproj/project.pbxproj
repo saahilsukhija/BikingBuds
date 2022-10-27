@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E035071AA67E657C509B2F3 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */; };
 		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
 		9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* LoginVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
@@ -97,6 +96,7 @@
 		9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */; };
 		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
 		9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AE960F9270BCD3200B3B839 /* MutePhone.json */; };
+		A787F720AF6837F5FB4F8AF7 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,9 +131,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
-		35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
-		6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
@@ -223,6 +221,8 @@
 		9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserAnnotation.swift; sourceTree = "<group>"; };
 		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
 		9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CongressionalAppBiking.entitlements; sourceTree = "<group>"; };
+		B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
+		DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,8 +235,8 @@
 				9A354856287E2BFC003AFD53 /* FirebaseAuth in Frameworks */,
 				9A35485A287E2BFC003AFD53 /* FirebaseMessaging in Frameworks */,
 				9A354858287E2BFC003AFD53 /* FirebaseDatabase in Frameworks */,
-				0E035071AA67E657C509B2F3 /* Pods_CongressionalAppBiking.framework in Frameworks */,
 				9A35485C287E2BFC003AFD53 /* FirebaseStorage in Frameworks */,
+				A787F720AF6837F5FB4F8AF7 /* Pods_CongressionalAppBiking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +456,7 @@
 				9AE042D12696E02B00FC86AD /* CongressionalAppBikingUITests */,
 				9AE042AE2696E02700FC86AD /* Products */,
 				ABFD857DBE2207F0FFA1826C /* Pods */,
-				9C901BE97FEE6D0509F594E8 /* Frameworks */,
+				FC25732827C7B29D1CD0C135 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -514,21 +514,21 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		9C901BE97FEE6D0509F594E8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6342030E72C74A71018DC17E /* Pods_CongressionalAppBiking.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		ABFD857DBE2207F0FFA1826C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */,
-				011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */,
+				5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */,
+				B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FC25732827C7B29D1CD0C135 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,13 +538,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AE042D72696E02B00FC86AD /* Build configuration list for PBXNativeTarget "CongressionalAppBiking" */;
 			buildPhases = (
-				8B22AAD81E202E04D3223DB2 /* [CP] Check Pods Manifest.lock */,
+				207909C0B38D80FC2F0AA418 /* [CP] Check Pods Manifest.lock */,
 				9AE042A92696E02700FC86AD /* Sources */,
 				9AE042AA2696E02700FC86AD /* Frameworks */,
 				9AE042AB2696E02700FC86AD /* Resources */,
 				9ACF216B287E1EDA00046964 /* Embed Frameworks */,
-				EC1CDE122CDCB4B0707CFA33 /* [CP] Embed Pods Frameworks */,
-				E8662D6CC22CF8733D1E8204 /* [CP] Copy Pods Resources */,
+				9271E64C68A41D1B5EBCB08D /* [CP] Embed Pods Frameworks */,
+				8002BC2679A0A4B1CD810A36 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -703,7 +703,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8B22AAD81E202E04D3223DB2 /* [CP] Check Pods Manifest.lock */ = {
+		207909C0B38D80FC2F0AA418 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -725,7 +725,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E8662D6CC22CF8733D1E8204 /* [CP] Copy Pods Resources */ = {
+		8002BC2679A0A4B1CD810A36 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -742,7 +742,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EC1CDE122CDCB4B0707CFA33 /* [CP] Embed Pods Frameworks */ = {
+		9271E64C68A41D1B5EBCB08D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -984,7 +984,7 @@
 		};
 		9AE042D82696E02B00FC86AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35C402524C78DA1C0B4C2AE4 /* Pods-CongressionalAppBiking.debug.xcconfig */;
+			baseConfigurationReference = 5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -994,11 +994,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1008,7 +1009,7 @@
 		};
 		9AE042D92696E02B00FC86AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011A07934B670D027B4B05CC /* Pods-CongressionalAppBiking.release.xcconfig */;
+			baseConfigurationReference = B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1018,11 +1019,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

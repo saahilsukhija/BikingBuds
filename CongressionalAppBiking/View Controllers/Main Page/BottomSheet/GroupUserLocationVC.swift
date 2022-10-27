@@ -135,16 +135,21 @@ class GroupUserLocationVC: UIViewController {
             return
         }
 
-        let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: selfLatitude, longitude: selfLongitude)))
-        source.name = "Source"
-                
-        let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: userLatitude, longitude: userLongitude)))
-        destination.name = "Destination"
-                
-        MKMapItem.openMaps(
-          with: [source, destination],
-          launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        )
+//        let source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: selfLatitude, longitude: selfLongitude)))
+//        source.name = "Source"
+//
+//        let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: userLatitude, longitude: userLongitude)))
+//        destination.name = "Destination"
+//
+//        MKMapItem.openMaps(
+//          with: [source, destination],
+//          launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+//        )
+        
+        let coordinate = CLLocationCoordinate2DMake(userLatitude, userLongitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = "Target location"
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
     
 }

@@ -235,6 +235,18 @@ class AdditionalInfoVC: UIViewController {
         Authentication.phoneNumber = phoneNumberTextField.text
         Authentication.emergencyPhoneNumber = emergencyPhoneNumberTextField.text
     }
+    @IBAction func deleteUserAccountClicked(_ sender: Any) {
+        let user = Auth.auth().currentUser
+
+        user?.delete { error in
+          if let error = error {
+              self.showFailureToast(message: error.localizedDescription)
+          } else {
+              self.showSuccessToast(message: "Account deleted!")
+              self.switchAccountsButtonClicked()
+          }
+        }
+    }
 }
 
 //MARK: -Image Pickers

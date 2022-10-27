@@ -29,7 +29,7 @@ target 'CongressionalAppBiking' do
     #pod 'FirebaseUI/Storage'
     
   # Bottom Sheet Map, Will remove once ios15 is out.
-    pod 'FloatingPanel'
+    pod 'FloatingPanel', '2.5.4'
     
 
 end

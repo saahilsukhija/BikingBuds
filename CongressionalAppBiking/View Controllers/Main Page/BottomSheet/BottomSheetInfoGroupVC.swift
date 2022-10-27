@@ -154,15 +154,21 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
         let dataSet = indexPath.section == 0 ? filteredData.filterRiders(riders: riders) : filteredData.filterNonRiders(nonRiders: nonRiders)
         
         if indexPath.section == 0 {
-            guard let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: dataSet[indexPath.row].email) else { return }
-            (bikingGroupVCBackdrop.map.view(for: groupUserAnnotation) as? GroupUserAnnotationView)?.inSelectedState = true
-            
-            //Center map to their location
-            if let selectedUserLocation = Locations.locations[dataSet[indexPath.row]] {
-                backdropView.map.centerCameraTo(location: selectedUserLocation, regionRadius: backdropView.map.currentRadius())
+            if(dataSet[indexPath.row].email != Authentication.user?.email) {
+                guard let groupUserAnnotation = bikingGroupVCBackdrop.map.annotations.getGroupUserAnnotation(for: dataSet[indexPath.row].email) else { return }
+                (bikingGroupVCBackdrop.map.view(for: groupUserAnnotation) as? GroupUserAnnotationView)?.inSelectedState = true
+                
+                //Center map to their location
+                if let selectedUserLocation = Locations.locations[dataSet[indexPath.row]] {
+                    backdropView.map.centerCameraTo(location: selectedUserLocation, regionRadius: backdropView.map.currentRadius())
+                }
+                
+                bikingGroupVCBackdrop.makeMapAnnotation(.bigger, for: dataSet[indexPath.row])
+            }
+            else {
+                backdropView.recenterCamera()
             }
             
-            bikingGroupVCBackdrop.makeMapAnnotation(.bigger, for: dataSet[indexPath.row])
         }
         
         

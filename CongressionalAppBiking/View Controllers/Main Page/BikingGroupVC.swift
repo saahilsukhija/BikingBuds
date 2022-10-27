@@ -40,7 +40,13 @@ class BikingGroupVC: BikingVCs {
         
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
-        mapView.showsUserLocation = false
+        
+        if(Authentication.riderType == .rider) {
+            mapView.showsUserLocation = true
+            mapView.setUserTrackingMode(.followWithHeading, animated: true)
+        } else {
+            mapView.setUserTrackingMode(.none, animated: true)
+        }
         
         navigationController?.navigationItem.title = groupName
         navigationController?.title = groupName
@@ -138,7 +144,31 @@ class BikingGroupVC: BikingVCs {
         
         
         let announcements = [("I got a flat!", "I got a flat!".width(withConstrainedHeight: 60)), ("Let's regroup!", "Let's regroup!".width(withConstrainedHeight: 60)), ("I need help!", "I need help!".width(withConstrainedHeight: 60)), ("I'm leaving!", "I'm leaving!".width(withConstrainedHeight: 60)), ("Finished!", "Finished!".width(withConstrainedHeight: 60)), ("Getting coffee!", "Getting coffee!".width(withConstrainedHeight: 60))]
-        var previousButton: UIButton?
+        
+        let customButton = UIButton(frame: CGRect(x: 10 , y: 5, width: " Custom".width(withConstrainedHeight: 60) + 40, height: 45))
+        
+        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
+        let attributedString = NSAttributedString(string: "Custom", attributes: titleAttribute)
+        customButton.setAttributedTitle(attributedString, for: .normal)
+        customButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        customButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        customButton.layer.cornerRadius = 22.5
+        customButton.backgroundColor = .white
+        customButton.setTitleColor(.black, for: .normal)
+        customButton.layer.masksToBounds = false
+        
+        customButton.dropShadow()
+        
+        customButton.tag = announcements.count
+        customButton.tintColor = .black
+        
+        customButton.addTarget(self, action: #selector(customAnnouncementButtonClicked), for: .touchUpInside)
+        
+        view.addSubview(customButton)
+        
+        var previousButton: UIButton? = customButton
+        var lastButton: UIButton?
         for (index, announcement) in announcements.enumerated() {
             let button = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: announcement.1 + 20, height: 45))
             
@@ -170,34 +200,20 @@ class BikingGroupVC: BikingVCs {
             
             button.addTarget(self, action: #selector(premadeAnnouncementButtonClicked(_:)), for: .touchUpInside)
             previousButton = button
+            
+            if(index == announcements.count-1) {
+                lastButton = button
+            }
         }
-        let customButton = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: " Custom".width(withConstrainedHeight: 60) + 40, height: 45))
         
-        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
-        let attributedString = NSAttributedString(string: "Custom", attributes: titleAttribute)
-        customButton.setAttributedTitle(attributedString, for: .normal)
-        customButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        customButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        if let lastButton = lastButton {
+            let lastButtonConstraints: [NSLayoutConstraint] = [
+                lastButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
+                                                  constant: -10)]
+            NSLayoutConstraint.activate(lastButtonConstraints)
+        }
+ 
         
-        customButton.layer.cornerRadius = 22.5
-//            button.layer.borderWidth = 1
-//            button.layer.borderColor = UIColor.systemGray.cgColor
-        customButton.backgroundColor = .white
-        customButton.setTitleColor(.black, for: .normal)
-        customButton.layer.masksToBounds = false
-        
-        customButton.dropShadow()
-        
-        customButton.tag = announcements.count
-        customButton.tintColor = .black
-        
-        customButton.addTarget(self, action: #selector(customAnnouncementButtonClicked), for: .touchUpInside)
-        
-        view.addSubview(customButton)
-        let lastButtonConstraints: [NSLayoutConstraint] = [
-            customButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                          constant: -10)]
-        NSLayoutConstraint.activate(lastButtonConstraints)
     }
     
     @objc func premadeAnnouncementButtonClicked(_ sender: UIButton) {
@@ -293,7 +309,7 @@ class BikingGroupVC: BikingVCs {
     
     @objc func userLocationsUpdated() {
         ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
-        mapView.drawAllGroupMembers(includingSelf: true)
+        mapView.drawAllGroupMembers(includingSelf: false)
         
         updateNotificationCount()
     }
@@ -317,10 +333,14 @@ class BikingGroupVC: BikingVCs {
         previousLatitude = 0
         previousLongitude = 0
         locationManager.stopUpdatingLocation()
+        
+        try? UserDefaults.standard.set(object: RiderType.spectator, forKey: "rider_type")
     }
     
     @objc func userIsRider() {
         locationManager.startUpdatingLocation()
+        
+        try? UserDefaults.standard.set(object: RiderType.rider, forKey: "rider_type")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -508,12 +528,21 @@ extension BikingGroupVC {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("selectedAnnotation")
-        guard let annotationView = view as? GroupUserAnnotationView else { return }
+        
         guard let bottomSheetNav = (bottomSheet.contentViewController as? UINavigationController) else { return }
-        guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
         bottomSheetNav.popToRootViewController(animated: true)
-        view.layer.zPosition = 100
-        (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        
+        if view as? MKUserLocationView != nil {
+            guard let selectedEmail = Authentication.user?.email else { return }
+            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        }
+        else {
+            guard let annotationView = view as? GroupUserAnnotationView else { return }
+            guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
+            
+            view.layer.zPosition = 100
+            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -657,6 +686,8 @@ extension BikingGroupVC {
         bottomAlert.addAction(UIAlertAction(title: "Save and Leave Group", style: .default, handler: { _ in
             self.saveThisRide()
             UserDefaults.standard.set(false, forKey: "is_in_group")
+            UserDefaults.standard.removeObject(forKey: "rider_type")
+            
             UserLocationsUpload.riderLeftGroup(group: self.groupID)
             
             Locations.notifications.removeAll()
@@ -668,6 +699,7 @@ extension BikingGroupVC {
         }))
         bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
             UserDefaults.standard.set(false, forKey: "is_in_group")
+            UserDefaults.standard.removeObject(forKey: "rider_type")
             UserLocationsUpload.riderLeftGroup(group: self.groupID)
             
             Locations.notifications.removeAll()

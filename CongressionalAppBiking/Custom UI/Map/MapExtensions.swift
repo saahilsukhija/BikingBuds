@@ -15,7 +15,7 @@ extension MKMapView {
     /// - Parameters:
     ///   - location: The center of the camera
     ///   - regionRadius: The zoom level/How much is being shown at once, defaults at 1000
-    func centerCameraTo(location: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000, bottomSheet: FloatingPanelController? = nil) {
+    func centerCameraTo(location: CLLocationCoordinate2D, regionRadius: CLLocationDistance = 1000) {
         
         let centerWithInset = CLLocationCoordinate2DMake(location.latitude - self.region.span.latitudeDelta * 0.3, location.longitude)
         let coordinateRegion = MKCoordinateRegion(center: centerWithInset,
@@ -27,20 +27,20 @@ extension MKMapView {
     
     /// Draw all points on the map representing all group members
     /// - Parameter includingSelf: Draw Current User on the map as well (defaulted to false)
-    func drawAllGroupMembers(includingSelf: Bool = true) {
+    func drawAllGroupMembers(includingSelf: Bool = false) {
         
-        var locations: [GroupUser : CLLocationCoordinate2D] = Locations.locations ?? [:]
+        let locations: [GroupUser : CLLocationCoordinate2D] = Locations.locations ?? [:]
         let riderTypes: [GroupUser : RiderType] = Locations.riderTypes ?? [:]
         
         //Remove current user (only if you don't want to draw the current user)
-        if !includingSelf {
-            if let currentGroupUser = Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") {
-                locations.removeValue(forKey: currentGroupUser)
-            }
-        }
+//        if !includingSelf {
+//            if let currentGroupUser = Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") {
+//                locations.removeValue(forKey: currentGroupUser)
+//            }
+//        }
         
         for (user, location) in locations {
-            if riderTypes[user] == .rider {
+            if riderTypes[user] == .rider && (includingSelf || user.email != Authentication.user?.email ?? "") {
                 drawGroupMember(email: user.email, location: location)
             } else {
                 removeGroupMember(email: user.email)

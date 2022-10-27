@@ -301,7 +301,7 @@ struct Locations {
             print(snapDict)
             if let time = dateFormatter.date(from: snapDict["uploaded"] ?? ""), let email = snapDict["user"]?.fromStorageEmail(), let announcement = snapDict["announcement"] {
                 let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
-                if  diffInMinutes <= 5 {
+                if  diffInMinutes >= 0 { //Was <= 5
                     self.announcementNotifications.addNotification(email: email, title: "\(announcement)", time: time)
                     NotificationCenter.default.post(name: .newAnnouncement, object: nil)
                     
