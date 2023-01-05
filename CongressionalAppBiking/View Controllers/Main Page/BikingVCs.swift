@@ -16,7 +16,7 @@ class BikingVCs: UIViewController {
     var map: MKMapView!
     var userHasPannedAway: Bool! = false
     var locationManager: CLLocationManager!
-    var movementManager: CMMotionManager!
+    //var movementManager: CMMotionManager!
     var previousLatitude: Double! = 0.0, previousLongitude: Double! = 0.0
     var consecutiveAccelerationRedFlags = 0
     var bottomSheet: FloatingPanelController!
@@ -37,7 +37,7 @@ class BikingVCs: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        movementManager.stopAccelerometerUpdates()
+        //movementManager.stopAccelerometerUpdates()
         locationManager.stopUpdatingLocation()
     }
     
@@ -205,24 +205,34 @@ extension BikingVCs: CLLocationManagerDelegate {
 
 extension BikingVCs: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        //print("HERE")
         guard !annotation.isKind(of: MKUserLocation.self) else {
+            //print("SHIT")
             return nil
         }
-        
+
         var annotationView: MKAnnotationView!
         var annotationIdentifier: String!
-        
+
         if annotation.isKind(of: GroupUserAnnotation.self) {
+            //print("groupuser")
             annotationIdentifier = "groupUser"
             annotationView = GroupUserAnnotationView(annotation: annotation as! GroupUserAnnotation, reuseIdentifier: annotationIdentifier)
             annotationView.frame = (annotationView as! GroupUserAnnotationView).containerView.frame
-    
+
+//        } else if annotation.isKind(of: RWGPSPointAnnotation.self) {
+//            //print("rwgpsPoint")
+//            annotationIdentifier = "rwgpsPoint"
+//            annotationView = RWGPSPointAnnotationView(annotation: annotation as! RWGPSPointAnnotation, reuseIdentifier: annotationIdentifier)
+//            annotationView.frame = (annotationView as! RWGPSPointAnnotationView).containerView.frame
+
         } else {
+            //print("marker")
             annotationIdentifier = "marker"
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
         }
-        
-        
+
+
         return annotationView
     }
     
@@ -231,6 +241,19 @@ extension BikingVCs: MKMapViewDelegate {
         userHasPannedAway = true
         self.navigationItem.leftBarButtonItem?.customView?.tintColor = .label
         (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location"), for: .normal)
+    }
+    
+    //RWGPS Route Line
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+
+        if let routePolyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: routePolyline)
+            renderer.strokeColor = .orange.withAlphaComponent(0.95)
+            renderer.lineWidth = 10
+            return renderer
+        }
+
+        return MKOverlayRenderer()
     }
 }
 

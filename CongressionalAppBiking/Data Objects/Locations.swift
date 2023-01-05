@@ -17,9 +17,10 @@ struct Locations {
     static var groupUsers: [GroupUser]! = []
     static var deviceTokens: [GroupUser : String]! = [:]
     
-    static var falls: [String : Date] = [:]
-    static var recentFall: [String : Date] = [:]
+//    static var falls: [String : Date] = [:]
+//    static var recentFall: [String : Date] = [:]
     
+    static var distanceNotifications: [AppNotification] = []
     static var notifications: [AppNotification] = []
     static var announcementNotifications: [AnnouncementNotification] = []
     
@@ -247,84 +248,18 @@ struct Locations {
     }
     
     
-    static func addNotificationsForFallDetection(for group: String) {
-        let ref = Database.database().reference().child("rides/" + group + "/fall")
-        ref.observe(.value) { snap in
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            guard snap.children.allObjects.count > 0 else { return }
-            guard let snapValue = (snap.children.allObjects[0] as? DataSnapshot)?.value as? String else {
-                print(snap.key);
-                print(snap.value as Any)
-                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
-                return
-            }
-            if let time = dateFormatter.date(from: snapValue), let email = (snap.children.allObjects[0] as? DataSnapshot)?.key.fromStorageEmail() {
-                
-                self.falls[email] = time
-                self.recentFall = [email : time]
-                print("hello")
-                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
-                if  diffInMinutes <= 2 {
-                    print("oops")
-                    if email != Authentication.user?.email {
-                        print("damnn")
-                        self.notifications.addNotification(email: email, title: "\(self.groupUsers.groupUserFrom(email: email)?.displayName ?? "\(email)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
-                    }
-                    NotificationCenter.default.post(name: .userHasFallen, object: nil)
-                } else {
-                    print(diffInMinutes)
-                    if #available(iOS 15.0, *) {
-                        print(time.ISO8601Format())
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    print(time)
-                }
-            }
-        }
-    }
-    
-    static func addNotificationsForAnnouncements(for group: String) {
-        let ref = Database.database().reference().child("rides/" + group + "/announcements")
-        
-        ref.observe(.childAdded) { snap in
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            guard snap.children.allObjects.count > 0 else { return }
-            guard let snapDict = snap.value as? Dictionary<String, String> else {
-                print(snap.key);
-                print(snap.value as Any)
-                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
-                return
-            }
-            print(snapDict)
-            if let time = dateFormatter.date(from: snapDict["uploaded"] ?? ""), let email = snapDict["user"]?.fromStorageEmail(), let announcement = snapDict["announcement"] {
-                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
-                if  diffInMinutes >= 0 { //Was <= 5
-                    self.announcementNotifications.addNotification(email: email, title: "\(announcement)", time: time)
-                    NotificationCenter.default.post(name: .newAnnouncement, object: nil)
-                    
-                    if email != Authentication.user?.email {
-                        //print("email: \(email)   Authentication.user.email: \(Authentication.user?.email)")
-                        if #available(iOS 15.0, *) {
-                            print(time.ISO8601Format())
-                        } else {
-                            // Fallback on earlier versions
-                        }
-//                        self.announcementNotifications.addNotification(email: email, title: "\(announcement)", time: time)
-//                        NotificationCenter.default.post(name: .newAnnouncement, object: nil)
-                    }
-                } else {
-                    print(diffInMinutes)
-                    if #available(iOS 15.0, *) {
-                        print(time.ISO8601Format())
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    print(time)
-                }
-            }
+//    static func addNotificationsForFallDetection(for group: String) {
+//        let ref = Database.database().reference().child("rides/" + group + "/fall")
+//        ref.observe(.value) { snap in
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//            guard snap.children.allObjects.count > 0 else { return }
+//            guard let snapValue = (snap.children.allObjects[0] as? DataSnapshot)?.value as? String else {
+//                print(snap.key);
+//                print(snap.value as Any)
+//                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
+//                return
+//            }
 //            if let time = dateFormatter.date(from: snapValue), let email = (snap.children.allObjects[0] as? DataSnapshot)?.key.fromStorageEmail() {
 //
 //                self.falls[email] = time
@@ -348,6 +283,75 @@ struct Locations {
 //                    print(time)
 //                }
 //            }
+//        }
+//    }
+    
+    static func addNotificationsForAnnouncements(for group: String) {
+        let ref = Database.database().reference().child("rides/" + group + "/announcements")
+        
+        ref.observe(.childAdded) { snap in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            guard snap.children.allObjects.count > 0 else { return }
+            guard let snapDict = snap.value as? Dictionary<String, String> else {
+                print(snap.key);
+                print(snap.value as Any)
+                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
+                return
+            }
+            //print(snapDict)
+            if let time = dateFormatter.date(from: snapDict["uploaded"] ?? ""), let email = snapDict["user"]?.fromStorageEmail(), let announcement = snapDict["announcement"] {
+                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
+                if  diffInMinutes >= 0 { //Was <= 5
+                    self.announcementNotifications.addNotification(email: email, title: "\(announcement)", time: time)
+                    NotificationCenter.default.post(name: .newAnnouncement, object: nil)
+                    
+                    if email != Authentication.user?.email {
+                        //print("email: \(email)   Authentication.user.email: \(Authentication.user?.email)")
+                        if #available(iOS 15.0, *) {
+                            print(time.ISO8601Format())
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        //                        self.announcementNotifications.addNotification(email: email, title: "\(announcement)", time: time)
+                        //                        NotificationCenter.default.post(name: .newAnnouncement, object: nil)
+                    }
+                } else {
+                    print(diffInMinutes)
+                    if #available(iOS 15.0, *) {
+                        print(time.ISO8601Format())
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    print(time)
+                }
+            }
         }
     }
+    
+//    static func addNotificationsForDistanceWarnings(for group: String) {
+//        let ref = Database.database().reference().child("rides/" + group + "/distance_warnings")
+//        ref.observe(.value) { snap in
+////            let dateFormatter = DateFormatter()
+////            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+////            guard snap.children.allObjects.count > 0 else { return }
+////            guard let snapValue = (snap.children.allObjects[0] as? DataSnapshot)?.value as? String else {
+////                print(snap.key);
+////                print(snap.value as Any)
+////                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
+////                return
+////            }
+//            //let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
+//            if snap.children.allObjects.count != 0 {
+//                    self.notifications.addNotification(email: "saahilsukhija@gmail.com", title: "Malek may be off route, make sure they are safe!", subTitle: "Make sure they come towards the group!", type: .distanceTooFar)
+//                    self.distanceNotifications.addNotification(email: "saahilsukhija@gmail.com", title: "Malek may be off route, make sure they are safe!", subTitle: "Make sure they come towards the group!", type: .distanceTooFar)
+//                    NotificationCenter.default.post(name: .userIsTooFar, object: nil)
+//            }
+//            else {
+//            }
+//                print("empty")
+//
+//
+//        }
+//    }
 }

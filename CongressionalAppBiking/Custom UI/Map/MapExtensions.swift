@@ -69,10 +69,25 @@ extension MKMapView {
         }
     }
     
+    func drawRWGPSPoints(_ locations: [CLLocationCoordinate2D]) {
+        let polyline = MKPolyline(coordinates: locations, count: locations.count)
+        self.addOverlay(polyline)
+    }
+    
+//    func drawRWGPSPoint(location: CLLocationCoordinate2D) {
+//        let locationPoint = RWGPSPointAnnotation()
+//        locationPoint.coordinate = location
+//        locationPoint.color = .orange
+//        locationPoint.title = "POI"
+//        self.addAnnotation(locationPoint)
+//        print(self.annotations(in: self.visibleMapRect).count)
+//    }
+    
     func removeGroupMember(email: String) {
         guard annotations.numberOfAnnotations(for: email) > 0 else { return }
         self.removeAnnotation(annotations.getGroupUserAnnotation(for: email)!)
     }
+    
     /// Used to not overlap annotations.
     /// - Parameter location: Location of the annotation to plot
     /// - Returns: Bool: If the location exists for a different annotation. Coordinate: If a location does already exist, returns the new coordinate. Defaults to the parameter

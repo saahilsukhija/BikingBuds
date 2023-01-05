@@ -52,6 +52,10 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    static var userIsTooFar: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
     ///MARK: Bottom Sheet Notifications
     /// Notification when search bar is clicked in the Group Bottom Sheet
     static var searchBarClicked: Notification.Name {
@@ -69,6 +73,16 @@ extension Notification.Name {
     
     ///Used in app delegate once device token has been loaded
     static var deviceTokenLoaded: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    ///Ride With GPS Route has Loaded
+    static var rwgpsRouteLoaded: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    ///User has had their Ride With GPS Route removed
+    static var rwgpsRouteRemoved: Notification.Name {
         return .init(rawValue: #function)
     }
     
