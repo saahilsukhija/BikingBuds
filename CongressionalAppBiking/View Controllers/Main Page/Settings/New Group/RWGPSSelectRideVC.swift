@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseFunctions
 class RWGPSSelectRideVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
@@ -97,9 +97,9 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
             let description = routes[indexPath.row].description
             
             let required = requiredHeight(text: name, size: 20, fontName: "Poppins-Medium") + requiredHeight(text: description, size: 16, fontName: "Poppins-Regular")
-            return required > 75 ? required+20 : 75
+            return required > 90 ? required+30 : 90
         }
-        return 75
+        return 90
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,7 +117,7 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
         view.addSubview(loadingScreen)
         
         let id = routes[indexPath.row].id
-        RWGPSRoute.getRouteDetails(from: id) { route, error in
+        RWGPSRoute.getRouteDetails(from: id) { error in
             DispatchQueue.main.async {
                 loadingScreen.removeFromSuperview()
                 if let error = error {
@@ -127,6 +127,23 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
                     self.dismiss(animated: true)
                     NotificationCenter.default.post(name: .rwgpsRouteLoaded, object: nil)
                     
+                    if let groupID = Constants.groupID {
+                        
+                        RealtimeUpload.upload(data: id, path: "rides/\(groupID)/rwgps_route/rwgps_id")
+                        
+                        Functions.functions().httpsCallable("sendRWGPSRouteUpdate").call(["groupID" : groupID]) { result, error in
+                            if let result = result {
+                                print("YAYYYYY")
+                                print(result.data)
+                            } else {
+                                print("fuck" + (error?.localizedDescription ?? "(no error)"))
+                            }
+                        }
+                        
+                    }
+                    else {
+                        print("constants groupID not working")
+                    }
                     
                    // print(RWGPSRoute.title)
                 }

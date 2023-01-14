@@ -12,6 +12,7 @@ import CoreMotion
 import UserNotifications
 import FirebaseMessaging
 import FirebaseFunctions
+import FirebaseDatabase
 
 class BikingGroupVC: BikingVCs {
     
@@ -23,6 +24,8 @@ class BikingGroupVC: BikingVCs {
     var fallTimer: Timer?
     var unreadNotifications = 0
     
+    
+    var pendingRWGPSLogin = false
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -36,11 +39,9 @@ class BikingGroupVC: BikingVCs {
         self.customizeNavigationController()
         
         registerForRemoteNotification()
-//        UserLocationsUpload.uploadUserDeviceToken(group: groupID)
         
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
-        //mapView.register(RWGPSPointAnnotationView.self, forAnnotationViewWithReuseIdentifier: "rwgpsPoint")
         if(Authentication.riderType == .rider) {
             mapView.showsUserLocation = true
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
@@ -55,25 +56,26 @@ class BikingGroupVC: BikingVCs {
         Locations.addNotifications(for: groupID)
         Locations.addNotificationsForAnnouncements(for: groupID)
         
+        addObservers()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .locationUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .groupUsersUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(otherUserLeftRemoveAnnotation), name: .shouldResetMapAnnotations, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(userIsRider), name: .userIsRider, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(userIsNonRider), name: .userIsNonRider, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(otherUserHasFallen), name: .userHasFallen, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(newAnnouncement), name: .newAnnouncement, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(deviceTokenLoaded), name: .deviceTokenLoaded, object: nil)
+        pendingRWGPSLogin = true
+        RWGPSUser.login { completed, error in
+            self.pendingRWGPSLogin = false
+            if !completed {
+                print("error logging into RWGPS on viewdidload: \(error)")
+            } else {
+                NotificationCenter.default.post(name: .rwgpsUserLogin, object: nil)
+            }
+        }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(userIsTooFar), name: .userIsTooFar, object: nil)
+        RWGPSRoute.addNotificationsForRouteUpdate(for: groupID)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(displayRWGPSRoute), name: .rwgpsRouteLoaded, object: nil)
-        
-        loadingView.removeFromSuperview()
         
         fallTimer = Timer()
         notificationCountLabel.isHidden = true
+        
+        loadingView.removeFromSuperview()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,10 +89,232 @@ class BikingGroupVC: BikingVCs {
             uploadUserLocation(CLLocationCoordinate2D(latitude: previousLatitude + 0.0001, longitude: previousLongitude + 0.0001))
         }
     }
+    
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         Locations.removeNotifications(for: groupID)
+    }
+    
+    
+}
+
+
+//MARK: RWGPS
+extension BikingGroupVC {
+    @objc func displayRWGPSRoute() {
+        
+        mapView.removeOverlays(mapView.overlays)
+        let points = RWGPSRoute.poi
+        var locations: [CLLocationCoordinate2D] = []
+        
+        points.forEach { poi in
+            locations.append(poi.coord)
+        }
+        
+        mapView.drawRWGPSPoints(locations)
+    }
+    
+    @objc func rwgpsRouteUpdated(_ notification: NSNotification) {
+        guard let id = notification.userInfo?["id"] as? String else {
+            print("error getting rwgps id from notification")
+            return
+        }
+        
+        guard pendingRWGPSLogin == false else { return }
+        RWGPSRoute.getRouteDetails(from: id) { error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("ugh: \(error)")
+                    self.showAnimationNotification(animationName: "OffRoute", message: "Someone in your group linked a RWGPS route, but you are not signed in. Please login to see the route.", duration: 15, fontsize: 16)
+                    Locations.notifications.addNotification(email: Authentication.user?.email ?? "", title: "Someone linked a RWGPS Route!", subTitle: "Log into your RWGPS account to see it", type: .distanceTooFar)
+                    self.unreadNotifications += 1
+                    
+                } else {
+                    //self.showSuccessNotification(message: "")
+                    NotificationCenter.default.post(name: .rwgpsRouteLoaded, object: nil)
+                    
+                    
+                   // print(RWGPSRoute.title)
+                }
+            }
+        }
+        
+        
+    }
+    
+    @objc func rwgpsUserLogin() {
+        guard let groupID = groupID else { return }
+        
+        let ref = Database.database().reference().child("rides/\(groupID)/rwgps_route/rwgps_id")
+        
+        ref.observeSingleEvent(of: .value) { snapshot in
+            
+            if let id = snapshot.value as? String {
+                NotificationCenter.default.post(name: .rwgpsUpdatedInGroup, object: nil, userInfo: ["id" : id])
+            }
+        }
+    }
+}
+
+//MARK: User Location Base Functions
+extension BikingGroupVC {
+    
+    @objc func userLocationsUpdated() {
+        ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
+        mapView.drawAllGroupMembers(includingSelf: false)
+        
+        updateNotificationCount()
+    }
+    
+    @objc func otherUserLeftRemoveAnnotation() {
+        mapView.removeGroupMember(email: Locations.notifications[0].email)
+    }
+    
+
+    @objc func userIsNonRider() {
+        previousLatitude = 0
+        previousLongitude = 0
+        locationManager.stopUpdatingLocation()
+        
+        try? UserDefaults.standard.set(object: RiderType.spectator, forKey: "rider_type")
+    }
+    
+    @objc func userIsRider() {
+        locationManager.startUpdatingLocation()
+        
+        try? UserDefaults.standard.set(object: RiderType.rider, forKey: "rider_type")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
+        let (latitude, longitude) = (location.latitude, location.longitude)
+        
+        if previousLatitude != latitude || previousLongitude != longitude {
+            uploadUserLocation(location)
+        } else {
+            //Same Location, not uploading to cloud
+        }
+        
+        super.updatePreviousLocations(location)
+    }
+    
+    override func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        super.locationManagerDidChangeAuthorization(manager)
+        
+        if let location = manager.location?.coordinate {
+            uploadUserLocation(location)
+            
+        }
+    }
+    
+    func uploadUserLocation(_ location: CLLocationCoordinate2D) {
+        if Authentication.riderType == .rider {
+            UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
+                if !completed {
+                    print(message!)
+                }
+            }
+        }
+    }
+    
+    @objc func otherUserHasFallen() {
+//        let email = Locations.recentFall.keys.first ?? "none"
+//        print(email)
+//        showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: .systemOrange, fontColor: .systemOrange)
+//        updateNotificationCount()
+    }
+    
+    func updateNotificationCount() {
+        if unreadNotifications == 0 {
+            notificationCountLabel.isHidden = true
+        } else {
+            notificationCountLabel.isHidden = false
+            notificationCountLabel.text = /*"\(Locations.notifications.count + Locations.announcementNotifications.otherUsersAnnouncements().count)"*/ "\(unreadNotifications)"
+        }
+    }
+    
+    
+    @objc func userIsTooFar() {
+//        guard let notif = Locations.distanceNotifications.first else {
+//            print("user too far error getting notif")
+//            return
+//        }
+//
+//        self.showAnimationNotification(animationName: "OffRoute", message: notif.title, duration: 5, color: .orange, fontColor: .orange)
+    }
+    
+}
+
+
+//MARK: Map Functions
+extension BikingGroupVC {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("selectedAnnotation")
+        
+        guard let bottomSheetNav = (bottomSheet.contentViewController as? UINavigationController) else { return }
+        bottomSheetNav.popToRootViewController(animated: true)
+        
+        if view as? MKUserLocationView != nil {
+            guard let selectedEmail = Authentication.user?.email else { return }
+            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        }
+        else {
+            guard let annotationView = view as? GroupUserAnnotationView else { return }
+            guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
+            
+            view.layer.zPosition = 100
+            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        print("deselectedAnnotation")
+        view.layer.zPosition = 0
+        (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
+    }
+    
+    func makeMapAnnotation(_ annotationChangeType: AnnotationChangeType, for groupUser: GroupUser) {
+        guard let groupUserAnnotation = mapView.annotations.getGroupUserAnnotation(for: groupUser.email) else { return }
+        
+        guard let groupUserAnnotationView = mapView.view(for: groupUserAnnotation) as? GroupUserAnnotationView else { return }
+    
+        if annotationChangeType == .bigger {
+            groupUserAnnotationView.makeAnnotationSelected()
+        } else {
+            groupUserAnnotationView.makeAnnotationDeselected()
+        }
+        
+        if groupUserAnnotationView.inSelectedState {
+            groupUserAnnotationView.layer.zPosition = 100
+        } else {
+            groupUserAnnotationView.layer.zPosition = 0
+        }
+        mapView.drawGroupMember(email: groupUser.email, location: groupUserAnnotation.coordinate)
+        
+    }
+}
+
+//MARK: Initial Setup
+extension BikingGroupVC {
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .locationUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userLocationsUpdated), name: .groupUsersUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(otherUserLeftRemoveAnnotation), name: .shouldResetMapAnnotations, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userIsRider), name: .userIsRider, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userIsNonRider), name: .userIsNonRider, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(otherUserHasFallen), name: .userHasFallen, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newAnnouncement), name: .newAnnouncement, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceTokenLoaded), name: .deviceTokenLoaded, object: nil)
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(userIsTooFar), name: .userIsTooFar, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(rwgpsUserLogin), name: .rwgpsUserLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(displayRWGPSRoute), name: .rwgpsRouteLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rwgpsRouteUpdated(_:)), name: .rwgpsUpdatedInGroup, object: nil)
     }
     
     func addGroupCodeToNavController() {
@@ -114,126 +338,6 @@ class BikingGroupVC: BikingVCs {
         configureLeaveGroupButton()
         
         
-    }
-    
-    func configureAnnouncementView() {
-        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 55))
-        scrollView.contentSize = CGSize(width: 5000, height: 55)
-        scrollView.delegate = self
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 5000, height: 55))
-        scrollView.addSubview(view)
-        scrollView.showsHorizontalScrollIndicator = false
-        
-        scrollView.alwaysBounceVertical = false
-        scrollView.alwaysBounceHorizontal = true
-        
-        bottomSheet.view.addSubview(scrollView)
-        scrollView.isUserInteractionEnabled = true
-        view.isUserInteractionEnabled = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let safeG = self.view.safeAreaLayoutGuide
-        let constraints: [NSLayoutConstraint] = [
-            scrollView.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
-                                                       constant: -50),
-//            scrollView.widthAnchor.constraint(equalTo: bottomSheet.surfaceView.widthAnchor, constant: view.frame.size.width),
-            scrollView.heightAnchor.constraint(equalToConstant: 55),
-            scrollView.leadingAnchor.constraint(equalTo: safeG.leadingAnchor, constant: 0.0),
-            scrollView.trailingAnchor.constraint(equalTo: safeG.trailingAnchor, constant: 0.0),
-            //view.widthAnchor.constraint(equalToConstant: 5000)
-        ]
-
-        NSLayoutConstraint.activate(constraints)
-        
-        
-        let announcements = [("I got a flat!", "I got a flat!".width(withConstrainedHeight: 60)), ("Let's regroup!", "Let's regroup!".width(withConstrainedHeight: 60)), ("I need help!", "I need help!".width(withConstrainedHeight: 60)), ("I'm leaving!", "I'm leaving!".width(withConstrainedHeight: 60)), ("Finished!", "Finished!".width(withConstrainedHeight: 60)), ("Getting coffee!", "Getting coffee!".width(withConstrainedHeight: 60))]
-        
-        let customButton = UIButton(frame: CGRect(x: 10 , y: 5, width: " Custom".width(withConstrainedHeight: 60) + 40, height: 45))
-        
-        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
-        let attributedString = NSAttributedString(string: "Custom", attributes: titleAttribute)
-        customButton.setAttributedTitle(attributedString, for: .normal)
-        customButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        customButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        
-        customButton.layer.cornerRadius = 22.5
-        customButton.backgroundColor = .white
-        customButton.setTitleColor(.black, for: .normal)
-        customButton.layer.masksToBounds = false
-        
-        customButton.dropShadow()
-        
-        customButton.tag = announcements.count
-        customButton.tintColor = .black
-        
-        customButton.addTarget(self, action: #selector(customAnnouncementButtonClicked), for: .touchUpInside)
-        
-        view.addSubview(customButton)
-        
-        var previousButton: UIButton? = customButton
-        var lastButton: UIButton?
-        for (index, announcement) in announcements.enumerated() {
-            let button = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: announcement.1 + 20, height: 45))
-            
-            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
-            let attributedString = NSAttributedString(string: announcement.0, attributes: titleAttribute)
-            button.setAttributedTitle(attributedString, for: .normal)
-            
-            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            view.addSubview(button)
-            let buttonConstraints: [NSLayoutConstraint] = [
-                button.topAnchor.constraint(equalTo: scrollView.topAnchor,
-                                                           constant: 5),
-                button.leadingAnchor.constraint(equalTo: previousButton?.trailingAnchor ?? view.leadingAnchor, constant: 10),
-                button.heightAnchor.constraint(equalToConstant: 45),
-                button.widthAnchor.constraint(equalToConstant: announcement.1 + 20)
-            ]
-            NSLayoutConstraint.activate(buttonConstraints)
-            
-            button.layer.cornerRadius = 22.5
-//            button.layer.borderWidth = 1
-//            button.layer.borderColor = UIColor.systemGray.cgColor
-            button.backgroundColor = .white
-            button.setTitleColor(.black, for: .normal)
-            button.layer.masksToBounds = false
-            
-            button.dropShadow()
-            
-            button.tag = index
-            
-            button.addTarget(self, action: #selector(premadeAnnouncementButtonClicked(_:)), for: .touchUpInside)
-            previousButton = button
-            
-            if(index == announcements.count-1) {
-                lastButton = button
-            }
-        }
-        
-        if let lastButton = lastButton {
-            let lastButtonConstraints: [NSLayoutConstraint] = [
-                lastButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                                  constant: -10)]
-            NSLayoutConstraint.activate(lastButtonConstraints)
-        }
- 
-        
-    }
-    
-    @objc func premadeAnnouncementButtonClicked(_ sender: UIButton) {
-        let announcements = ["I got a flat!", "Let's regroup!", "I need help!", "I'm leaving!", "Finished!", "Getting coffee!"]
-        let vc = storyboard?.instantiateViewController(identifier: "AnnouncementScreen") as! AnnouncementVC
-        vc.announcement = announcements[sender.tag]
-        vc.group = groupID
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    @objc func customAnnouncementButtonClicked() {
-        let vc = storyboard?.instantiateViewController(identifier: "AnnouncementScreen") as! AnnouncementVC
-        self.present(vc, animated: true, completion: {
-            vc.group = self.groupID
-            vc.announcementTextField.becomeFirstResponder()
-        })
     }
     
     func configureInvitePeopleButton() {
@@ -310,186 +414,6 @@ class BikingGroupVC: BikingVCs {
         vc.group = groupID
         self.present(vc, animated: true, completion: nil)
     }
-    
-    @objc func userLocationsUpdated() {
-        ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
-        mapView.drawAllGroupMembers(includingSelf: false)
-        
-        updateNotificationCount()
-    }
-    
-    @objc func otherUserLeftRemoveAnnotation() {
-        mapView.removeGroupMember(email: Locations.notifications[0].email)
-    }
-    
-    @objc func newAnnouncement() {
-        print("new announcement")
-        
-        if Locations.announcementNotifications.count > 0 {
-            if Locations.announcementNotifications[0].email != Authentication.user?.email {
-                unreadNotifications += 1
-                self.showAnnouncementNotification(announcement: Locations.announcementNotifications[0])
-            }
-        }
-    }
-    
-    @objc func userIsNonRider() {
-        previousLatitude = 0
-        previousLongitude = 0
-        locationManager.stopUpdatingLocation()
-        
-        try? UserDefaults.standard.set(object: RiderType.spectator, forKey: "rider_type")
-    }
-    
-    @objc func userIsRider() {
-        locationManager.startUpdatingLocation()
-        
-        try? UserDefaults.standard.set(object: RiderType.rider, forKey: "rider_type")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0].coordinate.roundTo(places: Preferences.coordinateRoundTo)
-        let (latitude, longitude) = (location.latitude, location.longitude)
-        
-        if previousLatitude != latitude || previousLongitude != longitude {
-            uploadUserLocation(location)
-        } else {
-            //Same Location, not uploading to cloud
-        }
-        
-        super.updatePreviousLocations(location)
-    }
-    
-    override func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        super.locationManagerDidChangeAuthorization(manager)
-        
-        if let location = manager.location?.coordinate {
-            uploadUserLocation(location)
-            
-        }
-    }
-    
-    func uploadUserLocation(_ location: CLLocationCoordinate2D) {
-        if Authentication.riderType == .rider {
-            UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
-                if !completed {
-                    print(message!)
-                }
-            }
-        }
-    }
-    
-    @objc func otherUserHasFallen() {
-//        let email = Locations.recentFall.keys.first ?? "none"
-//        print(email)
-//        showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: .systemOrange, fontColor: .systemOrange)
-//        updateNotificationCount()
-    }
-    
-    func updateNotificationCount() {
-        if unreadNotifications == 0 {
-            notificationCountLabel.isHidden = true
-        } else {
-            notificationCountLabel.isHidden = false
-            notificationCountLabel.text = /*"\(Locations.notifications.count + Locations.announcementNotifications.otherUsersAnnouncements().count)"*/ "\(unreadNotifications)"
-        }
-    }
-    
-    
-    @objc func userIsTooFar() {
-        guard let notif = Locations.distanceNotifications.first else {
-            print("user too far error getting notif")
-            return
-        }
-        
-        self.showAnimationNotification(animationName: "OffRoute", message: notif.title, duration: 5, color: .orange, fontColor: .orange)
-    }
-}
-
-
-//MARK: RWGPS
-extension BikingGroupVC {
-    @objc func displayRWGPSRoute() {
-        
-        mapView.removeOverlays(mapView.overlays)
-        let points = RWGPSRoute.poi
-        var locations: [CLLocationCoordinate2D] = []
-        
-        points.forEach { poi in
-            locations.append(poi.coord)
-        }
-        
-        mapView.drawRWGPSPoints(locations)
-        //var annotations: [MKAnnotation] = []
-        //for point in points {
-//            let annotation = RWGPSPointAnnotation()
-//            let centerCoordinate = CLLocationCoordinate2D(latitude: point.coord.latitude, longitude: point.coord.longitude)
-//            annotation.coordinate = centerCoordinate
-//            annotation.title = ""
-            //mapView.drawRWGPSPoint(location: point.coord)
-            //mapView.addAnnotation(annotation)//(location: centerCoordinate)
-        //}
-        
-        //mapView.showAnnotations(mapView.annotations, animated: true)
-    }
-}
-
-//MARK: Scroll View
-extension BikingGroupVC: UIScrollViewDelegate {
-    
-}
-
-
-extension BikingGroupVC {
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("selectedAnnotation")
-        
-        guard let bottomSheetNav = (bottomSheet.contentViewController as? UINavigationController) else { return }
-        bottomSheetNav.popToRootViewController(animated: true)
-        
-        if view as? MKUserLocationView != nil {
-            guard let selectedEmail = Authentication.user?.email else { return }
-            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
-        }
-        else {
-            guard let annotationView = view as? GroupUserAnnotationView else { return }
-            guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
-            
-            view.layer.zPosition = 100
-            (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        print("deselectedAnnotation")
-        view.layer.zPosition = 0
-        (bottomSheet.contentViewController as? UINavigationController)?.popToRootViewController(animated: true)
-    }
-    
-    func makeMapAnnotation(_ annotationChangeType: AnnotationChangeType, for groupUser: GroupUser) {
-        guard let groupUserAnnotation = mapView.annotations.getGroupUserAnnotation(for: groupUser.email) else { return }
-        
-        guard let groupUserAnnotationView = mapView.view(for: groupUserAnnotation) as? GroupUserAnnotationView else { return }
-    
-        if annotationChangeType == .bigger {
-            groupUserAnnotationView.makeAnnotationSelected()
-        } else {
-            groupUserAnnotationView.makeAnnotationDeselected()
-        }
-        
-        if groupUserAnnotationView.inSelectedState {
-            groupUserAnnotationView.layer.zPosition = 100
-        } else {
-            groupUserAnnotationView.layer.zPosition = 0
-        }
-        mapView.drawGroupMember(email: groupUser.email, location: groupUserAnnotation.coordinate)
-        
-    }
-}
-
-//MARK: Initial Setup
-extension BikingGroupVC {
     
     func customizeNavigationController() {
         self.navigationItem.largeTitleDisplayMode = .never
@@ -643,6 +567,139 @@ extension BikingGroupVC {
     
 }
 
+//MARK: Announcement Functions
+extension BikingGroupVC {
+    func configureAnnouncementView() {
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 55))
+        scrollView.contentSize = CGSize(width: 5000, height: 55)
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 5000, height: 55))
+        scrollView.addSubview(view)
+        scrollView.showsHorizontalScrollIndicator = false
+        
+        scrollView.alwaysBounceVertical = false
+        scrollView.alwaysBounceHorizontal = true
+        
+        bottomSheet.view.addSubview(scrollView)
+        scrollView.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let safeG = self.view.safeAreaLayoutGuide
+        let constraints: [NSLayoutConstraint] = [
+            scrollView.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
+                                                       constant: -50),
+            scrollView.heightAnchor.constraint(equalToConstant: 55),
+            scrollView.leadingAnchor.constraint(equalTo: safeG.leadingAnchor, constant: 0.0),
+            scrollView.trailingAnchor.constraint(equalTo: safeG.trailingAnchor, constant: 0.0),
+            //view.widthAnchor.constraint(equalToConstant: 5000)
+        ]
+
+        NSLayoutConstraint.activate(constraints)
+        
+        
+        let announcements = [("I got a flat!", "I got a flat!".width(withConstrainedHeight: 60)), ("Let's regroup!", "Let's regroup!".width(withConstrainedHeight: 60)), ("I need help!", "I need help!".width(withConstrainedHeight: 60)), ("I'm leaving!", "I'm leaving!".width(withConstrainedHeight: 60)), ("Finished!", "Finished!".width(withConstrainedHeight: 60)), ("Getting coffee!", "Getting coffee!".width(withConstrainedHeight: 60))]
+        
+        let customButton = UIButton(frame: CGRect(x: 10 , y: 5, width: " Custom".width(withConstrainedHeight: 60) + 40, height: 45))
+        
+        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
+        let attributedString = NSAttributedString(string: "Custom", attributes: titleAttribute)
+        customButton.setAttributedTitle(attributedString, for: .normal)
+        customButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        customButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        customButton.layer.cornerRadius = 22.5
+        customButton.backgroundColor = .white
+        customButton.setTitleColor(.black, for: .normal)
+        customButton.layer.masksToBounds = false
+        
+        customButton.dropShadow()
+        
+        customButton.tag = announcements.count
+        customButton.tintColor = .black
+        
+        customButton.addTarget(self, action: #selector(customAnnouncementButtonClicked), for: .touchUpInside)
+        
+        view.addSubview(customButton)
+        
+        var previousButton: UIButton? = customButton
+        var lastButton: UIButton?
+        for (index, announcement) in announcements.enumerated() {
+            let button = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: announcement.1 + 20, height: 45))
+            
+            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
+            let attributedString = NSAttributedString(string: announcement.0, attributes: titleAttribute)
+            button.setAttributedTitle(attributedString, for: .normal)
+            
+            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            view.addSubview(button)
+            let buttonConstraints: [NSLayoutConstraint] = [
+                button.topAnchor.constraint(equalTo: scrollView.topAnchor,
+                                                           constant: 5),
+                button.leadingAnchor.constraint(equalTo: previousButton?.trailingAnchor ?? view.leadingAnchor, constant: 10),
+                button.heightAnchor.constraint(equalToConstant: 45),
+                button.widthAnchor.constraint(equalToConstant: announcement.1 + 20)
+            ]
+            NSLayoutConstraint.activate(buttonConstraints)
+            
+            button.layer.cornerRadius = 22.5
+//            button.layer.borderWidth = 1
+//            button.layer.borderColor = UIColor.systemGray.cgColor
+            button.backgroundColor = .white
+            button.setTitleColor(.black, for: .normal)
+            button.layer.masksToBounds = false
+            
+            button.dropShadow()
+            
+            button.tag = index
+            
+            button.addTarget(self, action: #selector(premadeAnnouncementButtonClicked(_:)), for: .touchUpInside)
+            previousButton = button
+            
+            if(index == announcements.count-1) {
+                lastButton = button
+            }
+        }
+        
+        if let lastButton = lastButton {
+            let lastButtonConstraints: [NSLayoutConstraint] = [
+                lastButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
+                                                  constant: -10)]
+            NSLayoutConstraint.activate(lastButtonConstraints)
+        }
+ 
+        
+    }
+    
+    @objc func premadeAnnouncementButtonClicked(_ sender: UIButton) {
+        let announcements = ["I got a flat!", "Let's regroup!", "I need help!", "I'm leaving!", "Finished!", "Getting coffee!"]
+        let vc = storyboard?.instantiateViewController(identifier: "AnnouncementScreen") as! AnnouncementVC
+        vc.announcement = announcements[sender.tag]
+        vc.group = groupID
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func customAnnouncementButtonClicked() {
+        let vc = storyboard?.instantiateViewController(identifier: "AnnouncementScreen") as! AnnouncementVC
+        self.present(vc, animated: true, completion: {
+            vc.group = self.groupID
+            vc.announcementTextField.becomeFirstResponder()
+        })
+    }
+    
+    @objc func newAnnouncement() {
+        print("new announcement")
+        
+        if Locations.announcementNotifications.count > 0 {
+            if Locations.announcementNotifications[0].email != Authentication.user?.email {
+                unreadNotifications += 1
+                self.showAnnouncementNotification(announcement: Locations.announcementNotifications[0])
+            }
+        }
+    }
+    
+}
+
 //MARK: Push Notifications
 extension BikingGroupVC: UNUserNotificationCenterDelegate, MessagingDelegate {
     func registerForRemoteNotification() {
@@ -666,6 +723,9 @@ extension BikingGroupVC: UNUserNotificationCenterDelegate, MessagingDelegate {
         if let groupID = groupID {
             Messaging.messaging().subscribe(toTopic: "\(groupID)_announcements") { error in
                 print("Subscribed to \(groupID)_announcements for notifications")
+            }
+            Messaging.messaging().subscribe(toTopic: "\(groupID)_rwgpsRouteUpdates") { error in
+                print("Subscribed to \(groupID)_rwgpsRouteUpdates for notifications")
             }
         }
         
@@ -701,6 +761,12 @@ extension BikingGroupVC: UNUserNotificationCenterDelegate, MessagingDelegate {
     func removePushNotificationReceivers() {
         if let groupID = groupID {
             Messaging.messaging().unsubscribe(fromTopic: "\(groupID)_announcements") { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            Messaging.messaging().unsubscribe(fromTopic: "\(groupID)_rwgpsRouteUpdates") { error in
                 if let error = error {
                     print(error.localizedDescription)
                 }

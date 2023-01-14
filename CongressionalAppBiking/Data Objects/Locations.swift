@@ -53,7 +53,6 @@ struct Locations {
         
         //User added to group
         ref.observe(.childAdded) { snapshot in
-            print("child added")
             addGroupUser(from: snapshot) { wasCompleted, groupUsers, locations, lastUpdated, riderTypes, deviceTokens in
                 self.groupUsers = groupUsers
                 self.locations = locations
@@ -231,7 +230,6 @@ struct Locations {
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
                 self.deviceTokens = deviceTokens
-                print("reseted")
                 NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
             }
         }

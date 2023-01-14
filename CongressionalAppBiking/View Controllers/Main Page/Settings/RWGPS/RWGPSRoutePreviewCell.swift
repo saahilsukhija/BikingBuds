@@ -13,7 +13,8 @@ class RWGPSRoutePreviewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
+    @IBOutlet weak var milesLabel: UILabel!
+    @IBOutlet weak var elevationLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,6 +37,9 @@ class RWGPSRoutePreviewCell: UITableViewCell {
             descriptionLabel.textColor = .systemGray
         }
         dateLabel.text = dateToString(ride.createdAt)
+        milesLabel.text = String(format: "%.1fmi", RWGPSRoutePreview.metersToMiles(ride.miles))
+        elevationLabel.text = String(format: "%.0fft", RWGPSRoutePreview.metersToFeet(ride.elevation))
+        
     }
     
     func dateToString(_ date: Date) -> String {

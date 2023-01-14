@@ -12,6 +12,8 @@ class GroupRideSettingsVC: UIViewController {
     var ride: Ride!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var connectWithRWGPSView: UIView!
+    @IBOutlet weak var rwgpsConnectLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +49,16 @@ extension GroupRideSettingsVC {
         connectWithRWGPSView.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rwgpsViewTapped))
         connectWithRWGPSView.addGestureRecognizer(gestureRecognizer)
+        
+        connectWithRWGPSView.layer.cornerRadius = 10
+        connectWithRWGPSView.layer.borderColor = UIColor.black.cgColor
+        connectWithRWGPSView.layer.borderWidth = 1.5
+        
+        if RWGPSRoute.connected == true {
+            rwgpsConnectLabel.text = "Change the RideWithGPS Route"
+        } else {
+            rwgpsConnectLabel.text = "Connect With RideWithGPS"
+        }
     }
     
     @objc func rwgpsViewTapped() {
@@ -86,10 +98,10 @@ extension GroupRideSettingsVC {
         } else {
             saveButton.image = UIImage(systemName: "archivebox")
         }
-        guard !previousSavedRides.containsRide(ride) else {
-            self.showFailureToast(message: "Ride is already saved.")
-            return
-        }
+//        guard !previousSavedRides.containsRide(ride) else {
+//            self.showFailureToast(message: "Ride is already saved.")
+//            return
+//        }
     }
     
     @IBAction func saveThisRide(_ sender: Any) {

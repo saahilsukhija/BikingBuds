@@ -33,7 +33,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q39-h8-zh3">
                                 <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <items>
-                                    <navigationItem title="Ride With GPS" id="OE1-pi-2Hc">
+                                    <navigationItem title="RideWithGPS" id="OE1-pi-2Hc">
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="multiply" catalog="system" id="2lK-w4-Gjr">
                                             <color key="tintColor" name="AccentColor"/>
                                             <connections>
@@ -44,7 +44,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dh1-Ka-4WN" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="148.66666666666666" width="353" height="50"/>
+                                <rect key="frame" x="20" y="148.33333333333334" width="353" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="2dZ-6S-to8"/>
@@ -65,7 +65,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LDv-fr-aMD" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="208.66666666666666" width="353" height="49.999999999999972"/>
+                                <rect key="frame" x="20" y="208.33333333333334" width="353" height="50.000000000000028"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="efv-km-swk"/>
@@ -85,14 +85,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login with Ride With GPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrL-28-ecS">
-                                <rect key="frame" x="10" y="113" width="373" height="25.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login with RideWithGPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrL-28-ecS">
+                                <rect key="frame" x="10" y="113" width="373" height="25.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymO-OY-dye" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="268.66666666666669" width="353" height="50"/>
+                                <rect key="frame" x="20" y="268.33333333333331" width="353" height="50"/>
                                 <color key="backgroundColor" red="0.89411771299999998" green="0.4352940917" blue="0.18039217590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FP8-FO-qbz"/>
@@ -113,7 +113,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm7-FV-fRv">
-                                <rect key="frame" x="328" y="216.33333333333334" width="40" height="40.000000000000028"/>
+                                <rect key="frame" x="328" y="216" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="clt-1p-efJ"/>
                                     <constraint firstAttribute="height" constant="40" id="qO8-8T-HKn"/>
@@ -171,7 +171,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSG-IH-npy">
                                 <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <items>
-                                    <navigationItem title="Routes In Your Account" id="GYO-lU-udO">
+                                    <navigationItem title="Your Routes" id="GYO-lU-udO">
                                         <leftBarButtonItems>
                                             <barButtonItem title="Item" image="multiply" catalog="system" id="Nk0-6e-rxf">
                                                 <color key="tintColor" name="AccentColor"/>
@@ -206,37 +206,61 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yto-qa-VDt">
-                                                    <rect key="frame" x="10" y="42.666666666666664" width="90.666666666666671" height="22.333333333333336"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yto-qa-VDt">
+                                                    <rect key="frame" x="10" y="42.333333333333336" width="90.333333333333329" height="22.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNe-Nv-5Bd">
+                                                    <rect key="frame" x="10" y="9.9999999999999982" width="373" height="25.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPG-zb-g9P">
-                                                    <rect key="frame" x="337.66666666666669" y="11" width="35.333333333333314" height="21"/>
+                                                    <rect key="frame" x="10" y="44" width="35.666666666666664" height="21"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="15"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNe-Nv-5Bd">
-                                                    <rect key="frame" x="10.000000000000004" y="10" width="47.333333333333343" height="28"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyM-YP-48u">
+                                                    <rect key="frame" x="269" y="44" width="37" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="15"/>
+                                                    <color key="textColor" systemColor="systemGrayColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elevation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsP-wN-O4d">
+                                                    <rect key="frame" x="316" y="44" width="67" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="15"/>
+                                                    <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Yto-qa-VDt" secondAttribute="bottom" constant="10" id="0WJ-dS-nAS"/>
-                                                <constraint firstItem="jPG-zb-g9P" firstAttribute="top" secondItem="JzK-np-Rlt" secondAttribute="topMargin" id="0tZ-eR-maW"/>
+                                                <constraint firstAttribute="trailing" secondItem="yNe-Nv-5Bd" secondAttribute="trailing" constant="10" id="3qI-BZ-R0H"/>
+                                                <constraint firstItem="IsP-wN-O4d" firstAttribute="leading" secondItem="kyM-YP-48u" secondAttribute="trailing" constant="10" id="F89-19-xUE"/>
+                                                <constraint firstAttribute="bottom" secondItem="jPG-zb-g9P" secondAttribute="bottom" constant="10" id="Je7-fj-gvV"/>
+                                                <constraint firstItem="IsP-wN-O4d" firstAttribute="centerY" secondItem="jPG-zb-g9P" secondAttribute="centerY" id="LIw-39-ZJD"/>
                                                 <constraint firstItem="yNe-Nv-5Bd" firstAttribute="leading" secondItem="JzK-np-Rlt" secondAttribute="leading" constant="10" id="XMN-tH-B9D"/>
-                                                <constraint firstItem="jPG-zb-g9P" firstAttribute="trailing" secondItem="JzK-np-Rlt" secondAttribute="trailingMargin" id="l5D-B9-4Jb"/>
+                                                <constraint firstAttribute="trailing" secondItem="IsP-wN-O4d" secondAttribute="trailing" constant="10" id="epO-rY-cSr"/>
+                                                <constraint firstItem="kyM-YP-48u" firstAttribute="centerY" secondItem="jPG-zb-g9P" secondAttribute="centerY" id="gXO-QO-ZgV"/>
+                                                <constraint firstItem="jPG-zb-g9P" firstAttribute="leading" secondItem="JzK-np-Rlt" secondAttribute="leading" constant="10" id="tr5-zL-ie5"/>
                                                 <constraint firstItem="Yto-qa-VDt" firstAttribute="leading" secondItem="JzK-np-Rlt" secondAttribute="leading" constant="10" id="vMN-uk-k9c"/>
                                                 <constraint firstItem="yNe-Nv-5Bd" firstAttribute="top" secondItem="JzK-np-Rlt" secondAttribute="top" constant="10" id="xDM-Aw-UzC"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Yto-qa-VDt"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="jPG-zb-g9P" id="o7i-hP-1jO"/>
                                             <outlet property="descriptionLabel" destination="Yto-qa-VDt" id="I9a-bj-MUc"/>
+                                            <outlet property="elevationLabel" destination="IsP-wN-O4d" id="w3B-pF-XhM"/>
+                                            <outlet property="milesLabel" destination="kyM-YP-48u" id="fW0-vs-tYn"/>
                                             <outlet property="nameLabel" destination="yNe-Nv-5Bd" id="TEK-CS-EO0"/>
                                         </connections>
                                     </tableViewCell>

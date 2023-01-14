@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-
+import FirebaseDatabase
 struct RWGPSRoute {
     
     static var title: String!
@@ -21,10 +21,32 @@ struct RWGPSRoute {
     
     static var connected: Bool! = false
     
+    static func addNotificationsForRouteUpdate(for group: String) {
+        let ref = Database.database().reference().child("rides/" + group + "/rwgps_route")
+        
+        ref.observe(.value) { snap in
+            guard snap.children.allObjects.count > 0 else { return }
+            guard let snapDict = snap.value as? Dictionary<String, String> else {
+                print(snap.key);
+                print(snap.value as Any)
+                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
+                return
+            }
+            
+            guard let id = snapDict["rwgps_id"] else {
+                print(snapDict.values as Any)
+                return
+            }
+            
+            print("rwgps route update observed")
+            NotificationCenter.default.post(name: .rwgpsUpdatedInGroup, object: nil, userInfo: ["id" : id])
+        }
+    }
     
-    static func getRouteDetails(from id: String, completion: @escaping(RWGPSRoute?, String?) -> Void) {
+    
+    static func getRouteDetails(from id: String, completion: @escaping(String?) -> Void) {
         guard let token = RWGPSUser.authToken else {
-            completion(nil, "Error Signing In... Please login again")
+            completion("Error Signing In... Please login again")
             return
         }
         
@@ -36,7 +58,7 @@ struct RWGPSRoute {
                           URLQueryItem(name:"limit", value: "20")
         ]
         urlComponents.queryItems = queryItems
-        guard let url = urlComponents.url else { completion(nil, "Unexpected error, try again"); return }
+        guard let url = urlComponents.url else { completion("Unexpected error, try again"); return }
         let request = URLRequest(url: url)
 
         let session = URLSession.shared
@@ -68,23 +90,23 @@ struct RWGPSRoute {
                             self.poi = points
                             self.last_updated = Date() //TODO: Fix later
                             self.connected = true
-                            completion(nil, nil)
+                            completion(nil)
                         } else {
-                            completion(nil, "Something went wrong...")
+                            completion("Something went wrong...")
                         }
                         
                         
                     }
                     else {
                         print(json["results"] ?? "")
-                        completion(nil, "Something went wrong...")
+                        completion("Something went wrong...")
                     }
                 } catch {
                     print("ugh: \(data)")
-                    completion(nil, "Network error")
+                    completion("Network error")
                 }
             } else {
-                completion(nil, "Network error")
+                completion("Network error")
             }
         })
         

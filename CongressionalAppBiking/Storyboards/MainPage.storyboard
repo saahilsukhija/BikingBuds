@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -87,7 +88,8 @@
                                                 <action selector="cancelButtonTapped:" destination="JCv-5Q-DD1" id="Ldq-j1-tPj"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Save" image="archivebox" catalog="system" id="Shv-vF-uWQ">
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="Shv-vF-uWQ">
+                                            <imageReference key="image" image="archivebox" catalog="system" symbolScale="medium"/>
                                             <color key="tintColor" name="AccentColor"/>
                                             <connections>
                                                 <action selector="saveThisRide:" destination="JCv-5Q-DD1" id="rnz-9e-0PP"/>
@@ -100,10 +102,10 @@
                                 <rect key="frame" x="20" y="152" width="374" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wcv-Fn-fLS">
-                                        <rect key="frame" x="46" y="5" width="282.5" height="50"/>
+                                        <rect key="frame" x="50" y="5" width="274.5" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect With Ride With GPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boR-w7-i9G">
-                                                <rect key="frame" x="55" y="0.0" width="227.5" height="50"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect With RideWithGPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boR-w7-i9G">
+                                                <rect key="frame" x="55" y="0.0" width="219.5" height="50"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -152,6 +154,7 @@
                     </view>
                     <connections>
                         <outlet property="connectWithRWGPSView" destination="0hg-4c-0yF" id="LKZ-NY-qkr"/>
+                        <outlet property="rwgpsConnectLabel" destination="boR-w7-i9G" id="FE0-6I-WgG"/>
                         <outlet property="saveButton" destination="Shv-vF-uWQ" id="2zf-tg-YjB"/>
                     </connections>
                 </viewController>

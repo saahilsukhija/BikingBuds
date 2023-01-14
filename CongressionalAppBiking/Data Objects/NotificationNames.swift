@@ -76,6 +76,10 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    static var rwgpsUserLogin: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
     ///Ride With GPS Route has Loaded
     static var rwgpsRouteLoaded: Notification.Name {
         return .init(rawValue: #function)
@@ -83,6 +87,11 @@ extension Notification.Name {
     
     ///User has had their Ride With GPS Route removed
     static var rwgpsRouteRemoved: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    ///Group has had their Ride With GPS Route updated
+    static var rwgpsUpdatedInGroup: Notification.Name {
         return .init(rawValue: #function)
     }
     

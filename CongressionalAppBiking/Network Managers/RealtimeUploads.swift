@@ -92,19 +92,19 @@ struct UserLocationsUpload {
     
     
     static func uploadUserDeviceToken(_ token: String? = Authentication.deviceToken, group: String) {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        
-        guard let token = token else {
-            print("error uploading token")
-            return
-            
-        }
-        
-        print("uploading token...")
-        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/device_token/"
-        RealtimeUpload.upload(data: token, path: path)
+//        guard let user = Auth.auth().currentUser else {
+//            return
+//        }
+//
+//        guard let token = token else {
+//            print("error uploading token")
+//            return
+//
+//        }
+//
+//        print("uploading token...")
+//        let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/device_token/"
+//        RealtimeUpload.upload(data: token, path: path)
     }
     
     static func riderLeftGroup(group: String) {

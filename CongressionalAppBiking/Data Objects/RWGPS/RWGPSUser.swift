@@ -169,7 +169,14 @@ struct RWGPSUser {
                         
                         var routes: [RWGPSRoutePreview] = []
                         for result in results {
-                            routes.append(RWGPSRoutePreview(name: result["name"] as? String ?? "no_name", description: result["description"] as? String ?? "", createdAt: RWGPSRoutePreview.convertToDate(result["created_at"] as? String ?? ""), id: String(result["id"] as? Int ?? 0)))
+                            routes.append(
+                                RWGPSRoutePreview(
+                                    name: result["name"] as? String ?? "no_name",
+                                    description: result["description"] as? String ?? "",
+                                    miles: result["distance"] as? Double ?? 0,
+                                    elevation: result["elevation_gain"] as? Double ?? 0,
+                                    createdAt: RWGPSRoutePreview.convertToDate(result["created_at"] as? String ?? ""),
+                                    id: String(result["id"] as? Int ?? 0)))
                         }
                         completion(true, routes, nil)
                     }

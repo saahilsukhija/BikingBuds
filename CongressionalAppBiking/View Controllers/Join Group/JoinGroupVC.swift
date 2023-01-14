@@ -97,6 +97,7 @@ class JoinGroupVC: UIViewController {
                     return
                 }
                 
+                
                 self.groupName = name
                 self.showSuccessToast(message: "Joined!")
                 self.goToBikingVC()
@@ -121,6 +122,7 @@ class JoinGroupVC: UIViewController {
         //Store recent group
         UserDefaults.standard.set(true, forKey: "is_in_group")
         UserDefaults.standard.set(groupID, forKey: "recent_group")
+        Constants.groupID = self.groupID
         try? UserDefaults.standard.set(object: riderType, forKey: "rider_type")
         
         //Go to Next Page

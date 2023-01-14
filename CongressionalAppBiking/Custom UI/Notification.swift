@@ -43,7 +43,7 @@ extension UIViewController {
         })
     }
     
-    func showAnimationNotification(animationName: String, message: String, duration: Double = 3, color: UIColor = .label, fontColor: UIColor = .label, playbackSpeed: CGFloat = 1, loop: LottieLoopMode = .playOnce) {
+    func showAnimationNotification(animationName: String, message: String, duration: Double = 3, color: UIColor = .label, fontColor: UIColor = .label, playbackSpeed: CGFloat = 1, loop: LottieLoopMode = .playOnce, fontsize: Double = 20) {
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first!
         let notificationView = UIView(frame: CGRect(x: 10, y: -50, width: window.frame.size.width - 20, height: 100))
         notificationView.addLeftBorder(with: color, andWidth: 1)
@@ -62,7 +62,7 @@ extension UIViewController {
         let messageLabel = UILabel(frame: CGRect(x: notificationView.frame.size.height, y: 0, width: notificationView.frame.size.width - notificationView.frame.size.height, height: notificationView.frame.size.height))
         messageLabel.textAlignment = .left
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "Poppins-Regular", size: 20)
+        messageLabel.font = UIFont(name: "Poppins-Regular", size: fontsize)
         messageLabel.textColor = fontColor
         messageLabel.numberOfLines = 0
         notificationView.addSubview(messageLabel)

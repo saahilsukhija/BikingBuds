@@ -43,8 +43,9 @@ class RWGPSLoginVC: UIViewController {
                     self.showErrorNotification(message: message)
                 } else {
                     //go to other vc
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC
-                    self.present(vc, animated: true)
+                    //let vc = self.storyboard?.instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC
+                    NotificationCenter.default.post(name: .rwgpsUserLogin, object: nil)
+                    self.dismiss(animated: true)
                 }
             }
         }
