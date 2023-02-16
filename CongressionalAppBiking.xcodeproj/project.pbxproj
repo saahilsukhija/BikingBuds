@@ -31,6 +31,7 @@
 		9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */; };
 		9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40DAD127B893CB004BB1DC /* DateFormatterTimeDifference.swift */; };
 		9A418119285C05740005D5D3 /* AnnouncementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A418118285C05740005D5D3 /* AnnouncementVC.swift */; };
+		9A449FA02989F21000BB9829 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A449F9F2989F21000BB9829 /* PaddingTextField.swift */; };
 		9AA772E4293ADFA700C07AE8 /* RWGPSRoutePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA772E3293ADFA600C07AE8 /* RWGPSRoutePreview.swift */; };
 		9AA772E7293AF41200C07AE8 /* RWGPS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AA772E6293AF41200C07AE8 /* RWGPS.storyboard */; };
 		9AA772E9293AF61900C07AE8 /* RWGPSRoutePreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA772E8293AF61900C07AE8 /* RWGPSRoutePreviewCell.swift */; };
@@ -161,6 +162,7 @@
 		9A3DEF77271B8A8C0066D1EB /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		9A40DAD127B893CB004BB1DC /* DateFormatterTimeDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterTimeDifference.swift; sourceTree = "<group>"; };
 		9A418118285C05740005D5D3 /* AnnouncementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnnouncementVC.swift; path = BottomSheet/AnnouncementVC.swift; sourceTree = "<group>"; };
+		9A449F9F2989F21000BB9829 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
 		9AA772E3293ADFA600C07AE8 /* RWGPSRoutePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWGPSRoutePreview.swift; sourceTree = "<group>"; };
 		9AA772E6293AF41200C07AE8 /* RWGPS.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RWGPS.storyboard; sourceTree = "<group>"; };
 		9AA772E8293AF61900C07AE8 /* RWGPSRoutePreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWGPSRoutePreviewCell.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				9ADEAA8126ACEAD6005BB706 /* Alert.swift */,
 				9ADEAA8926B4DC70005BB706 /* ExtraColors.swift */,
 				9AAD6D3C2828B54000D1DD22 /* DesignableUITextField.swift */,
+				9A449F9F2989F21000BB9829 /* PaddingTextField.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
+				9A449FA02989F21000BB9829 /* PaddingTextField.swift in Sources */,
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
 				9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */,
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
@@ -1067,7 +1071,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1092,7 +1096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

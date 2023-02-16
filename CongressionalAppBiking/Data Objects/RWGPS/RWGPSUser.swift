@@ -150,7 +150,7 @@ struct RWGPSUser {
                           URLQueryItem(name:"version", value:"2"),
                           URLQueryItem(name:"auth_token", value:token),
                           URLQueryItem(name:"offset", value: "0"),
-                          URLQueryItem(name:"limit", value: "20")
+                          URLQueryItem(name:"limit", value: "")
         ]
         urlComponents.queryItems = queryItems
         guard let url = urlComponents.url else { completion(false, [], "Unexpected error, try again"); return }
@@ -175,8 +175,12 @@ struct RWGPSUser {
                                     description: result["description"] as? String ?? "",
                                     miles: result["distance"] as? Double ?? 0,
                                     elevation: result["elevation_gain"] as? Double ?? 0,
-                                    createdAt: RWGPSRoutePreview.convertToDate(result["created_at"] as? String ?? ""),
+                                    createdAt: RWGPSRoute.convertToDate(result["created_at"] as? String ?? ""),
                                     id: String(result["id"] as? Int ?? 0)))
+                        }
+                        
+                        routes.sort { route1, route2 in
+                            return route1.createdAt > route2.createdAt
                         }
                         completion(true, routes, nil)
                     }

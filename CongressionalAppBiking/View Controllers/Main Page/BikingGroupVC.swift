@@ -42,6 +42,8 @@ class BikingGroupVC: BikingVCs {
         
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
+        mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "rwgpsDistanceMarker")
+        
         if(Authentication.riderType == .rider) {
             mapView.showsUserLocation = true
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
@@ -80,7 +82,7 @@ class BikingGroupVC: BikingVCs {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        locationManager?.requestAlwaysAuthorization()
         if let location = locationManager.location?.coordinate {
             uploadUserLocation(location)
         }
@@ -114,6 +116,14 @@ extension BikingGroupVC {
         }
         
         mapView.drawRWGPSPoints(locations)
+        
+        for poi in RWGPSRoute.routeMarkers {
+            let annotation = RWGPSDistanceMarkerAnnotation()
+            annotation.title = "\(RWGPSRoute.metersToMiles(poi.distance).rounded()) miles"
+            annotation.coordinate = poi.coord
+            annotation.distance = RWGPSRoute.metersToMiles(poi.distance).rounded()
+            mapView.addAnnotation(annotation)
+        }
     }
     
     @objc func rwgpsRouteUpdated(_ notification: NSNotification) {
@@ -254,11 +264,12 @@ extension BikingGroupVC {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("selectedAnnotation")
         
+        
         guard let bottomSheetNav = (bottomSheet.contentViewController as? UINavigationController) else { return }
-        bottomSheetNav.popToRootViewController(animated: true)
         
         if view as? MKUserLocationView != nil {
             guard let selectedEmail = Authentication.user?.email else { return }
+            bottomSheetNav.popToRootViewController(animated: true)
             (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
         }
         else {
@@ -266,6 +277,8 @@ extension BikingGroupVC {
             guard let selectedEmail = (annotationView.annotation as? GroupUserAnnotation)?.email else { return }
             
             view.layer.zPosition = 100
+            bottomSheetNav.popToRootViewController(animated: true)
+            
             (bottomSheetNav.viewControllers[0] as! BottomSheetInfoGroupVC).mapSelectedPerson(selectedEmail)
         }
     }

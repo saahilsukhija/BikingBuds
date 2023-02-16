@@ -188,13 +188,16 @@ extension BikingVCs: CLLocationManagerDelegate {
         } else {
             //Center at random person
             if let firstPerson = Locations.locations.values.first(where: {$0.latitude != 0 || $0.longitude != 0})?.roundTo(places: Preferences.coordinateRoundTo) {
-                map.centerCameraTo(location: firstPerson, regionRadius: map.currentRadius())
+                map.centerCameraTo(location: firstPerson, regionRadius: 1000)
             }
             else {
                 map.centerCameraTo(location: CLLocationCoordinate2D(latitude: 39.8355, longitude: -99.09), regionRadius: 4600000)
+                map.setUserTrackingMode(.followWithHeading, animated: true)
                 print("centering to US map")
             }
         }
+        
+        
         
         self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
         (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
@@ -220,11 +223,12 @@ extension BikingVCs: MKMapViewDelegate {
             annotationView = GroupUserAnnotationView(annotation: annotation as! GroupUserAnnotation, reuseIdentifier: annotationIdentifier)
             annotationView.frame = (annotationView as! GroupUserAnnotationView).containerView.frame
 
-//        } else if annotation.isKind(of: RWGPSPointAnnotation.self) {
-//            //print("rwgpsPoint")
-//            annotationIdentifier = "rwgpsPoint"
-//            annotationView = RWGPSPointAnnotationView(annotation: annotation as! RWGPSPointAnnotation, reuseIdentifier: annotationIdentifier)
-//            annotationView.frame = (annotationView as! RWGPSPointAnnotationView).containerView.frame
+        } else if annotation.isKind(of: RWGPSDistanceMarkerAnnotation.self) {
+            
+                //print("rwgpsPoint")
+                annotationIdentifier = "rwgpsDistanceMarker"
+                annotationView = RWGPSDistanceMarkerAnnotationView(annotation: annotation as! RWGPSDistanceMarkerAnnotation, reuseIdentifier: annotationIdentifier)
+                annotationView.frame = (annotationView as! RWGPSDistanceMarkerAnnotationView).containerView.frame
 
         } else {
             //print("marker")

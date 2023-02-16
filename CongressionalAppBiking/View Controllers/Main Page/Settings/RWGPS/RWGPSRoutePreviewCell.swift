@@ -37,8 +37,8 @@ class RWGPSRoutePreviewCell: UITableViewCell {
             descriptionLabel.textColor = .systemGray
         }
         dateLabel.text = dateToString(ride.createdAt)
-        milesLabel.text = String(format: "%.1fmi", RWGPSRoutePreview.metersToMiles(ride.miles))
-        elevationLabel.text = String(format: "%.0fft", RWGPSRoutePreview.metersToFeet(ride.elevation))
+        milesLabel.text = String(format: "%.1fmi", RWGPSRoute.metersToMiles(ride.miles))
+        elevationLabel.text = String(format: "%.0fft", RWGPSRoute.metersToFeet(ride.elevation))
         
     }
     

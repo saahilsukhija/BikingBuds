@@ -22,16 +22,42 @@ class RWGPSSelectRideVC: UIViewController {
         
         tableView.estimatedRowHeight = 75
         tableView.tableFooterView = UIView()
-        
+        addTableViewHeader()
         tableView.backgroundColor = .clear
         
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
         
+        hideKeyboardWhenTappedAround()
+        
         
         
     }
+    
+    func addTableViewHeader() {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 100))
+        
+        let enterLabel = UILabel(frame: CGRect(x: 10, y: 10, width: view.frame.size.width / 2 - 10, height: 20))
+        enterLabel.text = "Enter RWGPS URL:"
+        enterLabel.font = UIFont(name: "Poppins-Medium", size: 14)
+        
+        let urlTextField = UITextField(frame: CGRect(x: 10, y: 32, width: view.frame.size.width - 20, height: 50))
+        urlTextField.placeholder = "https://ridewithgps.com/routes/0000000"
+        urlTextField.font = UIFont(name: "Poppins-Medium", size: 14)
+        urlTextField.layer.borderWidth = 1.2
+        urlTextField.layer.borderColor = UIColor.black.cgColor
+        urlTextField.setLeftPaddingPoints(10)
+        urlTextField.returnKeyType = .done
+        urlTextField.delegate = self
+ 
+        header.addSubview(enterLabel)
+        header.addSubview(urlTextField)
+        
+        header.addBottomBorder(with: .black, andWidth: 1)
+        tableView.tableHeaderView = header
+    }
+    
     
     @IBAction func infoButtonClicked(_ sender: Any) {
         //TODO: Show "if your route isnt showing up, save it to "my routes" on the RWGPS website."
@@ -45,12 +71,6 @@ class RWGPSSelectRideVC: UIViewController {
     @IBAction func logoutButtonClicked(_ sender: Any) {
         RWGPSUser.logOut()
         
-//        if let vc = presentingViewController as? RWGPSLoginVC {
-//            self.dismiss(animated: true)
-//            vc.dismiss(animated: false)
-//        } else {
-//            self.dismiss(animated: true)
-//        }
         self.dismiss(animated: true)
     }
     
@@ -96,10 +116,10 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
             let name = routes[indexPath.row].name
             let description = routes[indexPath.row].description
             
-            let required = requiredHeight(text: name, size: 20, fontName: "Poppins-Medium") + requiredHeight(text: description, size: 16, fontName: "Poppins-Regular")
-            return required > 90 ? required+30 : 90
+            let required = requiredHeight(text: name, size: 20, fontName: "Poppins-Medium") + requiredHeight(text: "1/3/22", size: 15, fontName: "Poppins-Light")
+            return required + 20
         }
-        return 90
+        return 80
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,6 +130,7 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -117,9 +138,13 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
         view.addSubview(loadingScreen)
         
         let id = routes[indexPath.row].id
+        connectRWGPSRoute(with: id, loadingScreen)
+    }
+    
+    func connectRWGPSRoute(with id: String, _ loadingScreen: UIView?) {
         RWGPSRoute.getRouteDetails(from: id) { error in
             DispatchQueue.main.async {
-                loadingScreen.removeFromSuperview()
+                loadingScreen?.removeFromSuperview()
                 if let error = error {
                     self.showErrorNotification(message: error)
                 } else {
@@ -144,14 +169,40 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
                     else {
                         print("constants groupID not working")
                     }
-                    
-                   // print(RWGPSRoute.title)
                 }
             }
         }
     }
     
+}
+
+extension RWGPSSelectRideVC: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        submitURL(textField)
+        
+        return true
+    }
+
+    func submitURL(_ textField: UITextField) {
+        guard let text = textField.text, text.count > 0 else {
+            self.showErrorNotification(message: "Invalid URL")
+            return
+        }
+        
+        guard let id = text.split(separator: "/").last else {
+            self.showErrorNotification(message: "Invalid RWGPS URL")
+            return
+        }
+        
+        let loadingScreen = createLoadingScreen(frame: view.frame)
+        view.addSubview(loadingScreen)
+        
+        connectRWGPSRoute(with: String(id), loadingScreen)
+        
+        
+    }
 }
 extension RWGPSSelectRideVC {
     func goToLoginScreenRWGPS() {

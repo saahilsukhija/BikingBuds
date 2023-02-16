@@ -12,12 +12,13 @@ struct RWGPSRoute {
     
     static var title: String!
     static var description: String!
-    
-    static  var start: CLLocationCoordinate2D!
+    static var last_updated: Date!
+    static var start: CLLocationCoordinate2D!
     static var end: CLLocationCoordinate2D!
     
     static var poi: [RWGPSPOI] = []
-    static var last_updated: Date!
+    static var routeMarkers: [RWGPSPOI] = []
+    
     
     static var connected: Bool! = false
     
@@ -88,6 +89,7 @@ struct RWGPSRoute {
                             self.start = CLLocationCoordinate2D(latitude: startingLat, longitude: startingLong)
                             self.end = CLLocationCoordinate2D(latitude: endingLat, longitude: endingLong)
                             self.poi = points
+                            self.routeMarkers = getRouteMarkers(every: 5, pois: points)
                             self.last_updated = Date() //TODO: Fix later
                             self.connected = true
                             completion(nil)
@@ -113,6 +115,37 @@ struct RWGPSRoute {
         
 
         task.resume()
+    }
+    
+    static func getRouteMarkers(every miles: Double, pois: [RWGPSPOI]) -> [RWGPSPOI] {
+        var out: [RWGPSPOI] = []
+        
+        var target = miles
+        
+        for poi in pois {
+            if metersToMiles(poi.distance) >= target {
+                out.append(poi)
+                target += miles
+            }
+        }
+        
+        return out
+    }
+    
+    static func metersToFeet(_ num: Double) -> Double {
+        return num * 3.28084
+    }
+    
+    static func metersToMiles(_ num: Double) -> Double {
+        return num * 0.000621371
+    }
+    
+    static func convertToDate(_ str: String) -> Date {
+
+          let dateFormatter = DateFormatter()
+          dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+          return dateFormatter.date(from:str) ?? Date()
     }
 }
 
