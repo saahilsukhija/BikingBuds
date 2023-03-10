@@ -123,7 +123,7 @@ class JoinGroupVC: UIViewController {
         UserDefaults.standard.set(true, forKey: "is_in_group")
         UserDefaults.standard.set(groupID, forKey: "recent_group")
         Constants.groupID = self.groupID
-        try? UserDefaults.standard.set(object: riderType, forKey: "rider_type")
+        UserDefaults.standard.set(riderType == .rider, forKey: "is_rider")
         
         //Go to Next Page
         let storyboard = UIStoryboard(name: "MainPage", bundle: nil)
@@ -255,15 +255,10 @@ class JoinGroupVC: UIViewController {
                 return
             }
             
-            guard let type = try? UserDefaults.standard.get(objectType: RiderType.self, forKey: "rider_type") else{
-                    //self.showErrorNotification(message: "Unable to find recent group")
-                    loadingView.removeFromSuperview()
-                    return
-            }
-            
-            
+            let isRider = UserDefaults.standard.bool(forKey: "is_rider")
+            print(isRider)
             groupID = id
-            riderType = type
+            riderType = isRider ? .rider : .spectator
             
             Group.joinGroup(with: Int(id) ?? 0, checkForExistingIDs: true) { completed, name in
                 

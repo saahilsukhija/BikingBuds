@@ -11,11 +11,14 @@ import CoreLocation
 import FirebaseAuth
 
 struct Locations {
+    
+    static var groupUsers: [GroupUser]! = []
+    
     static var locations: [GroupUser : CLLocationCoordinate2D]! = [:]
     static var lastUpdated: [GroupUser : Date?]! = [:]
     static var riderTypes: [GroupUser : RiderType]! = [:]
-    static var groupUsers: [GroupUser]! = []
     static var deviceTokens: [GroupUser : String]! = [:]
+    static var statuses: [GroupUser : GroupUserStatus]! = [:]
     
 //    static var falls: [String : Date] = [:]
 //    static var recentFall: [String : Date] = [:]
@@ -34,6 +37,8 @@ struct Locations {
         lastUpdated.removeAll()
         riderTypes.removeAll()
         groupUsers.removeAll()
+
+        
         announcementNotifications.removeAll()
         deviceTokens.removeAll()
         
@@ -46,7 +51,7 @@ struct Locations {
                 locations[changedGroupUser] = getLocationFrom(snap: snapshot)
                 lastUpdated[changedGroupUser] = getLastUpdatedFrom(snap: snapshot)
                 riderTypes[changedGroupUser] = getRiderType(snap: snapshot)
-                deviceTokens[changedGroupUser] = getDeviceToken(snap: snapshot)
+//                deviceTokens[changedGroupUser] = getDeviceToken(snap: snapshot)
                 NotificationCenter.default.post(name: .locationUpdated, object: nil)
             }
         }
@@ -58,7 +63,7 @@ struct Locations {
                 self.locations = locations
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
-                self.deviceTokens = deviceTokens
+//                self.deviceTokens = deviceTokens
                 
                 if wasCompleted {
                     let email = snapshot.key.fromStorageEmail()
@@ -80,7 +85,7 @@ struct Locations {
                     self.locations = locations
                     self.lastUpdated = lastUpdated
                     self.riderTypes = riderTypes
-                    self.deviceTokens = deviceTokens
+//                    self.deviceTokens = deviceTokens
                     
                     if wasCompleted {
                         let email = snapshot.key.fromStorageEmail()
@@ -109,11 +114,11 @@ struct Locations {
                 let coordinate = getLocationFrom(snap: snap)
                 let lastUpdated = getLastUpdatedFrom(snap: snap)
                 let riderType = getRiderType(snap: snap)
-                let deviceToken = getDeviceToken(snap: snap)
+//                let deviceToken = getDeviceToken(snap: snap)
                 self.locations[user] = coordinate
                 self.lastUpdated[user] = lastUpdated
                 self.riderTypes[user] = riderType
-                self.deviceTokens[user] = deviceToken
+//                self.deviceTokens[user] = deviceToken
                 completion?(true, groupUsers, locations, self.lastUpdated, riderTypes, self.deviceTokens)
             } else {
                 completion?(false, groupUsers, locations, lastUpdated, riderTypes, self.deviceTokens)
@@ -139,12 +144,12 @@ struct Locations {
                     let coordinate = getLocationFrom(snap: userSnap)
                     let lastUpdated = getLastUpdatedFrom(snap: userSnap)
                     let riderType = getRiderType(snap: userSnap)
-                    let deviceToken = getDeviceToken(snap: userSnap)
+//                    let deviceToken = getDeviceToken(snap: userSnap)
                     
                     self.locations[user] = coordinate
                     self.lastUpdated[user] = lastUpdated
                     self.riderTypes[user] = riderType
-                    self.deviceTokens[user] = deviceToken
+//                    self.deviceTokens[user] = deviceToken
                 }
             }
             completion?(self.groupUsers, locations, lastUpdated, riderTypes, deviceTokens)
@@ -159,7 +164,7 @@ struct Locations {
                 self.locations.removeValue(forKey: user)
                 self.lastUpdated.removeValue(forKey: user)
                 self.riderTypes.removeValue(forKey: user)
-                self.deviceTokens.removeValue(forKey: user)
+//                self.deviceTokens.removeValue(forKey: user)
                 completion?(true, groupUsers, locations, self.lastUpdated, riderTypes, deviceTokens, name ?? "someone")
             } else {
                 completion?(false, groupUsers, locations, lastUpdated, riderTypes, deviceTokens, "someone")
@@ -205,14 +210,14 @@ struct Locations {
         return HelperFunctions.toRiderType(riderType) ?? .spectator
     }
     
-    static func getDeviceToken(snap: DataSnapshot) -> String {
-        guard let token = snap.childSnapshot(forPath: "device_token").value as? String else {
-            return ""
-            
-        }
-        
-        return token
-    }
+//    static func getDeviceToken(snap: DataSnapshot) -> String {
+//        guard let token = snap.childSnapshot(forPath: "device_token").value as? String else {
+//            return ""
+//
+//        }
+//
+//        return token
+//    }
     
     static func resetGroupUsers(for group: String) {
         //Reset all
@@ -229,7 +234,7 @@ struct Locations {
                 self.locations = locations
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
-                self.deviceTokens = deviceTokens
+//                self.deviceTokens = deviceTokens
                 NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
             }
         }
@@ -327,6 +332,32 @@ struct Locations {
         }
     }
     
+    static func updateStatuses() {
+        statuses.removeAll();
+        
+        let now = Date()
+        for (user, date) in lastUpdated {
+            // Minute
+            if let date = date {
+                if let interval = Calendar.current.dateComponents([.minute], from: date, to: now).minute, interval > 4 {
+                    
+                    statuses[user] = .notUpdated
+                } else {
+                    statuses[user] = .moving
+                }
+            }
+        }
+    }
+    
+    static func status(for email: String) -> GroupUserStatus {
+        
+        guard let user = groupUsers.groupUserFrom(email: email) else {
+            print("user not found (status) \(email)")
+            return .notUpdated
+        }
+        
+        return statuses[user] ?? .notUpdated
+    }
 //    static func addNotificationsForDistanceWarnings(for group: String) {
 //        let ref = Database.database().reference().child("rides/" + group + "/distance_warnings")
 //        ref.observe(.value) { snap in

@@ -21,9 +21,11 @@ class BikingGroupVC: BikingVCs {
     var groupName: String!
     var loadingView: UIView!
     var scrollView: UIScrollView!
-    var fallTimer: Timer?
-    var unreadNotifications = 0
     
+    var fallTimer: Timer?
+    var locationTimer: Timer?
+    
+    var unreadNotifications = 0
     
     var pendingRWGPSLogin = false
     override func viewDidLoad() {
@@ -75,6 +77,9 @@ class BikingGroupVC: BikingVCs {
         
         
         fallTimer = Timer()
+        locationTimer = Timer()
+        
+        setupTimeBasedLocation()
         notificationCountLabel.isHidden = true
         
         loadingView.removeFromSuperview()
@@ -172,6 +177,9 @@ extension BikingGroupVC {
 extension BikingGroupVC {
     
     @objc func userLocationsUpdated() {
+        
+        Locations.updateStatuses()
+        
         ((bottomSheet.contentViewController as? UINavigationController)?.viewControllers[0] as? BottomSheetInfoGroupVC)?.reloadGroupUsers()
         mapView.drawAllGroupMembers(includingSelf: false)
         
@@ -188,13 +196,15 @@ extension BikingGroupVC {
         previousLongitude = 0
         locationManager.stopUpdatingLocation()
         
-        try? UserDefaults.standard.set(object: RiderType.spectator, forKey: "rider_type")
+        Authentication.riderType = .spectator
+        UserDefaults.standard.set(false, forKey: "is_rider")
     }
     
     @objc func userIsRider() {
         locationManager.startUpdatingLocation()
         
-        try? UserDefaults.standard.set(object: RiderType.rider, forKey: "rider_type")
+        Authentication.riderType = .rider
+        UserDefaults.standard.set(true, forKey: "is_rider")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -220,6 +230,7 @@ extension BikingGroupVC {
     }
     
     func uploadUserLocation(_ location: CLLocationCoordinate2D) {
+        //print("uploading location BIKINGGROUPVC")
         if Authentication.riderType == .rider {
             UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
                 if !completed {
@@ -227,6 +238,16 @@ extension BikingGroupVC {
                 }
             }
         }
+    }
+    
+    func setupTimeBasedLocation() {
+        locationTimer = Timer.scheduledTimer(withTimeInterval: Preferences.timeFilter, repeats: true, block: { _ in
+            if let location = self.locationManager.location?.coordinate {
+                print("TIME BASED UPDATE")
+                self.uploadUserLocation(location)
+                self.userLocationsUpdated()
+            }
+        })
     }
     
     @objc func otherUserHasFallen() {
@@ -526,31 +547,27 @@ extension BikingGroupVC {
         let bottomAlert = UIAlertController(title: "Are you sure you want to leave the group?", message: "You can join back in the future.", preferredStyle: .actionSheet)
         bottomAlert.addAction(UIAlertAction(title: "Save and Leave Group", style: .default, handler: { _ in
             self.saveThisRide()
-            UserDefaults.standard.set(false, forKey: "is_in_group")
-            UserDefaults.standard.removeObject(forKey: "rider_type")
-            
-            UserLocationsUpload.riderLeftGroup(group: self.groupID)
-            
-            Locations.notifications.removeAll()
-            Locations.removeAnnouncementObservers(for: self.groupID)
-            
-            self.removePushNotificationReceivers()
-            self.dismiss(animated: true, completion: nil)
+            self.leaveGroup()
             
         }))
         bottomAlert.addAction(UIAlertAction(title: "Leave Group", style: .destructive, handler: { _ in
-            UserDefaults.standard.set(false, forKey: "is_in_group")
-            UserDefaults.standard.removeObject(forKey: "rider_type")
-            UserLocationsUpload.riderLeftGroup(group: self.groupID)
-            
-            Locations.notifications.removeAll()
-            Locations.removeAnnouncementObservers(for: self.groupID)
-            
-            self.removePushNotificationReceivers()
-            self.dismiss(animated: true, completion: nil)
+            self.leaveGroup()
         }))
         bottomAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(bottomAlert, animated: true, completion: nil)
+    }
+    
+    func leaveGroup() {
+        UserDefaults.standard.set(false, forKey: "is_in_group")
+        UserDefaults.standard.removeObject(forKey: "recent_group")
+        UserDefaults.standard.removeObject(forKey: "is_rider")
+        UserLocationsUpload.riderLeftGroup(group: self.groupID)
+        
+        Locations.notifications.removeAll()
+        Locations.removeAnnouncementObservers(for: self.groupID)
+        
+        self.removePushNotificationReceivers()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func saveThisRide() {

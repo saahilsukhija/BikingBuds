@@ -11,13 +11,20 @@ import MapKit
 class GroupUserAnnotation: MKPointAnnotation {
     var email: String!
     var image: UIImage!
+    var status: GroupUserStatus!
 }
 
 class GroupUserAnnotationView: MKAnnotationView {
     var inSelectedState: Bool = false
+    
     public lazy var containerView: UIButton = {
         let view = UIButton(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
-        view.backgroundColor = .accentColor
+        
+//        if (annotation as! GroupUserAnnotation).status! == .moving {
+            view.backgroundColor = .accentColor
+//        } else {
+//            view.backgroundColor = .red
+//        }
         view.layer.cornerRadius = view.frame.width / 2
         view.isUserInteractionEnabled = true
         
@@ -36,7 +43,13 @@ class GroupUserAnnotationView: MKAnnotationView {
     public lazy var bottomCornerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .accentColor
+        
+//        if (annotation as! GroupUserAnnotation).status! == .moving {
+            view.backgroundColor = .accentColor
+//        } else {
+//            view.backgroundColor = .red
+//        }
+        
         view.layer.cornerRadius = 4.0
         view.isUserInteractionEnabled = true
         return view

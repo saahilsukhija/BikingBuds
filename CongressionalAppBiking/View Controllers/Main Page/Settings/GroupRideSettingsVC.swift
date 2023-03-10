@@ -14,12 +14,15 @@ class GroupRideSettingsVC: UIViewController {
     @IBOutlet weak var connectWithRWGPSView: UIView!
     @IBOutlet weak var rwgpsConnectLabel: UILabel!
     
+    @IBOutlet weak var versionNumberLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setupSaveButton()
         setupRWGPSView()
+        setupVersionLabel()
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsRouteSelected), name: .rwgpsRouteLoaded, object: nil)
     }
     
@@ -31,6 +34,10 @@ class GroupRideSettingsVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    func setupVersionLabel() {
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        versionNumberLabel.text = "version \(appVersion ?? "(error)")"
+    }
     /*
     // MARK: - Navigation
 

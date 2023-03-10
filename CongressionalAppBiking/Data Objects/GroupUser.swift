@@ -135,3 +135,9 @@ extension Data {
         return UIImage(data: self)
     }
 }
+
+enum GroupUserStatus: Codable, Hashable {
+    case stopped
+    case notUpdated
+    case moving
+}

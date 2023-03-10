@@ -63,6 +63,7 @@ extension MKMapView {
             locationPoint.coordinate = location
             locationPoint.email = email
             locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture?.toImage()
+            locationPoint.status = Locations.status(for: email)
             locationPoint.title = email
             
             self.addAnnotation(locationPoint)

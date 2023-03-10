@@ -108,9 +108,13 @@ extension BikingVCs: FloatingPanelControllerDelegate {
 //MARK: Location Getters
 extension BikingVCs: CLLocationManagerDelegate {
     func setUpUserLocation() {
-    
+        
+        locationManager = CLLocationManager()
+        
+        //guard Authentication.riderType != .spectator else { return }
+        
         if (CLLocationManager.locationServicesEnabled()) {
-            locationManager = CLLocationManager()
+            
             locationManager.delegate = self
             locationManager.activityType = .fitness
             
@@ -118,6 +122,8 @@ extension BikingVCs: CLLocationManagerDelegate {
 //                locationManager.requestAlwaysAuthorization()
                 locationManager.showsBackgroundLocationIndicator = true
                 locationManager.allowsBackgroundLocationUpdates = true
+                locationManager.pausesLocationUpdatesAutomatically = false
+                locationManager.activityType = .fitness
                 locationManager.startUpdatingLocation()
                 locationManager.distanceFilter = Preferences.distanceFilter
             }
@@ -125,6 +131,8 @@ extension BikingVCs: CLLocationManagerDelegate {
         } else {
             print("BikingVCs location services not enabled")
         }
+        
+        locationManagerDidChangeAuthorization(locationManager)
         map.showsUserLocation = true
         self.recenterCamera()
         
@@ -138,10 +146,17 @@ extension BikingVCs: CLLocationManagerDelegate {
         case .notDetermined:
             manager.requestAlwaysAuthorization()
         case .restricted, .denied:
-            Alert.showDefaultAlert(title: "Restricted/Denied location services", message: "You have restricted/denied the location services. Go into settings and enable them for BikingBuds", self)
-        case .authorizedAlways, .authorizedWhenInUse :
+            manager.requestAlwaysAuthorization()
+            Alert.showSettingsAlert(title: "Restricted/Denied location services", message: "You have restricted/denied the location services. Go into settings and enable them for BikingBuds", self)
+        case .authorizedWhenInUse:
+            manager.requestAlwaysAuthorization()
+            Alert.showSettingsAlert(title: "Enable 'Always' for location services", message: "To allow BikingBuds to consistently update your location, please enable 'Always' for your location services.", self)
             self.recenterCamera()
         default:
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.showsBackgroundLocationIndicator = true
+            locationManager.startMonitoringSignificantLocationChanges()
+            
             self.recenterCamera()
         }
         

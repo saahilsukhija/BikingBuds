@@ -45,6 +45,7 @@ class BottomSheetInfoGroupVC: UIViewController {
     }
     
     func reloadGroupUsers() {
+        
         groupUsers = Locations.groupUsers
         filteredData = groupUsers
         lastUploadedTimes = Locations.lastUpdated

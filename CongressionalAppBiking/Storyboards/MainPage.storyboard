@@ -62,9 +62,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="More Settings Coming Soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsw-3f-zir">
-                                <rect key="frame" x="0.0" y="356" width="394" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Settings Coming Soon!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsw-3f-zir">
+                                <rect key="frame" x="67" y="434" width="280" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -137,14 +136,24 @@
                                     <constraint firstItem="Wcv-Fn-fLS" firstAttribute="centerX" secondItem="0hg-4c-0yF" secondAttribute="centerX" id="bkK-yY-cRe"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOO-nv-A4h">
+                                <rect key="frame" x="339" y="821" width="55" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3hK-Dd-yxr"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
+                            <constraint firstItem="bsw-3f-zir" firstAttribute="centerX" secondItem="rx0-a0-3Kl" secondAttribute="centerX" id="0dG-R0-UCE"/>
+                            <constraint firstItem="bsw-3f-zir" firstAttribute="centerY" secondItem="rx0-a0-3Kl" secondAttribute="centerY" id="Kf8-Ud-NPa"/>
                             <constraint firstItem="54A-ec-5kM" firstAttribute="top" secondItem="3hK-Dd-yxr" secondAttribute="top" id="M0q-aH-uk3"/>
                             <constraint firstItem="0hg-4c-0yF" firstAttribute="top" secondItem="Pz6-O3-2oN" secondAttribute="bottom" constant="10" id="Qkr-zD-UlC"/>
                             <constraint firstItem="Pz6-O3-2oN" firstAttribute="top" secondItem="54A-ec-5kM" secondAttribute="bottom" constant="20" id="Qku-VO-x9C"/>
+                            <constraint firstItem="3hK-Dd-yxr" firstAttribute="bottom" secondItem="HOO-nv-A4h" secondAttribute="bottom" constant="20" id="TWZ-KQ-Uq3"/>
                             <constraint firstItem="54A-ec-5kM" firstAttribute="trailing" secondItem="3hK-Dd-yxr" secondAttribute="trailing" id="gXd-yq-WOS"/>
+                            <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="HOO-nv-A4h" secondAttribute="trailing" constant="20" id="jCj-lE-4JU"/>
                             <constraint firstItem="Pz6-O3-2oN" firstAttribute="leading" secondItem="3hK-Dd-yxr" secondAttribute="leading" constant="20" id="jEV-VH-Qd5"/>
                             <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="0hg-4c-0yF" secondAttribute="trailing" constant="20" id="lVK-YO-gt0"/>
                             <constraint firstItem="3hK-Dd-yxr" firstAttribute="trailing" secondItem="Pz6-O3-2oN" secondAttribute="trailing" constant="20" id="nmM-FL-rXh"/>
@@ -156,6 +165,7 @@
                         <outlet property="connectWithRWGPSView" destination="0hg-4c-0yF" id="LKZ-NY-qkr"/>
                         <outlet property="rwgpsConnectLabel" destination="boR-w7-i9G" id="FE0-6I-WgG"/>
                         <outlet property="saveButton" destination="Shv-vF-uWQ" id="2zf-tg-YjB"/>
+                        <outlet property="versionNumberLabel" destination="HOO-nv-A4h" id="mYy-IV-XTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jG2-1q-MSz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

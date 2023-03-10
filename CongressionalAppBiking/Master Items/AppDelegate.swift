@@ -14,7 +14,7 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLocationManagerDelegate {
     
-    var lastLocation:CLLocation?
+    var lastLocation: CLLocation?
     var locationManager = CLLocationManager()
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
@@ -84,6 +84,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
 //          //(window?.rootViewController as? UITabBarController)?.selectedIndex = 1
 //        }
         
+        
+        let locationOption = launchOptions?[.location]
+        
+        if locationOption != nil {
+            locationManager.requestAlwaysAuthorization()
+            locationManager.delegate = self
+            locationManager.activityType = .fitness
+            locationManager.startMonitoringSignificantLocationChanges()
+            locationManager.startUpdatingLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        }
+        
         return true
     }
     
@@ -110,6 +122,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
         print("app did enter background")
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -126,6 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
     }
     
     func uploadUserLocation(_ location: CLLocationCoordinate2D) {
+        print("uploading location APP DELEGATE")
         if Authentication.riderType == .rider, let groupID = UserDefaults.standard.string(forKey: "recent_group") {
             UserLocationsUpload.uploadCurrentLocation(group: groupID, location: location) { completed, message in
                 if !completed {

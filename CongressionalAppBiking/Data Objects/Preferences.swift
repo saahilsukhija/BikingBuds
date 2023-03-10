@@ -10,4 +10,6 @@ import UIKit
 struct Preferences {
     static let coordinateRoundTo = 4
     static let distanceFilter: Double = 15.0 // Keep as a double
+    static let timeFilter: Double = 60
+    
 }
