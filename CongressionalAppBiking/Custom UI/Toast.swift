@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+
 extension UIViewController {
     func showToast(message: String, duration: Double = 2, image: UIImage = UIImage(systemName: "bicycle")!, color: UIColor = .label, fontColor: UIColor = .label) {
         view.endEditing(true)
