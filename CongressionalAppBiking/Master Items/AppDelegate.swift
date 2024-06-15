@@ -11,39 +11,11 @@ import Firebase
 import CoreLocation
 import UserNotifications
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLocationManagerDelegate {
+@main class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     var lastLocation: CLLocation?
     var locationManager = CLLocationManager()
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if error != nil {
-            // ...
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                          accessToken: authentication.accessToken)
-        
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                print("oops error")
-                print(error.localizedDescription)
-            } else {
-                Authentication.user = authResult!.user
-                print("\(Authentication.user!.email!) just signed in, App Delegate")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
-                }
-                
-            }
-        }
-        
-        
-    }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
@@ -59,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
+        
+        
+        return GIDSignIn.sharedInstance.handle(url)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -67,22 +41,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
         
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().restorePreviousSignIn()
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return true }
+        
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
+            if let error = error {
+                print("oops error")
+                print(error.localizedDescription)
+            } else {
+//                Authentication.user = user
+//                print("\(Authentication.user!.email!) just signed in, App Delegate")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    NotificationCenter.default.post(name: .signInGoogleCompleted, object: nil)
+                }
+                
+            }
+        }
         
         // Check if launched from notification
-//        let notificationOption = launchOptions?[.remoteNotification]
-//
-//        if
-//          let notification = notificationOption as? [String: AnyObject],
-//          let aps = notification["aps"] as? [String: AnyObject] {
-//          // 2
-//          //NewsItem.makeNewsItem(aps)
-//
-//          // 3
-//          //(window?.rootViewController as? UITabBarController)?.selectedIndex = 1
-//        }
+        //        let notificationOption = launchOptions?[.remoteNotification]
+        //
+        //        if
+        //          let notification = notificationOption as? [String: AnyObject],
+        //          let aps = notification["aps"] as? [String: AnyObject] {
+        //          // 2
+        //          //NewsItem.makeNewsItem(aps)
+        //
+        //          // 3
+        //          //(window?.rootViewController as? UITabBarController)?.selectedIndex = 1
+        //        }
         
         
         let locationOption = launchOptions?[.location]
@@ -93,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
             locationManager.activityType = .fitness
             locationManager.startMonitoringSignificantLocationChanges()
             locationManager.startUpdatingLocation()
+            //locationManager.startMonitoringVisits()
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         }
         
@@ -115,7 +106,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startMonitoringVisits()
         print("app did terminate")
+        sendNotificationNow(title: "BikingBuds has been closed!", subtitle: "If you have done this accidentally, please reopen the app. Location may not be accurately tracked when the app is terminated.")
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -123,6 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        //locationManager.startMonitoringVisits()
+        //locationManager.startMonitoringSignificantLocationChanges()
         
     }
     
@@ -151,13 +147,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
     }
     
     func registerForPushNotifications() {
-      //1
-      UNUserNotificationCenter.current()
+        //1
+        UNUserNotificationCenter.current()
         //2
-        .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-          //3
-          print("Permission granted: \(granted)")
-        }
+            .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                //3
+                print("Permission granted: \(granted)")
+            }
     }
     
     func getNotificationSettings() {
@@ -189,39 +185,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, CLLoca
     }
     
     // Receive displayed notifications for iOS 10 devices.
-//      func userNotificationCenter(_ center: UNUserNotificationCenter,
-//                                  willPresent notification: UNNotification,
-//                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
-//                                  -> Void) {
-//        let userInfo = notification.request.content.userInfo
-//
-//        // With swizzling disabled you must let Messaging know about the message, for Analytics
-//        // Messaging.messaging().appDidReceiveMessage(userInfo)
-//
-//        // ...
-//
-//        // Print full message.
-//        print(userInfo)
-//
-//        // Change this to your preferred presentation option
-//        completionHandler([[.alert, .sound]])
-//      }
-//
-//      func userNotificationCenter(_ center: UNUserNotificationCenter,
-//                                  didReceive response: UNNotificationResponse,
-//                                  withCompletionHandler completionHandler: @escaping () -> Void) {
-//        let userInfo = response.notification.request.content.userInfo
-//
-//        // ...
-//
-//        // With swizzling disabled you must let Messaging know about the message, for Analytics
-//        // Messaging.messaging().appDidReceiveMessage(userInfo)
-//
-//        // Print full message.
-//        print(userInfo)
-//
-//        completionHandler()
-//      }
+    //      func userNotificationCenter(_ center: UNUserNotificationCenter,
+    //                                  willPresent notification: UNNotification,
+    //                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+    //                                  -> Void) {
+    //        let userInfo = notification.request.content.userInfo
+    //
+    //        // With swizzling disabled you must let Messaging know about the message, for Analytics
+    //        // Messaging.messaging().appDidReceiveMessage(userInfo)
+    //
+    //        // ...
+    //
+    //        // Print full message.
+    //        print(userInfo)
+    //
+    //        // Change this to your preferred presentation option
+    //        completionHandler([[.alert, .sound]])
+    //      }
+    //
+    //      func userNotificationCenter(_ center: UNUserNotificationCenter,
+    //                                  didReceive response: UNNotificationResponse,
+    //                                  withCompletionHandler completionHandler: @escaping () -> Void) {
+    //        let userInfo = response.notification.request.content.userInfo
+    //
+    //        // ...
+    //
+    //        // With swizzling disabled you must let Messaging know about the message, for Analytics
+    //        // Messaging.messaging().appDidReceiveMessage(userInfo)
+    //
+    //        // Print full message.
+    //        print(userInfo)
+    //
+    //        completionHandler()
+    //      }
+    
+    func sendNotificationNow(title: String, subtitle: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = subtitle
+        content.categoryIdentifier = "misc"
+        content.sound = .default
+//        let taskData = try? JSONEncoder().encode(task)
+//        if let taskData = taskData {
+//            content.userInfo = ["Task": taskData]
+//        }
+        
+        let date = DateComponents(second: 0)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
+        let request = UNNotificationRequest(identifier: "misc", content: content, trigger: trigger)
+                        UNUserNotificationCenter.current().add(request) { (error : Error?) in
+                            if let theError = error {
+                                print(theError.localizedDescription)
+                            }
+                        }
+    }
     
 }
 

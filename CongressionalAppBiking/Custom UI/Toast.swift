@@ -25,7 +25,7 @@ extension UIViewController {
         
         let messageLabel = UILabel(frame: CGRect(x: toastView.frame.size.height, y: 5, width: toastView.frame.size.width - toastView.frame.size.height, height: 40))
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "Poppins-Medium", size: 20)
+        messageLabel.font = UIFont(name: "Montserrat-SemiBold", size: 20)
         messageLabel.textColor = fontColor
         toastView.addSubview(messageLabel)
         window.addSubview(toastView)
@@ -69,7 +69,7 @@ extension UIViewController {
         toastView.layer.borderColor = color.cgColor
         toastView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         
-        let animationView = AnimationView(name: animationName)
+        let animationView = LottieAnimationView(name: animationName)
         animationView.frame = CGRect(x: 5, y: 5, width: 50, height: 50)
         animationView.contentMode = .scaleAspectFill
         animationView.animationSpeed = speed
@@ -77,8 +77,11 @@ extension UIViewController {
         
         let messageLabel = UILabel(frame: CGRect(x: toastView.frame.size.height, y: 5, width: toastView.frame.size.width - toastView.frame.size.height, height: 50))
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "Poppins-Medium", size: 22)
+        messageLabel.font = UIFont(name: "Montserrat-SemiBold", size: 22)
         messageLabel.textColor = fontColor
+        messageLabel.adjustsFontSizeToFitWidth = true
+        messageLabel.minimumScaleFactor = 0.2
+        messageLabel.numberOfLines = 0
         toastView.addSubview(messageLabel)
         window.addSubview(toastView)
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WhatsNewView: UIView {
+class Slide: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     

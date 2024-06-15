@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -11,6 +11,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+        <array key="Montserrat-Regular.ttf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.ttf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+        <array key="Montserrat-VariableFont_wght.ttf">
+            <string>MontserratRoman-Bold</string>
+            <string>MontserratRoman-Regular</string>
+        </array>
         <array key="Poppins-Light.ttf">
             <string>Poppins-Light</string>
         </array>
@@ -19,9 +32,6 @@
         </array>
         <array key="Poppins-Regular.ttf">
             <string>Poppins-Regular</string>
-        </array>
-        <array key="Poppins-SemiBold.ttf">
-            <string>Poppins-SemiBold</string>
         </array>
     </customFonts>
     <scenes>
@@ -101,16 +111,16 @@
                                 <rect key="frame" x="20" y="152" width="374" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wcv-Fn-fLS">
-                                        <rect key="frame" x="50" y="5" width="274.5" height="50"/>
+                                        <rect key="frame" x="47.5" y="5" width="279.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect With RideWithGPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boR-w7-i9G">
-                                                <rect key="frame" x="55" y="0.0" width="219.5" height="50"/>
-                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                <rect key="frame" x="45" y="0.0" width="234.5" height="50"/>
+                                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rwgps" translatesAutoresizingMaskIntoConstraints="NO" id="lPk-L6-SNV">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RWGPS" translatesAutoresizingMaskIntoConstraints="NO" id="lPk-L6-SNV">
+                                                <rect key="frame" x="0.0" y="5" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lPk-L6-SNV" secondAttribute="height" multiplier="1:1" id="Jdk-2Q-MvW"/>
                                                 </constraints>
@@ -119,12 +129,12 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="boR-w7-i9G" secondAttribute="trailing" id="ADp-Gf-Kbl"/>
-                                            <constraint firstAttribute="bottom" secondItem="lPk-L6-SNV" secondAttribute="bottom" id="Rk9-Ao-Lmy"/>
+                                            <constraint firstAttribute="bottom" secondItem="lPk-L6-SNV" secondAttribute="bottom" constant="5" id="Rk9-Ao-Lmy"/>
                                             <constraint firstItem="lPk-L6-SNV" firstAttribute="leading" secondItem="Wcv-Fn-fLS" secondAttribute="leading" id="UrX-dE-oM4"/>
                                             <constraint firstItem="boR-w7-i9G" firstAttribute="top" secondItem="Wcv-Fn-fLS" secondAttribute="top" id="bAW-WV-i04"/>
                                             <constraint firstAttribute="bottom" secondItem="boR-w7-i9G" secondAttribute="bottom" id="gxi-1z-4U6"/>
                                             <constraint firstItem="boR-w7-i9G" firstAttribute="leading" secondItem="lPk-L6-SNV" secondAttribute="trailing" constant="5" id="kfM-FC-D6e"/>
-                                            <constraint firstItem="lPk-L6-SNV" firstAttribute="top" secondItem="Wcv-Fn-fLS" secondAttribute="top" id="lks-Y3-YQr"/>
+                                            <constraint firstItem="lPk-L6-SNV" firstAttribute="top" secondItem="Wcv-Fn-fLS" secondAttribute="top" constant="5" id="lks-Y3-YQr"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -207,13 +217,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="WDX-cS-6gs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="40"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share this code to have others join this ride." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqS-3e-g45">
-                                <rect key="frame" x="20" y="162" width="374" height="67.5"/>
-                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="24"/>
+                                <rect key="frame" x="20" y="162" width="374" height="59"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -265,28 +275,28 @@
                                 <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="announcementCell" id="ocY-6V-7L7" customClass="AnnouncementTableViewCell" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="75"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="announcementCell" rowHeight="80" id="ocY-6V-7L7" customClass="AnnouncementTableViewCell" customModule="CongressionalAppBiking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ocY-6V-7L7" id="9M7-wG-2Zh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHq-y6-GVs">
-                                                    <rect key="frame" x="10" y="41.5" width="394" height="22.5"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
+                                                    <rect key="frame" x="10" y="36" width="394" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mON-yw-cAN">
-                                                    <rect key="frame" x="371.5" y="11" width="32.5" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                                    <rect key="frame" x="369" y="11" width="35" height="18.5"/>
+                                                    <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="15"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OL6-MQ-Fr4">
-                                                    <rect key="frame" x="10" y="11" width="297" height="25.5"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                                    <rect key="frame" x="10" y="11" width="297" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -309,36 +319,27 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notificationCell" id="STW-rY-SwL" customClass="NotificationTableViewCell" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="125" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="130" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STW-rY-SwL" id="DpG-wv-KAf">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCi-GN-5Xc">
-                                                    <rect key="frame" x="10" y="11" width="394" height="25.5"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEi-1a-7hV">
-                                                    <rect key="frame" x="10" y="41.5" width="394" height="22.5"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
+                                                    <rect key="frame" x="10" y="0.0" width="394" height="75"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="dEi-1a-7hV" secondAttribute="trailing" constant="10" id="5yW-qq-4Ib"/>
+                                                <constraint firstAttribute="bottom" secondItem="SCi-GN-5Xc" secondAttribute="bottom" id="AcI-e9-dHx"/>
                                                 <constraint firstAttribute="trailing" secondItem="SCi-GN-5Xc" secondAttribute="trailing" constant="10" id="EZJ-wh-CA8"/>
-                                                <constraint firstItem="SCi-GN-5Xc" firstAttribute="top" secondItem="DpG-wv-KAf" secondAttribute="topMargin" id="TOt-tH-5k9"/>
+                                                <constraint firstItem="SCi-GN-5Xc" firstAttribute="top" secondItem="DpG-wv-KAf" secondAttribute="top" id="cDt-om-09B"/>
                                                 <constraint firstItem="SCi-GN-5Xc" firstAttribute="leading" secondItem="DpG-wv-KAf" secondAttribute="leading" constant="10" id="htu-Qa-fuk"/>
-                                                <constraint firstItem="dEi-1a-7hV" firstAttribute="top" secondItem="SCi-GN-5Xc" secondAttribute="bottom" constant="5" id="kuI-ER-s4N"/>
-                                                <constraint firstItem="dEi-1a-7hV" firstAttribute="leading" secondItem="DpG-wv-KAf" secondAttribute="leading" constant="10" id="qTU-8H-TPl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="subtitleView" destination="dEi-1a-7hV" id="ShF-F6-Twr"/>
                                             <outlet property="titleView" destination="SCi-GN-5Xc" id="yUa-Ov-ED4"/>
                                         </connections>
                                     </tableViewCell>
@@ -391,7 +392,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="idE-w9-xCO"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="23"/>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -400,7 +401,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hEe-9r-Ehg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="textDidEdit:" destination="iJ7-eK-Iht" eventType="editingChanged" id="ky4-VJ-spD"/>
@@ -572,12 +573,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="RWGPS" width="112.5" height="112.5"/>
         <image name="archivebox" catalog="system" width="128" height="107"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
-        <image name="rwgps" width="225" height="225"/>
-        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.1809999942779541" green="0.78200000524520874" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="backgroundColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

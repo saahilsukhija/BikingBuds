@@ -30,10 +30,10 @@ extension Date {
             
         } else if secondsAgo < hour {
             quotient = secondsAgo / minute
-            unit = "minute"
+            unit = "min"
         } else if secondsAgo < day {
             quotient = secondsAgo / hour
-            unit = "hour"
+            unit = "hr"
         } else if secondsAgo < week {
             quotient = secondsAgo / day
             unit = "day"
@@ -44,6 +44,6 @@ extension Date {
             quotient = secondsAgo / month
             unit = "month"
         }
-        return "\(quotient) \(unit)\(quotient == 1 ? "" : "s") ago"
+        return "\(quotient) \(unit)\(quotient == 1 ? "" : "s")"
     }
 }

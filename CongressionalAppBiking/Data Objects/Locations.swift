@@ -14,14 +14,15 @@ struct Locations {
     
     static var groupUsers: [GroupUser]! = []
     
+    static var previousLocations: [GroupUser : CLLocationCoordinate2D]! = [:]
     static var locations: [GroupUser : CLLocationCoordinate2D]! = [:]
     static var lastUpdated: [GroupUser : Date?]! = [:]
     static var riderTypes: [GroupUser : RiderType]! = [:]
     static var deviceTokens: [GroupUser : String]! = [:]
     static var statuses: [GroupUser : GroupUserStatus]! = [:]
     
-//    static var falls: [String : Date] = [:]
-//    static var recentFall: [String : Date] = [:]
+    static var falls: [String : Date] = [:]
+    static var recentFall: [String : Date] = [:]
     
     static var distanceNotifications: [AppNotification] = []
     static var notifications: [AppNotification] = []
@@ -37,7 +38,7 @@ struct Locations {
         lastUpdated.removeAll()
         riderTypes.removeAll()
         groupUsers.removeAll()
-
+        previousLocations.removeAll()
         
         announcementNotifications.removeAll()
         deviceTokens.removeAll()
@@ -48,6 +49,7 @@ struct Locations {
             
             let changedEmail = snapshot.key.fromStorageEmail()
             if let changedGroupUser = (Array(locations.keys) as [GroupUser]).groupUserFrom(email: changedEmail) {
+                self.previousLocations[changedGroupUser] = locations[changedGroupUser]
                 locations[changedGroupUser] = getLocationFrom(snap: snapshot)
                 lastUpdated[changedGroupUser] = getLastUpdatedFrom(snap: snapshot)
                 riderTypes[changedGroupUser] = getRiderType(snap: snapshot)
@@ -60,6 +62,7 @@ struct Locations {
         ref.observe(.childAdded) { snapshot in
             addGroupUser(from: snapshot) { wasCompleted, groupUsers, locations, lastUpdated, riderTypes, deviceTokens in
                 self.groupUsers = groupUsers
+                self.updatePreviousLocations(with: locations)
                 self.locations = locations
                 self.lastUpdated = lastUpdated
                 self.riderTypes = riderTypes
@@ -82,6 +85,7 @@ struct Locations {
             if email != Authentication.user?.email {
                 removeGroupUser(from: snapshot) { wasCompleted, groupUsers, locations, lastUpdated, riderTypes, deviceTokens, name in
                     self.groupUsers = groupUsers
+                    self.updatePreviousLocations(with: locations)
                     self.locations = locations
                     self.lastUpdated = lastUpdated
                     self.riderTypes = riderTypes
@@ -115,6 +119,7 @@ struct Locations {
                 let lastUpdated = getLastUpdatedFrom(snap: snap)
                 let riderType = getRiderType(snap: snap)
 //                let deviceToken = getDeviceToken(snap: snap)
+                self.previousLocations[user] = self.locations[user]
                 self.locations[user] = coordinate
                 self.lastUpdated[user] = lastUpdated
                 self.riderTypes[user] = riderType
@@ -145,7 +150,7 @@ struct Locations {
                     let lastUpdated = getLastUpdatedFrom(snap: userSnap)
                     let riderType = getRiderType(snap: userSnap)
 //                    let deviceToken = getDeviceToken(snap: userSnap)
-                    
+                    self.previousLocations[user] = self.locations[user]
                     self.locations[user] = coordinate
                     self.lastUpdated[user] = lastUpdated
                     self.riderTypes[user] = riderType
@@ -225,6 +230,7 @@ struct Locations {
         lastUpdated.removeAll()
         riderTypes.removeAll()
         groupUsers.removeAll()
+        previousLocations.removeAll()
         
         let ref = Database.database().reference().child("rides/" + group)
         
@@ -251,43 +257,43 @@ struct Locations {
     }
     
     
-//    static func addNotificationsForFallDetection(for group: String) {
-//        let ref = Database.database().reference().child("rides/" + group + "/fall")
-//        ref.observe(.value) { snap in
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//            guard snap.children.allObjects.count > 0 else { return }
-//            guard let snapValue = (snap.children.allObjects[0] as? DataSnapshot)?.value as? String else {
-//                print(snap.key);
-//                print(snap.value as Any)
-//                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
-//                return
-//            }
-//            if let time = dateFormatter.date(from: snapValue), let email = (snap.children.allObjects[0] as? DataSnapshot)?.key.fromStorageEmail() {
-//
-//                self.falls[email] = time
-//                self.recentFall = [email : time]
-//                print("hello")
-//                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
-//                if  diffInMinutes <= 2 {
-//                    print("oops")
-//                    if email != Authentication.user?.email {
-//                        print("damnn")
-//                        self.notifications.addNotification(email: email, title: "\(self.groupUsers.groupUserFrom(email: email)?.displayName ?? "\(email)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
-//                    }
-//                    NotificationCenter.default.post(name: .userHasFallen, object: nil)
-//                } else {
-//                    print(diffInMinutes)
-//                    if #available(iOS 15.0, *) {
-//                        print(time.ISO8601Format())
-//                    } else {
-//                        // Fallback on earlier versions
-//                    }
-//                    print(time)
-//                }
-//            }
-//        }
-//    }
+    static func addNotificationsForFallDetection(for group: String) {
+        let ref = Database.database().reference().child("rides/" + group + "/fall")
+        ref.observe(.value) { snap in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            guard snap.children.allObjects.count > 0 else { return }
+            guard let snapValue = (snap.children.allObjects[0] as? DataSnapshot)?.value as? String else {
+                print(snap.key);
+                print(snap.value as Any)
+                print((snap.children.allObjects[0] as? DataSnapshot)?.value as Any)
+                return
+            }
+            if let time = dateFormatter.date(from: snapValue), let email = (snap.children.allObjects[0] as? DataSnapshot)?.key.fromStorageEmail() {
+
+                self.falls[email] = time
+                self.recentFall = [email : time]
+                print("hello")
+                let diffInMinutes = Calendar.current.dateComponents([.minute], from: time, to: Date()).minute ?? 0
+                if  diffInMinutes <= 2 {
+                    print("oops")
+                    if email != Authentication.user?.email {
+                        print("damnn")
+                        self.notifications.addNotification(email: email, title: "\(self.groupUsers.groupUserFrom(email: email)?.displayName ?? "\(email)") has fallen!", subTitle: "Call their emergency contact!", type: .fall)
+                    }
+                    NotificationCenter.default.post(name: .userHasFallen, object: nil)
+                } else {
+                    print(diffInMinutes)
+                    if #available(iOS 15.0, *) {
+                        print(time.ISO8601Format())
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    print(time)
+                }
+            }
+        }
+    }
     
     static func addNotificationsForAnnouncements(for group: String) {
         let ref = Database.database().reference().child("rides/" + group + "/announcements")
@@ -358,6 +364,19 @@ struct Locations {
         
         return statuses[user] ?? .notUpdated
     }
+    
+    //IMPORTANT: call this BEFORE UPDATING self.locations
+    static func updatePreviousLocations(with newLocations: [GroupUser : CLLocationCoordinate2D]) {
+        newLocations.forEach { user, location in
+            if self.locations[user] != location {
+                print("CHANGE DETECTED FOR \(user.displayName ?? "(noname)")")
+                self.previousLocations[user] = self.locations[user]
+            } else {
+                print("NO CHANGE FOR \(user.displayName ?? "(noname)")")
+            }
+        }
+    }
+    
 //    static func addNotificationsForDistanceWarnings(for group: String) {
 //        let ref = Database.database().reference().child("rides/" + group + "/distance_warnings")
 //        ref.observe(.value) { snap in

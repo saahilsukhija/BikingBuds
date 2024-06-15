@@ -3,10 +3,63 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F425E1322901DA1D4FFA0B1 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1872A2DCB73C42C175A965A /* Pods_CongressionalAppBiking.framework */; };
+		6D0496C72C0C0C01009D3A6B /* WhatsNewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0496C62C0C0C01009D3A6B /* WhatsNewVC.swift */; };
+		6D0496C92C0C1BC0009D3A6B /* WhatsNewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */; };
+		6D0496CB2C0C1CF3009D3A6B /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0496CA2C0C1CF3009D3A6B /* Slide.swift */; };
+		6D3194412C1E2204001D8E22 /* CLLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */; };
+		6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */; };
+		6D9063902BD0A721003EFEAB /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */; };
+		6D9063912BD0A721003EFEAB /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637D2BD0A71D003EFEAB /* Montserrat-Bold.ttf */; };
+		6D9063922BD0A721003EFEAB /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637E2BD0A71D003EFEAB /* Montserrat-ExtraLightItalic.ttf */; };
+		6D9063932BD0A721003EFEAB /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637F2BD0A71D003EFEAB /* Montserrat-SemiBold.ttf */; };
+		6D9063942BD0A721003EFEAB /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063802BD0A71D003EFEAB /* Montserrat-Italic.ttf */; };
+		6D9063952BD0A721003EFEAB /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063812BD0A71E003EFEAB /* Montserrat-MediumItalic.ttf */; };
+		6D9063962BD0A721003EFEAB /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063822BD0A71E003EFEAB /* Montserrat-Light.ttf */; };
+		6D9063972BD0A721003EFEAB /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063832BD0A71E003EFEAB /* Montserrat-ExtraLight.ttf */; };
+		6D9063982BD0A721003EFEAB /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063842BD0A71F003EFEAB /* Montserrat-Regular.ttf */; };
+		6D9063992BD0A721003EFEAB /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063852BD0A71F003EFEAB /* Montserrat-Thin.ttf */; };
+		6D90639A2BD0A721003EFEAB /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063862BD0A71F003EFEAB /* Montserrat-LightItalic.ttf */; };
+		6D90639B2BD0A721003EFEAB /* Montserrat-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063872BD0A71F003EFEAB /* Montserrat-Italic-VariableFont_wght.ttf */; };
+		6D90639C2BD0A721003EFEAB /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063882BD0A720003EFEAB /* Montserrat-BoldItalic.ttf */; };
+		6D90639D2BD0A721003EFEAB /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D9063892BD0A720003EFEAB /* Montserrat-SemiBoldItalic.ttf */; };
+		6D90639E2BD0A721003EFEAB /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638A2BD0A720003EFEAB /* Montserrat-ExtraBoldItalic.ttf */; };
+		6D90639F2BD0A721003EFEAB /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638B2BD0A720003EFEAB /* Montserrat-Black.ttf */; };
+		6D9063A02BD0A721003EFEAB /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638C2BD0A721003EFEAB /* Montserrat-ExtraBold.ttf */; };
+		6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */; };
+		6D9063A22BD0A721003EFEAB /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */; };
+		6D9063A32BD0A721003EFEAB /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */; };
+		6DB1A8152BD11C9D009C6C01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8142BD11C9D009C6C01 /* FirebaseAnalytics */; };
+		6DB1A8172BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8162BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion */; };
+		6DB1A8192BD11C9D009C6C01 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8182BD11C9D009C6C01 /* FirebaseAnalyticsSwift */; };
+		6DB1A81B2BD11C9D009C6C01 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A81A2BD11C9D009C6C01 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		6DB1A81D2BD11C9D009C6C01 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A81C2BD11C9D009C6C01 /* FirebaseAppCheck */; };
+		6DB1A81F2BD11C9D009C6C01 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A81E2BD11C9D009C6C01 /* FirebaseAppDistribution-Beta */; };
+		6DB1A8212BD11C9D009C6C01 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8202BD11C9D009C6C01 /* FirebaseAuth */; };
+		6DB1A8232BD11C9D009C6C01 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8222BD11C9D009C6C01 /* FirebaseAuthCombine-Community */; };
+		6DB1A8252BD11C9D009C6C01 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8242BD11C9D009C6C01 /* FirebaseCrashlytics */; };
+		6DB1A8272BD11C9D009C6C01 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8262BD11C9D009C6C01 /* FirebaseDatabase */; };
+		6DB1A8292BD11C9D009C6C01 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8282BD11C9D009C6C01 /* FirebaseDatabaseSwift */; };
+		6DB1A82B2BD11C9D009C6C01 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A82A2BD11C9D009C6C01 /* FirebaseDynamicLinks */; };
+		6DB1A82D2BD11C9D009C6C01 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A82C2BD11C9D009C6C01 /* FirebaseFirestore */; };
+		6DB1A82F2BD11C9D009C6C01 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A82E2BD11C9D009C6C01 /* FirebaseFirestoreCombine-Community */; };
+		6DB1A8312BD11C9D009C6C01 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8302BD11C9D009C6C01 /* FirebaseFirestoreSwift */; };
+		6DB1A8332BD11C9D009C6C01 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8322BD11C9D009C6C01 /* FirebaseFunctions */; };
+		6DB1A8352BD11C9D009C6C01 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8342BD11C9D009C6C01 /* FirebaseFunctionsCombine-Community */; };
+		6DB1A8372BD11C9D009C6C01 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8362BD11C9D009C6C01 /* FirebaseInAppMessaging-Beta */; };
+		6DB1A8392BD11C9D009C6C01 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8382BD11C9D009C6C01 /* FirebaseInAppMessagingSwift-Beta */; };
+		6DB1A83B2BD11C9D009C6C01 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A83A2BD11C9D009C6C01 /* FirebaseInstallations */; };
+		6DB1A83D2BD11C9D009C6C01 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A83C2BD11C9D009C6C01 /* FirebaseMessaging */; };
+		6DB1A83F2BD11C9D009C6C01 /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A83E2BD11C9D009C6C01 /* FirebaseMLModelDownloader */; };
+		6DB1A8412BD11C9D009C6C01 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8402BD11C9D009C6C01 /* FirebasePerformance */; };
+		6DB1A8432BD11C9D009C6C01 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8422BD11C9D009C6C01 /* FirebaseRemoteConfig */; };
+		6DB1A8452BD11C9D009C6C01 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8442BD11C9D009C6C01 /* FirebaseRemoteConfigSwift */; };
+		6DB1A8472BD11C9D009C6C01 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8462BD11C9D009C6C01 /* FirebaseStorage */; };
+		6DB1A8492BD11C9D009C6C01 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8482BD11C9D009C6C01 /* FirebaseStorageCombine-Community */; };
 		9A11B1B226979F48009208E8 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B126979F48009208E8 /* RoundedButton.swift */; };
 		9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* LoginVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
@@ -17,12 +70,6 @@
 		9A32C56B28654AA8003B1F70 /* AnnouncementNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32C56A28654AA8003B1F70 /* AnnouncementNotification.swift */; };
 		9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A32C56C28657B99003B1F70 /* Megaphone.json */; };
 		9A32C56F28658CB9003B1F70 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32C56E28658CB9003B1F70 /* AnnouncementTableViewCell.swift */; };
-		9A354854287E2BFC003AFD53 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354853287E2BFC003AFD53 /* FirebaseAnalytics */; };
-		9A354856287E2BFC003AFD53 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354855287E2BFC003AFD53 /* FirebaseAuth */; };
-		9A354858287E2BFC003AFD53 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354857287E2BFC003AFD53 /* FirebaseDatabase */; };
-		9A35485A287E2BFC003AFD53 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9A354859287E2BFC003AFD53 /* FirebaseMessaging */; };
-		9A35485C287E2BFC003AFD53 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9A35485B287E2BFC003AFD53 /* FirebaseStorage */; };
-		9A35485E287E51B6003AFD53 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 9A35485D287E51B6003AFD53 /* FirebaseFunctions */; };
 		9A3DEF692712B6530066D1EB /* AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF682712B6530066D1EB /* AppNotifications.swift */; };
 		9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6A2712B8BC0066D1EB /* Notification.swift */; };
 		9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A3DEF6C2712BA2B0066D1EB /* Caution.json */; };
@@ -108,7 +155,6 @@
 		9AE2335C26C75B45008C6101 /* GroupUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2335B26C75B45008C6101 /* GroupUserAnnotation.swift */; };
 		9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9AE960F9270BCD3200B3B839 /* MutePhone.json */; };
 		9AFE04AE295A9476001E6B81 /* RWGPSPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE04AD295A9476001E6B81 /* RWGPSPointAnnotation.swift */; };
-		A787F720AF6837F5FB4F8AF7 /* Pods_CongressionalAppBiking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,7 +189,32 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
+		033E55164C5146E8FE2B5CD1 /* Pods-CongressionalAppBiking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.debug.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.debug.xcconfig"; sourceTree = "<group>"; };
+		6D0496C62C0C0C01009D3A6B /* WhatsNewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewVC.swift; sourceTree = "<group>"; };
+		6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatsNewView.xib; sourceTree = "<group>"; };
+		6D0496CA2C0C1CF3009D3A6B /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
+		6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate.swift; sourceTree = "<group>"; };
+		6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
+		6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		6D90637D2BD0A71D003EFEAB /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		6D90637E2BD0A71D003EFEAB /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		6D90637F2BD0A71D003EFEAB /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		6D9063802BD0A71D003EFEAB /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
+		6D9063812BD0A71E003EFEAB /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
+		6D9063822BD0A71E003EFEAB /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		6D9063832BD0A71E003EFEAB /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		6D9063842BD0A71F003EFEAB /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		6D9063852BD0A71F003EFEAB /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		6D9063862BD0A71F003EFEAB /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		6D9063872BD0A71F003EFEAB /* Montserrat-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		6D9063882BD0A720003EFEAB /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
+		6D9063892BD0A720003EFEAB /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		6D90638A2BD0A720003EFEAB /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		6D90638B2BD0A720003EFEAB /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		6D90638C2BD0A721003EFEAB /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
+		6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
@@ -245,8 +316,8 @@
 		9AE960F9270BCD3200B3B839 /* MutePhone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MutePhone.json; sourceTree = "<group>"; };
 		9AE960FB270C06F700B3B839 /* CongressionalAppBiking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CongressionalAppBiking.entitlements; sourceTree = "<group>"; };
 		9AFE04AD295A9476001E6B81 /* RWGPSPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWGPSPointAnnotation.swift; sourceTree = "<group>"; };
-		B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
-		DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCEEACC826FFF164C08196B9 /* Pods-CongressionalAppBiking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressionalAppBiking.release.xcconfig"; path = "Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking.release.xcconfig"; sourceTree = "<group>"; };
+		E1872A2DCB73C42C175A965A /* Pods_CongressionalAppBiking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CongressionalAppBiking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,13 +325,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A354854287E2BFC003AFD53 /* FirebaseAnalytics in Frameworks */,
-				9A35485E287E51B6003AFD53 /* FirebaseFunctions in Frameworks */,
-				9A354856287E2BFC003AFD53 /* FirebaseAuth in Frameworks */,
-				9A35485A287E2BFC003AFD53 /* FirebaseMessaging in Frameworks */,
-				9A354858287E2BFC003AFD53 /* FirebaseDatabase in Frameworks */,
-				9A35485C287E2BFC003AFD53 /* FirebaseStorage in Frameworks */,
-				A787F720AF6837F5FB4F8AF7 /* Pods_CongressionalAppBiking.framework in Frameworks */,
+				6DB1A8332BD11C9D009C6C01 /* FirebaseFunctions in Frameworks */,
+				6DB1A8292BD11C9D009C6C01 /* FirebaseDatabaseSwift in Frameworks */,
+				6DB1A8392BD11C9D009C6C01 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
+				6DB1A81F2BD11C9D009C6C01 /* FirebaseAppDistribution-Beta in Frameworks */,
+				6DB1A8232BD11C9D009C6C01 /* FirebaseAuthCombine-Community in Frameworks */,
+				6DB1A82F2BD11C9D009C6C01 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				6DB1A8192BD11C9D009C6C01 /* FirebaseAnalyticsSwift in Frameworks */,
+				6DB1A81B2BD11C9D009C6C01 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				6DB1A8152BD11C9D009C6C01 /* FirebaseAnalytics in Frameworks */,
+				6DB1A83F2BD11C9D009C6C01 /* FirebaseMLModelDownloader in Frameworks */,
+				6DB1A8312BD11C9D009C6C01 /* FirebaseFirestoreSwift in Frameworks */,
+				6DB1A8172BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				6DB1A81D2BD11C9D009C6C01 /* FirebaseAppCheck in Frameworks */,
+				6DB1A8372BD11C9D009C6C01 /* FirebaseInAppMessaging-Beta in Frameworks */,
+				6DB1A8412BD11C9D009C6C01 /* FirebasePerformance in Frameworks */,
+				6DB1A8352BD11C9D009C6C01 /* FirebaseFunctionsCombine-Community in Frameworks */,
+				6DB1A8252BD11C9D009C6C01 /* FirebaseCrashlytics in Frameworks */,
+				6DB1A83B2BD11C9D009C6C01 /* FirebaseInstallations in Frameworks */,
+				6DB1A8272BD11C9D009C6C01 /* FirebaseDatabase in Frameworks */,
+				6DB1A8432BD11C9D009C6C01 /* FirebaseRemoteConfig in Frameworks */,
+				6DB1A8472BD11C9D009C6C01 /* FirebaseStorage in Frameworks */,
+				0F425E1322901DA1D4FFA0B1 /* Pods_CongressionalAppBiking.framework in Frameworks */,
+				6DB1A8492BD11C9D009C6C01 /* FirebaseStorageCombine-Community in Frameworks */,
+				6DB1A8212BD11C9D009C6C01 /* FirebaseAuth in Frameworks */,
+				6DB1A82B2BD11C9D009C6C01 /* FirebaseDynamicLinks in Frameworks */,
+				6DB1A83D2BD11C9D009C6C01 /* FirebaseMessaging in Frameworks */,
+				6DB1A82D2BD11C9D009C6C01 /* FirebaseFirestore in Frameworks */,
+				6DB1A8452BD11C9D009C6C01 /* FirebaseRemoteConfigSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +373,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		51A075B5F1DCF8EE5C351D7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1872A2DCB73C42C175A965A /* Pods_CongressionalAppBiking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9A11B1B026979F2A009208E8 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +416,8 @@
 				9A11B1B52697A1AA009208E8 /* LoginVC.swift */,
 				9ADEAA9C26BCF5D6005BB706 /* AdditionalInfoVC.swift */,
 				9AB06F54275325A70050B3C5 /* SignUpVC.swift */,
+				6D0496C62C0C0C01009D3A6B /* WhatsNewVC.swift */,
+				6D0496CA2C0C1CF3009D3A6B /* Slide.swift */,
 			);
 			path = "Initial Launch";
 			sourceTree = "<group>";
@@ -402,6 +504,8 @@
 				9AB06F4C2748D2C30050B3C5 /* Ride.swift */,
 				9A32C56A28654AA8003B1F70 /* AnnouncementNotification.swift */,
 				9AA772E2293ADF9200C07AE8 /* RWGPS */,
+				6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */,
+				6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */,
 			);
 			path = "Data Objects";
 			sourceTree = "<group>";
@@ -474,6 +578,26 @@
 		9ADEAA9226B8CCB7005BB706 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				6D90638B2BD0A720003EFEAB /* Montserrat-Black.ttf */,
+				6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */,
+				6D90637D2BD0A71D003EFEAB /* Montserrat-Bold.ttf */,
+				6D9063882BD0A720003EFEAB /* Montserrat-BoldItalic.ttf */,
+				6D90638C2BD0A721003EFEAB /* Montserrat-ExtraBold.ttf */,
+				6D90638A2BD0A720003EFEAB /* Montserrat-ExtraBoldItalic.ttf */,
+				6D9063832BD0A71E003EFEAB /* Montserrat-ExtraLight.ttf */,
+				6D90637E2BD0A71D003EFEAB /* Montserrat-ExtraLightItalic.ttf */,
+				6D9063872BD0A71F003EFEAB /* Montserrat-Italic-VariableFont_wght.ttf */,
+				6D9063802BD0A71D003EFEAB /* Montserrat-Italic.ttf */,
+				6D9063822BD0A71E003EFEAB /* Montserrat-Light.ttf */,
+				6D9063862BD0A71F003EFEAB /* Montserrat-LightItalic.ttf */,
+				6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */,
+				6D9063812BD0A71E003EFEAB /* Montserrat-MediumItalic.ttf */,
+				6D9063842BD0A71F003EFEAB /* Montserrat-Regular.ttf */,
+				6D90637F2BD0A71D003EFEAB /* Montserrat-SemiBold.ttf */,
+				6D9063892BD0A720003EFEAB /* Montserrat-SemiBoldItalic.ttf */,
+				6D9063852BD0A71F003EFEAB /* Montserrat-Thin.ttf */,
+				6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */,
+				6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */,
 				9AAD6D402828BCCA00D1DD22 /* OFL.txt */,
 				9AAD6D482828BCCB00D1DD22 /* Poppins-Black.ttf */,
 				9AAD6D4F2828BCCB00D1DD22 /* Poppins-BlackItalic.ttf */,
@@ -515,7 +639,7 @@
 				9AE042D12696E02B00FC86AD /* CongressionalAppBikingUITests */,
 				9AE042AE2696E02700FC86AD /* Products */,
 				ABFD857DBE2207F0FFA1826C /* Pods */,
-				FC25732827C7B29D1CD0C135 /* Frameworks */,
+				51A075B5F1DCF8EE5C351D7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -570,6 +694,7 @@
 				9ADEAA7826997C48005BB706 /* MainPage.storyboard */,
 				9AA772E6293AF41200C07AE8 /* RWGPS.storyboard */,
 				9AB04F6F26DAEECA0076B190 /* BottomSheets */,
+				6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -577,18 +702,10 @@
 		ABFD857DBE2207F0FFA1826C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */,
-				B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */,
+				033E55164C5146E8FE2B5CD1 /* Pods-CongressionalAppBiking.debug.xcconfig */,
+				BCEEACC826FFF164C08196B9 /* Pods-CongressionalAppBiking.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		FC25732827C7B29D1CD0C135 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DEB3238268340224684E6297 /* Pods_CongressionalAppBiking.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -598,13 +715,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AE042D72696E02B00FC86AD /* Build configuration list for PBXNativeTarget "CongressionalAppBiking" */;
 			buildPhases = (
-				207909C0B38D80FC2F0AA418 /* [CP] Check Pods Manifest.lock */,
+				9F841C9C326AAF3FE7996ED6 /* [CP] Check Pods Manifest.lock */,
 				9AE042A92696E02700FC86AD /* Sources */,
 				9AE042AA2696E02700FC86AD /* Frameworks */,
 				9AE042AB2696E02700FC86AD /* Resources */,
 				9ACF216B287E1EDA00046964 /* Embed Frameworks */,
-				9271E64C68A41D1B5EBCB08D /* [CP] Embed Pods Frameworks */,
-				8002BC2679A0A4B1CD810A36 /* [CP] Copy Pods Resources */,
+				64D08AE9216B6D60C685E638 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -612,12 +728,33 @@
 			);
 			name = CongressionalAppBiking;
 			packageProductDependencies = (
-				9A354853287E2BFC003AFD53 /* FirebaseAnalytics */,
-				9A354855287E2BFC003AFD53 /* FirebaseAuth */,
-				9A354857287E2BFC003AFD53 /* FirebaseDatabase */,
-				9A354859287E2BFC003AFD53 /* FirebaseMessaging */,
-				9A35485B287E2BFC003AFD53 /* FirebaseStorage */,
-				9A35485D287E51B6003AFD53 /* FirebaseFunctions */,
+				6DB1A8142BD11C9D009C6C01 /* FirebaseAnalytics */,
+				6DB1A8162BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion */,
+				6DB1A8182BD11C9D009C6C01 /* FirebaseAnalyticsSwift */,
+				6DB1A81A2BD11C9D009C6C01 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				6DB1A81C2BD11C9D009C6C01 /* FirebaseAppCheck */,
+				6DB1A81E2BD11C9D009C6C01 /* FirebaseAppDistribution-Beta */,
+				6DB1A8202BD11C9D009C6C01 /* FirebaseAuth */,
+				6DB1A8222BD11C9D009C6C01 /* FirebaseAuthCombine-Community */,
+				6DB1A8242BD11C9D009C6C01 /* FirebaseCrashlytics */,
+				6DB1A8262BD11C9D009C6C01 /* FirebaseDatabase */,
+				6DB1A8282BD11C9D009C6C01 /* FirebaseDatabaseSwift */,
+				6DB1A82A2BD11C9D009C6C01 /* FirebaseDynamicLinks */,
+				6DB1A82C2BD11C9D009C6C01 /* FirebaseFirestore */,
+				6DB1A82E2BD11C9D009C6C01 /* FirebaseFirestoreCombine-Community */,
+				6DB1A8302BD11C9D009C6C01 /* FirebaseFirestoreSwift */,
+				6DB1A8322BD11C9D009C6C01 /* FirebaseFunctions */,
+				6DB1A8342BD11C9D009C6C01 /* FirebaseFunctionsCombine-Community */,
+				6DB1A8362BD11C9D009C6C01 /* FirebaseInAppMessaging-Beta */,
+				6DB1A8382BD11C9D009C6C01 /* FirebaseInAppMessagingSwift-Beta */,
+				6DB1A83A2BD11C9D009C6C01 /* FirebaseInstallations */,
+				6DB1A83C2BD11C9D009C6C01 /* FirebaseMessaging */,
+				6DB1A83E2BD11C9D009C6C01 /* FirebaseMLModelDownloader */,
+				6DB1A8402BD11C9D009C6C01 /* FirebasePerformance */,
+				6DB1A8422BD11C9D009C6C01 /* FirebaseRemoteConfig */,
+				6DB1A8442BD11C9D009C6C01 /* FirebaseRemoteConfigSwift */,
+				6DB1A8462BD11C9D009C6C01 /* FirebaseStorage */,
+				6DB1A8482BD11C9D009C6C01 /* FirebaseStorageCombine-Community */,
 			);
 			productName = CongressionalAppBiking;
 			productReference = 9AE042AD2696E02700FC86AD /* CongressionalAppBiking.app */;
@@ -665,8 +802,9 @@
 		9AE042A52696E02700FC86AD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					9AE042AC2696E02700FC86AD = {
 						CreatedOnToolsVersion = 12.5;
@@ -691,7 +829,7 @@
 			);
 			mainGroup = 9AE042A42696E02700FC86AD;
 			packageReferences = (
-				9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9AE042AE2696E02700FC86AD /* Products */;
 			projectDirPath = "";
@@ -709,11 +847,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9063902BD0A721003EFEAB /* Montserrat-VariableFont_wght.ttf in Resources */,
 				9AA772E7293AF41200C07AE8 /* RWGPS.storyboard in Resources */,
+				6D9063982BD0A721003EFEAB /* Montserrat-Regular.ttf in Resources */,
 				9AAD6D512828BCDE00D1DD22 /* OFL.txt in Resources */,
 				9AAD6D522828BCDE00D1DD22 /* Poppins-Black.ttf in Resources */,
+				6D9063972BD0A721003EFEAB /* Montserrat-ExtraLight.ttf in Resources */,
 				9AAD6D532828BCDE00D1DD22 /* Poppins-BlackItalic.ttf in Resources */,
 				9AAD6D542828BCDE00D1DD22 /* Poppins-Bold.ttf in Resources */,
+				6D90639C2BD0A721003EFEAB /* Montserrat-BoldItalic.ttf in Resources */,
 				9AAD6D552828BCDE00D1DD22 /* Poppins-BoldItalic.ttf in Resources */,
 				9AAD6D562828BCDE00D1DD22 /* Poppins-ExtraBold.ttf in Resources */,
 				9AAD6D572828BCDE00D1DD22 /* Poppins-ExtraBoldItalic.ttf in Resources */,
@@ -722,26 +864,43 @@
 				9AAD6D5A2828BCDE00D1DD22 /* Poppins-Italic.ttf in Resources */,
 				9AAD6D5B2828BCDE00D1DD22 /* Poppins-Light.ttf in Resources */,
 				9AAD6D5C2828BCDE00D1DD22 /* Poppins-LightItalic.ttf in Resources */,
+				6D9063952BD0A721003EFEAB /* Montserrat-MediumItalic.ttf in Resources */,
+				6D9063A32BD0A721003EFEAB /* Montserrat-BlackItalic.ttf in Resources */,
 				9AAD6D5D2828BCDF00D1DD22 /* Poppins-Medium.ttf in Resources */,
 				9A140166290A2CE500BBF9BB /* KeepDistance.json in Resources */,
+				6D9063992BD0A721003EFEAB /* Montserrat-Thin.ttf in Resources */,
 				9AAD6D5E2828BCDF00D1DD22 /* Poppins-MediumItalic.ttf in Resources */,
+				6D9063922BD0A721003EFEAB /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				6D9063912BD0A721003EFEAB /* Montserrat-Bold.ttf in Resources */,
 				9AAD6D5F2828BCDF00D1DD22 /* Poppins-Regular.ttf in Resources */,
+				6D9063A02BD0A721003EFEAB /* Montserrat-ExtraBold.ttf in Resources */,
+				6D90639E2BD0A721003EFEAB /* Montserrat-ExtraBoldItalic.ttf in Resources */,
+				6D90639B2BD0A721003EFEAB /* Montserrat-Italic-VariableFont_wght.ttf in Resources */,
 				9AAD6D602828BCDF00D1DD22 /* Poppins-SemiBold.ttf in Resources */,
 				9AAEF2F9290DD0300059B628 /* OffRoute.json in Resources */,
 				9AAD6D612828BCDF00D1DD22 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */,
 				9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */,
 				9AAD6D622828BCDF00D1DD22 /* Poppins-Thin.ttf in Resources */,
 				9AAD6D632828BCDF00D1DD22 /* Poppins-ThinItalic.ttf in Resources */,
 				9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */,
+				6D90639D2BD0A721003EFEAB /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				6D9063962BD0A721003EFEAB /* Montserrat-Light.ttf in Resources */,
+				6D90639A2BD0A721003EFEAB /* Montserrat-LightItalic.ttf in Resources */,
+				6D9063942BD0A721003EFEAB /* Montserrat-Italic.ttf in Resources */,
 				9A3DEF6D2712BA2B0066D1EB /* Caution.json in Resources */,
 				9ADEAA9426B8CF76005BB706 /* Baumans-Regular.ttf in Resources */,
 				9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */,
 				9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */,
 				9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */,
+				6D9063932BD0A721003EFEAB /* Montserrat-SemiBold.ttf in Resources */,
 				9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */,
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
+				6D90639F2BD0A721003EFEAB /* Montserrat-Black.ttf in Resources */,
 				9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */,
+				6D9063A22BD0A721003EFEAB /* Montserrat-ThinItalic.ttf in Resources */,
 				9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */,
+				6D0496C92C0C1BC0009D3A6B /* WhatsNewView.xib in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
 				9AE042B82696E02700FC86AD /* Main.storyboard in Resources */,
 				9AE960FA270BCD3200B3B839 /* MutePhone.json in Resources */,
@@ -766,7 +925,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		207909C0B38D80FC2F0AA418 /* [CP] Check Pods Manifest.lock */ = {
+		64D08AE9216B6D60C685E638 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F841C9C326AAF3FE7996ED6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -786,40 +962,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8002BC2679A0A4B1CD810A36 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9271E64C68A41D1B5EBCB08D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CongressionalAppBiking/Pods-CongressionalAppBiking-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -859,9 +1001,12 @@
 				9AB04F7526E87F570076B190 /* GroupRideSettingsVC.swift in Sources */,
 				9ADEAA9926BCD867005BB706 /* StorageRetrieve.swift in Sources */,
 				9A3DEF75271B78CF0066D1EB /* NotificationsVC.swift in Sources */,
+				6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */,
+				6D0496C72C0C0C01009D3A6B /* WhatsNewVC.swift in Sources */,
 				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
+				6D0496CB2C0C1CF3009D3A6B /* Slide.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
 				9A449FA02989F21000BB9829 /* PaddingTextField.swift in Sources */,
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
@@ -879,6 +1024,7 @@
 				9A3DEF6B2712B8BC0066D1EB /* Notification.swift in Sources */,
 				9AB06F55275325A70050B3C5 /* SignUpVC.swift in Sources */,
 				9ADEAA9D26BCF5D6005BB706 /* AdditionalInfoVC.swift in Sources */,
+				6D3194412C1E2204001D8E22 /* CLLocationCoordinate.swift in Sources */,
 				9AB06F4F2749BC7A0050B3C5 /* SavedRideCell.swift in Sources */,
 				9AAEF3022920B7980059B628 /* RWGPSSelectRideVC.swift in Sources */,
 				9AAEF300292070180059B628 /* Constants.swift in Sources */,
@@ -942,6 +1088,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -964,7 +1111,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -975,6 +1122,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -989,7 +1137,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1003,6 +1151,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1025,7 +1174,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1036,6 +1185,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1044,7 +1194,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1056,7 +1206,7 @@
 		};
 		9AE042D82696E02B00FC86AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5806A5F2E29415A1BC2DEC47 /* Pods-CongressionalAppBiking.debug.xcconfig */;
+			baseConfigurationReference = 033E55164C5146E8FE2B5CD1 /* Pods-CongressionalAppBiking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1065,14 +1215,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BikingBuds;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.3;
+				MARKETING_VERSION = 2.3.2;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1082,7 +1235,7 @@
 		};
 		9AE042D92696E02B00FC86AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B396ED873A3CCE1625AF4FC3 /* Pods-CongressionalAppBiking.release.xcconfig */;
+			baseConfigurationReference = BCEEACC826FFF164C08196B9 /* Pods-CongressionalAppBiking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1091,14 +1244,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H2GNMXBY87;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "CongressionalAppBiking/Master Items/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = BikingBuds;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.3;
+				MARKETING_VERSION = 2.3.2;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1232,46 +1388,151 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.24.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9A354853287E2BFC003AFD53 /* FirebaseAnalytics */ = {
+		6DB1A8142BD11C9D009C6C01 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		9A354855287E2BFC003AFD53 /* FirebaseAuth */ = {
+		6DB1A8162BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		6DB1A8182BD11C9D009C6C01 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		6DB1A81A2BD11C9D009C6C01 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		6DB1A81C2BD11C9D009C6C01 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		6DB1A81E2BD11C9D009C6C01 /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		6DB1A8202BD11C9D009C6C01 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		9A354857287E2BFC003AFD53 /* FirebaseDatabase */ = {
+		6DB1A8222BD11C9D009C6C01 /* FirebaseAuthCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		6DB1A8242BD11C9D009C6C01 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		6DB1A8262BD11C9D009C6C01 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
 		};
-		9A354859287E2BFC003AFD53 /* FirebaseMessaging */ = {
+		6DB1A8282BD11C9D009C6C01 /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		6DB1A82A2BD11C9D009C6C01 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		6DB1A82C2BD11C9D009C6C01 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		6DB1A82E2BD11C9D009C6C01 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		6DB1A8302BD11C9D009C6C01 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		6DB1A8322BD11C9D009C6C01 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		6DB1A8342BD11C9D009C6C01 /* FirebaseFunctionsCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFunctionsCombine-Community";
+		};
+		6DB1A8362BD11C9D009C6C01 /* FirebaseInAppMessaging-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessaging-Beta";
+		};
+		6DB1A8382BD11C9D009C6C01 /* FirebaseInAppMessagingSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessagingSwift-Beta";
+		};
+		6DB1A83A2BD11C9D009C6C01 /* FirebaseInstallations */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseInstallations;
+		};
+		6DB1A83C2BD11C9D009C6C01 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		9A35485B287E2BFC003AFD53 /* FirebaseStorage */ = {
+		6DB1A83E2BD11C9D009C6C01 /* FirebaseMLModelDownloader */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMLModelDownloader;
+		};
+		6DB1A8402BD11C9D009C6C01 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
+		6DB1A8422BD11C9D009C6C01 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		6DB1A8442BD11C9D009C6C01 /* FirebaseRemoteConfigSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfigSwift;
+		};
+		6DB1A8462BD11C9D009C6C01 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		9A35485D287E51B6003AFD53 /* FirebaseFunctions */ = {
+		6DB1A8482BD11C9D009C6C01 /* FirebaseStorageCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9A354852287E2BD6003AFD53 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFunctions;
+			package = 6DB1A8132BD11C30009C6C01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

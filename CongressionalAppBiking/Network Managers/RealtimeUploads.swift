@@ -116,7 +116,8 @@ struct UserLocationsUpload {
         ref.observeSingleEvent(of: .value) { snapshot in
             if snapshot.childrenCount == 2 {
                 //Single person, remove whole group
-                RealtimeUpload.remove(path: "rides/\(group)")
+                let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/"
+                RealtimeUpload.remove(path: path)
             } else {
                 //Multi Person, only remove one person
                 let path = "rides/\(group)/\(user.email!.toLegalStorageEmail())/"

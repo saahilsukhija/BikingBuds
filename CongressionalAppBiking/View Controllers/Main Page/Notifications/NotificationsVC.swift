@@ -77,7 +77,7 @@ extension NotificationsVC: UITableViewDelegate, UITableViewDataSource {
             let message = "\"\(notification.title ?? "unable to get message")\""
             
             let required = requiredHeight(text: title, size: 18, fontName: "Poppins-Medium") + requiredHeight(text: message, size: 16, fontName: "Poppins-Light")
-            return required > 75 ? required+20 : 75
+            return required > 60 ? required+10 : 60
         }
         return 75
     }

@@ -18,6 +18,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var signInWithAppleButton: RoundedButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailSignInButton: RoundedButton!
     
     var loginType: LogInType!
     var currentUser: User!
@@ -29,15 +30,11 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        //Google Sign In
-        loginWithGoogleButton.layer.borderColor = UIColor.systemGray2.cgColor
-        loginWithGoogleButton.layer.borderWidth = 1
-        
-        signInWithAppleButton.layer.borderColor = UIColor.systemGray2.cgColor
-        signInWithAppleButton.layer.borderWidth = 1
-        
+        loginWithGoogleButton.dropShadow()
+        signInWithAppleButton.dropShadow()
+        emailSignInButton.dropShadow()
         //Don't have account? Create one!
-        let mutableString = NSMutableAttributedString(string: createAccountLabel.text!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)])
+        let mutableString = NSMutableAttributedString(string: createAccountLabel.text!, attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Medium", size: 16) ?? .systemFont(ofSize: 16)])
         mutableString.setColor(color: .accentColor, forText: "Sign Up")
         createAccountLabel.attributedText = mutableString
         createAccountLabel.isUserInteractionEnabled = true
@@ -102,10 +99,15 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func googleButtonTapped(_ sender: Any) {
-        GIDSignIn.sharedInstance().presentingViewController = self
         loginType = .google
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { authentication, error in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            self.userDidSignInWithGoogle(authentication)
+        }
     }
     
     @IBAction func appleButtonTapped(_ sender: Any) {
@@ -157,13 +159,13 @@ extension LoginVC {
     }
 }
 //MARK: -Google Sign In
-extension LoginVC: GIDSignInDelegate {
-    @objc func userDidSignInWithGoogle() {
+extension LoginVC {
+    @objc func userDidSignInWithGoogle(_ authentication: GIDSignInResult?) {
         let loadingScreen = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingScreen)
-        guard let authentication = GIDSignIn.sharedInstance().currentUser?.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
+        guard let authentication = authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.user.idToken?.tokenString ?? "",
+                                                       accessToken: authentication.user.accessToken.tokenString)
         Auth.auth().signIn(with: credential) { [self] result, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -171,21 +173,6 @@ extension LoginVC: GIDSignInDelegate {
                 setUpAccount(result, loadingScreen: loadingScreen)
             }
         }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        guard error == nil else {
-            print(error.localizedDescription)
-            return
-        }
-        
-        userDidSignInWithGoogle()
-    }
-    
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
     }
     
 }

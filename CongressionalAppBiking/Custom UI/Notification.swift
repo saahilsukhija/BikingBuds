@@ -52,7 +52,7 @@ extension UIViewController {
         
         notificationView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         
-        let animationView = AnimationView(name: animationName)
+        let animationView = LottieAnimationView(name: animationName)
         animationView.frame = CGRect(x: 5, y: 10, width: notificationView.frame.size.height - 20, height: notificationView.frame.size.height - 20)
         animationView.contentMode = .scaleAspectFill
         animationView.animationSpeed = playbackSpeed
@@ -100,7 +100,7 @@ extension UIViewController {
         
         notificationView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
         
-        let animationView = AnimationView(name: "Megaphone")
+        let animationView = LottieAnimationView(name: "Megaphone")
         animationView.frame = CGRect(x: 5, y: 10, width: notificationView.frame.size.height - 20, height: notificationView.frame.size.height - 20)
         animationView.contentMode = .scaleAspectFill
         animationView.animationSpeed = playbackSpeed

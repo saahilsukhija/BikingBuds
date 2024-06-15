@@ -45,6 +45,18 @@ class GroupUserLocationVC: UIViewController {
         profilePictureView.image = user.profilePicture?.toImage()
         profileNameView.text = user.displayName
         profilePhoneView.text = user.phoneNumber
+        
+        callPhoneButton.dropShadow()
+        callPhoneButton.layer.borderColor = UIColor.accentColorDark.cgColor
+        callPhoneButton.layer.borderWidth = 1
+        
+        callSOSButton.dropShadow()
+        callSOSButton.layer.borderColor = UIColor.systemRed.cgColor
+        callSOSButton.layer.borderWidth = 1
+        
+        directionsToButton.dropShadow()
+        directionsToButton.layer.borderColor = UIColor.black.cgColor
+        directionsToButton.layer.borderWidth = 1
     }
     
     @IBAction func callUserButtonClicked(_ sender: Any) {
@@ -120,10 +132,10 @@ class GroupUserLocationVC: UIViewController {
         
         updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.", uploadRiderType: false)
         if let first = user.displayName.components(separatedBy: " ").first {
-            let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Regular", size: 20) ?? .systemFont(ofSize: 20)])
             directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
         } else {
-            let mutableTitle = NSAttributedString(string: "Directions", attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            let mutableTitle = NSAttributedString(string: "Directions", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Regular", size: 20) ?? .systemFont(ofSize: 20)])
             directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
         }
        

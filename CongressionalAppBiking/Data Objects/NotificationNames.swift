@@ -48,7 +48,13 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    //SOMEONE ELSE IN GROUP
     static var userHasFallen: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    //CURRENT USER
+    static var currentUserHasFallen: Notification.Name {
         return .init(rawValue: #function)
     }
     
@@ -56,6 +62,9 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    static var userClickedOnJoinLink: Notification.Name {
+        return .init(rawValue: #function)
+    }
     ///MARK: Bottom Sheet Notifications
     /// Notification when search bar is clicked in the Group Bottom Sheet
     static var searchBarClicked: Notification.Name {

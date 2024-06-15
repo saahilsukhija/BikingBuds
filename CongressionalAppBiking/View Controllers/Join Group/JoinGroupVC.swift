@@ -26,14 +26,11 @@ class JoinGroupVC: UIViewController {
     
     @IBOutlet weak var changeRiderType: UIButton!
     
-    @IBOutlet weak var profileView: UIView!
-    @IBOutlet weak var profilePicture: UIImageView!
-    @IBOutlet weak var profileName: UILabel!
-    @IBOutlet weak var profilePhoneNumber: UILabel!
     
     @IBOutlet weak var savedRidesButton: UIButton!
     
     var emergencyPhoneNumber: String?
+    var profilePhoneNumber: String?
     
     var groupSelectionType: GroupSelectionType!
     var groupID: String?
@@ -58,22 +55,30 @@ class JoinGroupVC: UIViewController {
         createGroupNameTextField.tag = 1
         
         //Verify profile view
-        profileView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToVerifyProfileVC)))
-        profileView.layer.cornerRadius = 10
-        profileView.layer.borderWidth = 1
-        profileView.layer.borderColor = UIColor.black.cgColor
-        
-        profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
-        profilePicture.layer.borderWidth = 1
-        profilePicture.layer.borderColor = UIColor.black.cgColor
         
         savedRidesButton.isHidden = true
         changeRiderType.isHidden = true
         goButton.backgroundColor = .unselectedGrayColor
         removeActionFromButton(goButton)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(userClickedJoinLink(_:)), name: .userClickedOnJoinLink, object: nil)
+        
         updateChangeRiderTypeButton(with: "You are joining as a Rider. Change.")
         
+        joinGroupButton.dropShadow()
+        createGroupButton.dropShadow()
+        goButton.dropShadow()
+    }
+    
+    @objc func userClickedJoinLink(_ notification: NSNotification) {
+        guard let code = notification.userInfo?["code"] as? String else {
+            showFailureToast(message: "Error joining group, please try again")
+            return
+        }
+        groupSelectionType = .join
+        joinGroupCodeTextField.text = code
+        groupID = code
+        goToMainPage(self)
         
     }
     
@@ -146,7 +151,7 @@ class JoinGroupVC: UIViewController {
     
     @IBAction func joinGroupButtonClicked(_ sender: Any) {
         //Unselect Create Button
-        createGroupButton.backgroundColor = .unselectedGrayColor
+        createGroupButton.backgroundColor = .white
         createGroupView.isHidden = true
         
         joinGroupView.isHidden = false
@@ -169,7 +174,7 @@ class JoinGroupVC: UIViewController {
     
     @IBAction func createGroupButtonClicked(_ sender: Any) {
         //Unselect Join Button
-        joinGroupButton.backgroundColor = .unselectedGrayColor
+        joinGroupButton.backgroundColor = .white
         joinGroupView.isHidden = true
         
         createGroupView.isHidden = false
@@ -236,7 +241,7 @@ class JoinGroupVC: UIViewController {
     }
     
     func updateChangeRiderTypeButton(with string: String) {
-        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Poppins-Regular", size: 18)!])
+        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Regular", size: 16)!])
         mutableTitle.setColor(color: .accentColor, forText: "Change.")
         changeRiderType.setAttributedTitle(mutableTitle, for: .normal)
     }
@@ -279,6 +284,11 @@ class JoinGroupVC: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //NotificationCenter.default.removeObserver(self);
+    }
+    
     //Show Toast Saying "Welcome, (user)"
     func showLoggedIn() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -292,40 +302,27 @@ class JoinGroupVC: UIViewController {
     }
     
     func updateProfileView() {
-        profileView.isUserInteractionEnabled = false
-//        if profileName =
-//        profileName.text = "Loading..."
-//        profilePhoneNumber.text = "Loading..."
-//        profilePicture.image = UIImage(systemName: "person.fill")
-        
-        StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
-            profileView.isUserInteractionEnabled = true
-            guard let user = groupUser else { print("no user"); return }
+    //        if profileName =
+    //        profileName.text = "Loading..."
+    //        profilePhoneNumber.text = "Loading..."
+    //        profilePicture.image = UIImage(systemName: "person.fill")
             
-            profileName.text = user.displayName
-            emergencyPhoneNumber = user.emergencyPhoneNumber
-            profilePhoneNumber.text = user.phoneNumber
-            Authentication.phoneNumber = user.phoneNumber
-            Authentication.emergencyPhoneNumber = user.emergencyPhoneNumber
-            
-            profilePicture.image = user.profilePicture?.toImage()
+            StorageRetrieve().getGroupUser(from: Authentication.user?.email ?? "") { [self] groupUser in
+                guard let user = groupUser else { print("no user"); return }
+                
+                emergencyPhoneNumber = user.emergencyPhoneNumber
+                self.profilePhoneNumber = user.phoneNumber
+                Authentication.phoneNumber = user.phoneNumber
+                Authentication.emergencyPhoneNumber = user.emergencyPhoneNumber
+                
+            }
             
         }
-        
-    }
-    
-    @objc func goToVerifyProfileVC() {
-        let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
-        vc.modalPresentationStyle = .fullScreen
-        vc.setPhoneNumberField(profilePhoneNumber.text!)
-        vc.setEmergencyPhoneNumberField(emergencyPhoneNumber ?? "")
-        present(vc, animated: true)
-    }
     
     @IBAction func profileNavBarButtonClicked(_ sender: Any) {
         let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(identifier: "additionalInfoScreen") as! AdditionalInfoVC
         vc.modalPresentationStyle = .fullScreen
-        vc.setPhoneNumberField(profilePhoneNumber.text!)
+        vc.setPhoneNumberField(profilePhoneNumber ?? "")
         vc.setEmergencyPhoneNumberField(emergencyPhoneNumber ?? "")
         //navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true)
@@ -395,7 +392,18 @@ extension JoinGroupVC {
             signUpScreen.modalPresentationStyle = .fullScreen
             
             self.present(signUpScreen, animated: true, completion: nil)
+            return
         }
+        
+//        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+//            if UserDefaults.standard.bool(forKey: "tutorial_\(appVersion)") == false && Constants.showTutorial {
+//                let vc = UIStoryboard(name: "InitialLaunch", bundle: nil).instantiateViewController(withIdentifier: "WhatsNewNav")
+//                vc.modalPresentationStyle = .fullScreen
+//                self.present(vc, animated: true)
+//                UserDefaults.standard.set(true, forKey: "tutorial_\(appVersion)")
+//            }
+//        }
+        
     }
 }
 

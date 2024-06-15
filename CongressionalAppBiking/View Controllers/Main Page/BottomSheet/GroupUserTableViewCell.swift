@@ -30,7 +30,10 @@ class GroupUserTableViewCell: UITableViewCell {
             profileName.text = groupUser.displayName
         }
         
-        lastUpdatedAt.text = "Last Updated: \(lastUpdated)"
+        lastUpdatedAt.text = "\(lastUpdated)"
+        if !(lastUpdated == "" || lastUpdated == "Now") {
+            lastUpdatedAt.text = "\(lastUpdated) ago"
+        }
         profileImage.image = groupUser.profilePicture?.toImage()
         
         backgroundColor = .clear

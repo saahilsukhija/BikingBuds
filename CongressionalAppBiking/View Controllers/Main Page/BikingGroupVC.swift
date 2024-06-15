@@ -20,7 +20,13 @@ class BikingGroupVC: BikingVCs {
     var groupID: String!
     var groupName: String!
     var loadingView: UIView!
-    var scrollView: UIScrollView!
+    
+    var announcementStackView: UIStackView!
+    var announcementStackViewIsShowing = false
+    
+    var settingsButton: UIButton!
+    var notificationsButton: UIButton!
+    var announcementButton: UIButton!
     
     var fallTimer: Timer?
     var locationTimer: Timer?
@@ -37,7 +43,7 @@ class BikingGroupVC: BikingVCs {
         
         super.setUp(map: mapView)
         self.addGroupCodeToNavController()
-        //self.setUpMotionManager()
+        self.setUpMotionManager()
         self.customizeNavigationController()
         
         registerForRemoteNotification()
@@ -59,7 +65,7 @@ class BikingGroupVC: BikingVCs {
         Locations.resetGroupUsers(for: groupID)
         Locations.addNotifications(for: groupID)
         Locations.addNotificationsForAnnouncements(for: groupID)
-        
+        Locations.addNotificationsForFallDetection(for: groupID)
         addObservers()
         
         pendingRWGPSLogin = true
@@ -80,7 +86,7 @@ class BikingGroupVC: BikingVCs {
         locationTimer = Timer()
         
         setupTimeBasedLocation()
-        notificationCountLabel.isHidden = true
+        //notificationCountLabel.isHidden = true
         
         loadingView.removeFromSuperview()
     }
@@ -195,14 +201,16 @@ extension BikingGroupVC {
         previousLatitude = 0
         previousLongitude = 0
         locationManager.stopUpdatingLocation()
-        
+        locationManager.stopMonitoringVisits()
+        locationManager.stopMonitoringSignificantLocationChanges()
         Authentication.riderType = .spectator
         UserDefaults.standard.set(false, forKey: "is_rider")
     }
     
     @objc func userIsRider() {
         locationManager.startUpdatingLocation()
-        
+        //locationManager.startMonitoringSignificantLocationChanges()
+        //locationManager.startMonitoringVisits()
         Authentication.riderType = .rider
         UserDefaults.standard.set(true, forKey: "is_rider")
     }
@@ -259,10 +267,10 @@ extension BikingGroupVC {
     
     func updateNotificationCount() {
         if unreadNotifications == 0 {
-            notificationCountLabel.isHidden = true
+            //notificationCountLabel.isHidden = true
         } else {
-            notificationCountLabel.isHidden = false
-            notificationCountLabel.text = /*"\(Locations.notifications.count + Locations.announcementNotifications.otherUsersAnnouncements().count)"*/ "\(unreadNotifications)"
+            //notificationCountLabel.isHidden = false
+            //notificationCountLabel.text = /*"\(Locations.notifications.count + Locations.announcementNotifications.otherUsersAnnouncements().count)"*/ "\(unreadNotifications)"
         }
     }
     
@@ -345,19 +353,30 @@ extension BikingGroupVC {
         NotificationCenter.default.addObserver(self, selector: #selector(deviceTokenLoaded), name: .deviceTokenLoaded, object: nil)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(userIsTooFar), name: .userIsTooFar, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userClickedOnLink(_:)), name: .userClickedOnJoinLink, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsUserLogin), name: .rwgpsUserLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(displayRWGPSRoute), name: .rwgpsRouteLoaded, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsRouteUpdated(_:)), name: .rwgpsUpdatedInGroup, object: nil)
     }
     
+    @objc func userClickedOnLink(_ notification: NSNotification) {
+        self.dismiss(animated: true)
+        NotificationCenter.default.removeObserver(self)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            NotificationCenter.default.post(notification as Notification)
+        }
+    }
+
     func addGroupCodeToNavController() {
         let groupCodeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: navigationController?.navigationBar.frame.size.height ?? 75))
-        groupCodeLabel.font = UIFont(name: "Poppins-Medium", size: 18)
+        groupCodeLabel.font = UIFont(name: "Montserrat-SemiBold", size: 16)
         groupCodeLabel.text = groupName
         groupCodeLabel.textColor = .black
         groupCodeLabel.textAlignment = .center
-        
+        groupCodeLabel.adjustsFontSizeToFitWidth = true
+        groupCodeLabel.minimumScaleFactor = 0.2
+        groupCodeLabel.numberOfLines = 1
         groupCodeLabel.layer.cornerRadius = groupCodeLabel.frame.size.height / 2
         groupCodeLabel.dropShadow()
         //groupCodeLabel.layer.borderWidth = 1
@@ -367,7 +386,8 @@ extension BikingGroupVC {
         
         navigationItem.titleView = groupCodeLabel
         
-        configureAnnouncementView()
+       // configureAnnouncementView()
+        configureAnnouncementButton()
         configureInvitePeopleButton()
         configureLeaveGroupButton()
         
@@ -375,7 +395,7 @@ extension BikingGroupVC {
     }
     
     func configureInvitePeopleButton() {
-        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-SemiBold", size: 18.0)! ]
+        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 18.0)! ]
         let attributedString = NSAttributedString(string: "Invite People", attributes: titleAttribute)
         
         let invitePeopleButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
@@ -410,7 +430,7 @@ extension BikingGroupVC {
     }
     
     func configureLeaveGroupButton() {
-        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-SemiBold", size: 18.0)! ]
+        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 18.0)! ]
         let attributedString = NSAttributedString(string: "Leave Group", attributes: titleAttribute)
         
         let leaveGroupButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
@@ -458,7 +478,7 @@ extension BikingGroupVC {
         self.navigationController?.navigationBar.isTranslucent = true
         
         let rightBarButtonCustomView = UIView(frame: CGRect(x: view.frame.size.width - 56, y: (UIApplication.shared.windows.first?.safeAreaInsets.top)! + 0, width: 40, height: 95))
-        let settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        settingsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         settingsButton.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         settingsButton.backgroundColor = preferredBackgroundColor
         settingsButton.tintColor = .accentColor
@@ -472,7 +492,7 @@ extension BikingGroupVC {
         rightBarButtonCustomView.addSubview(settingsButton)
         
         //NotificationButton
-        let notificationsButton = UIButton(frame: CGRect(x: 0, y: 45, width: 40, height: 40))
+        notificationsButton = UIButton(frame: CGRect(x: 0, y: 45, width: 40, height: 40))
         notificationsButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         notificationsButton.backgroundColor = preferredBackgroundColor
         notificationsButton.tintColor = .accentColor
@@ -484,6 +504,8 @@ extension BikingGroupVC {
         notificationsButton.layer.masksToBounds = true
         
         rightBarButtonCustomView.addSubview(notificationsButton)
+        
+        //Make invitePeople track the bottom
 
         self.navigationController?.view.addSubview(rightBarButtonCustomView)
         //Center camera
@@ -501,28 +523,28 @@ extension BikingGroupVC {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: centerCameraButton)
     
         
-        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        notificationCountLabel.backgroundColor = .systemRed
-        notificationCountLabel.textColor = .white
-        notificationCountLabel.text = "0"
-        notificationCountLabel.textAlignment = .center
-        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
-        notificationCountLabel.layer.cornerRadius = 10
-        notificationCountLabel.layer.masksToBounds = true
-        notificationCountLabel.isUserInteractionEnabled = false
-        
-        rightBarButtonCustomView.addSubview(notificationCountLabel)
-        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
-    
-        let notificationCountConstraints: [NSLayoutConstraint] = [
-            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
-                                                       constant: 15),
-            notificationCountLabel.rightAnchor.constraint(equalTo: notificationsButton.rightAnchor, constant: 0),
-            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
-            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        
-        NSLayoutConstraint.activate(notificationCountConstraints)
+//        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+//        notificationCountLabel.backgroundColor = .systemRed
+//        notificationCountLabel.textColor = .white
+//        notificationCountLabel.text = "0"
+//        notificationCountLabel.textAlignment = .center
+//        notificationCountLabel.font = UIFont.systemFont(ofSize: 14)
+//        notificationCountLabel.layer.cornerRadius = 10
+//        notificationCountLabel.layer.masksToBounds = true
+//        notificationCountLabel.isUserInteractionEnabled = false
+//        
+//        rightBarButtonCustomView.addSubview(notificationCountLabel)
+//        notificationCountLabel.translatesAutoresizingMaskIntoConstraints = false
+//    
+//        let notificationCountConstraints: [NSLayoutConstraint] = [
+//            notificationCountLabel.bottomAnchor.constraint(equalTo: notificationsButton.topAnchor,
+//                                                       constant: 15),
+//            notificationCountLabel.rightAnchor.constraint(equalTo: notificationsButton.rightAnchor, constant: 0),
+//            notificationCountLabel.widthAnchor.constraint(equalToConstant: 20),
+//            notificationCountLabel.heightAnchor.constraint(equalToConstant: 20)
+//        ]
+//        
+//        NSLayoutConstraint.activate(notificationCountConstraints)
     }
     
     @objc func openSettingsScreen() {
@@ -581,7 +603,7 @@ extension BikingGroupVC {
         }
         
         guard !previousSavedRides.containsRide(ride) else {
-            self.showFailureToast(message: "Ride is already saved.")
+            //self.showFailureToast(message: "Ride is already saved.")
             return
         }
         
@@ -599,46 +621,86 @@ extension BikingGroupVC {
 
 //MARK: Announcement Functions
 extension BikingGroupVC {
-    func configureAnnouncementView() {
-        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 55))
-        scrollView.contentSize = CGSize(width: 5000, height: 55)
+    
+    func configureAnnouncementButton() {
+        announcementButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        announcementButton.setImage(UIImage(systemName: "megaphone"), for: .normal)
+        announcementButton.backgroundColor = preferredBackgroundColor
+        announcementButton.tintColor = .accentColor
+        //announcementButton.imageView?.contentMode = .scaleAspectFill
+        announcementButton.contentVerticalAlignment = .fill
+        announcementButton.contentHorizontalAlignment = .fill
+        announcementButton.imageEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        announcementButton.dropShadow()
         
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 5000, height: 55))
-        scrollView.addSubview(view)
-        scrollView.showsHorizontalScrollIndicator = false
+        announcementButton.addTarget(self, action: #selector(configureAnnouncementViews), for: .touchUpInside)
+        announcementButton.layer.cornerRadius = announcementButton.frame.size.height / 2
+        announcementButton.layer.borderWidth = 1
+        announcementButton.layer.borderColor = UIColor.label.cgColor
+        announcementButton.layer.masksToBounds = true
+        bottomSheet.view.addSubview(announcementButton)
+        announcementButton.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.alwaysBounceVertical = false
-        scrollView.alwaysBounceHorizontal = true
+        let constraints: [NSLayoutConstraint] = [
+            announcementButton.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
+                                                       constant: -50),
+            announcementButton.rightAnchor.constraint(equalTo: bottomSheet.surfaceView.rightAnchor, constant: -5),
+            announcementButton.widthAnchor.constraint(equalToConstant: 60),
+            announcementButton.heightAnchor.constraint(equalToConstant: 60)
+        ]
         
-        bottomSheet.view.addSubview(scrollView)
-        scrollView.isUserInteractionEnabled = true
-        view.isUserInteractionEnabled = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    @objc func configureAnnouncementViews() {
+        
+        announcementButton.setImage(UIImage(systemName: "megaphone.fill"), for: .normal)
+        guard announcementStackView == nil else {
+            announcementStackView.isHidden = !announcementStackView.isHidden
+            
+            if announcementStackView.isHidden {
+                announcementButton.setImage(UIImage(systemName: "megaphone"), for: .normal)
+            }
+            return
+        }
+        
+        
+        announcementStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 100, height: 300))
+
+        announcementStackView.axis = .vertical
+        announcementStackView.spacing = 3
+        announcementStackView.alignment = .center
+        announcementStackView.distribution = .fillEqually
+        
+        bottomSheet.view.addSubview(announcementStackView)
+        announcementStackView.isUserInteractionEnabled = true
+        announcementStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let safeG = self.view.safeAreaLayoutGuide
         let constraints: [NSLayoutConstraint] = [
-            scrollView.bottomAnchor.constraint(equalTo: bottomSheet.surfaceView.topAnchor,
-                                                       constant: -50),
-            scrollView.heightAnchor.constraint(equalToConstant: 55),
-            scrollView.leadingAnchor.constraint(equalTo: safeG.leadingAnchor, constant: 0.0),
-            scrollView.trailingAnchor.constraint(equalTo: safeG.trailingAnchor, constant: 0.0),
+            announcementStackView.bottomAnchor.constraint(equalTo: announcementButton.topAnchor,
+                                                       constant: -5),
+            announcementStackView.heightAnchor.constraint(equalToConstant: 300),
+            announcementStackView.widthAnchor.constraint(equalToConstant: 120),
+            announcementStackView.trailingAnchor.constraint(equalTo: safeG.trailingAnchor, constant: 0),
             //view.widthAnchor.constraint(equalToConstant: 5000)
         ]
 
         NSLayoutConstraint.activate(constraints)
         
         
-        let announcements = [("I got a flat!", "I got a flat!".width(withConstrainedHeight: 60)), ("Let's regroup!", "Let's regroup!".width(withConstrainedHeight: 60)), ("I need help!", "I need help!".width(withConstrainedHeight: 60)), ("I'm leaving!", "I'm leaving!".width(withConstrainedHeight: 60)), ("Finished!", "Finished!".width(withConstrainedHeight: 60)), ("Getting coffee!", "Getting coffee!".width(withConstrainedHeight: 60))]
+        let announcements = ["I got a flat!", "Let's regroup!", "I need help!", "I'm leaving!", "Finished!", "Getting coffee!"]
         
-        let customButton = UIButton(frame: CGRect(x: 10 , y: 5, width: " Custom".width(withConstrainedHeight: 60) + 40, height: 45))
+        let customButton = UIButton(frame: CGRect(x: 10 , y: 5, width: 80, height: 45))
         
-        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
+        let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 12.0)! ]
         let attributedString = NSAttributedString(string: "Custom", attributes: titleAttribute)
         customButton.setAttributedTitle(attributedString, for: .normal)
         customButton.setImage(UIImage(systemName: "plus"), for: .normal)
         customButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        customButton.layer.cornerRadius = 22.5
+        customButton.layer.cornerRadius = 3
         customButton.backgroundColor = .white
         customButton.setTitleColor(.black, for: .normal)
         customButton.layer.masksToBounds = false
@@ -650,29 +712,21 @@ extension BikingGroupVC {
         
         customButton.addTarget(self, action: #selector(customAnnouncementButtonClicked), for: .touchUpInside)
         
-        view.addSubview(customButton)
+        announcementStackView.addArrangedSubview(customButton)
         
         var previousButton: UIButton? = customButton
-        var lastButton: UIButton?
+        
         for (index, announcement) in announcements.enumerated() {
-            let button = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: announcement.1 + 20, height: 45))
+            let button = UIButton(frame: CGRect(x: (previousButton?.frame.maxX ?? 0) + 10 , y: 5, width: 80, height: 45))
             
-            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16.0)! ]
-            let attributedString = NSAttributedString(string: announcement.0, attributes: titleAttribute)
+            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-Regular", size: 12.0)! ]
+            let attributedString = NSAttributedString(string: announcement, attributes: titleAttribute)
             button.setAttributedTitle(attributedString, for: .normal)
             
             button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            view.addSubview(button)
-            let buttonConstraints: [NSLayoutConstraint] = [
-                button.topAnchor.constraint(equalTo: scrollView.topAnchor,
-                                                           constant: 5),
-                button.leadingAnchor.constraint(equalTo: previousButton?.trailingAnchor ?? view.leadingAnchor, constant: 10),
-                button.heightAnchor.constraint(equalToConstant: 45),
-                button.widthAnchor.constraint(equalToConstant: announcement.1 + 20)
-            ]
-            NSLayoutConstraint.activate(buttonConstraints)
+            announcementStackView.addArrangedSubview(button)
             
-            button.layer.cornerRadius = 22.5
+            button.layer.cornerRadius = 3
 //            button.layer.borderWidth = 1
 //            button.layer.borderColor = UIColor.systemGray.cgColor
             button.backgroundColor = .white
@@ -685,17 +739,6 @@ extension BikingGroupVC {
             
             button.addTarget(self, action: #selector(premadeAnnouncementButtonClicked(_:)), for: .touchUpInside)
             previousButton = button
-            
-            if(index == announcements.count-1) {
-                lastButton = button
-            }
-        }
-        
-        if let lastButton = lastButton {
-            let lastButtonConstraints: [NSLayoutConstraint] = [
-                lastButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                                  constant: -10)]
-            NSLayoutConstraint.activate(lastButtonConstraints)
         }
  
         
@@ -806,14 +849,14 @@ extension BikingGroupVC: UNUserNotificationCenterDelegate, MessagingDelegate {
 }
 
 extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont = UIFont(name: "Poppins-Regular", size: 16.0)!) -> CGFloat {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont = UIFont(name: "Montserrat-Regular", size: 16.0)!) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
     
         return ceil(boundingBox.height)
     }
 
-    func width(withConstrainedHeight height: CGFloat, font: UIFont = UIFont(name: "Poppins-Regular", size: 16.0)!) -> CGFloat {
+    func width(withConstrainedHeight height: CGFloat, font: UIFont = UIFont(name: "Montserrat-Regular", size: 16.0)!) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
 
@@ -821,130 +864,92 @@ extension String {
     }
 }
 
-////MARK: Accelerometer Updates
-//extension BikingGroupVC {
-//    func setUpMotionManager() {
-//
-//        movementManager = CMMotionManager()
-//        movementManager.accelerometerUpdateInterval = 0.1
-//        movementManager.startAccelerometerUpdates(to: .main) { data, error in
-//            if let error = error {
-//                print("error with accelerometer: \(error.localizedDescription)")
-//            }
-//
-//            let acceleration = abs(data!.acceleration.z)
-//
-//            if acceleration > 1.3 {
-//                self.consecutiveAccelerationRedFlags += 1
-//                print("red flag")
-//            } else {
-//                self.consecutiveAccelerationRedFlags = 0
-//            }
-//
-//            if self.consecutiveAccelerationRedFlags >= 2 {
-//                print("proper fall")
-//
-//                self.userDidFall()
-//            }
-//        }
-//    }
-//
-//    func configureFallScreen() {
-//        let guide = view.safeAreaLayoutGuide
-//        let frame = guide.layoutFrame.size
-//        fallOverlayView = UIView(frame: guide.layoutFrame)
-//        fallOverlayView.backgroundColor = .systemGray6.withAlphaComponent(0.9)
-//
-//        let topLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 60))
-//        topLabel.text = "Detected a Fall.\n Alerting your group in:"
-//        topLabel.textAlignment = .center
-//        topLabel.font = UIFont(name: "Poppins-SemiBold", size: 30)
-//        topLabel.numberOfLines = 0
-//        fallOverlayView.addSubview(topLabel)
-//
-//        let countdownLabel = UILabel(frame: CGRect(x: 0, y: 75, width: frame.width, height: 50))
-//        countdownLabel.text = "15"
-//        countdownLabel.textAlignment = .center
-//        countdownLabel.textColor = .systemRed
-//        countdownLabel.font = .boldSystemFont(ofSize: 40)
-//        fallOverlayView.addSubview(countdownLabel)
-//
-//        let cancelButton = UIButton(frame: CGRect(x: 20, y: frame.height - 70, width: frame.width - 40, height: 50))
-//        cancelButton.layer.cornerRadius = 10
-//        cancelButton.backgroundColor = .accentColor
-//        cancelButton.setTitle("Cancel", for: .normal)
-//        cancelButton.setTitleColor(.white, for: .normal)
-//        cancelButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
-//        cancelButton.addTarget(self, action: #selector(userDidCancelEmergencyCall), for: .touchUpInside)
-//        fallOverlayView.addSubview(cancelButton)
-//
-//        darkOverlayView = UIView(frame: view.frame)
-//        darkOverlayView.backgroundColor = .systemGray6
-//
-//        var secondsRemaining = 14
-//        //Timer
-//        fallTimer?.invalidate()
-//        fallTimer = nil
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-//            self.fallTimer = timer
-//            if secondsRemaining > 0 {
-//                countdownLabel.text = "\(secondsRemaining)"
-//                secondsRemaining -= 1
-//            } else {
-//                countdownLabel.text = "0"
-//                timer.invalidate()
-//                self.fallTimer?.invalidate()
-//                self.fallTimer = nil
-//                self.shouldCallEmergencyContact()
-//            }
-//        }
-//    }
-//
-//    @objc func shouldCallEmergencyContact() {
-//        if let email = Authentication.user?.email?.toLegalStorageEmail() {
-//            let df = DateFormatter()
-//            df.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//            let now = df.string(from: Date())
-//            RealtimeUpload.upload(data: [email : now], path: "rides/\(groupID!)/fall/")
-//        } else {
-//            userDidCancelEmergencyCall()
-//            showFailureToast(message: "No email available.")
-//        }
-//    }
-//
-//    func userDidFall() {
-//        configureFallScreen()
-//        movementManager.stopAccelerometerUpdates()
-//
-//        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(darkOverlayView)
-//        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(fallOverlayView)
-//    }
-//
-//    @objc func userDidCancelEmergencyCall() {
-//        movementManager.startAccelerometerUpdates(to: .main) { data, error in
-//            if let error = error {
-//                print("error with accelerometer: \(error.localizedDescription)")
-//            }
-//
-//            let acceleration = abs(data!.acceleration.z)
-//
-//            if acceleration > 1.5 {
-//                self.consecutiveAccelerationRedFlags += 1
-//                print("red flag")
-//            } else {
-//                self.consecutiveAccelerationRedFlags = 0
-//            }
-//
-//            if self.consecutiveAccelerationRedFlags >= 2 {
-//                print("proper fall")
-//                self.userDidFall()
-//            }
-//        }
-//
-//        fallOverlayView.removeFromSuperview()
-//        darkOverlayView.removeFromSuperview()
-//        fallTimer?.invalidate()
-//        fallTimer = nil
-//        self.showAnimationToast(animationName: "MutePhone", message: "Cancelled Call.", color: .systemBlue, fontColor: .systemBlue, speed: 0.5)
-//    }
-//}
+//MARK: Accelerometer Updates
+extension BikingGroupVC {
+    func setUpMotionManager() {
+
+        FallDetectionManager.shared.startTracking()
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidFall), name: .currentUserHasFallen, object: nil)
+    }
+
+    func configureFallScreen() {
+        let guide = view.safeAreaLayoutGuide
+        let frame = guide.layoutFrame.size
+        fallOverlayView = UIView(frame: guide.layoutFrame)
+        fallOverlayView.backgroundColor = .systemGray6.withAlphaComponent(0.9)
+
+        let topLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 60))
+        topLabel.text = "Detected a Fall.\n Alerting your group in:"
+        topLabel.textAlignment = .center
+        topLabel.font = UIFont(name: "Montserrat-SemiBold", size: 30)
+        topLabel.numberOfLines = 0
+        fallOverlayView.addSubview(topLabel)
+
+        let countdownLabel = UILabel(frame: CGRect(x: 0, y: 75, width: frame.width, height: 50))
+        countdownLabel.text = "15"
+        countdownLabel.textAlignment = .center
+        countdownLabel.textColor = .systemRed
+        countdownLabel.font = .boldSystemFont(ofSize: 40)
+        fallOverlayView.addSubview(countdownLabel)
+
+        let cancelButton = UIButton(frame: CGRect(x: 20, y: frame.height - 70, width: frame.width - 40, height: 50))
+        cancelButton.layer.cornerRadius = 10
+        cancelButton.backgroundColor = .accentColor
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        cancelButton.addTarget(self, action: #selector(userDidCancelEmergencyCall), for: .touchUpInside)
+        fallOverlayView.addSubview(cancelButton)
+
+        darkOverlayView = UIView(frame: view.frame)
+        darkOverlayView.backgroundColor = .systemGray6
+
+        var secondsRemaining = 14
+        //Timer
+        fallTimer?.invalidate()
+        fallTimer = nil
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+            self.fallTimer = timer
+            if secondsRemaining > 0 {
+                countdownLabel.text = "\(secondsRemaining)"
+                secondsRemaining -= 1
+            } else {
+                countdownLabel.text = "0"
+                timer.invalidate()
+                self.fallTimer?.invalidate()
+                self.fallTimer = nil
+                self.shouldCallEmergencyContact()
+            }
+        }
+    }
+
+    @objc func shouldCallEmergencyContact() {
+        if let email = Authentication.user?.email?.toLegalStorageEmail() {
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let now = df.string(from: Date())
+            RealtimeUpload.upload(data: [email : now], path: "rides/\(groupID!)/fall/")
+        } else {
+            userDidCancelEmergencyCall()
+            showFailureToast(message: "No email available.")
+        }
+    }
+
+    @objc func userDidFall() {
+        configureFallScreen()
+        FallDetectionManager.shared.stopTracking()
+
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(darkOverlayView)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(fallOverlayView)
+    }
+
+    @objc func userDidCancelEmergencyCall() {
+        FallDetectionManager.shared.startTracking()
+
+        fallOverlayView.removeFromSuperview()
+        darkOverlayView.removeFromSuperview()
+        fallTimer?.invalidate()
+        fallTimer = nil
+        self.showAnimationToast(animationName: "MutePhone", message: "Cancelled Call.", color: .systemBlue, fontColor: .systemBlue, speed: 0.5)
+    }
+}

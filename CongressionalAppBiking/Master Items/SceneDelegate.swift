@@ -17,8 +17,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
     }
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        
+        print("OPENED \(url)")
+        // Process the URL.
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+              let path = components.path,
+              let params = components.queryItems else {
+            print("Invalid URL")
+            return
+        }
+        
+        
+        if let groupCode = params.first(where: { $0.name == "groupcode" })?.value {
+            print("path = \(path)")
+            print("groupCode = \(groupCode)")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                NotificationCenter.default.post(name: .userClickedOnJoinLink, object: nil, userInfo: ["code" : groupCode])
+            }
+        }
+        
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

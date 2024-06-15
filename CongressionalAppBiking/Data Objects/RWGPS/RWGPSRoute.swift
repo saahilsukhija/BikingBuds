@@ -77,6 +77,7 @@ struct RWGPSRoute {
                         let startingLong = route["first_lng"] as? Double,
                         let endingLat = route["last_lat"] as? Double,
                         let endingLong = route["last_lng"] as? Double,
+                        let distance = route["distance"] as? Double,
                         let trackPoints = route["track_points"] as? [Dictionary<String, AnyObject>]
                         {
                             var points: [RWGPSPOI] = []
@@ -89,7 +90,7 @@ struct RWGPSRoute {
                             self.start = CLLocationCoordinate2D(latitude: startingLat, longitude: startingLong)
                             self.end = CLLocationCoordinate2D(latitude: endingLat, longitude: endingLong)
                             self.poi = points
-                            self.routeMarkers = getRouteMarkers(every: 5, pois: points)
+                            self.routeMarkers = getRouteMarkers(every: metersToMiles(distance/10.0), pois: points)
                             self.last_updated = Date() //TODO: Fix later
                             self.connected = true
                             completion(nil)
@@ -120,7 +121,7 @@ struct RWGPSRoute {
     static func getRouteMarkers(every miles: Double, pois: [RWGPSPOI]) -> [RWGPSPOI] {
         var out: [RWGPSPOI] = []
         
-        var target = miles
+        var target = 0.0
         
         for poi in pois {
             if metersToMiles(poi.distance) >= target {

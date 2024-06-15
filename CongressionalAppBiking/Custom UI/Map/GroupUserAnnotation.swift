@@ -11,6 +11,17 @@ import MapKit
 class GroupUserAnnotation: MKPointAnnotation {
     var email: String!
     var image: UIImage!
+    var name: String?
+    
+    var initials: String {
+        let split = name?.uppercased().split(separator: " ") ?? [""]
+        var out = ""
+        for s in split {
+            out += String(s.first ?? Character(""))
+        }
+        return out
+    }
+    
     var status: GroupUserStatus!
 }
 
@@ -18,7 +29,7 @@ class GroupUserAnnotationView: MKAnnotationView {
     var inSelectedState: Bool = false
     
     public lazy var containerView: UIButton = {
-        let view = UIButton(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
+        let view = UIButton(frame: CGRect(x: 0, y: -30, width: 40, height: 40))
         
 //        if (annotation as! GroupUserAnnotation).status! == .moving {
             view.backgroundColor = .accentColor
@@ -31,28 +42,25 @@ class GroupUserAnnotationView: MKAnnotationView {
         return view
     }()
     
+    public lazy var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = (annotation as! GroupUserAnnotation).initials
+        label.font = UIFont(name: "Montserrat-Medium", size: 18)
+        label.clipsToBounds = true
+        label.isUserInteractionEnabled = true
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        return label
+    }()
+    
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = (annotation as! GroupUserAnnotation).image!
+        imageView.image = (annotation as! GroupUserAnnotation).image
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         return imageView
-    }()
-    
-    public lazy var bottomCornerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-//        if (annotation as! GroupUserAnnotation).status! == .moving {
-            view.backgroundColor = .accentColor
-//        } else {
-//            view.backgroundColor = .red
-//        }
-        
-        view.layer.cornerRadius = 4.0
-        view.isUserInteractionEnabled = true
-        return view
     }()
     
     // MARK: Initialization
@@ -68,24 +76,25 @@ class GroupUserAnnotationView: MKAnnotationView {
     public func setupView() {
         subviews.forEach({ $0.removeFromSuperview() })
         
-        containerView.addSubview(bottomCornerView)
-        bottomCornerView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20.0).isActive = true
-        bottomCornerView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor, constant: 2).isActive = true
-        bottomCornerView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        bottomCornerView.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        
-        let angle = (39.0 * CGFloat.pi) / 180
-        let transform = CGAffineTransform(rotationAngle: angle)
-        bottomCornerView.transform = transform
-        
         addSubview(containerView)
-        containerView.addSubview(imageView)
-        imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
-        imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
+        if inSelectedState == true {
+            containerView.addSubview(imageView)
+            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
+            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
+            imageView.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        } else {
+            containerView.addSubview(label)
+            label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
+            label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
+            label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
+            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
+            label.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        }
+
         
-        imageView.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        
         
     }
     
@@ -95,23 +104,18 @@ class GroupUserAnnotationView: MKAnnotationView {
     
     public func makeAnnotationSelected() {
         layer.zPosition = 100
-        UIView.animate(withDuration: 0.2) {
-            self.containerView = {
-                let view = UIButton(frame: CGRect(x: -10, y: -50, width: 90, height: 90))
-                view.backgroundColor = .selectedBlueColor
-                view.layer.cornerRadius = view.frame.width / 2
-                view.isUserInteractionEnabled = true
-                
-                return view
-            }()
+        self.label.isHidden = true
+        self.imageView.isHidden = false
+        
+        self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
+        UIView.animate(withDuration: 0.2) { [self] in
+            self.containerView.frame = CGRect(x: -10, y: -50, width: 90, height: 90)
+            self.containerView.backgroundColor = .selectedBlueColor
+            self.containerView.isUserInteractionEnabled = true
+            self.containerView.layer.cornerRadius = 45
             
-            self.bottomCornerView = {
-                let view = UIView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.backgroundColor = .selectedBlueColor
-                view.layer.cornerRadius = 4.0
-                return view
-            }()
+            self.imageView.frame = CGRect(x: -6, y: -46, width: 82, height: 82)
+            self.imageView.layer.cornerRadius = 41
         }
         
         self.inSelectedState = true
@@ -121,24 +125,17 @@ class GroupUserAnnotationView: MKAnnotationView {
     
     public func makeAnnotationDeselected () {
         layer.zPosition = 0
-        UIView.animate(withDuration: 0.3) {
+        self.label.isHidden = false
+        self.imageView.isHidden = true
+        self.label.frame = CGRect(x: 25 , y: -20, width: self.label.frame.width, height: self.label.frame.height)
+        UIView.animate(withDuration: 0.2) {
+            self.containerView.frame = CGRect(x: 0, y: -30, width: 40, height: 40)
+            self.containerView.backgroundColor = .accentColor
+            self.containerView.isUserInteractionEnabled = true
+            self.containerView.layer.cornerRadius = 20
             
-            self.containerView = {
-                let view = UIButton(frame: CGRect(x: 0, y: -30, width: 70, height: 70))
-                view.backgroundColor = .accentColor
-                view.layer.cornerRadius = view.frame.width / 2
-                view.isUserInteractionEnabled = true
-                
-                return view
-            }()
-            
-            self.bottomCornerView = {
-                let view = UIView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.backgroundColor = .accentColor
-                view.layer.cornerRadius = 4.0
-                return view
-            }()
+            self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
+            self.label.layer.cornerRadius = 18
         }
         self.inSelectedState = false
         setupView()

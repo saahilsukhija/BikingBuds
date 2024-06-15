@@ -18,6 +18,7 @@ class AdditionalInfoVC: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var currentlyLoggedIn: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var goButton: UIButton!
     
     var currentUser: User!
     var imageChanged = false
@@ -55,7 +56,7 @@ class AdditionalInfoVC: UIViewController {
         pictureChangeView.layer.cornerRadius = 10
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageChoice(_:)))
         pictureChangeView.addGestureRecognizer(tapGesture)
-        
+        pictureChangeView.dropShadow()
         //Round image view
         profilePictureImageView.layer.cornerRadius = profilePictureImageView.frame.size.width / 2
         profilePictureImageView.layer.borderWidth = 1
@@ -69,6 +70,8 @@ class AdditionalInfoVC: UIViewController {
         if navigationController != nil {
             self.configureNavBar()
         }
+        
+        goButton.dropShadow()
         
     }
     
@@ -199,7 +202,7 @@ class AdditionalInfoVC: UIViewController {
         if Authentication.hasPreviousSignIn() {
             do {
                 try Auth.auth().signOut()
-                GIDSignIn.sharedInstance().signOut()
+                GIDSignIn.sharedInstance.signOut()
             } catch {}
         }
         if let joinGroupVC = presentingViewController as? JoinGroupVC {

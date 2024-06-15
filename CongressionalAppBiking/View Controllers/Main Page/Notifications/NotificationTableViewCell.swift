@@ -11,7 +11,6 @@ class NotificationTableViewCell: UITableViewCell {
     
     static let identifier = "notificationCell"
     @IBOutlet weak var titleView: UILabel!
-    @IBOutlet weak var subtitleView: UILabel!
     var type: AppNotification.NotificationType!
     
     override func awakeFromNib() {
@@ -27,7 +26,6 @@ class NotificationTableViewCell: UITableViewCell {
 
     func configure(with notification: AppNotification) {
         titleView.text = notification.title
-        subtitleView.text = notification.subTitle
         self.type = notification.type
         
         if notification.isRead {

@@ -24,8 +24,9 @@ class ShareInviteCodeVC: UIViewController {
     }
     
     @IBAction func shareButtonClicked(_ sender: Any) {
-        let activityController = UIActivityViewController(activityItems: ["Join my BikingBuds group! Here's the code: \(group ?? "unknown group")"], applicationActivities: nil)
-        
+        let url = URL(string: "https://saahilsukhija.github.io/bikingbuds/redirect.html?id=\(group ?? "unknowngroup")")
+        let activityController = UIActivityViewController(activityItems: ["Join my BikingBuds group! Here's the link: \(url!)"], applicationActivities: nil)
+
         activityController.popoverPresentationController?.sourceView = self.view
         
         self.present(activityController, animated: true)

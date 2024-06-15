@@ -26,7 +26,8 @@ class BikingVCs: UIViewController {
     var fallOverlayView: UIView!
     var darkOverlayView: UIView!
     
-    var notificationCountLabel: UILabel!
+    var headingViews: [GroupUser : UIImageView] = [:]
+    //var notificationCountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class BikingVCs: UIViewController {
         super.viewDidDisappear(animated)
         //movementManager.stopAccelerometerUpdates()
         locationManager.stopUpdatingLocation()
+        locationManager.stopMonitoringVisits()
+        locationManager.stopMonitoringSignificantLocationChanges()
     }
     
     override func viewDidLayoutSubviews() {
@@ -125,6 +128,8 @@ extension BikingVCs: CLLocationManagerDelegate {
                 locationManager.pausesLocationUpdatesAutomatically = false
                 locationManager.activityType = .fitness
                 locationManager.startUpdatingLocation()
+                //locationManager.startMonitoringVisits()
+                //locationManager.startMonitoringSignificantLocationChanges()
                 locationManager.distanceFilter = Preferences.distanceFilter
             }
             
@@ -156,7 +161,7 @@ extension BikingVCs: CLLocationManagerDelegate {
             locationManager.allowsBackgroundLocationUpdates = true
             locationManager.showsBackgroundLocationIndicator = true
             locationManager.startMonitoringSignificantLocationChanges()
-            
+            //locationManager.startMonitoringVisits()
             self.recenterCamera()
         }
         
@@ -222,6 +227,8 @@ extension BikingVCs: CLLocationManagerDelegate {
 }
 
 extension BikingVCs: MKMapViewDelegate {
+    
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         //print("HERE")
         guard !annotation.isKind(of: MKUserLocation.self) else {

@@ -41,12 +41,12 @@ class AnnouncementVC: UIViewController {
     
     @IBAction func textDidEdit(_ sender: Any) {
         if announcementTextField.text?.count ?? 0 > 0 {
-            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-SemiBold", size: 18.0)! ]
+            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 18.0)! ]
             let attributedString = NSAttributedString(string: "Send", attributes: titleAttribute)
             sendButton.setAttributedTitle(attributedString, for: .normal)
             sendButton.setTitleColor(.accentColor, for: .normal)
         } else {
-            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Poppins-SemiBold", size: 18.0)!, NSAttributedString.Key.foregroundColor : UIColor.unselectedGrayColor]
+            let titleAttribute = [ NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 18.0)!, NSAttributedString.Key.foregroundColor : UIColor.unselectedGrayColor]
             let attributedString = NSAttributedString(string: "Send", attributes: titleAttribute)
             sendButton.setAttributedTitle(attributedString, for: .normal)
             sendButton.setTitleColor(.unselectedGrayColor, for: .normal)

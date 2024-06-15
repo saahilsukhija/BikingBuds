@@ -41,12 +41,32 @@ class BottomSheetInfoGroupVC: UIViewController {
         self.setUpNavigationBar()
         self.hideKeyboardWhenTappedAround()
         
+        groupUsers = groupUsers.sorted { user1, user2 in
+            if let time1 = lastUploadedTimes[user1], let time2 = lastUploadedTimes[user2] {
+                let secondsAgo1 = Int(Date().timeIntervalSince(time1 ?? Date()))
+                let secondsAgo2 = Int(Date().timeIntervalSince(time2 ?? Date()))
+                return secondsAgo1 > secondsAgo2
+            } else {
+                //print("ohhhhh")
+                return false
+            }
+        }
         filteredData = groupUsers
     }
     
     func reloadGroupUsers() {
         
         groupUsers = Locations.groupUsers
+        groupUsers = groupUsers.sorted { user1, user2 in
+            if let time1 = lastUploadedTimes[user1], let time2 = lastUploadedTimes[user2] {
+                let secondsAgo1 = Int(Date().timeIntervalSince(time1 ?? Date()))
+                let secondsAgo2 = Int(Date().timeIntervalSince(time2 ?? Date()))
+                return secondsAgo1 < secondsAgo2
+            } else {
+                //print("ohhhhh")
+                return false
+            }
+        }
         filteredData = groupUsers
         lastUploadedTimes = Locations.lastUpdated
         
@@ -115,7 +135,7 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
         backgroundView.backgroundColor = .systemGray5.withAlphaComponent(0.9)
         
         let sectionLabel = UILabel(frame: CGRect(x: 5, y: 5, width: tableView.frame.size.width, height: 20))
-        sectionLabel.font = UIFont(name: "Poppins-SemiBold", size: 18)
+        sectionLabel.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         sectionLabel.textColor = .label
         
         if section == 0 {
@@ -134,7 +154,7 @@ extension BottomSheetInfoGroupVC: UITableViewDataSource, UITableViewDelegate {
         let groupUser = dataSet[indexPath.row]
         let isCurrentUser = groupUser.email == Authentication.user?.email
         
-        cell.setProperties(from: groupUser, lastUpdated: lastUploadedTimes[groupUser]??.timeAgo() ?? "N/A", isCurrentUser: isCurrentUser)
+        cell.setProperties(from: groupUser, lastUpdated: lastUploadedTimes[groupUser]??.timeAgo() ?? "", isCurrentUser: isCurrentUser)
         cell.contentView.backgroundColor = .clear
         //Separator Full Line
         cell.preservesSuperviewLayoutMargins = false

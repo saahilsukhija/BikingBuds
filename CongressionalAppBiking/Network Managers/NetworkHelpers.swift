@@ -27,7 +27,7 @@ extension UIViewController {
         let loadingScreen = UIView(frame: frame)
         loadingScreen.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
         if let animation = animation {
-            let animationView = AnimationView(name: animation)
+            let animationView = LottieAnimationView(name: animation)
             animationView.center = view.center
             animationView.contentMode = .scaleAspectFill
             animationView.loopMode = .loop

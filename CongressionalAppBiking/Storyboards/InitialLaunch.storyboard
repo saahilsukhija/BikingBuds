@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <accessibilityOverrides dynamicTypePreference="5"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,17 +15,12 @@
         <array key="Baumans-Regular.ttf">
             <string>Baumans-Regular</string>
         </array>
-        <array key="Poppins-Light.ttf">
-            <string>Poppins-Light</string>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
         </array>
-        <array key="Poppins-Medium.ttf">
-            <string>Poppins-Medium</string>
-        </array>
-        <array key="Poppins-Regular.ttf">
-            <string>Poppins-Regular</string>
-        </array>
-        <array key="Poppins-SemiBold.ttf">
-            <string>Poppins-SemiBold</string>
+        <array key="Montserrat-VariableFont_wght.ttf">
+            <string>MontserratRoman-Bold</string>
+            <string>MontserratRoman-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -37,34 +33,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BikingBuds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-pD-VCd" customClass="TitleLabel" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="10" y="82" width="355" height="45"/>
+                                <rect key="frame" x="10" y="85" width="355" height="45"/>
                                 <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="38"/>
                                 <color key="textColor" name="blueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhN-1a-vl7">
-                                <rect key="frame" x="10" y="127" width="355" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ktM-dT-sV6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="21"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gsu-PT-2X2">
-                                <rect key="frame" x="179.66666666666666" y="427" width="16" height="20.666666666666686"/>
+                                <rect key="frame" x="179.66666666666666" y="430" width="16" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GHA-yX-z0m" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="177" width="335" height="50"/>
+                                <rect key="frame" x="20" y="180" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="QJF-I6-JIO"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage">
@@ -79,13 +66,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ilj-QM-e3a" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="237" width="335" height="50"/>
+                                <rect key="frame" x="20" y="240" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Phg-8V-2qT"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage">
@@ -100,26 +87,26 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUr-Sy-54b">
-                                <rect key="frame" x="16" y="437" width="158.66666666666666" height="0.66666666666668561"/>
+                                <rect key="frame" x="16" y="440" width="158.66666666666666" height="0.66666666666668561"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="FFd-ai-m5O"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZT-MH-FkX">
-                                <rect key="frame" x="200.66666666666663" y="437" width="158.33333333333337" height="0.66666666666668561"/>
+                                <rect key="frame" x="200.66666666666663" y="440" width="158.33333333333337" height="0.66666666666668561"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="cDV-7V-8xR"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykC-T5-MBl" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="467.66666666666669" width="335" height="60.000000000000057"/>
+                                <rect key="frame" x="20" y="470.66666666666669" width="335" height="60.000000000000057"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="QGs-Td-SfP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
                                 <state key="normal" title="Sign In With Google" image="google.png">
@@ -130,25 +117,25 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-Ey-Dcx" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="537.66666666666663" width="335" height="60"/>
+                                <rect key="frame" x="20" y="540.66666666666663" width="335" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="MuV-bw-kPe"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
                                 <state key="normal" title="Sign In With Apple">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
-                                    <imageReference key="image" image="applelogo" catalog="system" symbolScale="large"/>
+                                    <imageReference key="image" image="apple.logo" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
                                     <action selector="appleButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YMZ-My-42E"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rfi-GI-Z1P" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="317" width="335" height="55"/>
+                                <rect key="frame" x="20" y="320" width="335" height="55"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Pmg-mv-8gI"/>
@@ -158,7 +145,7 @@
                                         <fragment content="Log In">
                                             <attributes>
                                                 <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="18" name="Poppins-SemiBold"/>
+                                                <font key="NSFont" size="18" name="MontserratRoman-SemiBold"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -173,11 +160,11 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account? Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8L-nc-vt0">
-                                <rect key="frame" x="10" y="382" width="355" height="25"/>
+                                <rect key="frame" x="10" y="385" width="355" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="l3P-tN-6ZQ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -187,7 +174,6 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ykC-T5-MBl" secondAttribute="trailing" constant="20" id="0Q3-Ac-KyK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="GHA-yX-z0m" secondAttribute="trailing" constant="20" id="0hn-yb-nyo"/>
-                            <constraint firstItem="GHA-yX-z0m" firstAttribute="top" secondItem="rhN-1a-vl7" secondAttribute="bottom" constant="20" id="6M3-R2-MmV"/>
                             <constraint firstItem="pHb-Ey-Dcx" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="7or-bF-eJ3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="x8L-nc-vt0" secondAttribute="trailing" constant="10" id="Cz2-cf-b8Y"/>
                             <constraint firstItem="Va3-pD-VCd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="35" id="EDt-f5-nbh"/>
@@ -198,21 +184,19 @@
                             <constraint firstItem="ykC-T5-MBl" firstAttribute="top" secondItem="NUr-Sy-54b" secondAttribute="bottom" constant="30" id="NJH-NG-TC2"/>
                             <constraint firstItem="Rfi-GI-Z1P" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="TzL-xn-8uh"/>
                             <constraint firstItem="x8L-nc-vt0" firstAttribute="top" secondItem="Rfi-GI-Z1P" secondAttribute="bottom" constant="10" id="UV9-L4-od1"/>
+                            <constraint firstItem="GHA-yX-z0m" firstAttribute="top" secondItem="Va3-pD-VCd" secondAttribute="bottom" constant="50" id="VRZ-Xl-scK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Rfi-GI-Z1P" secondAttribute="trailing" constant="20" id="XBH-g9-q78"/>
                             <constraint firstItem="Rfi-GI-Z1P" firstAttribute="top" secondItem="Ilj-QM-e3a" secondAttribute="bottom" constant="30" id="ZAg-Nw-wjB"/>
                             <constraint firstItem="Gsu-PT-2X2" firstAttribute="leading" secondItem="NUr-Sy-54b" secondAttribute="trailing" constant="5" id="ZZY-Qf-yCN"/>
                             <constraint firstItem="Gsu-PT-2X2" firstAttribute="top" secondItem="x8L-nc-vt0" secondAttribute="bottom" constant="20" id="axP-6l-ntH"/>
-                            <constraint firstItem="rhN-1a-vl7" firstAttribute="top" secondItem="Va3-pD-VCd" secondAttribute="bottom" id="bAb-hN-tQP"/>
                             <constraint firstItem="NUr-Sy-54b" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leadingMargin" id="dlZ-z6-LJt"/>
                             <constraint firstItem="pHb-Ey-Dcx" firstAttribute="top" secondItem="ykC-T5-MBl" secondAttribute="bottom" constant="10" id="flf-gp-CX1"/>
                             <constraint firstItem="ykC-T5-MBl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="hBp-xN-7U6"/>
                             <constraint firstItem="qZT-MH-FkX" firstAttribute="leading" secondItem="Gsu-PT-2X2" secondAttribute="trailing" constant="5" id="hdr-7J-9y9"/>
                             <constraint firstItem="qZT-MH-FkX" firstAttribute="top" secondItem="x8L-nc-vt0" secondAttribute="bottom" constant="30" id="j31-zo-RIJ"/>
-                            <constraint firstItem="rhN-1a-vl7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="neF-if-3dJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qZT-MH-FkX" secondAttribute="trailing" id="pNI-OJ-19k"/>
                             <constraint firstItem="x8L-nc-vt0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="qke-uN-GtM"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ilj-QM-e3a" secondAttribute="trailing" constant="20" id="tVu-xi-uwr"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="rhN-1a-vl7" secondAttribute="trailing" constant="10" id="uPP-BB-QFZ"/>
                             <constraint firstItem="Ilj-QM-e3a" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="v4V-12-LFr"/>
                             <constraint firstItem="NUr-Sy-54b" firstAttribute="top" secondItem="x8L-nc-vt0" secondAttribute="bottom" constant="30" id="wjg-GW-KVS"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pHb-Ey-Dcx" secondAttribute="trailing" constant="20" id="zk4-KG-JRb"/>
@@ -221,6 +205,7 @@
                     </view>
                     <connections>
                         <outlet property="createAccountLabel" destination="x8L-nc-vt0" id="cgl-5b-IU6"/>
+                        <outlet property="emailSignInButton" destination="Rfi-GI-Z1P" id="L3v-Wd-8rB"/>
                         <outlet property="emailTextField" destination="GHA-yX-z0m" id="Agg-Qe-7ib"/>
                         <outlet property="loginWithGoogleButton" destination="ykC-T5-MBl" id="NZQ-U5-6Ds"/>
                         <outlet property="passwordTextField" destination="Ilj-QM-e3a" id="uPd-7J-bJn"/>
@@ -240,7 +225,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BikingBuds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0k-eR-kQL" customClass="TitleLabel" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="10" y="82" width="355" height="45"/>
+                                <rect key="frame" x="10" y="85" width="355" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="5dm-e1-WoD"/>
                                 </constraints>
@@ -249,22 +234,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Provide Additional Info." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qo0-JF-Qza">
-                                <rect key="frame" x="10" y="132" width="355" height="30"/>
+                                <rect key="frame" x="10" y="135" width="355" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="H7Q-XD-UyX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="20"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hlg-va-vsi" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="182" width="335" height="50"/>
+                                <rect key="frame" x="20" y="185" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="M9M-8a-E4n"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="given-name"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -273,13 +258,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-IN-Nvs" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="312" width="335" height="50"/>
+                                <rect key="frame" x="20" y="315" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="qzq-VB-mJ3"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" smartDashesType="yes" smartInsertDeleteType="yes" textContentType="tel"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -288,13 +273,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Emergency Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="91J-5k-GJj" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="372" width="335" height="50"/>
+                                <rect key="frame" x="20" y="375" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Bug-vf-0Cy"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" smartDashesType="yes" smartInsertDeleteType="yes" textContentType="tel"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -312,8 +297,8 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Completed">
                                             <attributes>
-                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="18" name="Poppins-SemiBold"/>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="18" name="MontserratRoman-SemiBold"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -332,19 +317,19 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Cgb-YQ-fRC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zva-jr-t5e">
-                                <rect key="frame" x="20" y="442" width="335" height="100"/>
+                                <rect key="frame" x="20" y="445" width="335" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile Picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBF-je-ygn">
                                         <rect key="frame" x="111" y="35" width="219" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="kkt-mw-yHT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -368,13 +353,13 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A42-tB-URa" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="242" width="335" height="50"/>
+                                <rect key="frame" x="20" y="245" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="zfS-UH-fsO"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="given-name"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -383,7 +368,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wty-Do-nCc">
-                                <rect key="frame" x="207.66666666666663" y="550" width="157.33333333333337" height="35"/>
+                                <rect key="frame" x="206.33333333333337" y="553" width="158.66666666666663" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="dCT-VQ-puI"/>
                                 </constraints>
@@ -392,8 +377,8 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Delete my account">
                                             <attributes>
-                                                <color key="NSColor" red="0.65763242356211826" green="0.65994396459936644" blue="0.66687858771111108" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <font key="NSFont" size="14" name="Poppins-Medium"/>
+                                                <color key="NSColor" red="0.40494346807536147" green="0.40895280934343436" blue="0.40895280934343436" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <font key="NSFont" size="14" name="MontserratRoman-Medium"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -441,6 +426,7 @@
                         <outlet property="currentlyLoggedIn" destination="BaW-dK-6cV" id="Qre-vr-Qll"/>
                         <outlet property="emergencyPhoneNumberTextField" destination="91J-5k-GJj" id="bdh-R7-275"/>
                         <outlet property="firstNameTextField" destination="Hlg-va-vsi" id="853-zn-Uur"/>
+                        <outlet property="goButton" destination="HPy-bU-dM1" id="6rW-AL-ky7"/>
                         <outlet property="lastNameTextField" destination="A42-tB-URa" id="356-bT-WMp"/>
                         <outlet property="phoneNumberTextField" destination="YSf-IN-Nvs" id="M5I-9b-JCa"/>
                         <outlet property="pictureChangeView" destination="zva-jr-t5e" id="55E-rR-gQG"/>
@@ -461,22 +447,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BikingBuds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGS-vh-vX2" customClass="TitleLabel" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="10" y="82" width="355" height="45"/>
+                                <rect key="frame" x="10" y="85" width="355" height="45"/>
                                 <fontDescription key="fontDescription" name="Baumans-Regular" family="Baumans" pointSize="38"/>
                                 <color key="textColor" name="blueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMd-o4-xq4">
-                                <rect key="frame" x="10" y="127" width="355" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="mca-4e-AuM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="21"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="leP-7Z-G8Z" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="317" width="335" height="55"/>
+                                <rect key="frame" x="20" y="320" width="335" height="55"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="LBM-Ug-Hjl"/>
@@ -501,22 +478,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account? Log In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ua4-F8-czC">
-                                <rect key="frame" x="10" y="382" width="355" height="25"/>
+                                <rect key="frame" x="10" y="385" width="355" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="y2Y-hr-cX5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bm4-vl-d4B" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="177" width="335" height="50"/>
+                                <rect key="frame" x="20" y="180" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="qJ9-ek-zYB"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage">
@@ -531,13 +508,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Upk-MK-UgL" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="237" width="335" height="50"/>
+                                <rect key="frame" x="20" y="240" width="335" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="alT-eJ-9gf"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage">
@@ -552,26 +529,26 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCV-Ya-alD">
-                                <rect key="frame" x="16" y="437" width="158.66666666666666" height="0.66666666666668561"/>
+                                <rect key="frame" x="16" y="440" width="158.66666666666666" height="0.66666666666668561"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="Fdp-d3-7m0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nn-Uq-xwM">
-                                <rect key="frame" x="200.66666666666663" y="437" width="158.33333333333337" height="0.66666666666668561"/>
+                                <rect key="frame" x="200.66666666666663" y="440" width="158.33333333333337" height="0.66666666666668561"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.67000000000000004" id="tlb-2s-Ma4"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rM-Zn-02f" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="467.66666666666669" width="335" height="60.000000000000057"/>
+                                <rect key="frame" x="20" y="470.66666666666669" width="335" height="60.000000000000057"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="KbW-nb-JR7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
                                 <state key="normal" title="Sign Up With Google" image="google.png">
@@ -584,18 +561,18 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yab-h5-ikr" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="537.66666666666663" width="335" height="60"/>
+                                <rect key="frame" x="20" y="540.66666666666663" width="335" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="rpx-po-mtw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="MontserratRoman-Bold" family="Montserrat" pointSize="18"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
                                 <state key="normal" title="Sign Up With Apple">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
-                                    <imageReference key="image" image="applelogo" catalog="system" symbolScale="large"/>
+                                    <imageReference key="image" image="apple.logo" catalog="system" symbolScale="large"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
                                 <connections>
@@ -604,7 +581,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEL-4q-Eez">
-                                <rect key="frame" x="179.66666666666666" y="427" width="16" height="20.333333333333314"/>
+                                <rect key="frame" x="179.66666666666666" y="430" width="16" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
@@ -620,12 +597,9 @@
                             <constraint firstItem="BCV-Ya-alD" firstAttribute="leading" secondItem="AAL-cX-cHk" secondAttribute="leadingMargin" id="6z6-C3-oeb"/>
                             <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="tGS-vh-vX2" secondAttribute="trailing" constant="10" id="7wy-oc-BPq"/>
                             <constraint firstItem="NEL-4q-Eez" firstAttribute="leading" secondItem="BCV-Ya-alD" secondAttribute="trailing" constant="5" id="83D-Es-f3x"/>
-                            <constraint firstItem="bm4-vl-d4B" firstAttribute="top" secondItem="iMd-o4-xq4" secondAttribute="bottom" constant="20" id="Ao0-zh-8b5"/>
                             <constraint firstItem="BCV-Ya-alD" firstAttribute="top" secondItem="ua4-F8-czC" secondAttribute="bottom" constant="30" id="BOo-bY-SU5"/>
-                            <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="iMd-o4-xq4" secondAttribute="trailing" constant="10" id="CZK-RC-ufL"/>
                             <constraint firstItem="4nn-Uq-xwM" firstAttribute="leading" secondItem="NEL-4q-Eez" secondAttribute="trailing" constant="5" id="E8r-5v-m18"/>
                             <constraint firstItem="tGS-vh-vX2" firstAttribute="leading" secondItem="ywt-5N-TYh" secondAttribute="leading" constant="10" id="F1Y-Ic-viw"/>
-                            <constraint firstItem="iMd-o4-xq4" firstAttribute="top" secondItem="tGS-vh-vX2" secondAttribute="bottom" id="L0p-D1-fFc"/>
                             <constraint firstItem="Upk-MK-UgL" firstAttribute="top" secondItem="bm4-vl-d4B" secondAttribute="bottom" constant="10" id="ND3-wg-SaU"/>
                             <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="bm4-vl-d4B" secondAttribute="trailing" constant="20" id="OGs-3Z-X5e"/>
                             <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="leP-7Z-G8Z" secondAttribute="trailing" constant="20" id="UCp-hC-Pfp"/>
@@ -640,14 +614,15 @@
                             <constraint firstItem="ua4-F8-czC" firstAttribute="top" secondItem="leP-7Z-G8Z" secondAttribute="bottom" constant="10" id="fV6-I4-UsW"/>
                             <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="5rM-Zn-02f" secondAttribute="trailing" constant="20" id="h7f-rq-cgO"/>
                             <constraint firstItem="5rM-Zn-02f" firstAttribute="leading" secondItem="ywt-5N-TYh" secondAttribute="leading" constant="20" id="hTq-CR-cjo"/>
-                            <constraint firstItem="iMd-o4-xq4" firstAttribute="leading" secondItem="ywt-5N-TYh" secondAttribute="leading" constant="10" id="iRy-eQ-HEI"/>
                             <constraint firstItem="yab-h5-ikr" firstAttribute="top" secondItem="5rM-Zn-02f" secondAttribute="bottom" constant="10" id="lRo-Ki-XWe"/>
                             <constraint firstItem="NEL-4q-Eez" firstAttribute="top" secondItem="ua4-F8-czC" secondAttribute="bottom" constant="20" id="nYl-No-tJK"/>
                             <constraint firstItem="tGS-vh-vX2" firstAttribute="top" secondItem="ywt-5N-TYh" secondAttribute="top" constant="35" id="qq0-dc-Rck"/>
                             <constraint firstItem="ywt-5N-TYh" firstAttribute="trailing" secondItem="ua4-F8-czC" secondAttribute="trailing" constant="10" id="vE9-DC-S89"/>
+                            <constraint firstItem="bm4-vl-d4B" firstAttribute="top" secondItem="tGS-vh-vX2" secondAttribute="bottom" constant="50" id="vm5-3t-lZQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailSignInButton" destination="leP-7Z-G8Z" id="sTK-hR-9Y6"/>
                         <outlet property="emailTextField" destination="bm4-vl-d4B" id="QJ2-Mu-sET"/>
                         <outlet property="loginToExistingAccount" destination="ua4-F8-czC" id="czO-sw-x7c"/>
                         <outlet property="loginWithGoogleButton" destination="5rM-Zn-02f" id="9fA-be-UFC"/>
@@ -659,14 +634,72 @@
             </objects>
             <point key="canvasLocation" x="876" y="52.463054187192121"/>
         </scene>
+        <!--What's new-->
+        <scene sceneID="WCh-T3-Obx">
+            <objects>
+                <viewController storyboardIdentifier="WhatsNewScreen" automaticallyAdjustsScrollViewInsets="NO" id="7g5-Vt-aQo" customClass="WhatsNewVC" customModule="CongressionalAppBiking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HTy-J4-r9K">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="TZc-Jl-YKG">
+                                <rect key="frame" x="129.66666666666666" y="726" width="115.66666666666666" height="25.666666666666629"/>
+                                <color key="pageIndicatorTintColor" name="unselectedGrayColor"/>
+                                <color key="currentPageIndicatorTintColor" name="blueColor"/>
+                            </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ee-Ca-b7E">
+                                <rect key="frame" x="0.0" y="94" width="375" height="624"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="kyM-EP-ZWj"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Lv9-4d-2jI"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YGk-4D-XFf"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6ee-Ca-b7E" firstAttribute="centerX" secondItem="HTy-J4-r9K" secondAttribute="centerX" id="CIc-Ei-GEE"/>
+                            <constraint firstItem="TZc-Jl-YKG" firstAttribute="top" secondItem="6ee-Ca-b7E" secondAttribute="bottom" constant="8" symbolic="YES" id="DH8-Vf-9rH"/>
+                            <constraint firstItem="6ee-Ca-b7E" firstAttribute="centerY" secondItem="HTy-J4-r9K" secondAttribute="centerY" id="EK6-sf-Kjg"/>
+                            <constraint firstItem="6ee-Ca-b7E" firstAttribute="width" secondItem="HTy-J4-r9K" secondAttribute="width" id="IxR-hZ-Ltl"/>
+                            <constraint firstItem="TZc-Jl-YKG" firstAttribute="centerX" secondItem="HTy-J4-r9K" secondAttribute="centerX" id="OpX-P4-BrE"/>
+                            <constraint firstItem="6ee-Ca-b7E" firstAttribute="top" secondItem="YGk-4D-XFf" secondAttribute="top" id="jMM-iT-JKP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="What's new" id="gxj-ci-EHu"/>
+                    <connections>
+                        <outlet property="pageControl" destination="TZc-Jl-YKG" id="UUl-kh-MTS"/>
+                        <outlet property="scrollView" destination="6ee-Ca-b7E" id="jv5-eY-he5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JMd-gS-ufS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2946.4000000000001" y="52.463054187192121"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uu5-Kx-Xbh">
+            <objects>
+                <navigationController storyboardIdentifier="WhatsNewNav" automaticallyAdjustsScrollViewInsets="NO" id="qSr-4z-Ig6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8lv-AW-gIA">
+                        <rect key="frame" x="0.0" y="50" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7g5-Vt-aQo" kind="relationship" relationship="rootViewController" id="5kC-Oy-vLT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vqf-lE-tp7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2004" y="52.463054187192121"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="applelogo" catalog="system" width="32" height="32"/>
-        <image name="envelope" catalog="system" width="32" height="32"/>
+        <image name="apple.logo" catalog="system" width="105" height="128"/>
+        <image name="envelope" catalog="system" width="128" height="85"/>
         <image name="google.png" width="18" height="18"/>
-        <image name="lock" catalog="system" width="32" height="32"/>
+        <image name="lock" catalog="system" width="125" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.1809999942779541" green="0.78200000524520874" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="backgroundColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -674,8 +707,11 @@
         <namedColor name="blueColor">
             <color red="0.0" green="0.3449999988079071" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="unselectedGrayColor">
+            <color red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

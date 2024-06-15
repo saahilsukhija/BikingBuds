@@ -62,7 +62,7 @@ extension SavedRidesVC: UITableViewDelegate, UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: true)
             self.dismiss(animated: true, completion: nil)
             
-            self.showSuccessToast(message: "\(savedRides[indexPath.row].name ?? "(error)") selected")
+            //self.showSuccessToast(message: "\(savedRides[indexPath.row].name ?? "(error)") selected")
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
         }
