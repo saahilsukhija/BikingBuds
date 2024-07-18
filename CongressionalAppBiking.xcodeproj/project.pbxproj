@@ -12,6 +12,7 @@
 		6D0496C92C0C1BC0009D3A6B /* WhatsNewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */; };
 		6D0496CB2C0C1CF3009D3A6B /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0496CA2C0C1CF3009D3A6B /* Slide.swift */; };
 		6D3194412C1E2204001D8E22 /* CLLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */; };
+		6D5C80B72C264DFD00A02C3F /* ImageInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C80B62C264DFD00A02C3F /* ImageInset.swift */; };
 		6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */; };
 		6D9063902BD0A721003EFEAB /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */; };
 		6D9063912BD0A721003EFEAB /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637D2BD0A71D003EFEAB /* Montserrat-Bold.ttf */; };
@@ -33,6 +34,8 @@
 		6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */; };
 		6D9063A22BD0A721003EFEAB /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */; };
 		6D9063A32BD0A721003EFEAB /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */; };
+		6DAB37832C486980003199A4 /* CheckMark.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DAB37822C486980003199A4 /* CheckMark.json */; };
+		6DAB37872C48708D003199A4 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DAB37862C48708D003199A4 /* CrossX.json */; };
 		6DB1A8152BD11C9D009C6C01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8142BD11C9D009C6C01 /* FirebaseAnalytics */; };
 		6DB1A8172BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8162BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion */; };
 		6DB1A8192BD11C9D009C6C01 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8182BD11C9D009C6C01 /* FirebaseAnalyticsSwift */; };
@@ -64,8 +67,6 @@
 		9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B52697A1AA009208E8 /* LoginVC.swift */; };
 		9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */; };
 		9A140166290A2CE500BBF9BB /* KeepDistance.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A140165290A2CE500BBF9BB /* KeepDistance.json */; };
-		9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5A26BD044B00C82543 /* CheckMark.json */; };
-		9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C5C5B26BD044B00C82543 /* CrossX.json */; };
 		9A2F41472929A7F70070E327 /* RWGPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F41462929A7F70070E327 /* RWGPSRoute.swift */; };
 		9A32C56B28654AA8003B1F70 /* AnnouncementNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32C56A28654AA8003B1F70 /* AnnouncementNotification.swift */; };
 		9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A32C56C28657B99003B1F70 /* Megaphone.json */; };
@@ -194,6 +195,7 @@
 		6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatsNewView.xib; sourceTree = "<group>"; };
 		6D0496CA2C0C1CF3009D3A6B /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate.swift; sourceTree = "<group>"; };
+		6D5C80B62C264DFD00A02C3F /* ImageInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInset.swift; sourceTree = "<group>"; };
 		6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 		6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		6D90637D2BD0A71D003EFEAB /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -215,12 +217,12 @@
 		6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		6DAB37822C486980003199A4 /* CheckMark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CheckMark.json; sourceTree = "<group>"; };
+		6DAB37862C48708D003199A4 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
 		9A140165290A2CE500BBF9BB /* KeepDistance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeepDistance.json; sourceTree = "<group>"; };
-		9A2C5C5A26BD044B00C82543 /* CheckMark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CheckMark.json; sourceTree = "<group>"; };
-		9A2C5C5B26BD044B00C82543 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
 		9A2F41462929A7F70070E327 /* RWGPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWGPSRoute.swift; sourceTree = "<group>"; };
 		9A32C56A28654AA8003B1F70 /* AnnouncementNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementNotification.swift; sourceTree = "<group>"; };
 		9A32C56C28657B99003B1F70 /* Megaphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Megaphone.json; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				9ADEAA8926B4DC70005BB706 /* ExtraColors.swift */,
 				9AAD6D3C2828B54000D1DD22 /* DesignableUITextField.swift */,
 				9A449F9F2989F21000BB9829 /* PaddingTextField.swift */,
+				6D5C80B62C264DFD00A02C3F /* ImageInset.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -527,13 +530,13 @@
 		9ADEAA6C2697D417005BB706 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				6DAB37822C486980003199A4 /* CheckMark.json */,
 				9AAEF2F8290DD02F0059B628 /* OffRoute.json */,
 				9A140165290A2CE500BBF9BB /* KeepDistance.json */,
+				6DAB37862C48708D003199A4 /* CrossX.json */,
 				9A3DEF6E2718F92A0066D1EB /* ManBiking.json */,
 				9A3DEF6C2712BA2B0066D1EB /* Caution.json */,
 				9AE960F9270BCD3200B3B839 /* MutePhone.json */,
-				9A2C5C5A26BD044B00C82543 /* CheckMark.json */,
-				9A2C5C5B26BD044B00C82543 /* CrossX.json */,
 				9ADEAA6D2697D8AC005BB706 /* LoginSuccess.json */,
 				9A32C56C28657B99003B1F70 /* Megaphone.json */,
 			);
@@ -880,7 +883,9 @@
 				9AAEF2F9290DD0300059B628 /* OffRoute.json in Resources */,
 				9AAD6D612828BCDF00D1DD22 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */,
+				6DAB37832C486980003199A4 /* CheckMark.json in Resources */,
 				9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */,
+				6DAB37872C48708D003199A4 /* CrossX.json in Resources */,
 				9AAD6D622828BCDF00D1DD22 /* Poppins-Thin.ttf in Resources */,
 				9AAD6D632828BCDF00D1DD22 /* Poppins-ThinItalic.ttf in Resources */,
 				9A3DEF6F2718F92B0066D1EB /* ManBiking.json in Resources */,
@@ -892,14 +897,12 @@
 				9ADEAA9426B8CF76005BB706 /* Baumans-Regular.ttf in Resources */,
 				9AE042E22696E30A00FC86AD /* InitialLaunch.storyboard in Resources */,
 				9ADEAA6E2697D8AC005BB706 /* LoginSuccess.json in Resources */,
-				9A2C5C5D26BD044B00C82543 /* CrossX.json in Resources */,
 				6D9063932BD0A721003EFEAB /* Montserrat-SemiBold.ttf in Resources */,
 				9ADEAA7926997C48005BB706 /* MainPage.storyboard in Resources */,
 				9AE042BD2696E02B00FC86AD /* LaunchScreen.storyboard in Resources */,
 				6D90639F2BD0A721003EFEAB /* Montserrat-Black.ttf in Resources */,
 				9AB04F6E26DAEEA60076B190 /* GroupBottomSheet.storyboard in Resources */,
 				6D9063A22BD0A721003EFEAB /* Montserrat-ThinItalic.ttf in Resources */,
-				9A2C5C5C26BD044B00C82543 /* CheckMark.json in Resources */,
 				6D0496C92C0C1BC0009D3A6B /* WhatsNewView.xib in Resources */,
 				9AE042BA2696E02B00FC86AD /* Assets.xcassets in Resources */,
 				9AE042B82696E02700FC86AD /* Main.storyboard in Resources */,
@@ -1008,6 +1011,7 @@
 				9ADEAA8A26B4DC70005BB706 /* ExtraColors.swift in Sources */,
 				6D0496CB2C0C1CF3009D3A6B /* Slide.swift in Sources */,
 				9ADEAA8426ACEE40005BB706 /* BikingVCs.swift in Sources */,
+				6D5C80B72C264DFD00A02C3F /* ImageInset.swift in Sources */,
 				9A449FA02989F21000BB9829 /* PaddingTextField.swift in Sources */,
 				9AB04F6326D471E90076B190 /* BottomSheetInfoGroupVC.swift in Sources */,
 				9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */,
@@ -1224,7 +1228,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.5;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1253,7 +1257,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.2;
+				MARKETING_VERSION = 2.3.5;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";

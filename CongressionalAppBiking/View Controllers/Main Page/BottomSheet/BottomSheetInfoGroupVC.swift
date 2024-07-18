@@ -59,6 +59,9 @@ class BottomSheetInfoGroupVC: UIViewController {
         groupUsers = Locations.groupUsers
         groupUsers = groupUsers.sorted { user1, user2 in
             if let time1 = lastUploadedTimes[user1], let time2 = lastUploadedTimes[user2] {
+                if time1?.timeAgo() == time2?.timeAgo() {
+                    return user1.displayName < user2.displayName
+                }
                 let secondsAgo1 = Int(Date().timeIntervalSince(time1 ?? Date()))
                 let secondsAgo2 = Int(Date().timeIntervalSince(time2 ?? Date()))
                 return secondsAgo1 < secondsAgo2

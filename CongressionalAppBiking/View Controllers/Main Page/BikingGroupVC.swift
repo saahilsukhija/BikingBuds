@@ -26,6 +26,8 @@ class BikingGroupVC: BikingVCs {
     
     var settingsButton: UIButton!
     var notificationsButton: UIButton!
+    var centerCameraButton: UIButton!
+    var rwgpsButton: UIButton!
     var announcementButton: UIButton!
     
     var fallTimer: Timer?
@@ -119,6 +121,12 @@ extension BikingGroupVC {
     @objc func displayRWGPSRoute() {
         
         mapView.removeOverlays(mapView.overlays)
+        let anns = mapView.annotations
+        for annotation in anns {
+            if annotation is RWGPSDistanceMarkerAnnotation {
+                mapView.removeAnnotation(annotation)
+            }
+        }
         let points = RWGPSRoute.poi
         var locations: [CLLocationCoordinate2D] = []
         
@@ -509,7 +517,8 @@ extension BikingGroupVC {
 
         self.navigationController?.view.addSubview(rightBarButtonCustomView)
         //Center camera
-        let centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let leftBarButtonCustomView = UIView(frame: CGRect(x: 20, y: (UIApplication.shared.windows.first?.safeAreaInsets.top)! + 0, width: 40, height: 95))
+        centerCameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         centerCameraButton.setImage(UIImage(systemName: "location"), for: .normal)
         centerCameraButton.backgroundColor = preferredBackgroundColor
         centerCameraButton.tintColor = .label
@@ -519,8 +528,26 @@ extension BikingGroupVC {
         centerCameraButton.layer.borderWidth = 1
         centerCameraButton.layer.borderColor = UIColor.label.cgColor
         centerCameraButton.layer.masksToBounds = true
+        centerCameraButton.tag = 666
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: centerCameraButton)
+        leftBarButtonCustomView.addSubview(centerCameraButton)
+        leftBarButtonCustomView.tag = 10415
+        
+        rwgpsButton = UIButton(frame: CGRect(x: 0, y: 45, width: 40, height: 40))
+        rwgpsButton.setImage(UIImage(named: "RWGPS_accent")?.withInset(UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)), for: .normal)
+        rwgpsButton.backgroundColor = preferredBackgroundColor
+        rwgpsButton.imageView?.contentMode = .scaleAspectFit
+        rwgpsButton.tintColor = .label
+        
+        rwgpsButton.addTarget(self, action: #selector(openRWGPSScreen), for: .touchUpInside)
+        rwgpsButton.layer.cornerRadius = rwgpsButton.frame.size.height / 2
+        rwgpsButton.layer.borderWidth = 1
+        rwgpsButton.layer.borderColor = UIColor.label.cgColor
+        rwgpsButton.layer.masksToBounds = true
+        rwgpsButton.tag = 666
+        leftBarButtonCustomView.addSubview(rwgpsButton)
+        
+        self.navigationController?.view.addSubview(leftBarButtonCustomView)
     
         
 //        notificationCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
@@ -545,6 +572,27 @@ extension BikingGroupVC {
 //        ]
 //        
 //        NSLayoutConstraint.activate(notificationCountConstraints)
+    }
+    
+    @objc func openRWGPSScreen() {
+        if RWGPSUser.hasEmailAndPasswordStored() {
+            let loadingScreen = createLoadingScreen(frame: view.frame)
+            RWGPSUser.login { completed, message in
+                DispatchQueue.main.async {
+                    loadingScreen.removeFromSuperview()
+                    if !completed {
+                        let vc = UIStoryboard(name: "RWGPS", bundle: nil).instantiateViewController(withIdentifier: "RWGPSLoginScreen") as! RWGPSLoginVC
+                        self.present(vc, animated: true)
+                    } else {
+                        let vc = UIStoryboard(name: "RWGPS", bundle: nil).instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC
+                        self.present(vc, animated: true)
+                    }
+                }
+            }
+        } else {
+            let vc = UIStoryboard(name: "RWGPS", bundle: nil).instantiateViewController(withIdentifier: "RWGPSLoginScreen") as! RWGPSLoginVC
+            self.present(vc, animated: true)
+        }
     }
     
     @objc func openSettingsScreen() {
@@ -624,7 +672,7 @@ extension BikingGroupVC {
     
     func configureAnnouncementButton() {
         announcementButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-        announcementButton.setImage(UIImage(systemName: "megaphone"), for: .normal)
+        announcementButton.setImage(UIImage(systemName: "person.wave.2"), for: .normal)
         announcementButton.backgroundColor = preferredBackgroundColor
         announcementButton.tintColor = .accentColor
         //announcementButton.imageView?.contentMode = .scaleAspectFill
@@ -654,17 +702,19 @@ extension BikingGroupVC {
     }
     
     @objc func configureAnnouncementViews() {
-        
-        announcementButton.setImage(UIImage(systemName: "megaphone.fill"), for: .normal)
+        if bottomSheet.state == .full {
+            bottomSheet.move(to: .half, animated: true)
+        }
+        announcementButton.setImage(UIImage(systemName: "person.wave.2.fill"), for: .normal)
         guard announcementStackView == nil else {
             announcementStackView.isHidden = !announcementStackView.isHidden
             
             if announcementStackView.isHidden {
-                announcementButton.setImage(UIImage(systemName: "megaphone"), for: .normal)
+                announcementButton.setImage(UIImage(systemName: "person.wave.2"), for: .normal)
             }
             return
         }
-        
+        announcementButton.contentMode = .scaleAspectFit
         
         announcementStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 100, height: 300))
 
@@ -740,6 +790,8 @@ extension BikingGroupVC {
             button.addTarget(self, action: #selector(premadeAnnouncementButtonClicked(_:)), for: .touchUpInside)
             previousButton = button
         }
+        
+
  
         
     }
@@ -931,7 +983,7 @@ extension BikingGroupVC {
             RealtimeUpload.upload(data: [email : now], path: "rides/\(groupID!)/fall/")
         } else {
             userDidCancelEmergencyCall()
-            showFailureToast(message: "No email available.")
+            showFailureToast(message: "No phone number available")
         }
     }
 

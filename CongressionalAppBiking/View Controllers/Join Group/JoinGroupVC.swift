@@ -97,14 +97,14 @@ class JoinGroupVC: UIViewController {
             Group.joinGroup(with: Int(joinGroupCodeTextField.text!) ?? 0, checkForExistingIDs: true) { completed, name in
                 
                 guard completed else {
-                    self.showFailureToast(message: "Group does not exist.")
+                    self.showFailureToast(message: "Group does not exist")
                     loadingView.removeFromSuperview()
                     return
                 }
                 
                 
                 self.groupName = name
-                self.showSuccessToast(message: "Joined!")
+                //self.showSuccessToast(message: "Joined!")
                 self.goToBikingVC()
                 
                 DispatchQueue.main.async {
@@ -152,6 +152,11 @@ class JoinGroupVC: UIViewController {
     @IBAction func joinGroupButtonClicked(_ sender: Any) {
         //Unselect Create Button
         createGroupButton.backgroundColor = .white
+        let atr2 = NSAttributedString(string: "Create a Group", attributes: [
+            .font: UIFont(name: "Montserrat-Bold", size: 18) ?? UIFont.systemFont(ofSize: 18),
+            .foregroundColor: UIColor.black
+        ])
+        createGroupButton.setAttributedTitle(atr2, for: .normal)
         createGroupView.isHidden = true
         
         joinGroupView.isHidden = false
@@ -166,6 +171,11 @@ class JoinGroupVC: UIViewController {
         }
         
         joinGroupButton.backgroundColor = .accentColor
+        let atr = NSAttributedString(string: "Join a Group", attributes: [
+            .font: UIFont(name: "Montserrat-Bold", size: 18) ?? UIFont.systemFont(ofSize: 18),
+            .foregroundColor: UIColor.white
+        ])
+        joinGroupButton.setAttributedTitle(atr, for: .normal)
         groupSelectionType = .join
         
         savedRidesButton.isHidden = false
@@ -175,12 +185,21 @@ class JoinGroupVC: UIViewController {
     @IBAction func createGroupButtonClicked(_ sender: Any) {
         //Unselect Join Button
         joinGroupButton.backgroundColor = .white
+        let atr = NSAttributedString(string: "Join a Group", attributes: [
+            .font: UIFont(name: "Montserrat-Bold", size: 18) ?? UIFont.systemFont(ofSize: 18),
+            .foregroundColor: UIColor.black
+        ])
+        joinGroupButton.setAttributedTitle(atr, for: .normal)
         joinGroupView.isHidden = true
         
         createGroupView.isHidden = false
         
         createGroupButton.backgroundColor = .accentColor
-        
+        let atr2 = NSAttributedString(string: "Create a Group", attributes: [
+            .font: UIFont(name: "Montserrat-Bold", size: 18) ?? UIFont.systemFont(ofSize: 18),
+            .foregroundColor: UIColor.white
+        ])
+        createGroupButton.setAttributedTitle(atr2, for: .normal)
         //Name must be entered before go button is clicked (if "join" is selected)
         if createGroupNameTextField.text!.count == 0 {
             removeActionFromButton(goButton)
@@ -198,6 +217,10 @@ class JoinGroupVC: UIViewController {
     }
     
     func createGroup() {
+        if (self.createGroupNameTextField.text?.count ?? 100) > 30 {
+            self.showFailureToast(message: "Group name is too long")
+            return
+        }
         let loadingView = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingView)
         Group.generateGroupNumber { id in
@@ -255,7 +278,7 @@ class JoinGroupVC: UIViewController {
             view.addSubview(loadingView)
             
             guard let id = UserDefaults.standard.string(forKey: "recent_group") else {
-                self.showErrorNotification(message: "Unable to find recent group")
+                self.showFailureToast(message: "Unable to find recent group")
                 loadingView.removeFromSuperview()
                 return
             }
@@ -268,13 +291,13 @@ class JoinGroupVC: UIViewController {
             Group.joinGroup(with: Int(id) ?? 0, checkForExistingIDs: true) { completed, name in
                 
                 guard completed else {
-                    self.showFailureToast(message: "Group does not exist.")
+                    self.showFailureToast(message: "Group does not exist")
                     loadingView.removeFromSuperview()
                     return
                 }
                 
                 self.groupName = name
-                self.showSuccessToast(message: "Joined!")
+                //self.showSuccessToast(message: "Joined!")
                 self.goToBikingVC()
                 
                 DispatchQueue.main.async {
@@ -347,25 +370,30 @@ extension JoinGroupVC: UITextFieldDelegate {
                 textField.endEditing(true)
                 
                 goButton.backgroundColor = .accentColor
+                goButton.tintColor = .white
                 addActionToButton(goButton)
                 
                 groupID = textField.text!
             } else if textField.text!.count == 6 {
                 textField.endEditing(true)
                 goButton.backgroundColor = .accentColor
+                goButton.tintColor = .white
                 addActionToButton(goButton)
                 
                 groupID = textField.text!
             } else {
                 goButton.backgroundColor = .unselectedGrayColor
+                goButton.tintColor = .black
                 removeActionFromButton(goButton)
             }
         } else if textField.tag == 1 {
             if textField.text!.count > 0 {
                 goButton.backgroundColor = .accentColor
+                goButton.tintColor = .white
                 addActionToButton(goButton)
             } else {
                 goButton.backgroundColor = .unselectedGrayColor
+                goButton.tintColor = .black
                 removeActionFromButton(goButton)
             }
         }

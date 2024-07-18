@@ -14,7 +14,7 @@ struct Locations {
     
     static var groupUsers: [GroupUser]! = []
     
-    static var previousLocations: [GroupUser : CLLocationCoordinate2D]! = [:]
+    //static var previousLocations: [GroupUser : CLLocationCoordinate2D]! = [:]
     static var locations: [GroupUser : CLLocationCoordinate2D]! = [:]
     static var lastUpdated: [GroupUser : Date?]! = [:]
     static var riderTypes: [GroupUser : RiderType]! = [:]
@@ -38,7 +38,7 @@ struct Locations {
         lastUpdated.removeAll()
         riderTypes.removeAll()
         groupUsers.removeAll()
-        previousLocations.removeAll()
+        //previousLocations.removeAll()
         
         announcementNotifications.removeAll()
         deviceTokens.removeAll()
@@ -49,7 +49,7 @@ struct Locations {
             
             let changedEmail = snapshot.key.fromStorageEmail()
             if let changedGroupUser = (Array(locations.keys) as [GroupUser]).groupUserFrom(email: changedEmail) {
-                self.previousLocations[changedGroupUser] = locations[changedGroupUser]
+                //self.previousLocations[changedGroupUser] = locations[changedGroupUser]
                 locations[changedGroupUser] = getLocationFrom(snap: snapshot)
                 lastUpdated[changedGroupUser] = getLastUpdatedFrom(snap: snapshot)
                 riderTypes[changedGroupUser] = getRiderType(snap: snapshot)
@@ -119,7 +119,7 @@ struct Locations {
                 let lastUpdated = getLastUpdatedFrom(snap: snap)
                 let riderType = getRiderType(snap: snap)
 //                let deviceToken = getDeviceToken(snap: snap)
-                self.previousLocations[user] = self.locations[user]
+                //self.previousLocations[user] = self.locations[user]
                 self.locations[user] = coordinate
                 self.lastUpdated[user] = lastUpdated
                 self.riderTypes[user] = riderType
@@ -150,7 +150,7 @@ struct Locations {
                     let lastUpdated = getLastUpdatedFrom(snap: userSnap)
                     let riderType = getRiderType(snap: userSnap)
 //                    let deviceToken = getDeviceToken(snap: userSnap)
-                    self.previousLocations[user] = self.locations[user]
+                    //self.previousLocations[user] = self.locations[user]
                     self.locations[user] = coordinate
                     self.lastUpdated[user] = lastUpdated
                     self.riderTypes[user] = riderType
@@ -230,7 +230,7 @@ struct Locations {
         lastUpdated.removeAll()
         riderTypes.removeAll()
         groupUsers.removeAll()
-        previousLocations.removeAll()
+        //previousLocations.removeAll()
         
         let ref = Database.database().reference().child("rides/" + group)
         
@@ -367,14 +367,14 @@ struct Locations {
     
     //IMPORTANT: call this BEFORE UPDATING self.locations
     static func updatePreviousLocations(with newLocations: [GroupUser : CLLocationCoordinate2D]) {
-        newLocations.forEach { user, location in
-            if self.locations[user] != location {
-                print("CHANGE DETECTED FOR \(user.displayName ?? "(noname)")")
-                self.previousLocations[user] = self.locations[user]
-            } else {
-                print("NO CHANGE FOR \(user.displayName ?? "(noname)")")
-            }
-        }
+//        newLocations.forEach { user, location in
+//            if self.locations[user] != location {
+//                print("CHANGE DETECTED FOR \(user.displayName ?? "(noname)")")
+//                self.previousLocations[user] = self.locations[user]
+//            } else {
+//                print("NO CHANGE FOR \(user.displayName ?? "(noname)")")
+//            }
+//        }
     }
     
 //    static func addNotificationsForDistanceWarnings(for group: String) {

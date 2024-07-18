@@ -33,9 +33,10 @@ class GroupUserLocationVC: UIViewController {
         view.backgroundColor = .systemGray6.withAlphaComponent(0.9)
         //Profile View
         profileView.layer.cornerRadius = 10
-        profileView.layer.borderWidth = 1
-        profileView.layer.borderColor = UIColor.label.cgColor
-        profileView.backgroundColor = .clear
+        //profileView.layer.borderWidth = 1
+        //profileView.layer.borderColor = UIColor.label.cgColor
+        //profileView.backgroundColor = .clear
+        profileView.dropShadow()
         
         profilePictureView.layer.cornerRadius = profilePictureView.frame.size.width / 2
         profilePictureView.layer.borderWidth = 1
@@ -66,8 +67,15 @@ class GroupUserLocationVC: UIViewController {
     }
     
     @IBAction func callSOSButtonClicked(_ sender: Any) {
-        if let url = URL(string: "tel://\(user.emergencyPhoneNumber?.toLegalPhoneNumber() ?? "error")"), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
+        if let emergencyPhoneNumber = user.emergencyPhoneNumber {
+            if let url = URL(string: "tel://\(emergencyPhoneNumber.toLegalPhoneNumber())"), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+        else {
+            if let url = URL(string: "tel://911"), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
         }
     }
     
@@ -77,12 +85,12 @@ class GroupUserLocationVC: UIViewController {
         
         changeChoices.addAction(UIAlertAction(title: "Rider", style: .default, handler: { [self] _ in
             riderType = .rider
-            updateChangeRiderTypeButton(with: "You are currently a Rider. Change.")
+            updateChangeRiderTypeButton(with: "You are currently a rider. Change.")
             NotificationCenter.default.post(name: .userIsRider, object: nil)
         }))
         changeChoices.addAction(UIAlertAction(title: "Non-Rider / Spectator", style: .default, handler: { [self] _ in
             riderType = .spectator
-            updateChangeRiderTypeButton(with: "You are currently a Non-Rider. Change.")
+            updateChangeRiderTypeButton(with: "You are currently a non-rider. Change.")
             NotificationCenter.default.post(name: .userIsNonRider, object: nil)
         }))
         
@@ -92,7 +100,7 @@ class GroupUserLocationVC: UIViewController {
     }
     
     func updateChangeRiderTypeButton(with string: String, uploadRiderType: Bool = true) {
-        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Sinhala Sangam MN", size: 20)!])
+        let mutableTitle = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-SemiBold", size: 16)!])
         mutableTitle.setColor(color: .accentColor, forText: "Change.")
         changeRiderTypeButton.setAttributedTitle(mutableTitle, for: .normal)
         
@@ -132,10 +140,10 @@ class GroupUserLocationVC: UIViewController {
         
         updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.", uploadRiderType: false)
         if let first = user.displayName.components(separatedBy: " ").first {
-            let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-SemiBold", size: 20) ?? .systemFont(ofSize: 20)])
             directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
         } else {
-            let mutableTitle = NSAttributedString(string: "Directions", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-Regular", size: 20) ?? .systemFont(ofSize: 20)])
+            let mutableTitle = NSAttributedString(string: "Directions", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-SemiBold", size: 20) ?? .systemFont(ofSize: 20)])
             directionsToButton.setAttributedTitle(mutableTitle, for: .normal)
         }
        
@@ -143,7 +151,7 @@ class GroupUserLocationVC: UIViewController {
     
     @IBAction func goToMap(_ sender: Any) {
         guard let selfLatitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.latitude, let selfLongitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.longitude, let userLatitude = Locations.locations[user]?.latitude, let userLongitude = Locations.locations[user]?.longitude else {
-            showErrorNotification(message: "Error getting locations, please try again")
+            showFailureToast(message: "Error getting locations, please try again")
             return
         }
 

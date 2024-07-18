@@ -45,20 +45,20 @@ extension UIViewController {
     
     ///Shows a green toast
     func showSuccessToast(message: String) {
-        showAnimationToast(animationName: "CheckMark", message: message, color: .systemGreen, fontColor: .systemGreen)
+        showAnimationToast(animationName: "CheckMark", message: message, color: .successGreen, fontColor: .successGreen, speed: 1.5)
     }
     
     ///Shows a red toast
     func showFailureToast(message: String) {
-        showAnimationToast(animationName: "CrossX", message: message, color: .red, fontColor: .red)
+        showAnimationToast(animationName: "CrossX", message: message, color: .failureRed, fontColor: .failureRed)
     }
     
     func showNotAnimatedSuccessToast(message: String) {
-        showToast(message: message, image: UIImage(systemName: "checkmark")!, color: .systemGreen, fontColor: .systemGreen)
+        showToast(message: message, image: UIImage(systemName: "checkmark")!, color: .successGreen, fontColor: .successGreen)
     }
     
     func showNotAnimatedFailureToast(message: String) {
-        showToast(message: message, image: UIImage(systemName: "multiply")!, color: .red, fontColor: .red)
+        showToast(message: message, image: UIImage(systemName: "multiply")!, color: .failureRed, fontColor: .failureRed)
     }
     
     func showAnimationToast(animationName: String, message: String, duration: Double = 3, color: UIColor = .label, fontColor: UIColor = .label, speed: Double = 1) {
@@ -70,7 +70,11 @@ extension UIViewController {
         toastView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         
         let animationView = LottieAnimationView(name: animationName)
-        animationView.frame = CGRect(x: 5, y: 5, width: 50, height: 50)
+        if animationName != "CrossX" {
+            animationView.frame = CGRect(x: 8, y: 8, width: 44, height: 44)
+        } else {
+            animationView.frame = CGRect(x: 14, y: 14, width: 32, height: 32)
+        }
         animationView.contentMode = .scaleAspectFill
         animationView.animationSpeed = speed
         toastView.addSubview(animationView)

@@ -16,6 +16,7 @@ class TitleLabel: UILabel {
     func updateText() {
         let mutableTitle = NSMutableAttributedString(string: self.text!, attributes: [NSAttributedString.Key.font : UIFont(name: "Baumans", size: 38)!])
         mutableTitle.setColor(color: .accentColor, forText: "Buds")
+        mutableTitle.setColor(color: .darkGreen, forText: "Biking")
         self.attributedText = mutableTitle
     }
 

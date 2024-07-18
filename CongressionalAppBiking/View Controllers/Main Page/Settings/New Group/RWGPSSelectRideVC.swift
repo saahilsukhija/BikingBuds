@@ -89,7 +89,7 @@ class RWGPSSelectRideVC: UIViewController {
             DispatchQueue.main.async {
                 loadingScreen.removeFromSuperview()
                 if(!completed) {
-                    self.showErrorNotification(message: message!)
+                    self.showFailureToast(message: message!)
                 } else {
                     self.routes = routes
                     self.tableView.reloadData()
@@ -146,9 +146,9 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.async {
                 loadingScreen?.removeFromSuperview()
                 if let error = error {
-                    self.showErrorNotification(message: error)
+                    self.showFailureToast(message: error)
                 } else {
-                    self.showSuccessNotification(message: "Successfully loaded route")
+                    self.showSuccessToast(message: "Successfully loaded route")
                     self.dismiss(animated: true)
                     NotificationCenter.default.post(name: .rwgpsRouteLoaded, object: nil)
                     
@@ -187,12 +187,12 @@ extension RWGPSSelectRideVC: UITextFieldDelegate {
 
     func submitURL(_ textField: UITextField) {
         guard let text = textField.text, text.count > 0 else {
-            self.showErrorNotification(message: "Invalid URL")
+            self.showFailureToast(message: "Invalid URL")
             return
         }
         
         guard let id = text.split(separator: "/").last else {
-            self.showErrorNotification(message: "Invalid RWGPS URL")
+            self.showFailureToast(message: "Invalid RWGPS URL")
             return
         }
         

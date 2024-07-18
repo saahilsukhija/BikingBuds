@@ -167,11 +167,11 @@ extension UIViewController {
         
     }
     func showErrorNotification(message: String, duration: Double = 3) {
-        showAnimationNotification(animationName: "CrossX", message: message, duration: duration, color: .red, fontColor: .red)
+        showAnimationNotification(animationName: "CrossX", message: message, duration: duration, color: .failureRed, fontColor: .failureRed)
     }
     
     func showSuccessNotification(message: String, duration: Double = 3) {
-        showAnimationNotification(animationName: "CheckMark", message: message, duration: duration, color: .systemGreen, fontColor: .systemGreen)
+        showAnimationNotification(animationName: "CheckMark", message: message, duration: duration, color: .successGreen, fontColor: .successGreen)
     }
 }
 

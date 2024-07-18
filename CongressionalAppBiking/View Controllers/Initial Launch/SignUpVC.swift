@@ -67,7 +67,7 @@ class SignUpVC: UIViewController {
             if let error = error {
                 print(error.localizedDescription)
                 loadingScreen.removeFromSuperview()
-                self.showErrorNotification(message: error.localizedDescription)
+                self.showFailureToast(message: error.localizedDescription)
             } else {
                 self.setUpAccount(authResult, loadingScreen: loadingScreen)
             }

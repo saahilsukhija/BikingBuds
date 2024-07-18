@@ -110,7 +110,7 @@ class GroupUserAnnotationView: MKAnnotationView {
         self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
         UIView.animate(withDuration: 0.2) { [self] in
             self.containerView.frame = CGRect(x: -10, y: -50, width: 90, height: 90)
-            self.containerView.backgroundColor = .selectedBlueColor
+            self.containerView.backgroundColor = .black
             self.containerView.isUserInteractionEnabled = true
             self.containerView.layer.cornerRadius = 45
             

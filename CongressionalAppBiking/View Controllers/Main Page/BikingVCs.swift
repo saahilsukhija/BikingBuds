@@ -218,9 +218,16 @@ extension BikingVCs: CLLocationManagerDelegate {
         }
         
         
-        
-        self.navigationItem.leftBarButtonItem?.customView?.tintColor = .accentColor
-        (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        if let leftview = self.navigationController?.view.subviews.first(where: { view in
+            return view.tag == 10415
+        }) {
+            if let cameraview = leftview.subviews.first(where: { view in
+                return view.tag == 666
+            }) as? UIButton {
+                cameraview.setImage(UIImage(systemName: "location.fill"), for: .normal)
+                cameraview.tintColor = .accentColor
+            }
+        }
         //map.drawAllGroupMembers(includingSelf: true)
         userHasPannedAway = false
     }
@@ -265,8 +272,16 @@ extension BikingVCs: MKMapViewDelegate {
     //User has panned away
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         userHasPannedAway = true
-        self.navigationItem.leftBarButtonItem?.customView?.tintColor = .label
-        (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setImage(UIImage(systemName: "location"), for: .normal)
+        if let leftview = self.navigationController?.view.subviews.first(where: { view in
+            return view.tag == 10415
+        }) {
+            if let cameraview = leftview.subviews.first(where: { view in
+                return view.tag == 666
+            }) as? UIButton {
+                cameraview.setImage(UIImage(systemName: "location"), for: .normal)
+                cameraview.tintColor = .label
+            }
+        }
     }
     
     //RWGPS Route Line

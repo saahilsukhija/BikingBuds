@@ -100,10 +100,10 @@ extension GroupRideSettingsVC {
         }
         
         if previousSavedRides.containsRide(ride) {
-            saveButton.image = UIImage(systemName: "archivebox.fill")
+            saveButton.image = UIImage(systemName: "bookmark.fill")
             //saveButton.setImage(UIImage(systemName: "archivebox.fill"), for: .normal)
         } else {
-            saveButton.image = UIImage(systemName: "archivebox")
+            saveButton.image = UIImage(systemName: "bookmark")
         }
 //        guard !previousSavedRides.containsRide(ride) else {
 //            self.showFailureToast(message: "Ride is already saved.")
@@ -127,13 +127,13 @@ extension GroupRideSettingsVC {
                 return r.id == ride.id
             }
             try? UserDefaults.standard.set(object: previousSavedRides, forKey: "saved_rides")
-            saveButton.image = UIImage(systemName: "archivebox")
+            saveButton.image = UIImage(systemName: "bookmark")
             return
         }
         
         previousSavedRides.append(ride)
         self.showSuccessToast(message: "Ride is saved!")
-        saveButton.image = UIImage(systemName: "archivebox.fill")
+        saveButton.image = UIImage(systemName: "bookmark.fill")
         try? UserDefaults.standard.set(object: previousSavedRides, forKey: "saved_rides")
         print(previousSavedRides)
         

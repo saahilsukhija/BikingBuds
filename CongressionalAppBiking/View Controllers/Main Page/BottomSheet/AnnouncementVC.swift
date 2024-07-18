@@ -72,9 +72,9 @@ class AnnouncementVC: UIViewController {
         
         AnnouncementUpload.uploadAnnouncement(text, group: group) { complete, error in
             if let error = error {
-                self.showErrorNotification(message: error)
+                self.showFailureToast(message: error)
             } else {
-                self.showSuccessNotification(message: "Announcement sent!")
+                self.showSuccessToast(message: "Announcement sent!")
                 self.dismiss(animated: true)
             }
         }

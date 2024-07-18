@@ -40,7 +40,7 @@ class RWGPSLoginVC: UIViewController {
             DispatchQueue.main.async {
                 loadingScreen.removeFromSuperview()
                 if(!completed) {
-                    self.showErrorNotification(message: message)
+                    self.showFailureToast(message: message)
                 } else {
                     //go to other vc
                     //let vc = self.storyboard?.instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC

@@ -133,7 +133,7 @@ class LoginVC: UIViewController {
 extension LoginVC {
     func loginWithEmailAndPassword() {
         guard let email = emailTextField.text, let password = passwordTextField.text else { showFailureToast(message: "Empty Textfield"); return }
-        guard isValidEmail(email) else { showFailureToast(message: "Invalid email. Check and try again."); return }
+        guard isValidEmail(email) else { showFailureToast(message: "Invalid email"); return }
         
         let loadingScreen = createLoadingScreen(frame: view.frame)
         view.addSubview(loadingScreen)
@@ -142,7 +142,7 @@ extension LoginVC {
             if let error = error {
                 print(error.localizedDescription)
                 loadingScreen.removeFromSuperview()
-                self.showFailureToast(message: "Account does not exist.")
+                self.showFailureToast(message: "Account does not exist")
             } else {
                 self.setUpAccount(result, loadingScreen: loadingScreen)
             }

@@ -110,7 +110,7 @@ class AdditionalInfoVC: UIViewController {
             //StorageRetrieve().setProfilePicture(for: profilePictureImageView, email: currentUser.email!)
         }
         else {
-            showFailureToast(message: "Something went wrong logging in. Try Again.")
+            showFailureToast(message: "Something went wrong...")
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -128,12 +128,20 @@ class AdditionalInfoVC: UIViewController {
         
         
         guard let image = profilePictureImageView.image else {
-            self.showFailureToast(message: "No Profile Picture Chosen.")
+            self.showFailureToast(message: "No Profile Picture Chosen")
             return
         }
         
-        guard firstNameTextField.text != "" && lastNameTextField.text != "" && phoneNumberTextField.text != "" else {
-            self.showFailureToast(message: "Empty TextField")
+        guard firstNameTextField.text != "" else {
+            self.showFailureToast(message: "Please enter your first name")
+            return
+        }
+        guard lastNameTextField.text != "" else {
+            self.showFailureToast(message: "Please enter your last name")
+            return
+        }
+        guard phoneNumberTextField.text != "" else {
+            self.showFailureToast(message: "Please enter your phone number")
             return
         }
 
@@ -238,17 +246,25 @@ class AdditionalInfoVC: UIViewController {
         Authentication.phoneNumber = phoneNumberTextField.text
         Authentication.emergencyPhoneNumber = emergencyPhoneNumberTextField.text
     }
+    
     @IBAction func deleteUserAccountClicked(_ sender: Any) {
-        let user = Auth.auth().currentUser
+        
+        let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: "All data associated with this account will be lost.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
+            let user = Auth.auth().currentUser
 
-        user?.delete { error in
-          if let error = error {
-              self.showFailureToast(message: error.localizedDescription)
-          } else {
-              self.showSuccessToast(message: "Account deleted!")
-              self.switchAccountsButtonClicked()
-          }
-        }
+            user?.delete { error in
+              if let error = error {
+                  self.showFailureToast(message: error.localizedDescription)
+              } else {
+                  self.showSuccessToast(message: "Account deleted!")
+                  self.switchAccountsButtonClicked()
+              }
+            }
+        }))
+        self.present(alert, animated: true)
+
     }
 }
 
