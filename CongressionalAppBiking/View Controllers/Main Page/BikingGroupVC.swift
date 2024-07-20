@@ -53,6 +53,7 @@ class BikingGroupVC: BikingVCs {
         mapView.delegate = self
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "groupUser")
         mapView.register(GroupUserAnnotationView.self, forAnnotationViewWithReuseIdentifier: "rwgpsDistanceMarker")
+        mapTypeChanged()
         
         if(Authentication.riderType == .rider) {
             mapView.showsUserLocation = true
@@ -257,19 +258,19 @@ extension BikingGroupVC {
     }
     
     func setupTimeBasedLocation() {
-        locationTimer = Timer.scheduledTimer(withTimeInterval: Preferences.timeFilter, repeats: true, block: { _ in
+        locationTimer = Timer.scheduledTimer(withTimeInterval: Preferences.shared.timeFilter, repeats: true, block: { _ in
             if let location = self.locationManager.location?.coordinate {
                 print("TIME BASED UPDATE")
                 self.uploadUserLocation(location)
-                self.userLocationsUpdated()
+                //self.userLocationsUpdated()
             }
         })
     }
     
     @objc func otherUserHasFallen() {
-//        let email = Locations.recentFall.keys.first ?? "none"
-//        print(email)
-//        showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: .systemOrange, fontColor: .systemOrange)
+        //let email = Locations.recentFall.keys.first ?? "none"
+        //print(email)
+        //showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1), fontColor: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1))
 //        updateNotificationCount()
     }
     
@@ -359,6 +360,7 @@ extension BikingGroupVC {
         NotificationCenter.default.addObserver(self, selector: #selector(otherUserHasFallen), name: .userHasFallen, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newAnnouncement), name: .newAnnouncement, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(deviceTokenLoaded), name: .deviceTokenLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mapIconPreferenceChanged), name: .mapIconPreferenceChanged, object: nil)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(userIsTooFar), name: .userIsTooFar, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userClickedOnLink(_:)), name: .userClickedOnJoinLink, object: nil)
@@ -366,6 +368,33 @@ extension BikingGroupVC {
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsUserLogin), name: .rwgpsUserLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(displayRWGPSRoute), name: .rwgpsRouteLoaded, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsRouteUpdated(_:)), name: .rwgpsUpdatedInGroup, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(lowPowerModeEnabled), name: .lowPowerModeEnabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mapTypeChanged), name: .mapTypePreferenceChanged, object: nil)
+    }
+    
+    @objc func lowPowerModeEnabled() {
+        locationTimer?.invalidate()
+        locationTimer = nil
+        setupTimeBasedLocation()
+    }
+    
+    @objc func mapTypeChanged() {
+        switch UserSettings.shared.mapType {
+        case .hybrid:
+            mapView.mapType = .hybrid
+        case .satellite:
+            mapView.mapType = .satellite
+        case .standard:
+            mapView.mapType = .standard
+        case .none:
+            mapView.mapType = .standard
+        }
+    }
+    
+    @objc func mapIconPreferenceChanged() {
+        mapView.removeAllGroupMemberAnnotations()
+        mapView.drawAllGroupMembers()
     }
     
     @objc func userClickedOnLink(_ notification: NSNotification) {
@@ -596,8 +625,9 @@ extension BikingGroupVC {
     }
     
     @objc func openSettingsScreen() {
-        let vc = storyboard?.instantiateViewController(identifier: "groupRideSettingsScreen") as! GroupRideSettingsVC
-        vc.ride = Ride(id: groupID, name: groupName)
+        let vc = UIStoryboard(name: "Settings", bundle: nil).instantiateViewController(identifier: "groupRideSettingsScreen")
+        try? UserDefaults.standard.set(object: Ride(id: groupID, name: groupName), forKey: "ride_temp")
+        //vc.ride = Ride(id: groupID, name: groupName)
         self.present(vc, animated: true, completion: nil)
     }
     

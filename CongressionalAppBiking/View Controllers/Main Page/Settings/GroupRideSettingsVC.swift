@@ -11,19 +11,25 @@ class GroupRideSettingsVC: UIViewController {
  
     var ride: Ride!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var connectWithRWGPSView: UIView!
-    @IBOutlet weak var rwgpsConnectLabel: UILabel!
-    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var versionNumberLabel: UILabel!
     
+    var settings = ["Low Power Mode", "Rider Icons", "Map Type", "Ride with GPS"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ride = try? UserDefaults.standard.get(objectType: Ride.self, forKey: "ride_temp") ?? Ride(id: UserDefaults.standard.string(forKey: "recent_group") ?? "000000", name: "(error)")
         setupSaveButton()
         setupRWGPSView()
         setupVersionLabel()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(rwgpsRouteSelected), name: .rwgpsRouteLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rwgpsUserLogin), name: .rwgpsUserLogin, object: nil)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -31,12 +37,22 @@ class GroupRideSettingsVC: UIViewController {
     }
     
     @objc func rwgpsRouteSelected() {
+        self.tableView.reloadData()
         self.dismiss(animated: true)
     }
     
+    @objc func rwgpsUserLogin() {
+        self.tableView.reloadData()
+    }
     func setupVersionLabel() {
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         versionNumberLabel.text = "version \(appVersion ?? "(error)")"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("settings view appeared")
+        tableView.reloadData()
     }
     /*
     // MARK: - Navigation
@@ -50,22 +66,71 @@ class GroupRideSettingsVC: UIViewController {
 
 }
 
+extension GroupRideSettingsVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupRideSettingsCell.identifier) as! GroupRideSettingsCell
+        if indexPath.row == 0 {
+            cell.setup(title: settings[indexPath.row], status: UserSettings.shared.lowPowerModeEnabled ? "Enabled" : "Disabled")
+        }
+        else if indexPath.row == 1{
+            cell.setup(title: settings[indexPath.row], status: UserSettings.shared.showInitialsOnMap ? "Initials" : "Pictures")
+        }
+        else if indexPath.row == 2 {
+            let type = UserSettings.shared.mapType
+            cell.setup(title: settings[indexPath.row], status: type == .hybrid ? "Hybrid" : (type == .standard ? "Standard" : "Satellite"))
+        }
+        else if indexPath.row == 3 {
+            cell.setup(title: settings[indexPath.row], status: RWGPSUser.hasEmailAndPasswordStored() ? (RWGPSRoute.connected ? "Connected" : "Not Connected") : "Log In" )
+        }
+        //Separator Full Line
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = .zero
+        cell.layoutMargins = .zero
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 {
+            let vc = storyboard?.instantiateViewController(withIdentifier: LowPowerModeVC.identifier) as! LowPowerModeVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 1{
+            let vc = storyboard?.instantiateViewController(withIdentifier: MapIconSelectVC.identifier) as! MapIconSelectVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 2{
+            let vc = storyboard?.instantiateViewController(withIdentifier: MapTypeSelectVC.identifier) as! MapTypeSelectVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 3 {
+            rwgpsViewTapped()
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
 //MARK: RWGPS:
 extension GroupRideSettingsVC {
     func setupRWGPSView() {
-        connectWithRWGPSView.isUserInteractionEnabled = true
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rwgpsViewTapped))
-        connectWithRWGPSView.addGestureRecognizer(gestureRecognizer)
-        
-        connectWithRWGPSView.layer.cornerRadius = 10
-        connectWithRWGPSView.layer.borderColor = UIColor.black.cgColor
-        connectWithRWGPSView.layer.borderWidth = 1.5
-        
-        if RWGPSRoute.connected == true {
-            rwgpsConnectLabel.text = "Change the RideWithGPS Route"
-        } else {
-            rwgpsConnectLabel.text = "Connect With RideWithGPS"
-        }
+//        connectWithRWGPSView.isUserInteractionEnabled = true
+//        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rwgpsViewTapped))
+//        connectWithRWGPSView.addGestureRecognizer(gestureRecognizer)
+//        
+//        connectWithRWGPSView.layer.cornerRadius = 10
+//        connectWithRWGPSView.layer.borderColor = UIColor.black.cgColor
+//        connectWithRWGPSView.layer.borderWidth = 1.5
+//        
+//        if RWGPSRoute.connected == true {
+//            rwgpsConnectLabel.text = "Change the RideWithGPS Route"
+//        } else {
+//            rwgpsConnectLabel.text = "Connect With RideWithGPS"
+//        }
     }
     
     @objc func rwgpsViewTapped() {

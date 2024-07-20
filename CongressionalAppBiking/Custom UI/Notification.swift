@@ -25,7 +25,7 @@ extension UIViewController {
         let messageLabel = UILabel(frame: CGRect(x: notificationView.frame.size.height, y: 0, width: notificationView.frame.size.width - notificationView.frame.size.height, height: notificationView.frame.size.height))
         messageLabel.textAlignment = .left
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "Poppins-Regular", size: 20)
+        messageLabel.font = UIFont(name: "Montserrat-Regular", size: 20)
         messageLabel.textColor = fontColor
         messageLabel.numberOfLines = 0
         notificationView.addSubview(messageLabel)
@@ -62,7 +62,7 @@ extension UIViewController {
         let messageLabel = UILabel(frame: CGRect(x: notificationView.frame.size.height, y: 0, width: notificationView.frame.size.width - notificationView.frame.size.height, height: notificationView.frame.size.height))
         messageLabel.textAlignment = .left
         messageLabel.text = message
-        messageLabel.font = UIFont(name: "Poppins-Regular", size: fontsize)
+        messageLabel.font = UIFont(name: "Montserrat-Medium", size: fontsize)
         messageLabel.textColor = fontColor
         messageLabel.numberOfLines = 0
         notificationView.addSubview(messageLabel)
@@ -90,7 +90,7 @@ extension UIViewController {
             })
     }
     
-    func showAnnouncementNotification(announcement: AnnouncementNotification, duration: Double = 8, color: UIColor = .systemBlue, fontColor: UIColor = .systemBlue, playbackSpeed: CGFloat = 1, loop: LottieLoopMode = .playOnce) {
+    func showAnnouncementNotification(announcement: AnnouncementNotification, duration: Double = 8, color: UIColor = .accentColor, fontColor: UIColor = .accentColor, playbackSpeed: CGFloat = 1, loop: LottieLoopMode = .playOnce) {
         guard let userName = (Locations.groupUsers.groupUserFrom(email: announcement.email))?.displayName else { return }
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first!
         let notificationView = UIView(frame: CGRect(x: 10, y: -50, width: window.frame.size.width - 20, height: 100))
@@ -100,17 +100,22 @@ extension UIViewController {
         
         notificationView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
         
-        let animationView = LottieAnimationView(name: "Megaphone")
-        animationView.frame = CGRect(x: 5, y: 10, width: notificationView.frame.size.height - 20, height: notificationView.frame.size.height - 20)
-        animationView.contentMode = .scaleAspectFill
-        animationView.animationSpeed = playbackSpeed
-        animationView.loopMode = loop
-        notificationView.addSubview(animationView)
+        let userImage = UIImageView(frame: CGRect(x: 10, y: 10, width: notificationView.frame.size.height - 20, height: notificationView.frame.size.height - 20))
+        
+        userImage.image = (Locations.groupUsers.groupUserFrom(email: announcement.email))?.profilePicture?.toImage() ?? UIImage(systemName: "person")
+        userImage.tintColor = color
+        userImage.layer.cornerRadius = userImage.frame.size.height / 2
+        userImage.layer.borderWidth = 1
+        userImage.layer.borderColor = UIColor.black.cgColor
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        userImage.clipsToBounds = true
+
+        notificationView.addSubview(userImage)
         
         let userLabel = UILabel(frame: CGRect(x: notificationView.frame.size.height, y: 15, width: notificationView.frame.size.width - notificationView.frame.size.height, height: notificationView.frame.size.height / 3))
         userLabel.textAlignment = .left
         userLabel.text = userName + " says:"
-        userLabel.font = UIFont(name: "Poppins-SemiBold", size: 20)
+        userLabel.font = UIFont(name: "Montserrat-SemiBold", size: 20)
         userLabel.textColor = fontColor
         userLabel.numberOfLines = 0
         notificationView.addSubview(userLabel)
@@ -118,7 +123,7 @@ extension UIViewController {
         let messageLabel = UILabel(frame: CGRect(x: notificationView.frame.size.height, y:  notificationView.frame.size.height / 3 + 8, width: notificationView.frame.size.width - notificationView.frame.size.height, height: 36))
         messageLabel.textAlignment = .left
         messageLabel.text = "\"\(announcement.title ?? "(error getting message)")\""
-        messageLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        messageLabel.font = UIFont(name: "Montserrat-Regular", size: 18)
         messageLabel.textColor = fontColor
         messageLabel.numberOfLines = 0
         notificationView.addSubview(messageLabel)
@@ -126,7 +131,7 @@ extension UIViewController {
         let timeLabel = UILabel(frame: CGRect(x: notificationView.frame.size.width - 60, y: 0, width: 50, height: 36))
         timeLabel.textAlignment = .right
         timeLabel.text = "Now"
-        timeLabel.font = UIFont(name: "Poppins-Regular", size: 16)
+        timeLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         timeLabel.textColor = .systemGray
         timeLabel.numberOfLines = 0
         notificationView.addSubview(timeLabel)
@@ -143,7 +148,7 @@ extension UIViewController {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction], animations: {
                 notificationView.frame.origin.y = 50
             }, completion: {_ in
-                animationView.play()
+                //animationView.play()
                 DispatchQueue.main.asyncAfter(deadline: .now() + duration + 0.2) {
                     UIView.animate(withDuration: 0.2, delay: 0, animations: {
                         notificationView.center.y = -50

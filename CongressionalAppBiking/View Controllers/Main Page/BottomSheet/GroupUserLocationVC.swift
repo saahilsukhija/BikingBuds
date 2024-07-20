@@ -138,6 +138,10 @@ class GroupUserLocationVC: UIViewController {
             changeGroupUserSettingsView.isHidden = true
         }
         
+        if Locations.riderTypes[user] == .spectator {
+            directionsToButton.isHidden = true
+        }
+        
         updateChangeRiderTypeButton(with: "You are currently a \(HelperFunctions.makeLegalRiderType(riderType)). Change.", uploadRiderType: false)
         if let first = user.displayName.components(separatedBy: " ").first {
             let mutableTitle = NSAttributedString(string: "Directions to \(first)", attributes: [NSAttributedString.Key.font : UIFont(name: "Montserrat-SemiBold", size: 20) ?? .systemFont(ofSize: 20)])
@@ -150,8 +154,8 @@ class GroupUserLocationVC: UIViewController {
     }
     
     @IBAction func goToMap(_ sender: Any) {
-        guard let selfLatitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.latitude, let selfLongitude = Locations.locations[Locations.groupUsers.groupUserFrom(email: Authentication.user?.email ?? "") ?? user]?.longitude, let userLatitude = Locations.locations[user]?.latitude, let userLongitude = Locations.locations[user]?.longitude else {
-            showFailureToast(message: "Error getting locations, please try again")
+        guard let userLatitude = Locations.locations[user]?.latitude, let userLongitude = Locations.locations[user]?.longitude else {
+            showFailureToast(message: "Error getting user location")
             return
         }
 

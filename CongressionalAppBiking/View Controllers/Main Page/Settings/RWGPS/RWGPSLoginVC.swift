@@ -19,6 +19,16 @@ class RWGPSLoginVC: UIViewController {
 
         // Do any additional setup after loading the view.
         eyeButton.setTitle("", for: .normal)
+        emailTextField.font = UIFont(name: "Montserrat-Regular", size: 16)
+        passwordTextField.font = UIFont(name: "Montserrat-Regular", size: 16)
+        
+        emailTextField.tag = 0
+        passwordTextField.tag = 1
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     
@@ -38,14 +48,25 @@ class RWGPSLoginVC: UIViewController {
         view.addSubview(loadingScreen)
         RWGPSUser.login(email: email, password: password) { completed, message in
             DispatchQueue.main.async {
-                loadingScreen.removeFromSuperview()
+                
                 if(!completed) {
                     self.showFailureToast(message: message)
+                    loadingScreen.removeFromSuperview()
                 } else {
-                    //go to other vc
-                    //let vc = self.storyboard?.instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC
                     NotificationCenter.default.post(name: .rwgpsUserLogin, object: nil)
-                    self.dismiss(animated: true)
+                    //go to other vc
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        loadingScreen.removeFromSuperview()
+                        if !RWGPSRoute.connected {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "RWGPSSelectRideScreen") as! RWGPSSelectRideVC
+                            self.present(vc, animated: true)
+
+                        } else {
+                            self.showSuccessToast(message: "Successfully logged in")
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                    //self.dismiss(animated: true)
                 }
             }
         }
@@ -83,4 +104,16 @@ class RWGPSLoginVC: UIViewController {
     }
     */
 
+}
+
+extension RWGPSLoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.tag == 0 {
+            passwordTextField.becomeFirstResponder()
+        }
+        else if textField.tag == 1 {
+            passwordTextField.resignFirstResponder()
+        }
+        return true
+    }
 }

@@ -77,24 +77,36 @@ class GroupUserAnnotationView: MKAnnotationView {
         subviews.forEach({ $0.removeFromSuperview() })
         
         addSubview(containerView)
-        if inSelectedState == true {
-            containerView.addSubview(imageView)
-            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
-            imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
-            imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
-            imageView.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
-        } else {
-            containerView.addSubview(label)
-            label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
-            label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
-            label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
-            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
-            label.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
-        }
+        containerView.addSubview(imageView)
+        imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
+        imageView.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        
+        containerView.addSubview(label)
+        label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2.0).isActive = true
+        label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2.0).isActive = true
+        label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2.0).isActive = true
+        label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2.0).isActive = true
+        label.layer.cornerRadius = (containerView.frame.size.width - 1) / 2
+        
+        handleHiddenStates()
 
         
         
+        
+    }
+    
+    func handleHiddenStates() {
+        if inSelectedState == true || !UserSettings.shared.showInitialsOnMap {
+            imageView.isHidden = false
+            label.isHidden = true
+        }
+        else {
+            imageView.isHidden = true
+            label.isHidden = false
+        }
         
     }
     
@@ -104,40 +116,41 @@ class GroupUserAnnotationView: MKAnnotationView {
     
     public func makeAnnotationSelected() {
         layer.zPosition = 100
-        self.label.isHidden = true
-        self.imageView.isHidden = false
         
-        self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
+        //self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
+        self.containerView.backgroundColor = .black
         UIView.animate(withDuration: 0.2) { [self] in
             self.containerView.frame = CGRect(x: -10, y: -50, width: 90, height: 90)
-            self.containerView.backgroundColor = .black
             self.containerView.isUserInteractionEnabled = true
             self.containerView.layer.cornerRadius = 45
             
-            self.imageView.frame = CGRect(x: -6, y: -46, width: 82, height: 82)
             self.imageView.layer.cornerRadius = 41
+            self.label.layer.cornerRadius = 41
         }
         
         self.inSelectedState = true
+        handleHiddenStates()
         setupView()
         
     }
     
     public func makeAnnotationDeselected () {
         layer.zPosition = 0
-        self.label.isHidden = false
-        self.imageView.isHidden = true
+        
         self.label.frame = CGRect(x: 25 , y: -20, width: self.label.frame.width, height: self.label.frame.height)
+        self.containerView.backgroundColor = .accentColor
         UIView.animate(withDuration: 0.2) {
             self.containerView.frame = CGRect(x: 0, y: -30, width: 40, height: 40)
-            self.containerView.backgroundColor = .accentColor
+
             self.containerView.isUserInteractionEnabled = true
             self.containerView.layer.cornerRadius = 20
             
-            self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
+            //self.imageView.frame = CGRect(x: 5, y: -20, width: 10, height: 10)
             self.label.layer.cornerRadius = 18
+            self.imageView.layer.cornerRadius = 18
         }
         self.inSelectedState = false
+        handleHiddenStates()
         setupView()
     }
 }

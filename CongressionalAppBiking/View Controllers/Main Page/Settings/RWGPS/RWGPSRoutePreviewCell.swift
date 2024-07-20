@@ -40,6 +40,11 @@ class RWGPSRoutePreviewCell: UITableViewCell {
         milesLabel.text = String(format: "%.1fmi", RWGPSRoute.metersToMiles(ride.miles))
         elevationLabel.text = String(format: "%.0fft", RWGPSRoute.metersToFeet(ride.elevation))
         
+        nameLabel.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        descriptionLabel.font = UIFont(name: "Montserrat-Regular", size: 15)
+        milesLabel.font = UIFont(name: "Montserrat-Regular", size: 15)
+        elevationLabel.font = UIFont(name: "Montserrat-Regular", size: 15)
+        
     }
     
     func dateToString(_ date: Date) -> String {

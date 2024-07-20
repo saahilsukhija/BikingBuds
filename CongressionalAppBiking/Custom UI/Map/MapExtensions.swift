@@ -85,6 +85,13 @@ extension MKMapView {
 //        print(self.annotations(in: self.visibleMapRect).count)
 //    }
     
+    func removeAllGroupMemberAnnotations() {
+        let locations: [GroupUser : CLLocationCoordinate2D] = Locations.locations ?? [:]
+        for (user, location) in locations {
+            removeGroupMember(email: user.email)
+        }
+    }
+    
     func removeGroupMember(email: String) {
         guard annotations.numberOfAnnotations(for: email) > 0 else { return }
         self.removeAnnotation(annotations.getGroupUserAnnotation(for: email)!)

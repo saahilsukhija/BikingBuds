@@ -54,7 +54,6 @@ class BikingVCs: UIViewController {
         self.map = map
     
         self.map.delegate = self
-        
         self.addBottomSheet()
         self.setUpUserLocation()
         self.hideKeyboardWhenTappedAround()
@@ -130,7 +129,7 @@ extension BikingVCs: CLLocationManagerDelegate {
                 locationManager.startUpdatingLocation()
                 //locationManager.startMonitoringVisits()
                 //locationManager.startMonitoringSignificantLocationChanges()
-                locationManager.distanceFilter = Preferences.distanceFilter
+                locationManager.distanceFilter = Preferences.shared.distanceFilter
             }
             
         } else {

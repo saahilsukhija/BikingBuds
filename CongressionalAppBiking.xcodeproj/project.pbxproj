@@ -12,6 +12,8 @@
 		6D0496C92C0C1BC0009D3A6B /* WhatsNewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */; };
 		6D0496CB2C0C1CF3009D3A6B /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0496CA2C0C1CF3009D3A6B /* Slide.swift */; };
 		6D3194412C1E2204001D8E22 /* CLLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */; };
+		6D3AF21A2C4A162F00C32791 /* LowPowerModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AF2192C4A162F00C32791 /* LowPowerModeVC.swift */; };
+		6D3AF21C2C4B265800C32791 /* MapTypeSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AF21B2C4B265800C32791 /* MapTypeSelectVC.swift */; };
 		6D5C80B72C264DFD00A02C3F /* ImageInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C80B62C264DFD00A02C3F /* ImageInset.swift */; };
 		6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */; };
 		6D9063902BD0A721003EFEAB /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */; };
@@ -34,8 +36,12 @@
 		6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */; };
 		6D9063A22BD0A721003EFEAB /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */; };
 		6D9063A32BD0A721003EFEAB /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */; };
+		6D97ABF72C49FC03005DA0E6 /* MapIconSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D97ABF62C49FC03005DA0E6 /* MapIconSelectVC.swift */; };
 		6DAB37832C486980003199A4 /* CheckMark.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DAB37822C486980003199A4 /* CheckMark.json */; };
 		6DAB37872C48708D003199A4 /* CrossX.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DAB37862C48708D003199A4 /* CrossX.json */; };
+		6DAB37892C4991BB003199A4 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB37882C4991BB003199A4 /* UserSettings.swift */; };
+		6DAB378B2C499410003199A4 /* GroupRideSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB378A2C499410003199A4 /* GroupRideSettingsCell.swift */; };
+		6DAB378D2C499787003199A4 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DAB378C2C499787003199A4 /* Settings.storyboard */; };
 		6DB1A8152BD11C9D009C6C01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8142BD11C9D009C6C01 /* FirebaseAnalytics */; };
 		6DB1A8172BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8162BD11C9D009C6C01 /* FirebaseAnalyticsOnDeviceConversion */; };
 		6DB1A8192BD11C9D009C6C01 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB1A8182BD11C9D009C6C01 /* FirebaseAnalyticsSwift */; };
@@ -195,6 +201,8 @@
 		6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatsNewView.xib; sourceTree = "<group>"; };
 		6D0496CA2C0C1CF3009D3A6B /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate.swift; sourceTree = "<group>"; };
+		6D3AF2192C4A162F00C32791 /* LowPowerModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPowerModeVC.swift; sourceTree = "<group>"; };
+		6D3AF21B2C4B265800C32791 /* MapTypeSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeSelectVC.swift; sourceTree = "<group>"; };
 		6D5C80B62C264DFD00A02C3F /* ImageInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInset.swift; sourceTree = "<group>"; };
 		6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 		6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -217,8 +225,12 @@
 		6D90638D2BD0A721003EFEAB /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		6D90638E2BD0A721003EFEAB /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		6D90638F2BD0A721003EFEAB /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		6D97ABF62C49FC03005DA0E6 /* MapIconSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapIconSelectVC.swift; sourceTree = "<group>"; };
 		6DAB37822C486980003199A4 /* CheckMark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CheckMark.json; sourceTree = "<group>"; };
 		6DAB37862C48708D003199A4 /* CrossX.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CrossX.json; sourceTree = "<group>"; };
+		6DAB37882C4991BB003199A4 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		6DAB378A2C499410003199A4 /* GroupRideSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRideSettingsCell.swift; sourceTree = "<group>"; };
+		6DAB378C2C499787003199A4 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		9A11B1B126979F48009208E8 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A11B1B52697A1AA009208E8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		9A11B1B82697A1D6009208E8 /* JoinGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupVC.swift; sourceTree = "<group>"; };
@@ -383,6 +395,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6D3AF2182C4A161F00C32791 /* Individual Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6D97ABF62C49FC03005DA0E6 /* MapIconSelectVC.swift */,
+				6D3AF2192C4A162F00C32791 /* LowPowerModeVC.swift */,
+				6D3AF21B2C4B265800C32791 /* MapTypeSelectVC.swift */,
+			);
+			path = "Individual Settings";
+			sourceTree = "<group>";
+		};
 		9A11B1B026979F2A009208E8 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,7 +492,9 @@
 			children = (
 				9AB04F7626EAE2D30076B190 /* ShareInviteCodeVC.swift */,
 				9AB04F7426E87F570076B190 /* GroupRideSettingsVC.swift */,
+				6DAB378A2C499410003199A4 /* GroupRideSettingsCell.swift */,
 				9AA772E5293AF35600C07AE8 /* RWGPS */,
+				6D3AF2182C4A161F00C32791 /* Individual Settings */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -496,6 +520,7 @@
 		9ADEAA662697D117005BB706 /* Data Objects */ = {
 			isa = PBXGroup;
 			children = (
+				6DAB37882C4991BB003199A4 /* UserSettings.swift */,
 				9ADEAA672697D130005BB706 /* NotificationNames.swift */,
 				9ADEAA8726B44D12005BB706 /* Group.swift */,
 				9ADEAA6F2697D8D8005BB706 /* GroupUser.swift */,
@@ -695,6 +720,7 @@
 				9AE042B62696E02700FC86AD /* Main.storyboard */,
 				9AE042E12696E30A00FC86AD /* InitialLaunch.storyboard */,
 				9ADEAA7826997C48005BB706 /* MainPage.storyboard */,
+				6DAB378C2C499787003199A4 /* Settings.storyboard */,
 				9AA772E6293AF41200C07AE8 /* RWGPS.storyboard */,
 				9AB04F6F26DAEECA0076B190 /* BottomSheets */,
 				6D0496C82C0C1BC0009D3A6B /* WhatsNewView.xib */,
@@ -885,6 +911,7 @@
 				6D9063A12BD0A721003EFEAB /* Montserrat-Medium.ttf in Resources */,
 				6DAB37832C486980003199A4 /* CheckMark.json in Resources */,
 				9A32C56D28657B99003B1F70 /* Megaphone.json in Resources */,
+				6DAB378D2C499787003199A4 /* Settings.storyboard in Resources */,
 				6DAB37872C48708D003199A4 /* CrossX.json in Resources */,
 				9AAD6D622828BCDF00D1DD22 /* Poppins-Thin.ttf in Resources */,
 				9AAD6D632828BCDF00D1DD22 /* Poppins-ThinItalic.ttf in Resources */,
@@ -985,6 +1012,8 @@
 				9AB04F6A26D8BBA20076B190 /* GroupUserTableViewCell.swift in Sources */,
 				9A2F41472929A7F70070E327 /* RWGPSRoute.swift in Sources */,
 				9ADEAA9B26BCF463005BB706 /* TitleLabel.swift in Sources */,
+				6DAB37892C4991BB003199A4 /* UserSettings.swift in Sources */,
+				6D3AF21A2C4A162F00C32791 /* LowPowerModeVC.swift in Sources */,
 				9AB04F7326E589780076B190 /* ViewShadow.swift in Sources */,
 				9AB04F6726D8A59B0076B190 /* ColoredLabels.swift in Sources */,
 				9AAEF2FE29206EE40059B628 /* RWGPSUser.swift in Sources */,
@@ -992,6 +1021,7 @@
 				9AA772E4293ADFA700C07AE8 /* RWGPSRoutePreview.swift in Sources */,
 				9A418119285C05740005D5D3 /* AnnouncementVC.swift in Sources */,
 				9AB04F7726EAE2D40076B190 /* ShareInviteCodeVC.swift in Sources */,
+				6D3AF21C2C4B265800C32791 /* MapTypeSelectVC.swift in Sources */,
 				9ADEAA9626BCD5B7005BB706 /* AuthenticationHelpers.swift in Sources */,
 				9ADEAA8626B356AB005BB706 /* MapExtensions.swift in Sources */,
 				9A11B1B62697A1AA009208E8 /* LoginVC.swift in Sources */,
@@ -1005,6 +1035,7 @@
 				9ADEAA9926BCD867005BB706 /* StorageRetrieve.swift in Sources */,
 				9A3DEF75271B78CF0066D1EB /* NotificationsVC.swift in Sources */,
 				6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */,
+				6D97ABF72C49FC03005DA0E6 /* MapIconSelectVC.swift in Sources */,
 				6D0496C72C0C0C01009D3A6B /* WhatsNewVC.swift in Sources */,
 				9A11B1B92697A1D6009208E8 /* JoinGroupVC.swift in Sources */,
 				9AE042B12696E02700FC86AD /* AppDelegate.swift in Sources */,
@@ -1017,6 +1048,7 @@
 				9A40DAD227B893CB004BB1DC /* DateFormatterTimeDifference.swift in Sources */,
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */,
+				6DAB378B2C499410003199A4 /* GroupRideSettingsCell.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
 				9AFE04AE295A9476001E6B81 /* RWGPSPointAnnotation.swift in Sources */,
 				9AB06F4B273E57870050B3C5 /* SavedRidesVC.swift in Sources */,

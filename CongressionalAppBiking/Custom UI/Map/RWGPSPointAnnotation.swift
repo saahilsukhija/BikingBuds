@@ -26,7 +26,7 @@ class RWGPSDistanceMarkerAnnotationView: MKAnnotationView {
         label.backgroundColor = .clear
         label.textColor = .black
         label.textAlignment = .center
-        label.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        label.font = UIFont(name: "MontSerrat-SemiBold", size: 14)
         label.text = "\(Int((annotation as? RWGPSDistanceMarkerAnnotation)?.distance ?? 0))"
         return label
     }()

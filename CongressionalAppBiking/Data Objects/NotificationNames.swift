@@ -104,6 +104,18 @@ extension Notification.Name {
         return .init(rawValue: #function)
     }
     
+    static var mapIconPreferenceChanged: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    static var mapTypePreferenceChanged: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
+    static var lowPowerModeEnabled: Notification.Name {
+        return .init(rawValue: #function)
+    }
+    
     
     
     

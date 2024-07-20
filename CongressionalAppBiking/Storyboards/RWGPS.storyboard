@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RI9-oT-6Ef">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RI9-oT-6Ef">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -44,7 +44,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dh1-Ka-4WN" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="148.33333333333334" width="353" height="50"/>
+                                <rect key="frame" x="20" y="285.66666666666669" width="353" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="2dZ-6S-to8"/>
@@ -65,7 +65,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LDv-fr-aMD" customClass="DesignableUITextField" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="208.33333333333334" width="353" height="50.000000000000028"/>
+                                <rect key="frame" x="20" y="345.66666666666669" width="353" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="efv-km-swk"/>
@@ -85,25 +85,71 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login with RideWithGPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrL-28-ecS">
-                                <rect key="frame" x="10" y="113" width="373" height="25.333333333333343"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrL-28-ecS">
+                                <rect key="frame" x="85.666666666666686" y="108" width="222" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Log">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="MontserratRoman-SemiBold"/>
+                                            <font key="NSOriginalFont" size="17" name="CorsivaHebrew"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="CorsivaHebrew"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="In ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="MontserratRoman-SemiBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="with">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="MontserratRoman-SemiBold"/>
+                                            <font key="NSOriginalFont" size="17" name="CorsivaHebrew"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="MontserratRoman-SemiBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="RideWithGPS">
+                                        <attributes>
+                                            <color key="NSColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="17" name="MontserratRoman-SemiBold"/>
+                                            <font key="NSOriginalFont" size="17" name="CorsivaHebrew"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymO-OY-dye" customClass="RoundedButton" customModule="CongressionalAppBiking" customModuleProvider="target">
-                                <rect key="frame" x="20" y="268.33333333333331" width="353" height="50"/>
-                                <color key="backgroundColor" red="0.89411771299999998" green="0.4352940917" blue="0.18039217590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <rect key="frame" x="20" y="405.66666666666669" width="353" height="50"/>
+                                <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FP8-FO-qbz"/>
                                 </constraints>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Submit">
+                                        <fragment content="Log In">
                                             <attributes>
                                                 <font key="NSFont" size="17" name="Poppins-SemiBold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -113,10 +159,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm7-FV-fRv">
-                                <rect key="frame" x="328" y="216" width="40" height="40"/>
+                                <rect key="frame" x="328" y="345.66666666666669" width="40" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="clt-1p-efJ"/>
-                                    <constraint firstAttribute="height" constant="40" id="qO8-8T-HKn"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
@@ -127,26 +172,35 @@
                                     <action selector="eyeButtonClicked:" destination="RI9-oT-6Ef" eventType="touchUpInside" id="tJo-ts-WaI"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RWGPS" translatesAutoresizingMaskIntoConstraints="NO" id="QxI-DR-e8A">
+                                <rect key="frame" x="128.33333333333331" y="134" width="136.33333333333331" height="136.66666666666663"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QxI-DR-e8A" secondAttribute="height" multiplier="1:1" id="udV-ar-jmb"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FMr-7g-rez"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="Pm7-FV-fRv" secondAttribute="trailing" constant="25" id="3GW-MI-r2W"/>
                             <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="Q39-h8-zh3" secondAttribute="trailing" id="3X6-0u-h8n"/>
+                            <constraint firstItem="QxI-DR-e8A" firstAttribute="leading" secondItem="HrL-28-ecS" secondAttribute="leading" multiplier="1.5" id="5eI-fk-ere"/>
+                            <constraint firstItem="HrL-28-ecS" firstAttribute="centerX" secondItem="aB0-l7-Bjp" secondAttribute="centerX" id="8aK-b7-PJu"/>
+                            <constraint firstItem="Pm7-FV-fRv" firstAttribute="bottom" secondItem="LDv-fr-aMD" secondAttribute="bottom" id="C7U-5T-et6"/>
                             <constraint firstItem="LDv-fr-aMD" firstAttribute="top" secondItem="dh1-Ka-4WN" secondAttribute="bottom" constant="10" id="CrL-qX-Vr5"/>
+                            <constraint firstItem="QxI-DR-e8A" firstAttribute="centerX" secondItem="aB0-l7-Bjp" secondAttribute="centerX" id="DXa-Ji-u0u"/>
                             <constraint firstItem="ymO-OY-dye" firstAttribute="leading" secondItem="FMr-7g-rez" secondAttribute="leading" constant="20" id="HKQ-yX-J2t"/>
-                            <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="HrL-28-ecS" secondAttribute="trailing" constant="10" id="KFx-93-Fdv"/>
                             <constraint firstItem="Q39-h8-zh3" firstAttribute="top" secondItem="FMr-7g-rez" secondAttribute="top" id="O57-wc-O9d"/>
+                            <constraint firstItem="dh1-Ka-4WN" firstAttribute="top" secondItem="QxI-DR-e8A" secondAttribute="bottom" constant="15" id="RhC-BT-Vsp"/>
+                            <constraint firstItem="QxI-DR-e8A" firstAttribute="top" secondItem="HrL-28-ecS" secondAttribute="bottom" constant="5" id="Slu-rs-mRO"/>
                             <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="LDv-fr-aMD" secondAttribute="trailing" constant="20" id="Tgp-GT-82w"/>
-                            <constraint firstItem="HrL-28-ecS" firstAttribute="leading" secondItem="FMr-7g-rez" secondAttribute="leading" constant="10" id="WS6-2S-frG"/>
-                            <constraint firstItem="HrL-28-ecS" firstAttribute="top" secondItem="Q39-h8-zh3" secondAttribute="bottom" constant="10" id="YSR-K8-cPZ"/>
+                            <constraint firstItem="HrL-28-ecS" firstAttribute="top" secondItem="Q39-h8-zh3" secondAttribute="bottom" constant="5" id="YSR-K8-cPZ"/>
                             <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="ymO-OY-dye" secondAttribute="trailing" constant="20" id="ajp-EC-qON"/>
                             <constraint firstItem="dh1-Ka-4WN" firstAttribute="leading" secondItem="FMr-7g-rez" secondAttribute="leading" constant="20" id="gE1-UO-cCx"/>
                             <constraint firstItem="LDv-fr-aMD" firstAttribute="leading" secondItem="FMr-7g-rez" secondAttribute="leading" constant="20" id="h9Z-Bq-stK"/>
                             <constraint firstItem="Q39-h8-zh3" firstAttribute="leading" secondItem="aB0-l7-Bjp" secondAttribute="leading" id="iWm-Go-SQ3"/>
-                            <constraint firstItem="Pm7-FV-fRv" firstAttribute="top" secondItem="dh1-Ka-4WN" secondAttribute="bottom" constant="17.5" id="kLm-x3-dTh"/>
-                            <constraint firstItem="dh1-Ka-4WN" firstAttribute="top" secondItem="HrL-28-ecS" secondAttribute="bottom" constant="10" id="lPR-hX-XJQ"/>
                             <constraint firstItem="FMr-7g-rez" firstAttribute="trailing" secondItem="dh1-Ka-4WN" secondAttribute="trailing" constant="20" id="nUY-Ek-xrc"/>
+                            <constraint firstItem="Pm7-FV-fRv" firstAttribute="top" secondItem="LDv-fr-aMD" secondAttribute="top" id="oQa-nC-Q2U"/>
                             <constraint firstItem="ymO-OY-dye" firstAttribute="top" secondItem="LDv-fr-aMD" secondAttribute="bottom" constant="10" id="xG4-Qd-tJV"/>
                         </constraints>
                     </view>
@@ -158,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pjb-a7-goS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2201" y="-381"/>
+            <point key="canvasLocation" x="2200.7633587786258" y="-381.69014084507046"/>
         </scene>
         <!--Select RideVC-->
         <scene sceneID="hid-vg-Gy5">
@@ -289,13 +343,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="envelope" catalog="system" width="128" height="93"/>
+        <image name="RWGPS" width="75" height="75"/>
+        <image name="envelope" catalog="system" width="128" height="85"/>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
         <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="lock" catalog="system" width="125" height="128"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
         <namedColor name="AccentColor">
-            <color red="0.1809999942779541" green="0.78200000524520874" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.054901960784313725" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

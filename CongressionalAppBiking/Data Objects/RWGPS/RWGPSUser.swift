@@ -34,7 +34,7 @@ struct RWGPSUser {
                         completion(true, "Successfully Signed In!")
                     }
                     else {
-                        completion(false, "Please enter valid credentials")
+                        completion(false, "Invalid login")
                     }
                     
                 } else {

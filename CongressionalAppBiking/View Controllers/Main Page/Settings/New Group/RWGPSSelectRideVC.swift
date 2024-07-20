@@ -40,11 +40,11 @@ class RWGPSSelectRideVC: UIViewController {
         
         let enterLabel = UILabel(frame: CGRect(x: 10, y: 10, width: view.frame.size.width / 2 - 10, height: 20))
         enterLabel.text = "Enter RWGPS URL:"
-        enterLabel.font = UIFont(name: "Poppins-Medium", size: 14)
+        enterLabel.font = UIFont(name: "Montserrat-SemiBold", size: 14)
         
         let urlTextField = UITextField(frame: CGRect(x: 10, y: 32, width: view.frame.size.width - 20, height: 50))
         urlTextField.placeholder = "https://ridewithgps.com/routes/0000000"
-        urlTextField.font = UIFont(name: "Poppins-Medium", size: 14)
+        urlTextField.font = UIFont(name: "Montserrat-Medium", size: 14)
         urlTextField.layer.borderWidth = 1.2
         urlTextField.layer.borderColor = UIColor.black.cgColor
         urlTextField.setLeftPaddingPoints(10)
@@ -114,10 +114,10 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 0) {
             let name = routes[indexPath.row].name
-            let description = routes[indexPath.row].description
+            let _ = routes[indexPath.row].description
             
-            let required = requiredHeight(text: name, size: 20, fontName: "Poppins-Medium") + requiredHeight(text: "1/3/22", size: 15, fontName: "Poppins-Light")
-            return required + 20
+            let required = requiredHeight(text: name, size: 18, fontName: "Montserrat-SemiBold") + requiredHeight(text: "1/3/22", size: 15, fontName: "Montserrat-Regular")
+            return required + 30
         }
         return 80
     }
@@ -134,11 +134,25 @@ extension RWGPSSelectRideVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let loadingScreen = createLoadingScreen(frame: view.frame)
-        view.addSubview(loadingScreen)
-        
-        let id = routes[indexPath.row].id
-        connectRWGPSRoute(with: id, loadingScreen)
+        if RWGPSRoute.connected, let title = RWGPSRoute.title {
+            let alert = UIAlertController(title: "Are you sure you want to use this route?", message: "This will override the current RWGPS route \"\(title)\" for the entire group", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] action in
+                let loadingScreen = createLoadingScreen(frame: view.frame)
+                view.addSubview(loadingScreen)
+                
+                let id = routes[indexPath.row].id
+                connectRWGPSRoute(with: id, loadingScreen)
+            }))
+            self.present(alert, animated: true)
+        }
+        else {
+            let loadingScreen = createLoadingScreen(frame: view.frame)
+            view.addSubview(loadingScreen)
+            
+            let id = routes[indexPath.row].id
+            connectRWGPSRoute(with: id, loadingScreen)
+        }
     }
     
     func connectRWGPSRoute(with id: String, _ loadingScreen: UIView?) {
