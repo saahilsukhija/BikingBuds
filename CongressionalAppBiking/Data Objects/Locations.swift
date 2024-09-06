@@ -53,6 +53,13 @@ struct Locations {
                 locations[changedGroupUser] = getLocationFrom(snap: snapshot)
                 lastUpdated[changedGroupUser] = getLastUpdatedFrom(snap: snapshot)
                 riderTypes[changedGroupUser] = getRiderType(snap: snapshot)
+                
+                if(!groupUsers.contains(where: { user in
+                    return user.email.fromStorageEmail() == changedEmail
+                })) {
+                    groupUsers.append(changedGroupUser)
+                }
+                print("CHANGED")
 //                deviceTokens[changedGroupUser] = getDeviceToken(snap: snapshot)
                 NotificationCenter.default.post(name: .locationUpdated, object: nil)
             }
@@ -77,6 +84,7 @@ struct Locations {
                     NotificationCenter.default.post(name: .groupUsersUpdated, object: nil)
                     
                 }
+                print("ADDED")
             }
         }
         
@@ -102,6 +110,7 @@ struct Locations {
                     }
                 }
             }
+            print("REMOVED")
         }
         
         

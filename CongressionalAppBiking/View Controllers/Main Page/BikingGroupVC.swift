@@ -268,10 +268,10 @@ extension BikingGroupVC {
     }
     
     @objc func otherUserHasFallen() {
-        //let email = Locations.recentFall.keys.first ?? "none"
-        //print(email)
-        //showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1), fontColor: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1))
-//        updateNotificationCount()
+        let email = Locations.recentFall.keys.first ?? "none"
+        print(email)
+        showAnimationNotification(animationName: "Caution", message: "\(Locations.groupUsers.groupUserFrom(email: email)?.displayName ?? email) has fallen!", duration: 20, color: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1), fontColor: UIColor(red: 255/255, green: 77.0/255, blue: 1.0/255, alpha: 1))
+        updateNotificationCount()
     }
     
     func updateNotificationCount() {
@@ -436,7 +436,7 @@ extension BikingGroupVC {
         let attributedString = NSAttributedString(string: "Invite People", attributes: titleAttribute)
         
         let invitePeopleButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
-        invitePeopleButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        invitePeopleButton.setImage(UIImage(systemName: "person.fill"), for: .normal)
         invitePeopleButton.setAttributedTitle(attributedString, for: .normal)
         invitePeopleButton.setTitleColor(.accentColor, for: .normal)
         

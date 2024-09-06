@@ -17,17 +17,17 @@ class UserSettings: Codable {
     }()
     
     private(set) var lowPowerModeEnabled: Bool! = false
-    private(set) var showInitialsOnMap: Bool! = true
+    private(set) var showInitialsOnMap: Bool! = false
     private(set) var mapType: MapType! = .standard
     init() {
         do {
             let s = try UserDefaults.standard.get(objectType: UserSettings.self, forKey: "user_settings")
             self.lowPowerModeEnabled = s?.lowPowerModeEnabled ?? false
-            self.showInitialsOnMap = s?.showInitialsOnMap ?? true
+            self.showInitialsOnMap = s?.showInitialsOnMap ?? false
             self.mapType = s?.mapType ?? .standard
         } catch {
             self.lowPowerModeEnabled = false
-            self.showInitialsOnMap = true
+            self.showInitialsOnMap = false
             self.mapType = .standard
             print("no user settings available.")
         }

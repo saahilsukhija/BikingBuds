@@ -57,11 +57,22 @@ extension MKMapView {
         
         if annotations.numberOfAnnotations(for: email) > 0 {
             annotations.getGroupUserAnnotation(for: email)!.coordinate = location
+            if annotations.getGroupUserAnnotation(for: email)!.image == nil {
+                annotations.getGroupUserAnnotation(for: email)!.image = Locations.groupUsers.groupUserFrom(email: email)?.profilePicture?.toImage()
+            }
             self.view(for: annotations.getGroupUserAnnotation(for: email)!)?.layer.zPosition = 100
         } else {
             let locationPoint = GroupUserAnnotation()
             locationPoint.coordinate = location
             locationPoint.email = email
+//            Locations.groupUsers.forEach { user in
+//                print("\(user.displayName!): \(user.email!)")
+//            }
+//            print("NEXT")
+//            Locations.locations.forEach { user, val in
+//                print("\(user.displayName!): \(user.email!)")
+//            }
+//            print()
             locationPoint.image = Locations.groupUsers.groupUserFrom(email: email)!.profilePicture?.toImage()
             locationPoint.name = Locations.groupUsers.groupUserFrom(email: email)!.displayName
             locationPoint.status = Locations.status(for: email)

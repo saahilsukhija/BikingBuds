@@ -17,7 +17,7 @@ class GroupUserAnnotation: MKPointAnnotation {
         let split = name?.uppercased().split(separator: " ") ?? [""]
         var out = ""
         for s in split {
-            out += String(s.first ?? Character(""))
+            out += String(s.first ?? Character(" "))
         }
         return out
     }

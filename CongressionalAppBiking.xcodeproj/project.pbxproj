@@ -14,6 +14,7 @@
 		6D3194412C1E2204001D8E22 /* CLLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */; };
 		6D3AF21A2C4A162F00C32791 /* LowPowerModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AF2192C4A162F00C32791 /* LowPowerModeVC.swift */; };
 		6D3AF21C2C4B265800C32791 /* MapTypeSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AF21B2C4B265800C32791 /* MapTypeSelectVC.swift */; };
+		6D3AF21E2C50568100C32791 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3AF21D2C50568100C32791 /* NotificationManager.swift */; };
 		6D5C80B72C264DFD00A02C3F /* ImageInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C80B62C264DFD00A02C3F /* ImageInset.swift */; };
 		6D6F1E062B5F392800FF8721 /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */; };
 		6D9063902BD0A721003EFEAB /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */; };
@@ -203,6 +204,7 @@
 		6D3194402C1E2204001D8E22 /* CLLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate.swift; sourceTree = "<group>"; };
 		6D3AF2192C4A162F00C32791 /* LowPowerModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPowerModeVC.swift; sourceTree = "<group>"; };
 		6D3AF21B2C4B265800C32791 /* MapTypeSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeSelectVC.swift; sourceTree = "<group>"; };
+		6D3AF21D2C50568100C32791 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		6D5C80B62C264DFD00A02C3F /* ImageInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInset.swift; sourceTree = "<group>"; };
 		6D6F1E052B5F392800FF8721 /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 		6D90637C2BD0A71C003EFEAB /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 		9ADEAA712697DC2D005BB706 /* Network Managers */ = {
 			isa = PBXGroup;
 			children = (
+				6D3AF21D2C50568100C32791 /* NotificationManager.swift */,
 				9ADEAA9726BCD841005BB706 /* Storage */,
 				9ADEAA722697DCBE005BB706 /* NetworkHelpers.swift */,
 				9ADEAA7F26ACE556005BB706 /* RealtimeUploads.swift */,
@@ -1049,6 +1052,7 @@
 				9ADEAA702697D8D8005BB706 /* GroupUser.swift in Sources */,
 				9A3DEF78271B8A8C0066D1EB /* NotificationTableViewCell.swift in Sources */,
 				6DAB378B2C499410003199A4 /* GroupRideSettingsCell.swift in Sources */,
+				6D3AF21E2C50568100C32791 /* NotificationManager.swift in Sources */,
 				9ADEAA7526997548005BB706 /* UserDefaults.swift in Sources */,
 				9AFE04AE295A9476001E6B81 /* RWGPSPointAnnotation.swift in Sources */,
 				9AB06F4B273E57870050B3C5 /* SavedRidesVC.swift in Sources */,
@@ -1260,7 +1264,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.4.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1289,7 +1293,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.4.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SaahilSukhija.BikingBuds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
