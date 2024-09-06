@@ -19,7 +19,7 @@ struct Locations {
     static var lastUpdated: [GroupUser : Date?]! = [:]
     static var riderTypes: [GroupUser : RiderType]! = [:]
     static var deviceTokens: [GroupUser : String]! = [:]
-    static var statuses: [GroupUser : GroupUserStatus]! = [:]
+    //static var statuses: [GroupUser : GroupUserStatus]! = [:]
     
     static var falls: [String : Date] = [:]
     static var recentFall: [String : Date] = [:]
@@ -348,30 +348,32 @@ struct Locations {
     }
     
     static func updateStatuses() {
-        statuses.removeAll();
-        
-        let now = Date()
-        for (user, date) in lastUpdated {
-            // Minute
-            if let date = date {
-                if let interval = Calendar.current.dateComponents([.minute], from: date, to: now).minute, interval > 4 {
-                    
-                    statuses[user] = .notUpdated
-                } else {
-                    statuses[user] = .moving
-                }
-            }
-        }
+//        statuses.removeAll();
+//        
+//        let now = Date()
+//        for (user, date) in lastUpdated {
+//            // Minute
+//            if let date = date {
+//                if let interval = Calendar.current.dateComponents([.minute], from: date, to: now).minute, interval > 4 {
+//                    
+//                    statuses[user] = .notUpdated
+//                } else {
+//                    statuses[user] = .moving
+//                }
+//            }
+//        }
     }
     
     static func status(for email: String) -> GroupUserStatus {
         
-        guard let user = groupUsers.groupUserFrom(email: email) else {
-            print("user not found (status) \(email)")
-            return .notUpdated
-        }
+//        guard let user = groupUsers.groupUserFrom(email: email) else {
+//            print("user not found (status) \(email)")
+//            return .notUpdated
+//        }
+//        
+//        return statuses[user] ?? .notUpdated
         
-        return statuses[user] ?? .notUpdated
+        return .notUpdated
     }
     
     //IMPORTANT: call this BEFORE UPDATING self.locations
