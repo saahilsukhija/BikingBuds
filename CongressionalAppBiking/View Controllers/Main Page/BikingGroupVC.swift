@@ -59,7 +59,11 @@ class BikingGroupVC: BikingVCs {
             mapView.showsUserLocation = true
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
         } else {
-            mapView.setUserTrackingMode(.none, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.recenterCamera()
+            }
+            mapView.showsUserLocation = false
+            //mapView.setUserTrackingMode(.none, animated: true)
         }
         
         navigationController?.navigationItem.title = groupName
@@ -213,6 +217,7 @@ extension BikingGroupVC {
         locationManager.stopMonitoringVisits()
         locationManager.stopMonitoringSignificantLocationChanges()
         Authentication.riderType = .spectator
+        mapView.showsUserLocation = false
         UserDefaults.standard.set(false, forKey: "is_rider")
     }
     
@@ -221,6 +226,7 @@ extension BikingGroupVC {
         //locationManager.startMonitoringSignificantLocationChanges()
         //locationManager.startMonitoringVisits()
         Authentication.riderType = .rider
+        mapView.showsUserLocation = true
         UserDefaults.standard.set(true, forKey: "is_rider")
     }
     

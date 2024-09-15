@@ -29,6 +29,7 @@ class RWGPSLoginVC: UIViewController {
         passwordTextField.delegate = self
         
         self.hideKeyboardWhenTappedAround()
+        eyeButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
     }
     
     

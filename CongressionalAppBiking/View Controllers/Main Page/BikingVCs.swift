@@ -10,6 +10,7 @@ import CoreLocation
 import CoreMotion
 import MapKit
 import FloatingPanel
+import FirebaseAuth
 
 class BikingVCs: UIViewController {
 
@@ -204,14 +205,16 @@ extension BikingVCs: CLLocationManagerDelegate {
         
         if(Authentication.riderType == .rider) {
             map.setUserTrackingMode(.followWithHeading, animated: true)
+            print("tracking user as they are a rider")
         } else {
             //Center at random person
-            if let firstPerson = Locations.locations.values.first(where: {$0.latitude != 0 || $0.longitude != 0})?.roundTo(places: Preferences.coordinateRoundTo) {
-                map.centerCameraTo(location: firstPerson, regionRadius: 1000)
+            if map.annotations.count > 0 {
+                map.fitAll()
+                print("Fitting all")
             }
             else {
                 map.centerCameraTo(location: CLLocationCoordinate2D(latitude: 39.8355, longitude: -99.09), regionRadius: 4600000)
-                map.setUserTrackingMode(.followWithHeading, animated: true)
+                //map.setUserTrackingMode(.followWithHeading, animated: true)
                 print("centering to US map")
             }
         }
