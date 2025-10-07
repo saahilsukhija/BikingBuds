@@ -1,4 +1,4 @@
-# BikingBuds 🚲
+# BikingBuds
 **Making Group Biking Safer and More Connected**
 
 BikingBuds is an app specially designed to enhance safety and coordination for groups riding together. Whether you're a parent monitoring your child's commute or a group of enthusiasts on a long trail ride, BikingBuds ensures you always know where your fellow riders are and provides critical safety features when you need them most.
