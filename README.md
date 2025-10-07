@@ -37,7 +37,6 @@ BikingBuds is ideal for various group riding scenarios:
 ---
 
 ## 💻 Behind BikingBuds
-**BikingBuds (2021–Present) | Founder, Developer**
 
 Since its launch, BikingBuds has made a significant impact on group biking safety:
 
